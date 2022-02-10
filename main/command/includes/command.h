@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/09 15:57:55 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:20:51 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 # include <string.h>
 
-# include "../lib/ft_printf/ft_printf.h"
-# include "../lib/libft/libft.h"
-# include "../lib/gnl/get_next_line.h"
-# include "../lib/ft_lst/ft_lst.h"
+# include "libft.h"
 # include "color.h"
 # include "error_msg.h"
 # include "environ.h"
@@ -50,6 +48,8 @@
 # define LF 1
 # define INVALID_IDENTIFER 0
 # define NO_VALUE 1
+
+typedef void(*	t_content_f)(void *);
 
 // execute_self.c
 bool		is_self_cmd(const char *c);

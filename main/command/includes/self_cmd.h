@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/09 15:58:03 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 09:59:45 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void		exec_self_export(t_exec_attr *ea);
 void		store_arg_only_export(t_exec_attr *ea, char *key);
 int			check_export_arg(char **arg);
 void		export_with_args(t_exec_attr *ea);
-bool		addlst_sort_by_ascii(t_lst **export_lst, char **arg);
+bool		addlst_sort_by_ascii(t_list **export_list, char **arg);
 
 // self_export_utils.c
 void		print_export_kvs(void *content);
-void		sort_lstkey_by_ascii(t_lst *export_lst);
-void		print_all_export_lst(t_exec_attr *ea);
+void		sort_listkey_by_ascii(t_list *export_list);
+void		print_all_export_list(t_exec_attr *ea);
 
 // self_cmd_utils.c
 bool		is_invalid_name(char *name);

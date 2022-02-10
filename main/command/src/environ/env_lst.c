@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:20:16 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/09 15:48:09 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:01:41 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	store_env(t_exec_attr *ea, char **environ)
 {
 	size_t		i;
 	char		**split;
-	t_lst		*env_lst;
+	t_list		*env_lst;
 	bool		flag;
 
 	env_lst = NULL;

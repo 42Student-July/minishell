@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 10:47:13 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/04 15:03:26 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:18:31 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(void)
 	int			i;
 	extern char	**environ;
 	char		**line;
-	t_lst		*env_lst;
+	t_list		*env_lst;
 	t_content_f	f;
 
 	i = 0;

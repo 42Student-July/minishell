@@ -6,13 +6,13 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 13:27:06 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/09 15:57:23 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:04:28 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/command.h"
 
-bool	swap_lst_content(t_lst *a, t_lst *b)
+bool	swap_lst_content(t_list *a, t_list *b)
 {
 	void	*tmp;
 
@@ -28,22 +28,22 @@ bool	swap_lst_content(t_lst *a, t_lst *b)
 	return (true);
 }
 
-void	sort_lstkey_by_ascii(t_lst *lst)
+void	sort_listkey_by_ascii(t_list *lst)
 {
 	// 大文字アルファベット → _ → 小文字のアルファベットに並び替える
-	t_lst	*min;
+	t_list	*min;
 
 	while (lst->next != NULL)
 	{
-		min = get_lst_by_min_ascii_key(lst);
+		min = get_list_by_min_ascii_key(lst);
 		swap_lst_content(lst, min);
 		lst = lst->next;
 	}
 }
 
-t_lst	*get_lst_by_key(t_lst *lst, char *key)
+t_list	*get_list_by_key(t_list *lst, char *key)
 {
-	t_lst	*ret;
+	t_list	*ret;
 
 	ret = lst;
 	while (ret != NULL)
@@ -55,9 +55,9 @@ t_lst	*get_lst_by_key(t_lst *lst, char *key)
 	return (NULL);
 }
 
-t_lst	*get_lst_by_min_ascii_key(t_lst *lst)
+t_list	*get_list_by_min_ascii_key(t_list *lst)
 {
-	t_lst	*tmp;
+	t_list	*tmp;
 	char	*min_key;
 	char	*next_key;
 
@@ -74,10 +74,10 @@ t_lst	*get_lst_by_min_ascii_key(t_lst *lst)
 	return (tmp);
 }
 
-void	del_lst_by_key(t_lst *lst, char *key)
+void	del_lst_by_key(t_list *lst, char *key)
 {
-	t_lst	*tmp;
+	t_list	*tmp;
 
-	tmp = get_lst_by_key(lst, key);
+	tmp = get_list_by_key(lst, key);
 	ft_lstdel(lst, tmp);
 }

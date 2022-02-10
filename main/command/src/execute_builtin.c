@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/09 15:48:09 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:00:54 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	**convert_envlst_to_array(t_exec_attr *ea)
 	char	**array;
 	size_t	env_lst_size;
 	size_t	i;
-	t_lst	*tmp;
+	t_list	*tmp;
 
 	i = 0;
 	tmp = ea->env_lst;

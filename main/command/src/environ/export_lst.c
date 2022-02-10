@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_lst.c                                       :+:      :+:    :+:   */
+/*   export_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -37,11 +37,11 @@ void	store_export(t_exec_attr *ea, char **environ)
 {
 	size_t		i;
 	char		**split;
-	t_lst		*export_lst;
+	t_list		*export_list;
 	bool		flag;
 	char		*value;
 
-	export_lst = NULL;
+	export_list = NULL;
 	i = 0;
 	while (environ[i] != NULL)
 	{
@@ -51,13 +51,13 @@ void	store_export(t_exec_attr *ea, char **environ)
 		value = create_export_value(split[VALUE]);
 		if (value == NULL)
 			abort_minishell_with(MALLOC_ERROR, ea, split);
-		flag = ft_lstadd_back(&export_lst, \
+		flag = ft_lstadd_back(&export_list, \
 		ft_lstnew(create_kvs_content(split[KEY], value)));
 		if (!flag)
 			abort_minishell_with(MALLOC_ERROR, ea, split);
 		i++;
 		free_char_dptr(split);
 	}
-	sort_lstkey_by_ascii(export_lst);
-	ea->export_lst = export_lst;
+	sort_listkey_by_ascii(export_list);
+	ea->export_list = export_list;
 }

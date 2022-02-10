@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/09 15:48:09 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 09:59:45 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ bool	is_dollar(char *arg)
 char	*convert_env_var(t_exec_attr *ea, char *arg)
 {
 	char	*key;
-	t_lst	*ret;
+	t_list	*ret;
 	char	*value;
 
 	// $はkeyに不要なので一つポインタを進める
 	// TODO:あとで消す quote対応
 	arg = ft_strtrim(arg, "\'");
 	key = ++arg;
-	ret = get_lst_by_key(ea->env_lst, key);
+	ret = get_list_by_key(ea->env_lst, key);
 	if (ret == NULL)
 		return (NULL);
 	value = get_value(ret->content);
