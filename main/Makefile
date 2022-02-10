@@ -8,6 +8,7 @@ GNL_DIR		=	gnl
 LEXER_DIR 	= 	lexer
 PARSER_DIR 	= 	parser
 REPL_DIR 	= 	repl
+COMMAND_DIR = 	command
 
 HEADERS		=	. $(LIBFT_DIR) $(GNL_DIR) $(LEXER_DIR) $(PARSER_DIR) $(REPL_DIR)
 
@@ -16,6 +17,7 @@ GNL			=   $(GNL_DIR)/libgnl.a
 LIB_LEXER 	=	$(LEXER_DIR)/liblexer.a
 LIB_PARSER 	=	$(PARSER_DIR)/libparser.a
 LIB_REPL 	=	$(REPL_DIR)/librepl.a
+LIB_COMMAND = 	$(COMMAND_DIR)/libcommand.a
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
@@ -33,8 +35,8 @@ GREEN		=	'\033[32m'
 YELLOW		=	'\033[33m'
 RESET		=	'\033[0m'
 
-$(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_PARSER) $(LIB_REPL) $(OBJS)
-	@$(CC) -o $(NAME) $(OBJS) $(LIB_REPL) $(LIB_PARSER) $(LIB_LEXER) $(GNL) $(LIBFT) $(CFLAGS) $(INCLUDES) -lreadline
+$(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_PARSER) $(LIB_REPL) $(LIB_COMMAND) $(OBJS)
+	@$(CC) -o $(NAME) $(OBJS) $(LIB_COMMAND) $(LIB_REPL) $(LIB_PARSER) $(LIB_LEXER) $(GNL) $(LIBFT) $(CFLAGS) $(INCLUDES) -lreadline
 	@echo $(YELLOW)"@@@@@ $(NAME) compiling done @@@@@"$(RESET)
 
 $(LIBFT): dummy
@@ -51,6 +53,9 @@ $(LIB_PARSER): dummy
 
 $(LIB_REPL): dummy
 	@make -C $(REPL_DIR)
+	
+$(LIB_COMMAND): dummy
+	@make -C $(COMMAND_DIR)
 
 
 .PHONY: dummy
@@ -66,6 +71,7 @@ clean:
 	@make -C $(LEXER_DIR) clean
 	@make -C $(REPL_DIR) clean
 	@make -C $(PARSER_DIR) clean
+	@make -C $(COMMAND_DIR) clean
 	@$(RM) $(OBJS)
 	@echo $(RED)"REMOVE OBJECT FILES $(OBJS)"$(RESET)
 
@@ -74,7 +80,8 @@ fclean:	clean
 	@make -C $(GNL_DIR) fclean
 	@make -C $(LEXER_DIR) fclean
 	@make -C $(REPL_DIR) fclean
-	@make -C $(PARSER_DIR) clean
+	@make -C $(PARSER_DIR) fclean
+	@make -C $(COMMAND_DIR) fclean
 	@$(RM) $(NAME)
 	@echo $(RED)"REMOVE $(NAME)"$(RESET)
 	@$(RM) ./tester
