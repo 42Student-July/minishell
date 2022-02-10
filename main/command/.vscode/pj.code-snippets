@@ -1,0 +1,10 @@
+
+{
+	"minishell": {
+		"prefix": "pjh",
+		"body": [
+			"#include \"../includes/command.h\""
+		],
+		"description": "pj header"
+	}, 
+}
