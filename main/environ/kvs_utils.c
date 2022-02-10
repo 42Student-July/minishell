@@ -6,11 +6,11 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:43:17 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/09 13:57:11 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 13:04:01 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/command.h"
+#include "environ.h"
 
 void	free_all_kvs(t_kvs *kvs)
 {

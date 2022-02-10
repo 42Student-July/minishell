@@ -6,11 +6,11 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 13:27:06 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 10:04:28 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 13:04:11 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/command.h"
+#include "environ.h"
 
 bool	swap_lst_content(t_list *a, t_list *b)
 {

@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:45 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 09:59:45 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 13:14:08 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@
 # define KEY 0
 # define VALUE 1
 
-# include "execute_struct.h"
+# include "command.h"
+
+typedef struct s_kvs
+{
+	char	*key;
+	char	*value;
+}	t_kvs;
 
 // env_lst.c
 void		store_env(t_exec_attr *ea, char **environ);
@@ -38,5 +44,6 @@ t_list		*get_list_by_min_ascii_key(t_list *lst);
 void		del_lst_by_key(t_list *lst, char *key);
 bool		swap_lst_content(t_list *a, t_list *b);
 t_list		*get_list_by_key(t_list *lst, char *key);
+void		sort_listkey_by_ascii(t_list *lst);
 
 #endif

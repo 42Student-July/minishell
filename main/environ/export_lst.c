@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_list.c                                       :+:      :+:    :+:   */
+/*   export_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/09 15:47:44 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 13:14:21 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/command.h"
+#include "environ.h"
 
 char	*create_export_value(char *value)
 {

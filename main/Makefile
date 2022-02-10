@@ -5,19 +5,21 @@ CFLAGS		:=	-g -Wall -Wextra -Werror
 
 LIBFT_DIR	=	libft
 GNL_DIR		=	gnl
-LEXER_DIR 	= 	lexer
-PARSER_DIR 	= 	parser
-REPL_DIR 	= 	repl
-COMMAND_DIR = 	command
+LEXER_DIR 	=	lexer
+PARSER_DIR 	=	parser
+REPL_DIR 	=	repl
+COMMAND_DIR =	command
+ENVIRON_DIR =	environ
 
-HEADERS		=	. $(LIBFT_DIR) $(GNL_DIR) $(LEXER_DIR) $(PARSER_DIR) $(REPL_DIR)
+HEADERS		=	. $(LIBFT_DIR) $(GNL_DIR) $(LEXER_DIR) $(PARSER_DIR) $(REPL_DIR) $(COMMAND_DIR) $(ENVIRON_DIR)
 
 LIBFT		=	$(LIBFT_DIR)/libft.a
-GNL			=   $(GNL_DIR)/libgnl.a
+GNL			=	$(GNL_DIR)/libgnl.a
 LIB_LEXER 	=	$(LEXER_DIR)/liblexer.a
 LIB_PARSER 	=	$(PARSER_DIR)/libparser.a
 LIB_REPL 	=	$(REPL_DIR)/librepl.a
-LIB_COMMAND = 	$(COMMAND_DIR)/libcommand.a
+LIB_COMMAND =	$(COMMAND_DIR)/libcommand.a
+LIB_ENVIRON =	$(ENVIRON_DIR)/libenvion.a
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
@@ -35,8 +37,8 @@ GREEN		=	'\033[32m'
 YELLOW		=	'\033[33m'
 RESET		=	'\033[0m'
 
-$(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_PARSER) $(LIB_REPL) $(LIB_COMMAND) $(OBJS)
-	@$(CC) -o $(NAME) $(OBJS) $(LIB_COMMAND) $(LIB_REPL) $(LIB_PARSER) $(LIB_LEXER) $(GNL) $(LIBFT) $(CFLAGS) $(INCLUDES) -lreadline
+$(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_PARSER) $(LIB_REPL) $(LIB_COMMAND) $(LIB_ENVIRON) $(OBJS)
+	@$(CC) -o $(NAME) $(OBJS) $(LIB_ENVIRON) $(LIB_COMMAND) $(LIB_REPL) $(LIB_PARSER) $(LIB_LEXER) $(GNL) $(LIBFT) $(CFLAGS) $(INCLUDES) -lreadline
 	@echo $(YELLOW)"@@@@@ $(NAME) compiling done @@@@@"$(RESET)
 
 $(LIBFT): dummy
