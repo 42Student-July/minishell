@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: akito <akito@student.42tokyo.jp>           +#+  +:+       +#+         #
+#    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 18:26:26 by akito             #+#    #+#              #
-#    Updated: 2022/02/01 16:33:45 by akito            ###   ########.fr        #
+#    Updated: 2022/02/10 10:12:03 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ B_SRCS=	ft_lstnew.c \
 	 ft_lstdelone.c \
 	 ft_lstclear.c \
 	 ft_lstiter.c \
-	 ft_lstmap.c
+	 ft_lstmap.c \
+	 ft_lstdel.c \
 
 OBJS = ${SRCS:.c=.o}
 B_OBJS := ${B_SRCS:.c=.o}

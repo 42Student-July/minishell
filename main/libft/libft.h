@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akito <akito@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 20:14:14 by akito             #+#    #+#             */
-/*   Updated: 2022/02/01 14:54:28 by akito            ###   ########.fr       */
+/*   Updated: 2022/02/10 10:14:14 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <stdint.h>
+# include <stdbool.h>
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -71,9 +72,11 @@ t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new_elm);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new_elm);
+bool	ft_lstadd_back(t_list **lst, t_list *new_elm);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+bool	ft_lstdel(t_list *lst, t_list *target);
+
 #endif

@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 18:24:36 by akito             #+#    #+#             */
-/*   Updated: 2022/02/10 10:16:29 by mhirabay         ###   ########.fr       */
+/*   Created: 2022/02/08 10:47:53 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/02/10 10:14:22 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	ft_lstadd_back(t_list **lst, t_list *new_elm)
+bool	ft_lstdel(t_list *lst, t_list *target)
 {
-	t_list	*list;
-
-	if (lst == NULL || new_elm == NULL)
+	if (lst == NULL || target == NULL)
 		return (false);
-	if (*lst == NULL)
-		*lst = new_elm;
-	else
+	while (lst->next != NULL)
 	{
-		list = ft_lstlast(*lst);
-		list->next = new_elm;
+		if (lst->next == target)
+		{
+			lst->next = target->next;
+			free(target);
+			return (true);
+		}
+		lst = lst->next;
 	}
-	return (true);
+	return (false);
 }
