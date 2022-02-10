@@ -104,6 +104,7 @@ TEST(lexer, heredoc_append)
 TEST(lexer, env)
 {
 	char *input = ft_strdup("$PATH $?");
+	// "echo "hoge \n fuga""
 
 	std::vector<std::pair<t_tokentype, std::string>> expected = {
 		{TOKEN_ENV, "$PATH"},

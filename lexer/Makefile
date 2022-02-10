@@ -22,6 +22,8 @@ SRCS = new_lexer.c\
 		get_literal.c\
 		is_redirect.c\
 		skip_whitespace.c\
+		join_new_line.c\
+		new_quote_token.c\
 
 OBJS = ${SRCS:.c=.o}
 

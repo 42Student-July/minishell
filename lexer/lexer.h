@@ -1,11 +1,10 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include "libft.h"
-
+# include <stdint.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# include "libft.h"
 typedef enum e_tokentype
 {
 	TOKEN_ILLEGAL = -1,
@@ -38,6 +37,7 @@ typedef struct s_lexer
 	size_t		position;
 	size_t		read_position;
 	char		ch;
+	bool skip_whitespace;
 }	t_lexer;
 
 t_lexer *new_lexer(char *input);
@@ -54,5 +54,7 @@ void print_tokens(t_list *token_list);
 char *get_literal(t_token *token);
 bool is_redirect(t_tokentype type);
 void skip_whitespace(t_lexer *lexer);
+void join_new_line(t_lexer *lexer);
+t_token *new_quote_token(t_lexer *lexer, t_tokentype type);
 
 #endif
