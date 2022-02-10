@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 19:37:24 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/10 20:05:37 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/10 20:07:40 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ char	**make_cmdv(t_redirect_cmd *rc)
 		cmdv[i] = ft_strdup(tmp_arg);
 		i++;
 	}
+	cmdv[i] = NULL;
 	return (cmdv);
 }
