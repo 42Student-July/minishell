@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 10:58:10 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 12:20:08 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		abort_minishell_with(char *msg, t_exec_attr *ea, char **split);
 
 // redirect_process.c
 void		change_direction(t_exec_attr *ea);
-bool		is_redirect(t_exec_attr *ea);
+bool		is_redirect_flag(t_exec_attr *ea);
 
 // debug.c
 void		print_command_debug(t_exec_attr *ea);
