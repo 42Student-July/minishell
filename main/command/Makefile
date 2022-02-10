@@ -6,7 +6,7 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/10 13:18:22 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/02/10 14:07:48 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,7 @@ SRCDIR 	:= ./src/
 SRCNAME	:=	execute_builtin.c \
 			execute_self.c \
 			execute.c \
-			error_handling.c \
 			redirect_process.c \
-			debug.c \
 			init.c \
 			create_cmd.c \
 			$(SELFCMD_SRCS) \
@@ -54,6 +52,7 @@ HEADERS	:=	. \
 			./includes/ \
 			../libft/ \
 			../environ/ \
+			../error_handle/ \
 			
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 

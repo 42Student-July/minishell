@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:45 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:24:28 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 14:15:56 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@
 
 # include "libft.h"
 # include "execute_struct.h"
+# include "error_handle.h"
 
+# define DQUOTE 2
+# define NULL_CHAR 1
 
 typedef struct s_kvs
 {

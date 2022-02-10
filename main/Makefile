@@ -3,23 +3,25 @@ CC			:=	gcc
 CFLAGS		:=	-g -Wall -Wextra -Werror
 
 
-LIBFT_DIR	=	libft
-GNL_DIR		=	gnl
-LEXER_DIR 	=	lexer
-PARSER_DIR 	=	parser
-REPL_DIR 	=	repl
-COMMAND_DIR =	command
-ENVIRON_DIR =	environ
+LIBFT_DIR			=	libft
+GNL_DIR				=	gnl
+LEXER_DIR			=	lexer
+PARSER_DIR			=	parser
+REPL_DIR			=	repl
+COMMAND_DIR			=	command
+ENVIRON_DIR			=	environ
+ERROR_HANDLE_DIR	=	error_handle
 
 HEADERS		=	. $(LIBFT_DIR) $(GNL_DIR) $(LEXER_DIR) $(PARSER_DIR) $(REPL_DIR) $(COMMAND_DIR) $(ENVIRON_DIR)
 
-LIBFT		=	$(LIBFT_DIR)/libft.a
-GNL			=	$(GNL_DIR)/libgnl.a
-LIB_LEXER 	=	$(LEXER_DIR)/liblexer.a
-LIB_PARSER 	=	$(PARSER_DIR)/libparser.a
-LIB_REPL 	=	$(REPL_DIR)/librepl.a
-LIB_COMMAND =	$(COMMAND_DIR)/libcommand.a
-LIB_ENVIRON =	$(ENVIRON_DIR)/libenvion.a
+LIBFT				=	$(LIBFT_DIR)/libft.a
+GNL					=	$(GNL_DIR)/libgnl.a
+LIB_LEXER			=	$(LEXER_DIR)/liblexer.a
+LIB_PARSER			=	$(PARSER_DIR)/libparser.a
+LIB_REPL			=	$(REPL_DIR)/librepl.a
+LIB_COMMAND 		=	$(COMMAND_DIR)/libcommand.a
+LIB_ENVIRON			=	$(ENVIRON_DIR)/libenvion.a
+LIB_ERROR_HANDLE	=	$(ERROR_HANDLE_DIR)/liberrorhandle.a
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
@@ -37,8 +39,8 @@ GREEN		=	'\033[32m'
 YELLOW		=	'\033[33m'
 RESET		=	'\033[0m'
 
-$(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_PARSER) $(LIB_REPL) $(LIB_COMMAND) $(LIB_ENVIRON) $(OBJS)
-	@$(CC) -o $(NAME) $(OBJS) $(LIB_ENVIRON) $(LIB_COMMAND) $(LIB_REPL) $(LIB_PARSER) $(LIB_LEXER) $(GNL) $(LIBFT) $(CFLAGS) $(INCLUDES) -lreadline
+$(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_PARSER) $(LIB_REPL) $(LIB_COMMAND) $(LIB_ENVIRON) $(LIB_ERROR_HANDLE) $(OBJS)
+	@$(CC) -o $(NAME) $(OBJS) $(LIB_ERROR_HANDLE) $(LIB_ENVIRON) $(LIB_COMMAND) $(LIB_REPL) $(LIB_PARSER) $(LIB_LEXER) $(GNL) $(LIBFT) $(CFLAGS) $(INCLUDES) -lreadline
 	@echo $(YELLOW)"@@@@@ $(NAME) compiling done @@@@@"$(RESET)
 
 $(LIBFT): dummy
@@ -59,6 +61,11 @@ $(LIB_REPL): dummy
 $(LIB_COMMAND): dummy
 	@make -C $(COMMAND_DIR)
 
+$(LIB_ENVIRON): dummy
+	@make -C $(ENVIRON_DIR)
+
+$(LIB_ERROR_HANDLE): dummy
+	@make -C $(ERROR_HANDLE_DIR)
 
 .PHONY: dummy
 dummy:
@@ -74,6 +81,8 @@ clean:
 	@make -C $(REPL_DIR) clean
 	@make -C $(PARSER_DIR) clean
 	@make -C $(COMMAND_DIR) clean
+	@make -C $(ENVIRON_DIR) clean
+	@make -C $(ERROR_HANDLE_DIR) clean
 	@$(RM) $(OBJS)
 	@echo $(RED)"REMOVE OBJECT FILES $(OBJS)"$(RESET)
 
@@ -84,6 +93,8 @@ fclean:	clean
 	@make -C $(REPL_DIR) fclean
 	@make -C $(PARSER_DIR) fclean
 	@make -C $(COMMAND_DIR) fclean
+	@make -C $(ENVIRON_DIR) fclean
+	@make -C $(ERROR_HANDLE_DIR) fclean
 	@$(RM) $(NAME)
 	@echo $(RED)"REMOVE $(NAME)"$(RESET)
 	@$(RM) ./tester

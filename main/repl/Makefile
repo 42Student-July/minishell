@@ -9,6 +9,8 @@ HEADERS		=	. \
 				../libft/ \
 				../gnl/ \
 				../command/includes \
+				../environ/ \
+				../error_handle \
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 

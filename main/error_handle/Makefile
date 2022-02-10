@@ -1,19 +1,17 @@
-NAME 		:= libenvion.a
+NAME 		:= liberrorhandle.a
 CC			:=	gcc
 CFLAGS		:=	-Wall -Wextra -Werror -pedantic -g
 
 HEADERS		=	. \
 				../ \
 				../libft/ \
+				../environ \
 				../command/includes \
-				../error_handle \
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
-SRCS = 	env_lst.c \
-		export_lst.c \
-		kvs_utils.c \
-		lst_utils.c \
+SRCS = 	error_handle.c \
+		debug.c \
 
 OBJS = ${SRCS:.c=.o}
 
@@ -23,7 +21,6 @@ RED			=	'\033[31m'
 GREEN		=	'\033[32m'
 YELLOW		=	'\033[33m'
 RESET		=	'\033[0m'
-
 
 all: $(NAME)
 

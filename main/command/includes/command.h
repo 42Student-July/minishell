@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:23:35 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 14:16:16 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 # include "libft.h"
 # include "color.h"
-# include "error_msg.h"
 # include "execute_struct.h"
 # include "environ.h"
 # include "self_cmd.h"
+# include "error_handle.h"
 
 # define CD "cd"
 # define ECHO "echo"
@@ -42,8 +42,6 @@
 # define CMD_NAME 0
 # define CMD_ARG 1
 # define DIR 1
-# define NULL_CHAR 1
-# define DQUOTE 2
 # define EQUAL 1
 # define LF 1
 # define INVALID_IDENTIFER 0
@@ -73,20 +71,9 @@ bool		is_dollar(char *arg);
 char		*convert_env_var(t_exec_attr *ea, char *arg);
 void		create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea);
 
-// error_handling.c
-void		free_exec_attr(t_exec_attr *ea);
-void		free_char_dptr(char **split);
-void		abort_minishell(char *msg, t_exec_attr *ea);
-void		abort_minishell_with(char *msg, t_exec_attr *ea, char **split);
-
 // redirect_process.c
 void		change_direction(t_exec_attr *ea);
 bool		is_redirect_flag(t_exec_attr *ea);
-
-// debug.c
-void		print_command_debug(t_exec_attr *ea);
-void		print_kvs_debug(void *content);
-void		print_array(char **array);
 
 // init.c
 void		init(t_exec_attr **ea);
