@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/09 15:57:55 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 14:34:32 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # include "color.h"
 # include "error_msg.h"
 # include "environ.h"
-# include "execute_struct.h"
 # include "self_cmd.h"
+# include "execute_struct.h"
 
 # define CD "cd"
 # define ECHO "echo"

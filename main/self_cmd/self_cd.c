@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   self_export_utils.c                                :+:      :+:    :+:   */
+/*   self_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/04 20:24:01 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:16:36 by mhirabay         ###   ########.fr       */
+/*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
+/*   Updated: 2022/02/10 14:27:22 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/command.h"
+#include "self_cmd.h"
 
-void	print_all_export_lst(t_exec_attr *ea)
+static void	x_chdir(const char *path)
 {
-	t_content_f	f;
-
-	f = print_export_kvs;
-	ft_lstiter(ea->export_lst, f);
+	if (chdir(path) == -1)
+	{
+		// TODO:いい感じのエラーメッセージを追加する
+		// printf("stderror(perror) : %s\n", strerror(errno));
+		exit(EXIT_FAILURE);
+	}
 }
 
-void	print_export_kvs(void *content)
+void	exec_self_cd(t_exec_attr *ea)
 {
-	t_kvs	*kvs;
-
-	kvs = (t_kvs *)content;
-	if (kvs->value == NULL)
-		printf("declare -x %s\n", kvs->key);
-	else
-		printf("declare -x %s=%s\n", kvs->key, kvs->value);
+	x_chdir(ea->command[DIR]);
 }

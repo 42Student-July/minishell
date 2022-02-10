@@ -6,14 +6,23 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:23:56 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 14:25:22 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SELF_CMD_H
 # define SELF_CMD_H
 
+# include <errno.h>
+
 # include "execute_struct.h"
+# include "libft.h"
+# include "error_handle.h"
+# include "environ.h"
+
+# define DIR 1
+# define CMD_ARG 1
+# define UNSET "unset"
 
 // self_pwd.c
 void		exec_self_pwd(t_exec_attr *ea);

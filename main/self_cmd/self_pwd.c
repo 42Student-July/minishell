@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   self_unset.c                                       :+:      :+:    :+:   */
+/*   self_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 09:19:55 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:16:36 by mhirabay         ###   ########.fr       */
+/*   Created: 2022/02/02 14:54:57 by tkirihar          #+#    #+#             */
+/*   Updated: 2022/02/10 14:28:13 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/command.h"
+#include "self_cmd.h"
 
-void	exec_self_unset(t_exec_attr *ea)
+static void	x_getcwd(char *pathname, int bufsiz)
 {
-	// envlstとexportlstから対象の文字列を削除
-	if (ea->command[CMD_ARG] == NULL)
-		return ;
-	if (is_invalid_name(ea->command[CMD_ARG]))
-		print_error_msg_with_var(UNSET, ea->command[CMD_ARG]);
-	del_lst_by_key(ea->env_lst, ea->command[CMD_ARG]);
-	del_lst_by_key(ea->export_lst, ea->command[CMD_ARG]);
+	if (getcwd(pathname, bufsiz) == NULL)
+	{
+		// TODO:いい感じのエラーメッセージを追加する
+		// printf("stderror(perror) : %s\n", strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	exec_self_pwd(t_exec_attr *ea)
+{
+	char	pathname[BUFSIZ];
+
+	(void)ea;
+	x_getcwd(pathname, BUFSIZ);
+	printf("%s\n", pathname);
 }

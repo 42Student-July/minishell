@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   self_cd.c                                          :+:      :+:    :+:   */
+/*   self_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/09 14:35:03 by mhirabay         ###   ########.fr       */
+/*   Created: 2022/02/08 09:19:55 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/02/10 14:21:05 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/command.h"
+#include "self_cmd.h"
 
-static void	x_chdir(const char *path)
+void	exec_self_unset(t_exec_attr *ea)
 {
-	if (chdir(path) == -1)
-	{
-		printf("stderror(perror) : %s\n", strerror(errno));
-		exit(EXIT_FAILURE);
-	}
-}
-
-void	exec_self_cd(t_exec_attr *ea)
-{
-	x_chdir(ea->command[DIR]);
+	// envlstとexportlstから対象の文字列を削除
+	if (ea->command[CMD_ARG] == NULL)
+		return ;
+	if (is_invalid_name(ea->command[CMD_ARG]))
+		print_error_msg_with_var(UNSET, ea->command[CMD_ARG]);
+	del_lst_by_key(ea->env_lst, ea->command[CMD_ARG]);
+	del_lst_by_key(ea->export_lst, ea->command[CMD_ARG]);
 }

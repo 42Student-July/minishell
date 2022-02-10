@@ -6,24 +6,13 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/10 14:07:48 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/02/10 14:33:23 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	:= libcommand.a
 
-SELFCMD_DIR := self_cmd/
-SELFCMD_SRCNAME := self_pwd.c \
-				self_cd.c \
-				self_echo.c \
-				self_exit.c \
-				self_env.c \
-				self_export.c \
-				self_export_utils.c \
-				self_unset.c \
-				self_cmd_utils.c \
 
-SELFCMD_SRCS := $(addprefix $(SELFCMD_DIR), $(SELFCMD_SRCNAME))
 
 SRCDIR 	:= ./src/
 SRCNAME	:=	execute_builtin.c \
@@ -53,7 +42,8 @@ HEADERS	:=	. \
 			../libft/ \
 			../environ/ \
 			../error_handle/ \
-			
+			../self_cmd/ \
+
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
 all:  $(NAME)

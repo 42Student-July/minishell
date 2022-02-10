@@ -11,6 +11,7 @@ HEADERS		=	. \
 				../command/includes \
 				../environ/ \
 				../error_handle \
+				../self_cmd \
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 

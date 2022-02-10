@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:16:16 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 14:31:56 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,8 @@
 # define MY_COMMAND_NUM 4
 # define CMD_NAME 0
 # define CMD_ARG 1
-# define DIR 1
 # define EQUAL 1
 # define LF 1
-# define INVALID_IDENTIFER 0
-# define NO_VALUE 1
-
-typedef void(*	t_content_f)(void *);
 
 // execute.c
 int			execute_cmd(t_list *cmd);

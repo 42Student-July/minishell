@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   self_exit.c                                        :+:      :+:    :+:   */
+/*   self_export_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/09 14:35:31 by mhirabay         ###   ########.fr       */
+/*   Created: 2022/02/04 20:24:01 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/02/10 14:20:58 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/command.h"
+#include "self_cmd.h"
 
-void	exec_self_exit(t_exec_attr *ea)
+void	print_all_export_lst(t_exec_attr *ea)
 {
-	(void)ea;
-	exit(0);
+	t_content_f	f;
+
+	f = print_export_kvs;
+	ft_lstiter(ea->export_lst, f);
+}
+
+void	print_export_kvs(void *content)
+{
+	t_kvs	*kvs;
+
+	kvs = (t_kvs *)content;
+	if (kvs->value == NULL)
+		printf("declare -x %s\n", kvs->key);
+	else
+		printf("declare -x %s=%s\n", kvs->key, kvs->value);
 }
