@@ -1,9 +1,0 @@
-*
-!*/
-!*.*
-!Makefile
-
-*.a
-*.o
-a.out
-*dSYM/
