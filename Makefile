@@ -13,7 +13,7 @@ ENVIRON_DIR			=	environ
 ERROR_HANDLE_DIR	=	error_handle
 SELF_CMD_DIR		=	self_cmd
 
-HEADERS		=	. $(LIBFT_DIR) $(GNL_DIR) $(LEXER_DIR) $(PARSER_DIR) $(REPL_DIR) $(COMMAND_DIR) $(ENVIRON_DIR)
+HEADERS		=	. $(LIBFT_DIR) $(GNL_DIR) $(LEXER_DIR) $(PARSER_DIR) $(REPL_DIR) $(COMMAND_DIR)/includes $(ENVIRON_DIR)
 
 LIBFT				=	$(LIBFT_DIR)/libft.a
 GNL					=	$(GNL_DIR)/libgnl.a
@@ -42,7 +42,7 @@ YELLOW		=	'\033[33m'
 RESET		=	'\033[0m'
 
 $(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_PARSER) $(LIB_REPL) $(LIB_COMMAND) $(LIB_ENVIRON) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(OBJS)
-	@$(CC) -o $(NAME) $(OBJS) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_ENVIRON) $(LIB_COMMAND) $(LIB_REPL) $(LIB_PARSER) $(LIB_LEXER) $(GNL) $(LIBFT) $(CFLAGS) $(INCLUDES) -lreadline
+	@$(CC) -o $(NAME) $(OBJS) $(LIB_REPL) $(LIB_COMMAND) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_ENVIRON) $(LIB_LEXER) $(GNL) $(LIBFT) $(CFLAGS) $(INCLUDES) -lreadline
 	@echo $(YELLOW)"@@@@@ $(NAME) compiling done @@@@@"$(RESET)
 
 $(LIBFT): dummy
@@ -59,7 +59,7 @@ $(LIB_PARSER): dummy
 
 $(LIB_REPL): dummy
 	@make -C $(REPL_DIR)
-	
+
 $(LIB_COMMAND): dummy
 	@make -C $(COMMAND_DIR)
 
