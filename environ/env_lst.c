@@ -12,7 +12,7 @@
 
 #include "environ.h"
 
-void	store_env(t_exec_attr *ea, char **environ)
+void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 {
 	size_t		i;
 	char		**split;
@@ -32,4 +32,10 @@ void	store_env(t_exec_attr *ea, char **environ)
 		free_char_dptr(split);
 	}
 	ea->env_lst = env_lst;
+}
+
+bool	store_arg_in_env(t_exec_attr *ea, char *key, char *value)
+{
+	return (ft_lstadd_back(&ea->env_lst, \
+		ft_lstnew(create_kvs_content(key, value))));
 }

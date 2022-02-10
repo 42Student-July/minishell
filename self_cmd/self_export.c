@@ -6,11 +6,19 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:21:00 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:55:10 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
+
+void	exec_self_export(t_exec_attr *ea)
+{
+	if (ea->command[CMD_ARG] == NULL)
+		print_all_export_lst(ea);
+	else
+		export_with_args(ea);
+}
 
 // 新しく追加
 bool	addlst_sort_by_ascii(t_list **export_lst, char **arg)
@@ -37,59 +45,37 @@ int	check_export_arg(char **arg)
 	return (10);
 }
 
-void	store_arg_only_export(t_exec_attr *ea, char *key)
-{	
-	if (!ft_lstadd_back(&ea->export_lst, \
-			ft_lstnew(create_kvs_content(key, NULL))))
-		abort_minishell(MALLOC_ERROR, ea);
-	sort_listkey_by_ascii(ea->export_lst);
-}
-
 void	export_with_args(t_exec_attr *ea)
 {
 	char		**arg;
-	bool		flag;
 	int			ret;
 
-	if (ea->command[CMD_ARG] != NULL)
+	// ft_splitでは引数が"a="の場合と"a"の判別がつけられない実装になっている
+	// そのため、strchrでまず引数に=があるか判定してから、各実装に入る
+	if (ft_strchr(ea->command[CMD_ARG], '=') == NULL)
+		store_arg_in_export(ea, ea->command[CMD_ARG], NULL);
+	else
 	{
-		// ft_splitでは引数が"a="の場合と"a"の判別がつけられない実装になっている
-		// そのため、strchrでまず引数に=があるか判定してから、各実装に入る
-		if (ft_strchr(ea->command[CMD_ARG], '=') == NULL)
-			store_arg_only_export(ea, ea->command[CMD_ARG]);
+		arg = ft_split(ea->command[CMD_ARG], '=');
+		if (arg == NULL)
+			abort_minishell(MALLOC_ERROR, ea);
+		ret = check_export_arg(arg);
+		if (ret == INVALID_IDENTIFER)
+			print_error_msg_with_var(ea->command[CMD_ARG], arg[KEY]);
 		else
 		{
-			arg = ft_split(ea->command[CMD_ARG], '=');
-			if (arg == NULL)
-				abort_minishell(MALLOC_ERROR, ea);
-			ret = check_export_arg(arg);
-			if (ret == INVALID_IDENTIFER)
-				print_error_msg_with_var(ea->command[CMD_ARG], arg[KEY]);
-			else
+			if (ret == NO_VALUE)
 			{
-				if (ret == NO_VALUE)
-				{
-					// valueがnullだけど=が存在する場合、valueには\0を入れる。
-					arg[VALUE] = ft_strdup("");
-					if (arg[VALUE] == NULL)
-						abort_minishell_with(MALLOC_ERROR, ea, arg);
-				}
-				flag = ft_lstadd_back(&ea->env_lst, \
-				ft_lstnew(create_kvs_content(arg[KEY], arg[VALUE])));
-				if (!flag)
-					abort_minishell_with(MALLOC_ERROR, ea, arg);
-				if (!addlst_sort_by_ascii(&ea->export_lst, arg))
+				// valueがnullだけど=が存在する場合、valueには\0を入れる。
+				arg[VALUE] = ft_strdup("");
+				if (arg[VALUE] == NULL)
 					abort_minishell_with(MALLOC_ERROR, ea, arg);
 			}
-			free(arg);
+			if (!store_arg_in_env(ea, arg[KEY], arg[VALUE]))
+				abort_minishell_with(MALLOC_ERROR, ea, arg);
+			if (!store_arg_in_export(ea, arg[KEY], arg[VALUE]))
+				abort_minishell_with(MALLOC_ERROR, ea, arg);
 		}
+		free(arg);
 	}
-}
-
-void	exec_self_export(t_exec_attr *ea)
-{
-	if (ea->command[CMD_ARG] == NULL)
-		print_all_export_lst(ea);
-	else
-		export_with_args(ea);
 }

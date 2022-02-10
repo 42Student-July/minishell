@@ -32,11 +32,13 @@ typedef struct s_kvs
 }	t_kvs;
 
 // env_lst.c
-void		store_env(t_exec_attr *ea, char **environ);
+void		store_allenv_in_envlst(t_exec_attr *ea, char **environ);
+bool		store_arg_in_env(t_exec_attr *ea, char *key, char *value);
 
 // export_lst.c
 char		*create_export_value(char *value);
-void		store_export(t_exec_attr *ea, char **environ);
+void		store_allenv_in_export(t_exec_attr *ea, char **environ);
+bool		store_arg_in_export(t_exec_attr *ea, char *key, char *value);
 
 // kvs_utils.c
 void		free_all_kvs(t_kvs *kvs);
