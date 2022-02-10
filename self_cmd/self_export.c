@@ -6,11 +6,19 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:21:00 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 15:46:41 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
+
+void	exec_self_export(t_exec_attr *ea)
+{
+	if (ea->command[CMD_ARG] == NULL)
+		print_all_export_lst(ea);
+	else
+		export_with_args(ea);
+}
 
 // 新しく追加
 bool	addlst_sort_by_ascii(t_list **export_lst, char **arg)
@@ -84,12 +92,4 @@ void	export_with_args(t_exec_attr *ea)
 			free(arg);
 		}
 	}
-}
-
-void	exec_self_export(t_exec_attr *ea)
-{
-	if (ea->command[CMD_ARG] == NULL)
-		print_all_export_lst(ea);
-	else
-		export_with_args(ea);
 }
