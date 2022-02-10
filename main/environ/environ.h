@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:45 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:14:08 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 13:16:36 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_kvs
 // env_lst.c
 void		store_env(t_exec_attr *ea, char **environ);
 
-// export_list.c
+// export_lst.c
 char		*create_export_value(char *value);
 void		store_export(t_exec_attr *ea, char **environ);
 

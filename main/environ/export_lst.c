@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:14:21 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 13:16:36 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	store_export(t_exec_attr *ea, char **environ)
 {
 	size_t		i;
 	char		**split;
-	t_list		*export_list;
+	t_list		*export_lst;
 	bool		flag;
 	char		*value;
 
-	export_list = NULL;
+	export_lst = NULL;
 	i = 0;
 	while (environ[i] != NULL)
 	{
@@ -51,13 +51,13 @@ void	store_export(t_exec_attr *ea, char **environ)
 		value = create_export_value(split[VALUE]);
 		if (value == NULL)
 			abort_minishell_with(MALLOC_ERROR, ea, split);
-		flag = ft_lstadd_back(&export_list, \
+		flag = ft_lstadd_back(&export_lst, \
 		ft_lstnew(create_kvs_content(split[KEY], value)));
 		if (!flag)
 			abort_minishell_with(MALLOC_ERROR, ea, split);
 		i++;
 		free_char_dptr(split);
 	}
-	sort_listkey_by_ascii(export_list);
-	ea->export_list = export_list;
+	sort_listkey_by_ascii(export_lst);
+	ea->export_lst = export_lst;
 }
