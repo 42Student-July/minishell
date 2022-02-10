@@ -6,7 +6,7 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/10 21:14:48 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/02/10 23:02:51 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCNAME	:=	execute_builtin.c \
 			init.c \
 			create_cmd.c \
 			make_cmdv.c \
-			pipe_proxess.c \
+			pipe_process.c \
 			$(SELFCMD_SRCS) \
 
 SRCS	:= $(addprefix $(SRCDIR), $(SRCNAME))
