@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:57:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 21:05:57 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:10:36 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ void	no_pipe_process(t_list *cmd)
 	do_execute_cmd(rc);
 }
 
-// void	pipe_process()
-// {
-
-// }
-
 int	execute_cmd(t_list *cmd)
 {
 	int	pipe_cnt;
@@ -63,7 +58,7 @@ int	execute_cmd(t_list *cmd)
 	}
 	else
 	{
-		// pipe_process(cmd);
+		pipe_process(cmd, pipe_cnt);
 	}
 	return (0);
 }
