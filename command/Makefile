@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/10 14:33:23 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/02/10 20:09:30 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCNAME	:=	execute_builtin.c \
 			redirect_process.c \
 			init.c \
 			create_cmd.c \
+			make_cmdv.c \
 			$(SELFCMD_SRCS) \
 
 SRCS	:= $(addprefix $(SRCDIR), $(SRCNAME))
