@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:57:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 21:10:36 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/10 23:15:21 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	do_execute_cmd(t_redirect_cmd *rc)
 		printf("fork error\n");
 	else if (pid == 0)
 	{
-		if (execve(rc->cmd, cmdv, NULL) == -1)
+		if (execve(rc->cmd->cmd, cmdv, NULL) == -1)
 		{
 			printf("exec error");
 			exit(EXIT_FAILURE);
@@ -50,7 +50,7 @@ int	execute_cmd(t_list *cmd)
 {
 	int	pipe_cnt;
 
-	printf("start execute_cmd\n");
+	printf("%sstart execute_cmd\n%s", F_BLUE, F_RESET);
 	pipe_cnt = ft_lstsize(cmd) - 1;
 	if (pipe_cnt == 0)
 	{
