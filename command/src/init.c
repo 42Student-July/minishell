@@ -21,6 +21,6 @@ void	init(t_exec_attr **ea)
 		abort_minishell(MALLOC_ERROR, *ea);
 	(*ea)->infile = NULL;
 	(*ea)->outfile = NULL;
-	store_env(*ea, environ);
-	store_export(*ea, environ);
+	store_allenv_in_envlst(*ea, environ);
+	store_allenv_in_export(*ea, environ);
 }

@@ -6,13 +6,13 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:20:16 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:04:19 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:35:45 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environ.h"
 
-void	store_env(t_exec_attr *ea, char **environ)
+void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 {
 	size_t		i;
 	char		**split;
@@ -34,4 +34,10 @@ void	store_env(t_exec_attr *ea, char **environ)
 		free_char_dptr(split);
 	}
 	ea->env_lst = env_lst;
+}
+
+bool	store_arg_in_env(t_exec_attr *ea, char *key, char *value)
+{
+	return (ft_lstadd_back(&ea->env_lst, \
+		ft_lstnew(create_kvs_content(key, value))));
 }

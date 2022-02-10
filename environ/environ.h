@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:45 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:15:56 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:45:37 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ typedef struct s_kvs
 }	t_kvs;
 
 // env_lst.c
-void		store_env(t_exec_attr *ea, char **environ);
+void		store_allenv_in_envlst(t_exec_attr *ea, char **environ);
+bool		store_arg_in_env(t_exec_attr *ea, char *key, char *value);
 
 // export_lst.c
 char		*create_export_value(char *value);
-void		store_export(t_exec_attr *ea, char **environ);
+void		store_allenv_in_export(t_exec_attr *ea, char **environ);
+bool		store_arg_in_export(t_exec_attr *ea, char *key, char *value);
 
 // kvs_utils.c
 void		free_all_kvs(t_kvs *kvs);
