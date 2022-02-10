@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 10:20:51 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:58:10 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@
 # define NO_VALUE 1
 
 typedef void(*	t_content_f)(void *);
+
+// execute.c
+int			execute_cmd(t_list *cmd);
 
 // execute_self.c
 bool		is_self_cmd(const char *c);
