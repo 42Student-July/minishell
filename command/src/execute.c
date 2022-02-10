@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:57:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 17:38:22 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/10 19:37:40 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	do_execute_cmd(t_redirect_cmd *rc)
 	int		status;
 	char	**cmdv;
 
-	cmdv = make_cmdv()
+	cmdv = make_cmdv(rc);
 	pid = fork();
 	if (pid == -1)
 		printf("fork error\n");

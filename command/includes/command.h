@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 17:02:32 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/10 19:46:18 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,8 @@ bool		is_redirect_flag(t_exec_attr *ea);
 
 // init.c
 void		init(t_exec_attr **ea);
+
+// make_cmdv.c
+char	**make_cmdv(t_redirect_cmd *rc);
 
 #endif
