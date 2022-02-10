@@ -20,8 +20,6 @@ void start_repl()
 	token_list = NULL;
 	while (true)
 	{
-		// ft_putstr_fd(">> ", STDOUT);
-		// line = get_next_line(STDIN);
 		line = readline(">> ");
 		if (line == NULL)
 			break;
@@ -37,8 +35,8 @@ void start_repl()
 		}
 		print_tokens(token_list);
 		t_list *cmd = parse_pipe(token_list);
+		print_cmd(cmd);
 		execute_cmd(cmd);
-		// (void)cmd;
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
 	}
