@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:57:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 19:37:40 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:05:57 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	do_execute_cmd(t_redirect_cmd *rc)
 		printf("fork error\n");
 	else if (pid == 0)
 	{
-		if (execve("/bin/", cmdv, NULL))
+		if (execve(rc->cmd, cmdv, NULL) == -1)
 		{
-
+			printf("exec error");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -46,15 +46,16 @@ void	no_pipe_process(t_list *cmd)
 	do_execute_cmd(rc);
 }
 
-void	pipe_process()
-{
+// void	pipe_process()
+// {
 
-}
+// }
 
 int	execute_cmd(t_list *cmd)
 {
 	int	pipe_cnt;
 
+	printf("start execute_cmd\n");
 	pipe_cnt = ft_lstsize(cmd) - 1;
 	if (pipe_cnt == 0)
 	{
@@ -62,7 +63,7 @@ int	execute_cmd(t_list *cmd)
 	}
 	else
 	{
-		pipe_process(cmd);
+		// pipe_process(cmd);
 	}
 	return (0);
 }
