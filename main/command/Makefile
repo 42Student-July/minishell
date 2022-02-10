@@ -6,11 +6,11 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/09 18:00:51 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/02/10 10:22:20 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	:= command.a
+NAME 	:= libcommand.a
 
 ENV_DIR := environ/
 ENV_SRCNAME := 	env_lst.c \
@@ -55,39 +55,35 @@ CFLAGS	:= -Wall -Werror -Wextra
 DEBUG	:= -g -fsanitize=address
 INC		:= -I ./includes/
 RM		:= rm -rf
-LDFLAGS := -Llib/ft_printf -Llib/gnl -Llib/libft -Llib/ft_lst
+LDFLAGS := -Llib/ft_printf -Llib/gnl -Llib/libft -Llib/ft_list
 LIBS 	:= -lftprintf -lgnl -lft -llst
 
-all: lib $(NAME)
+HEADERS	:=	. \
+			../ \
+			../lexer/ \
+			../parser/ \
+			../libft/ \
+			
+INCLUDES	=	$(addprefix -I, $(HEADERS))
 
-lib :
-	make -C lib/ft_printf
-	make -C lib/gnl
-	make -C lib/libft
-	make -C lib/ft_lst
+all:  $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(INC) ${LDFLAGS} ${LIBS} $^ -o $@
+	ar rc $(NAME) ${OBJS}
 
 $(OBJS) : $(OBJSDIR)
 
 $(OBJSDIR)%.o : $(SRCDIR)%.c
-	${CC} ${CFLAGS} $(INC) -c $< -o $@
+	${CC} ${CFLAGS} $(INCLUDES) -c $< -o $@
 
 $(OBJSDIR):
 	mkdir -p $(OBJSDIR)$(ENV_DIR)
 	mkdir -p $(OBJSDIR)$(SELFCMD_DIR)
 
 clean:
-	make clean -C lib/ft_printf
-	make clean -C lib/libft
-	make clean -C lib/ft_lst
 	$(RM) $(OBJSDIR)
 
 fclean: clean
-	make fclean -C lib/ft_printf
-	make fclean -C lib/libft
-	make fclean -C lib/ft_lst
 	${RM} ${NAME}
 re:	fclean all
 
