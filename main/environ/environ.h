@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:45 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:16:36 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 13:24:28 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 # define KEY 0
 # define VALUE 1
 
-# include "command.h"
+# include <stdbool.h>
+
+# include "libft.h"
+# include "execute_struct.h"
+
 
 typedef struct s_kvs
 {

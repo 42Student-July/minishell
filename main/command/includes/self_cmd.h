@@ -6,14 +6,14 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:16:36 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 13:23:56 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SELF_CMD_H
 # define SELF_CMD_H
 
-# include "command.h"
+# include "execute_struct.h"
 
 // self_pwd.c
 void		exec_self_pwd(t_exec_attr *ea);

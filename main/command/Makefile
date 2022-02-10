@@ -6,19 +6,11 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/10 11:53:48 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/02/10 13:18:22 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	:= libcommand.a
-
-ENV_DIR := environ/
-ENV_SRCNAME := 	env_lst.c \
-				export_lst.c \
-				kvs_utils.c \
-				lst_utils.c \
-
-ENV_SRCS = $(addprefix $(ENV_DIR), $(ENV_SRCNAME))
 
 SELFCMD_DIR := self_cmd/
 SELFCMD_SRCNAME := self_pwd.c \
@@ -42,7 +34,6 @@ SRCNAME	:=	execute_builtin.c \
 			debug.c \
 			init.c \
 			create_cmd.c \
-			$(ENV_SRCS) \
 			$(SELFCMD_SRCS) \
 
 SRCS	:= $(addprefix $(SRCDIR), $(SRCNAME))
@@ -62,6 +53,7 @@ HEADERS	:=	. \
 			../ \
 			./includes/ \
 			../libft/ \
+			../environ/ \
 			
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 

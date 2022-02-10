@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:16:36 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/10 13:23:35 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include "color.h"
 # include "error_msg.h"
 # include "execute_struct.h"
+# include "environ.h"
+# include "self_cmd.h"
 
 # define CD "cd"
 # define ECHO "echo"
@@ -48,15 +50,6 @@
 # define NO_VALUE 1
 
 typedef void(*	t_content_f)(void *);
-
-typedef struct s_exec_attr
-{
-	char *const	*command;
-	char		*infile;
-	char		*outfile;
-	t_list		*env_lst;
-	t_list		*export_lst;
-}	t_exec_attr;
 
 // execute.c
 int			execute_cmd(t_list *cmd);
