@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 19:37:24 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/10 20:07:40 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/10 20:56:16 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ char	**make_cmdv(t_redirect_cmd *rc)
 {
 	char	**cmdv;
 	char	*tmp_arg;
-	int		cmdc;
+	size_t	cmdc;
 	size_t	i;
 
 	//TODO +1用のマクロを作る
 	cmdc = ft_lstsize(rc->cmd->args) + 1;
-	cmdv = (char *)malloc(sizeof(char) * (cmdc + 1));
+	cmdv = (char **)malloc(sizeof(char) * (cmdc + 1));
 	if (cmdv == NULL)
 		printf("malloc error\n");
 	cmdv[0] = ft_strdup(rc->cmd->cmd);
