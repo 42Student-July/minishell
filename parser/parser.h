@@ -2,11 +2,18 @@
 #define PARSER_H
 #include "libft.h"
 #include <stdbool.h>
-#include "lexer.h"
+#include "lexer/lexer.h"
 
 typedef struct s_cmd {
 	int type;
 } t_cmd;
+
+typedef struct s_exec_cmd
+{
+	int type;
+	char *cmd;
+	t_list *args;
+} t_exec_cmd;
 
 typedef struct s_redirect_cmd
 {
@@ -16,13 +23,6 @@ typedef struct s_redirect_cmd
 	t_list *filenames_out;
 
 } t_redirect_cmd;
-
-typedef struct s_exec_cmd
-{
-	int type;
-	char *cmd;
-	t_list *args;
-} t_exec_cmd;
 
 typedef struct s_file
 {
