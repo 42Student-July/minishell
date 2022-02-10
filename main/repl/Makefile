@@ -7,7 +7,8 @@ HEADERS		=	. \
 				../lexer/ \
 				../parser/ \
 				../libft/ \
-				../gnl/
+				../gnl/ \
+				../command/includes/ \
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
@@ -31,7 +32,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo $(GREEN)"Creating: $@"$(RESET)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 .PHONY: clean
 clean:
