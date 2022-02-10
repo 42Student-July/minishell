@@ -6,7 +6,7 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/10 10:22:20 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/02/10 11:53:48 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,9 @@ SELFCMD_SRCNAME := self_pwd.c \
 SELFCMD_SRCS := $(addprefix $(SELFCMD_DIR), $(SELFCMD_SRCNAME))
 
 SRCDIR 	:= ./src/
-SRCNAME	:=	main_test.c \
-			execute_builtin.c \
+SRCNAME	:=	execute_builtin.c \
 			execute_self.c \
+			execute.c \
 			error_handling.c \
 			redirect_process.c \
 			debug.c \
@@ -53,15 +53,14 @@ OBJS 	:= $(addprefix $(OBJSDIR), $(SRCNAME:%.c=%.o))
 CC		:= gcc
 CFLAGS	:= -Wall -Werror -Wextra
 DEBUG	:= -g -fsanitize=address
-INC		:= -I ./includes/
+INC		:= -I ../includes/
 RM		:= rm -rf
 LDFLAGS := -Llib/ft_printf -Llib/gnl -Llib/libft -Llib/ft_list
 LIBS 	:= -lftprintf -lgnl -lft -llst
 
 HEADERS	:=	. \
 			../ \
-			../lexer/ \
-			../parser/ \
+			./includes/ \
 			../libft/ \
 			
 INCLUDES	=	$(addprefix -I, $(HEADERS))
