@@ -2,6 +2,7 @@
 #include "lexer.h"
 #include "libft.h"
 #include "parser.h"
+#include "command.h"
 #include "repl.h"
 #include <fcntl.h>
 #include <stdbool.h>

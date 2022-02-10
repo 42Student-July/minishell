@@ -8,7 +8,7 @@ HEADERS		=	. \
 				../parser/ \
 				../libft/ \
 				../gnl/ \
-				../command/includes/ \
+				../command/includes \
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
