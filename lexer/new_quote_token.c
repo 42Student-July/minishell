@@ -11,7 +11,8 @@ t_token *new_quote_token(t_lexer *lexer, t_tokentype type)
 	while (lexer->ch != type)
 	{
 		if (lexer->ch == '\0')
-			join_new_line(lexer);
+			if (!join_new_line(lexer))
+				exit(EXIT_FAILURE);
 		read_char(lexer);
 	}
 	quote = ft_substr(lexer->input, pos + 1, lexer->position - pos - 1);

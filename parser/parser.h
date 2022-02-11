@@ -6,7 +6,6 @@
 typedef struct s_cmd {
 	int type;
 } t_cmd;
-
 typedef struct s_redirect_cmd
 {
 	int type;

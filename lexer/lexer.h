@@ -54,7 +54,8 @@ void print_tokens(t_list *token_list);
 char *get_literal(t_token *token);
 bool is_redirect(t_tokentype type);
 void skip_whitespace(t_lexer *lexer);
-void join_new_line(t_lexer *lexer);
+bool join_new_line(t_lexer *lexer);
 t_token *new_quote_token(t_lexer *lexer, t_tokentype type);
+bool is_word(t_tokentype);
 
 #endif

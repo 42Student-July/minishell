@@ -24,6 +24,7 @@ SRCS = new_lexer.c\
 		skip_whitespace.c\
 		join_new_line.c\
 		new_quote_token.c\
+		is_word.c\
 
 OBJS = ${SRCS:.c=.o}
 
