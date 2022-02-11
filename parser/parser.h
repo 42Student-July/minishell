@@ -40,6 +40,7 @@ t_list *parse_pipe(t_list *token_list);
 t_cmd *parse_exec(t_list *token_list);
 t_cmd *parse_redirect(t_list *token_list);
 void print_cmd(t_list *cmd);
+void print_lists(char *name, t_list *list);
 void delete_cmd(t_cmd **cmd);
 t_file *new_file(t_token *token, bool is_append);
 void delete_file(void *file_ptr);
