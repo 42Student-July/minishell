@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 14:25:13 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:30:30 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void		init(t_exec_attr **ea);
 
 // convert_arglst_to_array.c
 char		**convert_arglst_to_array(t_redirect_cmd *rc);
+
+// no_pipe_process.c
+void		no_pipe_process(t_list *cmd);
 
 // pipe_process.c
 void		pipe_process(t_list *cmd, int pipe_cnt);

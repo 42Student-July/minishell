@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/11 14:16:48 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:28:57 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	**malloc_pipe_fd(int pipe_cnt)
 	int	i;
 	int	**pipe_fd;
 
-	pipe_fd = (int **)malloc(sizeof(int) * pipe_cnt);
+	pipe_fd = (int **)malloc(sizeof(int *) * pipe_cnt);
 	if (pipe_fd == NULL)
 	{
 		printf("malloc error\n");
@@ -26,7 +26,6 @@ int	**malloc_pipe_fd(int pipe_cnt)
 	i = 0;
 	while (i < pipe_cnt)
 	{
-		printf("malloc\n");
 		pipe_fd[i] = (int *)malloc(sizeof(int) * 2);
 		if (pipe_fd[i] == NULL)
 		{
@@ -36,6 +35,14 @@ int	**malloc_pipe_fd(int pipe_cnt)
 		i++;
 	}
 	return (pipe_fd);
+}
+
+void	make_pipe(int cmd_i, int pipe_cnt, int **pipe_fd)
+{
+	if (cmd_i != pipe_cnt)
+	{
+		pipe(pipe_fd[cmd_i]);
+	}
 }
 
 void	set_pipe_fd(int pipe_cnt, int cmd_i, int **pipe_fd)
@@ -63,22 +70,11 @@ void	set_pipe_fd(int pipe_cnt, int cmd_i, int **pipe_fd)
 	}
 }
 
-void	make_pipe(int cmd_i, int pipe_cnt, int **pipe_fd)
-{
-	if (cmd_i != pipe_cnt)
-	{
-		printf("%s %d\n", __FILE__, __LINE__);
-		printf("%d\n", cmd_i);
-		pipe(pipe_fd[cmd_i]);
-	}
-	printf("%s %d\n", __FILE__, __LINE__);
-}
-
 void	exec_cmd(t_redirect_cmd *rc, int pipe_cnt, int cmd_i, int **pipe_fd)
 {
 	int		pid;
 	char	**cmdv;
-	int		status;
+	char	*cmd_path;
 
 	cmdv = convert_arglst_to_array(rc);
 	pid = fork();
@@ -91,19 +87,31 @@ void	exec_cmd(t_redirect_cmd *rc, int pipe_cnt, int cmd_i, int **pipe_fd)
 	{
 		make_pipe(cmd_i, pipe_cnt, pipe_fd);
 		set_pipe_fd(pipe_cnt, cmd_i, pipe_fd);
-		printf("%s\n", rc->cmd->cmd);
-		// if (execve(rc->cmd->cmd, cmdv, NULL) == -1)
-		// {
-		// 	printf("exec error\n");
-		// 	exit(EXIT_FAILURE);
-		// }
+		cmd_path = ft_strjoin("/bin/", cmdv[0]);
+		printf("cmd_path %s\n", cmd_path);
+		if (execve(cmd_path, cmdv, NULL) == -1)
+		{
+			printf("exec error\n");
+			exit(EXIT_FAILURE);
+		}
 		exit(0);
 	}
-	else
+}
+
+void	wait_process(int pipe_cnt)
+{
+	int	status;
+	int	i;
+
+	i = 0;
+	while (i < pipe_cnt + 1)
 	{
-		pid = wait(&status);
-		if (pid == -1)
-			printf("fork error\n");
+		if (wait(&status) == -1)
+		{
+			printf("cprocess error\n");
+			exit(EXIT_FAILURE);
+		}
+		i++;
 	}
 }
 
@@ -114,21 +122,10 @@ void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
 	i = 0;
 	while (i < pipe_cnt)
 	{
-		printf("flag1\n");
 		free(pipe_fd[i]);
 		i++;
 	}
-	printf("flag\n");
 	free(pipe_fd);
-}
-
-void	close_pipe(int cmd_i, int pipe_cnt, int **pipe_fd)
-{
-	if (cmd_i != pipe_cnt)
-	{
-		close(pipe_fd[cmd_i][0]);
-		close(pipe_fd[cmd_i][1]);
-	}
 }
 
 void	pipe_process(t_list *cmd, int pipe_cnt)
@@ -143,11 +140,11 @@ void	pipe_process(t_list *cmd, int pipe_cnt)
 	current_cmd = cmd;
 	while (cmd_i < pipe_cnt + 1)
 	{
-		rc = current_cmd->content;
+		rc = (t_redirect_cmd *)current_cmd->content;
 		exec_cmd(rc, pipe_cnt, cmd_i, pipe_fd);
-		// close_pipe(cmd_i, pipe_cnt, pipe_fd);
 		cmd_i++;
 		current_cmd = current_cmd->next;
 	}
+	wait_process(pipe_cnt);
 	free_pipe_fd(pipe_fd, pipe_cnt);
 }
