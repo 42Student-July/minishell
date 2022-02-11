@@ -69,7 +69,7 @@ $(LIB_ENVIRON): dummy
 $(LIB_ERROR_HANDLE): dummy
 	@make -C $(ERROR_HANDLE_DIR)
 
-$(LIB_SELF_CMD) :dummy
+$(LIB_SELF_CMD): dummy
 	@make -C $(SELF_CMD_DIR)
 
 .PHONY: dummy
