@@ -48,7 +48,7 @@ t_token *next_token(t_lexer *lexer)
 	}
 	else if (ft_isspace(lexer->ch))
 		token = new_token(TOKEN_WHITESPACE, " ");
-	else if (ft_isletter(lexer->ch) || lexer->ch == '.' || lexer->ch == '-')
+	else if (ft_isletter(lexer->ch) || lexer->ch == '.' || lexer->ch == '-' || lexer->ch == '~' ||  lexer->ch == '/')
 		return (new_ident_token(lexer));
 	else
 		token = new_token(TOKEN_ILLEGAL, NULL);
