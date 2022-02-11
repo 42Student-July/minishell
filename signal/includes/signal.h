@@ -6,7 +6,11 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 23:34:51 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/11 23:34:52 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/11 23:56:52 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef SIGNAL_H
+# define SIGNAL_H
+
+#endif
