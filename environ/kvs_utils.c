@@ -6,23 +6,11 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:43:17 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 15:36:43 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:58:54 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environ.h"
-
-void	free_all_kvs(t_kvs *kvs)
-{
-	if (kvs != NULL)
-	{
-		if (kvs->key != NULL)
-			free(kvs->key);
-		if (kvs->value != NULL)
-			free(kvs->value);
-		free(kvs);
-	}
-}
 
 char	*get_key(void *content)
 {

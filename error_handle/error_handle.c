@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akito <akito@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:31:11 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 16:32:12 by akito            ###   ########.fr       */
+/*   Updated: 2022/02/11 17:59:12 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,3 +84,14 @@ void	abort_minishell_with(char *msg, t_exec_attr *ea, char **split)
 	exit(EXIT_FAILURE);
 }
 
+void	free_all_kvs(t_kvs *kvs)
+{
+	if (kvs != NULL)
+	{
+		if (kvs->key != NULL)
+			free(kvs->key);
+		if (kvs->value != NULL)
+			free(kvs->value);
+		free(kvs);
+	}
+}
