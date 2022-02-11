@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 14:02:32 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/11 14:25:13 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 
 // execute.c
 int			execute_cmd(t_list *cmd);
+void		print_cmdv(char **cmdv);
 
 // execute_self.c
 bool		is_self_cmd(const char *c);

@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/11 03:47:08 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/11 14:16:48 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	exec_cmd(t_redirect_cmd *rc, int pipe_cnt, int cmd_i, int **pipe_fd)
 	char	**cmdv;
 	int		status;
 
-	cmdv = make_cmdv(rc);
+	cmdv = convert_arglst_to_array(rc);
 	pid = fork();
 	if (pid == -1)
 	{
