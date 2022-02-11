@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 21:11:44 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/11 14:02:32 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ bool		is_redirect_flag(t_exec_attr *ea);
 // init.c
 void		init(t_exec_attr **ea);
 
-// make_cmdv.c
-char		**make_cmdv(t_redirect_cmd *rc);
+// convert_arglst_to_array.c
+char		**convert_arglst_to_array(t_redirect_cmd *rc);
 
 // pipe_process.c
 void		pipe_process(t_list *cmd, int pipe_cnt);

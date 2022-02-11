@@ -6,11 +6,23 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:57:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 23:15:21 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/11 14:01:59 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
+
+void	print_cmdv(char **cmdv)
+{
+	int i = 0;
+
+	printf("start print_cmdv\n");
+	while (cmdv[i] != NULL)
+	{
+		printf("%s\n", cmdv[i]);
+		i++;
+	}
+}
 
 void	do_execute_cmd(t_redirect_cmd *rc)
 {
@@ -18,7 +30,8 @@ void	do_execute_cmd(t_redirect_cmd *rc)
 	int		status;
 	char	**cmdv;
 
-	cmdv = make_cmdv(rc);
+	cmdv = convert_arglst_to_array(rc);
+	// print_cmdv(cmdv);
 	pid = fork();
 	if (pid == -1)
 		printf("fork error\n");
@@ -26,7 +39,7 @@ void	do_execute_cmd(t_redirect_cmd *rc)
 	{
 		if (execve(rc->cmd->cmd, cmdv, NULL) == -1)
 		{
-			printf("exec error");
+			printf("exec error\n");
 			exit(EXIT_FAILURE);
 		}
 	}
