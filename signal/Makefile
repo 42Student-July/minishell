@@ -6,14 +6,15 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 23:29:42 by tkirihar          #+#    #+#              #
-#    Updated: 2022/02/11 23:53:20 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/02/12 01:36:39 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	:= libsignal.a
 
 SRCDIR 	:= ./src/
-SRCNAME	:=
+
+SRCNAME	:= set_signal.c \
 
 SRCS	:= $(addprefix $(SRCDIR), $(SRCNAME))
 
