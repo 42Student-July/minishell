@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:44:58 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:28:34 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/11 13:37:59 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ typedef struct s_exec_attr
 	t_list		*env_lst;
 	t_list		*export_lst;
 }	t_exec_attr;
+
+typedef struct s_kvs
+{
+	char	*key;
+	char	*value;
+}	t_kvs;
 
 #endif
 

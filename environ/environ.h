@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:45 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 15:37:40 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/11 13:37:48 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@
 
 # define DQUOTE 2
 # define NULL_CHAR 1
-
-typedef struct s_kvs
-{
-	char	*key;
-	char	*value;
-}	t_kvs;
 
 // env_lst.c
 void		store_allenv_in_envlst(t_exec_attr *ea, char **environ);
