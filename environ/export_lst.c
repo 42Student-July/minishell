@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 16:53:50 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/11 13:33:33 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	store_allenv_in_export(t_exec_attr *ea, char **environ)
 		if (!store_arg_in_export(ea, split[KEY], value))
 			abort_minishell_with(MALLOC_ERROR, ea, split);
 		free_char_dptr(split);
+		free(value);
 		i++;
 	}
 	ea->export_lst = export_lst;
