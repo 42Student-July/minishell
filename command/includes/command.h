@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 16:30:30 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/11 21:21:00 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define CMD_ARG 1
 # define EQUAL 1
 # define LF 1
+# define PIPE_IN 0
+# define PIPE_OUT 1
 
 // execute.c
 int			execute_cmd(t_list *cmd);
