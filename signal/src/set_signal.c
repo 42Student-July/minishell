@@ -6,11 +6,11 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 23:57:59 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/12 00:05:52 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/12 01:50:50 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signal/includes/signal.h"
+#include "signal.h"
 
 void	set_interactive_sigint(void)
 {
