@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: akito <akito@student.42tokyo.jp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/10 14:33:23 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/02/11 11:45:45 by akito            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRCNAME	:=	execute_builtin.c \
 			redirect_process.c \
 			init.c \
 			create_cmd.c \
-			$(SELFCMD_SRCS) \
 
 SRCS	:= $(addprefix $(SRCDIR), $(SRCNAME))
 
@@ -51,14 +50,10 @@ all:  $(NAME)
 $(NAME) : $(OBJS)
 	ar rc $(NAME) ${OBJS}
 
-$(OBJS) : $(OBJSDIR)
-
 $(OBJSDIR)%.o : $(SRCDIR)%.c
-	${CC} ${CFLAGS} $(INCLUDES) -c $< -o $@
-
-$(OBJSDIR):
 	mkdir -p $(OBJSDIR)$(ENV_DIR)
 	mkdir -p $(OBJSDIR)$(SELFCMD_DIR)
+	${CC} ${CFLAGS} $(INCLUDES) -c $< -o $@
 
 clean:
 	$(RM) $(OBJSDIR)
