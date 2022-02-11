@@ -8,7 +8,7 @@ t_token *new_ident_token(t_lexer *lexer)
 	t_token *token;
 	const size_t pos = lexer->position;
 
-	while (ft_isletter(lexer->ch) || lexer->ch == '.' || lexer->ch == '-')
+	while (ft_isletter(lexer->ch) || lexer->ch == '.' || lexer->ch == '-' || lexer->ch == '~' ||  lexer->ch == '/')
 		read_char(lexer);
 	ident = ft_substr(lexer->input, pos, lexer->position - pos);
 	token = new_token(TOKEN_IDENT, ident);
