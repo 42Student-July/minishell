@@ -6,54 +6,47 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 23:29:42 by tkirihar          #+#    #+#              #
-#    Updated: 2022/02/12 14:27:12 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/02/13 00:29:23 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	:= libsignal.a
+NAME = 			libsignal.a
 
-SRCDIR 	:= ./src/
+SRCDIR = 		./src/
+SRCNAME = 		sigaction.c \
+				set_signal.c \
 
-SRCNAME	:=	set_signal.c \
-			sigaction.c \
+SRCS = 			$(addprefix $(SRCDIR), $(SRCNAME))
 
-SRCS	:= $(addprefix $(SRCDIR), $(SRCNAME))
+OBJSDIR = 		./obj/
+OBJS = 			$(addprefix $(OBJSDIR), $(SRCNAME:%.c=%.o))
 
-OBJSDIR	:= ./obj/
-OBJS 	:= $(addprefix $(OBJSDIR), $(SRCNAME:%.c=%.o))
+CC =			gcc
+CFLAGS =		-Wall -Wextra -Werror
+RM =			rm -rf
 
-CC		:= gcc
-CFLAGS	:= -Wall -Werror -Wextra
-INC		:= -I ../includes/
-RM		:= rm -rf
-LDFLAGS := -Llib/ft_printf -Llib/gnl -Llib/libft -Llib/ft_list
-LIBS 	:= -lftprintf -lgnl -lft -llst
+HEADERS = 		./includes/ \
+				$(shell brew --prefix readline)/include \
 
-HEADERS	:=	. \
-			../ \
-			./includes/ \
-			../libft/ \
-			../environ/ \
-			../error_handle/ \
-			../self_cmd/ \
-			../command/ \
+INCLUDES = 		$(addprefix -I, $(HEADERS))
 
-INCLUDES	=	$(addprefix -I, $(HEADERS))
+RLFLAGS = 		-lreadline -lhistory -L$(shell brew --prefix readline)/lib
 
-all:  $(NAME)
+.PHONY: all re clean fclean
 
-$(NAME) : $(OBJS)
-	ar rc $(NAME) ${OBJS}
+all:			$(NAME)
 
-$(OBJSDIR)%.o : $(SRCDIR)%.c
-	${CC} ${CFLAGS} $(INCLUDES) -c $< -o $@
+$(NAME):		$(OBJS)
+				ar rc $(NAME) $(OBJS)
+
+$(OBJSDIR)%.o:	$(SRCDIR)%.c
+				mkdir -p $(OBJSDIR)
+				$(CC) $(INCLUDES) $(RLFLAGS) -c $< -o $@
+
+re:				fclean all
 
 clean:
-	$(RM) $(OBJSDIR)
+				$(RM) $(OBJSDIR)
 
-fclean: clean
-	${RM} ${NAME}
-
-re:	fclean all
-
-.PHONY: all clean fclean re
+fclean:			clean
+				$(RM) $(NAME)
