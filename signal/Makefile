@@ -6,7 +6,7 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 23:29:42 by tkirihar          #+#    #+#              #
-#    Updated: 2022/02/13 00:29:23 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/02/13 16:48:14 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = 			libsignal.a
 
 SRCDIR = 		./src/
 SRCNAME = 		sigaction.c \
-				set_signal.c \
+				set_dfl_signal.c \
+				set_interactive_signal.c \
 
 SRCS = 			$(addprefix $(SRCDIR), $(SRCNAME))
 
