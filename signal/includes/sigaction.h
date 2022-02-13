@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 23:34:51 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/13 00:26:30 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/13 01:22:57 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	g_exit_status;
 void	set_interactive_sigint(void);
 void	set_dfl_sigint(void);
 void	set_dfl_sigquit(void);
+void	set_interactive_signal(void);
+void	set_dfl_signal(void);
 
 // sigaction.c
 

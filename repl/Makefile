@@ -12,6 +12,7 @@ HEADERS		=	. \
 				../environ/ \
 				../error_handle \
 				../self_cmd \
+				../signal/includes \
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
@@ -30,12 +31,12 @@ RESET		=	'\033[0m'
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@ar rc $(NAME) ${OBJS}
+	@ar rc $(NAME) $(OBJS)
 	@echo $(YELLOW)"@@@@@ $(NAME) compiling done @@@@@"$(RESET)
 
 %.o: %.c
 	@echo $(GREEN)"Creating: $@"$(RESET)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
+	@$(CC) -c $< -o $@ $(INCLUDES)
 
 .PHONY: clean
 clean:
