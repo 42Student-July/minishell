@@ -20,14 +20,11 @@ void start_repl()
 	token_list = NULL;
 	while (true)
 	{
-		// ft_putstr_fd(">> ", STDOUT);
-		// line = get_next_line(STDIN);
 		line = readline(">> ");
 		if (line == NULL)
 			break;
 		lexer = new_lexer(line);
-		if (ft_strlen(line) > 0) // 空文字列をヒストリーに入れないための対処法
-			add_history(line);
+		free(line);
 		while (true)
 		{
 			token = next_token(lexer);
@@ -35,10 +32,12 @@ void start_repl()
 			if (token->type == TOKEN_EOF)
 				break;
 		}
+		if (ft_strlen(lexer->input) > 0) // 空文字列をヒストリーに入れないための対処法
+			add_history(lexer->input);
 		print_tokens(token_list);
 		t_list *cmd = parse_pipe(token_list);
-		execute_cmd(cmd);
-		// (void)cmd;
+		print_cmd(cmd);
+		// execute_cmd(cmd);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
 	}

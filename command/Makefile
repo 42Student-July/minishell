@@ -3,6 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
+
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
@@ -25,6 +26,7 @@ SRCNAME	:=	execute_builtin.c \
 			no_pipe_process.c \
 			pipe_process.c \
 			$(SELFCMD_SRCS) \
+
 
 SRCS	:= $(addprefix $(SRCDIR), $(SRCNAME))
 
@@ -54,14 +56,10 @@ all:  $(NAME)
 $(NAME) : $(OBJS)
 	ar rc $(NAME) ${OBJS}
 
-$(OBJS) : $(OBJSDIR)
-
 $(OBJSDIR)%.o : $(SRCDIR)%.c
-	${CC} ${CFLAGS} $(INCLUDES) -c $< -o $@
-
-$(OBJSDIR):
 	mkdir -p $(OBJSDIR)$(ENV_DIR)
 	mkdir -p $(OBJSDIR)$(SELFCMD_DIR)
+	${CC} ${CFLAGS} $(INCLUDES) -c $< -o $@
 
 clean:
 	$(RM) $(OBJSDIR)

@@ -8,10 +8,13 @@ t_lexer	*new_lexer(char *input)
 	lexer = (t_lexer *)malloc(sizeof(t_lexer));
 	if (lexer == NULL)
 		exit(EXIT_FAILURE);
-	lexer->input = input;
+	lexer->input = ft_strdup(input);
+	if (lexer->input == NULL)
+		exit(EXIT_FAILURE);
 	lexer->position = 0;
 	lexer->read_position = 0;
 	lexer->ch = '\0';
+	lexer->skip_whitespace = true;
 	read_char(lexer);
 	return (lexer);
 }

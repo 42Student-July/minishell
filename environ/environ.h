@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:45 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:15:56 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:59:42 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,22 @@
 # define DQUOTE 2
 # define NULL_CHAR 1
 
-typedef struct s_kvs
-{
-	char	*key;
-	char	*value;
-}	t_kvs;
-
 // env_lst.c
-void		store_env(t_exec_attr *ea, char **environ);
+void		store_allenv_in_envlst(t_exec_attr *ea, char **environ);
+bool		store_arg_in_env(t_exec_attr *ea, char *key, char *value);
 
 // export_lst.c
 char		*create_export_value(char *value);
-void		store_export(t_exec_attr *ea, char **environ);
+void		store_allenv_in_export(t_exec_attr *ea, char **environ);
+bool		store_arg_in_export(t_exec_attr *ea, char *key, char *value);
 
 // kvs_utils.c
-void		free_all_kvs(t_kvs *kvs);
 char		*get_value(void *content);
 char		*get_key(void *content);
 bool		is_lvalue_bigger_ascii(char *lvalue, char *rvalue);
 bool		is_same_key(char *a, char *b);
+
+// kvs_utils_2.c
 void		*create_kvs_content(char *key, char *value);
 
 // lst_utils.c

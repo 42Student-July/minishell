@@ -24,7 +24,7 @@ void skip_redirect(t_list **token_list)
 	if (*token_list == NULL)
 		exit(EXIT_FAILURE);
 	token = (t_token *)(*token_list)->content;
-	if (token->type != TOKEN_IDENT)
+	if (!is_word(token->type))
 		exit(EXIT_FAILURE);
 	*token_list = (*token_list)->next;
 }
@@ -49,7 +49,7 @@ t_cmd *parse_exec(t_list *token_list)
 			skip_redirect(&token_list);
 			continue;
 		}
-		if (token->type != TOKEN_IDENT)
+		if (!is_word(token->type))
 			exit(EXIT_FAILURE);
 		ft_lstadd_back(&exec_cmd->args, ft_lstnew(get_literal(token)));
 		token_list = token_list->next;

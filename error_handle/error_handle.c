@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:31:11 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:40:12 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:59:12 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	free_exec_attr(t_exec_attr *ea)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-
+	free_lst(ea->env_lst);
+	free_lst(ea->export_lst);
 	if (ea->command != NULL)
 	{
 		while (ea->command[i] != NULL)
@@ -29,6 +30,24 @@ void	free_exec_attr(t_exec_attr *ea)
 	}
 	if (ea != NULL)
 		free(ea);
+}
+
+void	free_lst(t_list *lst)
+{
+	t_list	*tmp;
+
+	tmp = lst;
+	while (lst != NULL)
+	{
+		free_all_kvs((t_kvs *)lst->content);
+		lst = lst->next;
+	}
+	lst = tmp;
+	while (lst != NULL)
+	{
+		free(lst);
+		lst = lst->next;
+	}
 }
 
 void	free_char_dptr(char **dptr)
@@ -65,3 +84,14 @@ void	abort_minishell_with(char *msg, t_exec_attr *ea, char **split)
 	exit(EXIT_FAILURE);
 }
 
+void	free_all_kvs(t_kvs *kvs)
+{
+	if (kvs != NULL)
+	{
+		if (kvs->key != NULL)
+			free(kvs->key);
+		if (kvs->value != NULL)
+			free(kvs->value);
+		free(kvs);
+	}
+}

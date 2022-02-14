@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:25:57 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:39:58 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:59:33 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ void		free_exec_attr(t_exec_attr *ea);
 void		free_char_dptr(char **split);
 void		abort_minishell(char *msg, t_exec_attr *ea);
 void		abort_minishell_with(char *msg, t_exec_attr *ea, char **split);
+void		free_lst(t_list *lst);
+void		free_all_kvs(t_kvs *kvs);
 
 // debug.c
 void		print_command_debug(t_exec_attr *ea);
 void		print_array(char **array);
+
 #endif

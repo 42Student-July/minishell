@@ -4,7 +4,7 @@
 
 char *get_literal(t_token *token)
 {
-	if (token->type == TOKEN_IDENT)
+	if (is_word(token->type))
 		return (ft_strdup(token->literal));
 	else
 		exit(EXIT_FAILURE);
