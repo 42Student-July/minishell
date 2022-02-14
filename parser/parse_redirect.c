@@ -53,5 +53,6 @@ t_cmd *parse_redirect(t_list *token_list)
 		}
 		token_list = token_list->next;
 	}
+
 	return ((t_cmd *)redirect_cmd);
 }
