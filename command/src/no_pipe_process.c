@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   no_pipe_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/11 16:33:36 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/14 18:42:25 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
 
-void	do_execute_cmd(t_redirect_cmd *rc)
+void	do_execute_cmd(t_exec_attr *ea)
 {
 	pid_t	pid;
 	int		status;
 	char	**cmdv;
 	char	*cmd_path;
 
-	cmdv = convert_arglst_to_array(rc);
+	cmdv = convert_lst_to_argv(get_exec_cmd(ea)->args);
 	pid = fork();
 	if (pid == -1)
 		printf("fork error\n");
@@ -40,10 +40,7 @@ void	do_execute_cmd(t_redirect_cmd *rc)
 	}
 }
 
-void	no_pipe_process(t_list *cmd)
+void	no_pipe_process(t_exec_attr *ea)
 {
-	t_redirect_cmd	*rc;
-
-	rc = cmd->content;
-	do_execute_cmd(rc);
+	do_execute_cmd(ea);
 }

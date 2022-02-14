@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/11 21:53:46 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:27:19 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,15 @@ void	close_pipe(int **pipe_fd, int cmd_i)
 	close(pipe_fd[cmd_i - 1][PIPE_OUT]);
 }
 
-void	exec_cmd(t_redirect_cmd *rc, int pipe_cnt, int cmd_i, int **pipe_fd)
+// TODO:構造体がexec単位でわけられているので、eaを渡したくない
+void	exec_cmd(t_redirect_cmd *rc, t_list *env, int pipe_count, int cmd_i, int **pipe_fd)
 {
 	int		pid;
 	char	**cmdv;
 	char	*cmd_path;
 
-	cmdv = convert_arglst_to_array(rc);
+	(void)env;
+	cmdv = convert_lst_to_argv(rc->cmd->args);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -91,7 +93,7 @@ void	exec_cmd(t_redirect_cmd *rc, int pipe_cnt, int cmd_i, int **pipe_fd)
 	}
 	else if (pid == 0)
 	{
-		set_pipe_fd(pipe_cnt, cmd_i, pipe_fd);
+		set_pipe_fd(pipe_count, cmd_i, pipe_fd);
 		cmd_path = ft_strjoin("/bin/", cmdv[0]);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
@@ -138,26 +140,26 @@ void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
 	free(pipe_fd);
 }
 
-void	pipe_process(t_list *cmd, int pipe_cnt)
+void	pipe_process(t_exec_attr *ea)
 {
 	int				cmd_i;
 	int				**pipe_fd;
 	t_list			*current_cmd;
 	t_redirect_cmd	*rc;
 
-	pipe_fd = malloc_pipe_fd(pipe_cnt);
+	pipe_fd = malloc_pipe_fd(ea->pipe_count);
 	cmd_i = 0;
-	current_cmd = cmd;
-	while (cmd_i < pipe_cnt + 1)
+	current_cmd = ea->cmd;
+	while (cmd_i < ea->pipe_count + 1)
 	{
 		rc = (t_redirect_cmd *)current_cmd->content;
-		make_pipe(cmd_i, pipe_cnt, pipe_fd);
-		exec_cmd(rc, pipe_cnt, cmd_i, pipe_fd);
+		make_pipe(cmd_i, ea->pipe_count, pipe_fd);
+		exec_cmd(rc, ea->env_lst, ea->pipe_count, cmd_i, pipe_fd);
 		close_pipe(pipe_fd, cmd_i);
 		cmd_i++;
 		current_cmd = current_cmd->next;
 	}
-	wait_process(pipe_cnt);
-	free_pipe_fd(pipe_fd, pipe_cnt);
+	wait_process(ea->pipe_count);
+	free_pipe_fd(pipe_fd, ea->pipe_count);
 	printf("%s %d\n", __FILE__, __LINE__);
 }
