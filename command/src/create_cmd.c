@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 22:12:18 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 23:07:31 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,49 +108,60 @@ void	create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea)
 	// ea->command = command;
 }
 
-char	*find_path(t_redirect_cmd *rc, t_exec_attr *ea)
+char	*concat_path_and_cmd(t_exec_attr *ea, char *path, char *command)
+{
+	char			*new_cmd;
+	size_t			new_cmd_len;
+
+	new_cmd_len = ft_strlen(path) + SLASH + ft_strlen(command) + NULL_CHAR;
+	new_cmd = (char *)malloc(sizeof(char) * (new_cmd_len));
+	if (new_cmd == NULL)
+		return (NULL);
+	ft_strlcat(new_cmd, path, new_cmd_len);
+	ft_strlcat(new_cmd, "/", new_cmd_len);
+	ft_strlcat(new_cmd, command, new_cmd_len);
+	return (new_cmd);
+}
+
+char	*create_cmd_from_path(char *command, t_exec_attr *ea, char **path)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
-	char			*env_path;
-	char			**path;
 	size_t			i;
-	char			*command;
-	char			*new_command;
-	size_t			new_command_len;
+	char			*new_cmd;
 
 	i = 0;
-	command = rc->cmd->cmd;
-	env_path = get_value(get_list_by_key(ea->env_lst, "PATH")->content);
-	path = ft_split(env_path, ':');
-	if (path == NULL)
-		abort_minishell_with(MALLOC_ERROR, ea, path);
 	while (path[i] != NULL)
 	{
 		dirp = opendir(path[i]);
+		i++;
 		if (dirp == NULL)
-		{
-			i++;
-			continue;
-		}
-		// 2重ループになってしまうが、なにか良い方法はないか
+			continue ;
 		dp = readdir(dirp);
 		while (dp != NULL)
 		{
 			if (is_same_str(dp->d_name, command))
 			{
-				new_command_len = ft_strlen(path[i]) + SLASH + ft_strlen(command) + NULL_CHAR;
-				new_command = (char *)malloc(sizeof(char) * (new_command_len));
-				if (new_command == NULL)
+				new_cmd = concat_path_and_cmd(ea, path, command);
+				if (new_cmd == NULL)
 					abort_minishell_with(MALLOC_ERROR, ea, path);
-				ft_strlcat(new_command, path[i], new_command_len);
-				ft_strlcat(new_command, "/", new_command_len);
-				ft_strlcat(new_command, command, new_command_len);
-				return (new_command);
 			}
 			dp = readdir(dirp);
 		}
-		i++;
 	}
 	return (NULL);
+}
+
+char	*find_path(t_redirect_cmd *rc, t_exec_attr *ea)
+{
+	char			*env_path;
+	char			**path;
+	char			*command;
+
+	command = rc->cmd->cmd;
+	env_path = get_value(get_list_by_key(ea->env_lst, "PATH")->content);
+	path = ft_split(env_path, ':');
+	if (path == NULL)
+		abort_minishell_with(MALLOC_ERROR, ea, path);
+	return (create_cmd_from_path(command, ea, path));
 }
