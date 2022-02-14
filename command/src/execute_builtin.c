@@ -80,7 +80,7 @@ char	**convert_envlst_to_array(t_exec_attr *ea)
 	{
 		//　TODO: 行数長くなっちゃうからget_keyの引数はlstでもいいのかも
 		array[i] = create_environ_line(\
-			get_key(tmp->content), get_value(tmp->content), false);
+			ft_kvsget_key(tmp->content), ft_kvsget_value(tmp->content), false);
 		if (array[i] == NULL)
 			abort_minishell_with(MALLOC_ERROR, ea, array);
 		tmp = tmp->next;

@@ -13,7 +13,6 @@ INCLUDES	=	$(addprefix -I, $(HEADERS))
 SRCS = 	env_lst.c \
 		export_lst.c \
 		kvs_utils.c \
-		kvs_utils_2.c \
 		lst_utils.c \
 
 OBJS = ${SRCS:.c=.o}

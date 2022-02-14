@@ -27,7 +27,7 @@ bool	addlst_sort_by_ascii(t_list **export_lst, char **arg)
 	bool	flag;
 
 	flag = ft_lstadd_back(export_lst, \
-			ft_lstnew(create_kvs_content(arg[KEY], \
+			ft_lstnew(ft_kvsnew(arg[KEY], \
 				create_export_value(arg[VALUE]))));
 	if (!flag)
 		return (false);
