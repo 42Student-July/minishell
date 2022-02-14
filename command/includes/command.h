@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akito <akito@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:49:40 by akito            ###   ########.fr       */
+/*   Updated: 2022/02/11 21:21:00 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include "environ.h"
 # include "self_cmd.h"
 # include "error_handle.h"
+# include "parser/parser.h"
 
 # define CD "cd"
 # define ECHO "echo"
@@ -44,9 +45,12 @@
 # define CMD_ARG 1
 # define EQUAL 1
 # define LF 1
+# define PIPE_IN 0
+# define PIPE_OUT 1
 
 // execute.c
 int			execute_cmd(t_list *cmd);
+void		print_cmdv(char **cmdv);
 
 // execute_self.c
 bool		is_self_cmd(const char *c);
@@ -73,5 +77,14 @@ bool		is_redirect_flag(t_exec_attr *ea);
 
 // init.c
 void		init(t_exec_attr **ea);
+
+// convert_arglst_to_array.c
+char		**convert_arglst_to_array(t_redirect_cmd *rc);
+
+// no_pipe_process.c
+void		no_pipe_process(t_list *cmd);
+
+// pipe_process.c
+void		pipe_process(t_list *cmd, int pipe_cnt);
 
 #endif
