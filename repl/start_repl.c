@@ -36,8 +36,8 @@ void start_repl()
 			add_history(lexer->input);
 		print_tokens(token_list);
 		t_list *cmd = parse_pipe(token_list);
-		print_cmd(cmd);
-		// execute_cmd(cmd);
+		// print_cmd(cmd);
+		execute_cmd(cmd);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
 	}
