@@ -1,0 +1,9 @@
+*
+!*/
+!*.*
+!Makefile
+
+*.a
+*.o
+a.out
+main_test.c

@@ -4,6 +4,7 @@
 #include "parser.h"
 #include "command.h"
 #include "repl.h"
+#include "sigaction.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -20,7 +21,9 @@ void start_repl()
 	token_list = NULL;
 	while (true)
 	{
+		set_interactive_signal();
 		line = readline(">> ");
+		set_dfl_signal(); // if文の下に置くべきかも？
 		if (line == NULL)
 			break;
 		lexer = new_lexer(line);
