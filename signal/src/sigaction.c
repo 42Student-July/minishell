@@ -12,7 +12,9 @@
 
 #include "sigaction.h"
 
-void	interactive_sigint(int sig)
+int g_exit_status = 0;
+
+void interactive_sigint(int sig)
 {
 	(void)sig;
 	printf("\n");

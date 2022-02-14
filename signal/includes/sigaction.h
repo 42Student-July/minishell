@@ -23,7 +23,7 @@
 
 # define ABC 1
 
-int	g_exit_status;
+extern int	g_exit_status;
 
 // set_dfl_signal.c
 
