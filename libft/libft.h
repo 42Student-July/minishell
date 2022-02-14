@@ -12,10 +12,9 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include <stdlib.h>
-# include <stdint.h>
 # include <stdbool.h>
-
+# include <stdint.h>
+# include <stdlib.h>
 typedef struct s_kvs
 {
 	char	*key;
@@ -88,5 +87,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 bool	ft_lstdel(t_list *lst, t_list *target);
+t_list	*ft_my_lstpop_front(t_list **lst);
 
 #endif
