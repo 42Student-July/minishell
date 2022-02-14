@@ -27,7 +27,7 @@ static void delete_exec_cmd(t_exec_cmd **cmd)
  */
 static void delete_redirect_cmd(t_redirect_cmd **cmd)
 {
-	t_cmd *exec_cmd = (*cmd)->cmd;
+	t_cmd *exec_cmd = (t_cmd *)(*cmd)->cmd;
 
 	delete_cmd(&exec_cmd);
 	ft_lstclear(&(*cmd)->filenames_in, delete_file);
