@@ -6,18 +6,14 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-char	*get_tmpfile_name(t_list **io_delim, char *suffix)
+char	*get_tmpfile_name(char *delimiter, char *suffix)
 {
-	t_list	*heredoc_delimiter;
 	char	*tmp;
 	char	*tmpfile;
 
-	heredoc_delimiter = ft_my_lstpop_front(io_delim);
-	tmpfile = ft_strjoin(heredoc_delimiter->content, suffix);
-	ft_lstdelone(heredoc_delimiter, free);
-	heredoc_delimiter = NULL;
+	tmpfile = ft_strjoin(delimiter, suffix);
 	free(suffix);
-	tmp = ft_strjoin("/tmp/sh-thd-", tmpfile);
+	tmp = ft_strjoin("/tmp/minishell-thd-", tmpfile);
 	free(tmpfile);
 	tmpfile = tmp;
 	return (tmpfile);
@@ -33,10 +29,34 @@ void	write_tmpfile(char *tmpfile, char *buf)
 	fd = open(tmpfile, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (fd == -1)
 		exit(EXIT_FAILURE);
-	ret = write(fd, buf, ft_strlen(buf));
-	if (ret == -1)
-		exit(EXIT_FAILURE);
+	if (buf != NULL)
+	{
+		ret = write(fd, buf, ft_strlen(buf));
+		if (ret == -1)
+			exit(EXIT_FAILURE);
+	}
 	close(fd);
+}
+
+void	register_heredocs(t_lexer *lexer, char *buf)
+{
+	t_kvs	*kvs;
+	char	*delimiter;
+	t_list	*heredoc_delimiter;
+	char	*tmpfile;
+
+	heredoc_delimiter = ft_my_lstpop_front(&lexer->io_here_delimiters);
+	delimiter = ft_strdup(heredoc_delimiter->content);
+	if (delimiter == NULL)
+		exit(EXIT_FAILURE);
+	ft_lstdelone(heredoc_delimiter, free);
+	tmpfile = get_tmpfile_name(delimiter,
+			ft_itoa(ft_lstsize(lexer->io_here_delimiters)));
+	write_tmpfile(tmpfile, buf);
+	free(buf);
+	kvs = ft_kvsnew(delimiter, tmpfile);
+	free(tmpfile);
+	ft_lstadd_back(&lexer->heredocs, ft_lstnew(kvs));
 }
 
 void	read_heredoc(t_lexer *lexer)
@@ -44,7 +64,6 @@ void	read_heredoc(t_lexer *lexer)
 	char	*buffer;
 	char	*tmp;
 	char	*line;
-	char	*tmpfile;
 
 	buffer = NULL;
 	line = readline("> ");
@@ -67,6 +86,5 @@ void	read_heredoc(t_lexer *lexer)
 		buffer = tmp;
 		line = readline("> ");
 	}
-	tmpfile = get_tmpfile_name(&lexer->io_here_delimiters, ft_itoa(ft_lstsize(lexer->io_here_delimiters)));
-	write_tmpfile(tmpfile, buffer);
+	register_heredocs(lexer, buffer);
 }

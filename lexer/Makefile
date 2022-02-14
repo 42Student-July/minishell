@@ -28,6 +28,7 @@ SRCS = new_lexer.c\
 		is_forbidden_char.c\
 		add_heredoc_delimiter.c\
 		read_heredoc.c\
+		print_kvs.c\
 
 OBJS = ${SRCS:.c=.o}
 

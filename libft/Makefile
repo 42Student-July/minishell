@@ -58,6 +58,9 @@ SRCS :=	ft_strlen.c \
 		ft_isspace.c\
 		ft_isletter.c\
 		ft_my_lstpop_front.c\
+		ft_kvsnew.c\
+		ft_kvsget_value.c\
+		ft_kvsget_key.c\
 
 B_SRCS=	ft_lstnew.c \
 	 ft_lstadd_front.c \

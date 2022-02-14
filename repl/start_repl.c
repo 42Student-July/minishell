@@ -43,6 +43,7 @@ void	start_repl(void)
 		cmd = parse_pipe(token_list);
 		print_cmd(cmd);
 		// execute_cmd(cmd);
+		print_kvs(lexer->heredocs);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
 	}

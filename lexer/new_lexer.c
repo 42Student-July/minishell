@@ -16,6 +16,7 @@ t_lexer	*new_lexer(char *input)
 	lexer->ch = '\0';
 	lexer->skip_whitespace = true;
 	lexer->io_here_delimiters = NULL;
+	lexer->heredocs = NULL;
 	read_char(lexer);
 	return (lexer);
 }
