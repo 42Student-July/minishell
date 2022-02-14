@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/14 20:27:19 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:40:01 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ void	close_pipe(int **pipe_fd, int cmd_i)
 }
 
 // TODO:構造体がexec単位でわけられているので、eaを渡したくない
-void	exec_cmd(t_redirect_cmd *rc, t_list *env, int pipe_count, int cmd_i, int **pipe_fd)
+void	exec_cmd(t_redirect_cmd *rc, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 {
 	int		pid;
 	char	**cmdv;
 	char	*cmd_path;
 
-	(void)env;
+	(void)ea->env_lst;
 	cmdv = convert_lst_to_argv(rc->cmd->args);
 	pid = fork();
 	if (pid == -1)
@@ -93,7 +93,7 @@ void	exec_cmd(t_redirect_cmd *rc, t_list *env, int pipe_count, int cmd_i, int **
 	}
 	else if (pid == 0)
 	{
-		set_pipe_fd(pipe_count, cmd_i, pipe_fd);
+		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
 		cmd_path = ft_strjoin("/bin/", cmdv[0]);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
@@ -154,7 +154,7 @@ void	pipe_process(t_exec_attr *ea)
 	{
 		rc = (t_redirect_cmd *)current_cmd->content;
 		make_pipe(cmd_i, ea->pipe_count, pipe_fd);
-		exec_cmd(rc, ea->env_lst, ea->pipe_count, cmd_i, pipe_fd);
+		exec_cmd(rc, ea, cmd_i, pipe_fd);
 		close_pipe(pipe_fd, cmd_i);
 		cmd_i++;
 		current_cmd = current_cmd->next;
