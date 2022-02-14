@@ -36,7 +36,7 @@ void start_repl()
 		}
 		if (ft_strlen(lexer->input) > 0) // 空文字列をヒストリーに入れないための対処法
 			add_history(lexer->input);
-		print_tokens(token_list);
+		// print_tokens(token_list);
 		ea->cmd = parse_pipe(token_list);
 		// print_cmd(cmd);
 		execute_cmd(ea);

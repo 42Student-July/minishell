@@ -25,7 +25,7 @@ t_cmd *parse_redirect(t_list *token_list)
 	t_redirect_cmd *redirect_cmd;
 	t_token *token;
 
-	printf("parse_redirect\n");
+	// printf("parse_redirect\n");
 	redirect_cmd = redirect_cmd_init();
 	redirect_cmd->cmd = (t_exec_cmd *)parse_exec(token_list);
 	while (token_list != NULL)

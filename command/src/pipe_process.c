@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/14 20:40:01 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:43:18 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,13 @@ void	wait_process(int pipe_cnt)
 	i = 0;
 	while (i < pipe_cnt + 1)
 	{
-		printf("%s %d\n", __FILE__, __LINE__);
+		// printf("%s %d\n", __FILE__, __LINE__);
 		if (wait(&status) == -1)
 		{
 			printf("cprocess error\n");
 			exit(EXIT_FAILURE);
 		}
-		printf("%s %d\n", __FILE__, __LINE__);
+		// printf("%s %d\n", __FILE__, __LINE__);
 		i++;
 	}
 }
@@ -161,5 +161,5 @@ void	pipe_process(t_exec_attr *ea)
 	}
 	wait_process(ea->pipe_count);
 	free_pipe_fd(pipe_fd, ea->pipe_count);
-	printf("%s %d\n", __FILE__, __LINE__);
+	// printf("%s %d\n", __FILE__, __LINE__);
 }
