@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 18:44:00 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:48:53 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 # include "libft.h"
 # include "color.h"

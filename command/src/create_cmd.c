@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 16:07:30 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:48:04 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,49 @@ void	create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea)
 	// }
 	// command[i] = NULL;
 	// ea->command = command;
+}
+
+char	*find_path(t_exec_attr *ea)
+{
+	DIR				*dirp;
+	struct dirent	*dp;
+	char			*env_path;
+	char			**path;
+	size_t			i;
+	char			*command;
+	char			*new_command;
+	size_t			new_command_len;
+
+	i = 0;
+	command = ea->command[CMD_NAME];
+	env_path = get_value(get_lst_by_key(ea->env_lst, "PATH")->content);
+	path = ft_split(env_path, ':');
+	if (path == NULL)
+		abort_minishell_with(MALLOC_ERROR, ea, path);
+	// print_dptr(each_path);
+	while (path[i] != NULL)
+	{
+		dirp = opendir(path[i]);
+		if (dirp == NULL)
+			abort_minishell_with(OPENDIR_ERROR, ea, path);
+		// 2重ループになってしまうが、なにか良い方法はないか
+		dp = readdir(dirp);
+		while (dp != NULL)
+		{
+			if (dp->d_name == command)
+			{
+				new_command_len = ft_strlen(path[i]) + SLASH + ft_strlen(command) + NULL_CHAR;
+				new_command = (char *)malloc(sizeof(char) * (new_command_len));
+				if (new_command == NULL)
+					abort_minishell_with(MALLOC_ERROR, ea, path);
+				ft_strlcat(new_command, path[i], new_command_len);
+				ft_strlcat(new_command, "/", new_command_len);
+				ft_strlcat(new_command, command, new_command_len);
+				return (new_command);
+			}
+			dp = readdir(dirp);
+		}
+		i++;
+	}
+	return (NULL);
 }
