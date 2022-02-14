@@ -43,7 +43,7 @@ ifeq ($(UNAME),Darwin)
 	HEADERS	+=	$(shell brew --prefix readline)/include
 	RLFLAGS	=	-lreadline -lhistory -L$(shell brew --prefix readline)/lib
 else
-	# RLFLAGS	=	-lreadline
+	RLFLAGS	=	-lreadline -lhistory
 endif
 
 
