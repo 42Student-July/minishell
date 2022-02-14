@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 23:07:31 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 23:42:05 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ char	*create_cmd_from_path(char *command, t_exec_attr *ea, char **path)
 	return (NULL);
 }
 
+// TODO: 引数を一つにする
 char	*find_path(t_redirect_cmd *rc, t_exec_attr *ea)
 {
 	char			*env_path;
