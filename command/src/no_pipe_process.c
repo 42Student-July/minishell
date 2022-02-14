@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/14 18:42:25 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 22:11:29 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	do_execute_cmd(t_exec_attr *ea)
 		printf("fork error\n");
 	else if (pid == 0)
 	{
-		cmd_path = ft_strjoin("/bin/", cmdv[0]);
+		cmd_path = find_path(ea->cmd->content, ea);
+		// printf("cmd_path : %s\n", cmd_path);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
 			printf("exec error\n");

@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 20:53:52 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 22:12:18 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,17 +125,19 @@ char	*find_path(t_redirect_cmd *rc, t_exec_attr *ea)
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
-	// print_dptr(each_path);
 	while (path[i] != NULL)
 	{
 		dirp = opendir(path[i]);
 		if (dirp == NULL)
-			abort_minishell_with(OPENDIR_ERROR, ea, path);
+		{
+			i++;
+			continue;
+		}
 		// 2重ループになってしまうが、なにか良い方法はないか
 		dp = readdir(dirp);
 		while (dp != NULL)
 		{
-			if (dp->d_name == command)
+			if (is_same_str(dp->d_name, command))
 			{
 				new_command_len = ft_strlen(path[i]) + SLASH + ft_strlen(command) + NULL_CHAR;
 				new_command = (char *)malloc(sizeof(char) * (new_command_len));

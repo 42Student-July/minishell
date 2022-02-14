@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/14 20:43:18 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 21:37:59 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	exec_cmd(t_redirect_cmd *rc, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	else if (pid == 0)
 	{
 		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
-		cmd_path = ft_strjoin("/bin/", cmdv[0]);
+		cmd_path = find_path(rc, ea);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
 			printf("exec error\n");
