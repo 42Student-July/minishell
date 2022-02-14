@@ -6,7 +6,7 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 23:29:42 by tkirihar          #+#    #+#              #
-#    Updated: 2022/02/13 16:48:14 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/02/14 14:44:34 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(NAME):		$(OBJS)
 
 $(OBJSDIR)%.o:	$(SRCDIR)%.c
 				mkdir -p $(OBJSDIR)
-				$(CC) $(INCLUDES) $(RLFLAGS) -c $< -o $@
+				$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 re:				fclean all
 
