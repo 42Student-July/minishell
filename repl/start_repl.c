@@ -15,9 +15,11 @@ void start_repl()
 	t_lexer *lexer;
 	t_token *token;
 	t_list *token_list;
+	t_exec_attr *ea;
 	char *line;
 
 	token_list = NULL;
+	init_new(&ea);
 	while (true)
 	{
 		line = readline(">> ");
@@ -35,9 +37,9 @@ void start_repl()
 		if (ft_strlen(lexer->input) > 0) // 空文字列をヒストリーに入れないための対処法
 			add_history(lexer->input);
 		print_tokens(token_list);
-		t_list *cmd = parse_pipe(token_list);
+		ea->cmd = parse_pipe(token_list);
 		// print_cmd(cmd);
-		execute_cmd(cmd);
+		execute_cmd(ea);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
 	}

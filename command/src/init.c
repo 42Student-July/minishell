@@ -25,14 +25,13 @@
 // 	store_allenv_in_export(*ea, environ);
 // }
 
-void	init_new(t_exec_attr *ea, t_list *cmd)
+void	init_new(t_exec_attr **ea)
 {
 	extern char	**environ;
 	
-	ea = (t_exec_attr *)malloc(sizeof(t_exec_attr));
-	if (ea == NULL)
-		abort_minishell(MALLOC_ERROR, ea);
-	ea->cmd = cmd;
-	store_allenv_in_envlst(ea, environ);
-	store_allenv_in_export(ea, environ);
+	*ea = (t_exec_attr *)malloc(sizeof(t_exec_attr));
+	if (*ea == NULL)
+		abort_minishell(MALLOC_ERROR, *ea);
+	store_allenv_in_envlst(*ea, environ);
+	store_allenv_in_export(*ea, environ);
 }
