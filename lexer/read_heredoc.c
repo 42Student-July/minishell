@@ -54,6 +54,8 @@ void	register_heredocs(t_lexer *lexer, char *buf)
 			ft_itoa(ft_lstsize(lexer->io_here_delimiters)));
 	write_tmpfile(tmpfile, buf);
 	free(buf);
+	if (ft_kvsget(lexer->heredocs, delimiter) != NULL)
+		exit(EXIT_FAILURE);
 	kvs = ft_kvsnew(delimiter, tmpfile);
 	free(tmpfile);
 	ft_lstadd_back(&lexer->heredocs, ft_lstnew(kvs));

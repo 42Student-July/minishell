@@ -3,7 +3,7 @@
 #include "libft.h"
 #include "parser.h"
 
-t_list *parse_pipe(t_list *token_list)
+t_list *parse_pipe(t_list *token_list, t_list **heredocs)
 {
 	t_list *left_tokens;
 	t_list *right_tokens;
@@ -21,11 +21,11 @@ t_list *parse_pipe(t_list *token_list)
 			right_tokens = token_list->next;
 			if (right_tokens == NULL)
 				return (NULL);
-			lst = parse_pipe(right_tokens);
-			ft_lstadd_front(&lst, ft_lstnew(parse_redirect(left_tokens)));
+			lst = parse_pipe(right_tokens, heredocs);
+			ft_lstadd_front(&lst, ft_lstnew(parse_redirect(left_tokens, heredocs)));
 			return (lst);
 		}
 		token_list = token_list->next;
 	}
-	return (ft_lstnew(parse_redirect(left_tokens)));
+	return (ft_lstnew(parse_redirect(left_tokens, heredocs)));
 }

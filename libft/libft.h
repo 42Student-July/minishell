@@ -76,6 +76,9 @@ double	ft_my_atof(const char *nptr);
 char	*ft_kvsget_key(void *content);
 char	*ft_kvsget_value(void *content);
 void	*ft_kvsnew(char *key, char *value);
+char	*ft_kvsget(t_list *list, char *key);
+bool	ft_streq(char *a, char *b);
+void	ft_kvsdelete(void *elm);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new_elm);
