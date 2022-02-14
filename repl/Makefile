@@ -36,7 +36,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@echo $(GREEN)"Creating: $@"$(RESET)
-	@$(CC) -c $< -o $@ $(INCLUDES)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 .PHONY: clean
 clean:

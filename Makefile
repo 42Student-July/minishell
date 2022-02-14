@@ -93,7 +93,7 @@ dummy:
 
 %.o: %.c
 	@echo $(GREEN)"Creating: $@"$(RESET)
-	@$(CC)  $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@make -C $(LIBFT_DIR) clean
