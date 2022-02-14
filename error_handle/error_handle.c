@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:31:11 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 17:59:12 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:08:37 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@ void	free_exec_attr(t_exec_attr *ea)
 	int		i;
 
 	i = 0;
-	free_lst(ea->env_lst);
-	free_lst(ea->export_lst);
-	if (ea->command != NULL)
-	{
-		while (ea->command[i] != NULL)
-		{
-			free(ea->command[i]);
-			i++;
-		}
-		free((void *)ea->command);
-	}
-	if (ea != NULL)
-		free(ea);
+	(void)ea;
+	// free_lst(ea->env_lst);
+	// free_lst(ea->export_lst);
+	// if (ea->command != NULL)
+	// {
+	// 	while (ea->command[i] != NULL)
+	// 	{
+	// 		free(ea->command[i]);
+	// 		i++;
+	// 	}
+	// 	free((void *)ea->command);
+	// }
+	// if (ea != NULL)
+	// 	free(ea);
 }
 
 void	free_lst(t_list *lst)

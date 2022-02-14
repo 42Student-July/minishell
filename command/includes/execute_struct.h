@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:44:58 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 13:37:59 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:05:03 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,20 @@
 
 typedef void(*	t_content_f)(void *);
 
+// typedef struct s_exec_attr
+// {
+// 	char *const	*command;
+// 	char		*infile;
+// 	char		*outfile;
+// 	t_list		*env_lst;
+// 	t_list		*export_lst;
+// }	t_exec_attr;
+
 typedef struct s_exec_attr
 {
-	char *const	*command;
-	char		*infile;
-	char		*outfile;
-	t_list		*env_lst;
-	t_list		*export_lst;
+	t_list			*cmd;
+	t_list			*env_lst;
+	t_list			*export_lst;
 }	t_exec_attr;
 
 typedef struct s_kvs
@@ -31,6 +38,13 @@ typedef struct s_kvs
 	char	*key;
 	char	*value;
 }	t_kvs;
+
+typedef struct s_env
+{
+	t_list		*env_lst;
+	t_list		*export_lst;
+}	t_env;
+
 
 #endif
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:57:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 16:33:25 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:04:18 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 int	execute_cmd(t_list *cmd)
 {
-	int	pipe_cnt;
+	int			pipe_cnt;
+	t_exec_attr	ea;
 
 	printf("start execute_cmd\n");
+	
+	init_new(&ea, cmd);
 	pipe_cnt = ft_lstsize(cmd) - 1;
 	if (pipe_cnt == 0)
 	{

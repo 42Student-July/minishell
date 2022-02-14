@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 21:21:00 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:04:04 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ bool		is_redirect_flag(t_exec_attr *ea);
 
 // init.c
 void		init(t_exec_attr **ea);
+void		init_new(t_exec_attr *ea, t_list *cmd);
+
 
 // convert_arglst_to_array.c
 char		**convert_arglst_to_array(t_redirect_cmd *rc);

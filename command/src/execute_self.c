@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:18 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/10 12:20:33 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:06:10 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 // 引数のコマンド名と実行時のコマンドが一致していたらtrue
 bool	is_(const char *command, t_exec_attr *ea)
 {
-	if (ft_strncmp(ea->command[CMD_NAME], command, ft_strlen(command)) == 0)
-		return (true);
+	(void)command;
+	(void)ea;
+	// if (ft_strncmp(ea->command[CMD_NAME], command, ft_strlen(command)) == 0)
+	// 	return (true);
 	return (false);
 }
 
