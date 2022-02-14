@@ -23,7 +23,6 @@ HEADERS		=	. \
 				$(COMMAND_DIR)/includes \
 				$(ENVIRON_DIR) \
 				$(SIGNAL_DIR)/includes \
-				$(shell brew --prefix readline)/include \
 
 LIBFT				=	$(LIBFT_DIR)/libft.a
 GNL					=	$(GNL_DIR)/libgnl.a
@@ -38,7 +37,15 @@ LIB_SIGNAL			=	$(SIGNAL_DIR)/libsignal.a
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
-RLFLAGS		=	-lreadline -lhistory -L$(shell brew --prefix readline)/lib
+UNAME	=	$(shell uname)
+
+ifeq ($(UNAME),Darwin)
+	HEADERS	+=	$(shell brew --prefix readline)/include
+	RLFLAGS	=	-lreadline -lhistory -L$(shell brew --prefix readline)/lib
+else
+	RLFLAGS	=	-lreadline -lhistory 
+endif
+
 
 RM			=	rm -f
 RM_DIR		=	rm -rf
