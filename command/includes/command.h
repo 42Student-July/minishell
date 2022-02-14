@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 20:48:53 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:53:13 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define LF 1
 # define PIPE_IN 0
 # define PIPE_OUT 1
+# define SLASH 1
 
 // execute.c
 int			execute_cmd(t_exec_attr *ea);
@@ -71,6 +72,7 @@ char		*create_environ_line(char *key, char *value, bool is_end);
 bool		is_dollar(char *arg);
 char		*convert_env_var(t_exec_attr *ea, char *arg);
 void		create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea);
+char		*find_path(t_redirect_cmd *rc, t_exec_attr *ea);
 
 // redirect_process.c
 void		change_direction(t_exec_attr *ea);

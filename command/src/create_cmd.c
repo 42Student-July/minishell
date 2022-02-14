@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 20:48:04 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:53:52 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea)
 	// ea->command = command;
 }
 
-char	*find_path(t_exec_attr *ea)
+char	*find_path(t_redirect_cmd *rc, t_exec_attr *ea)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
@@ -120,8 +120,8 @@ char	*find_path(t_exec_attr *ea)
 	size_t			new_command_len;
 
 	i = 0;
-	command = ea->command[CMD_NAME];
-	env_path = get_value(get_lst_by_key(ea->env_lst, "PATH")->content);
+	command = rc->cmd->cmd;
+	env_path = get_value(get_list_by_key(ea->env_lst, "PATH")->content);
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
