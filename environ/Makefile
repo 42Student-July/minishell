@@ -7,6 +7,7 @@ HEADERS		=	. \
 				../libft/ \
 				../command/includes \
 				../error_handle \
+				../self_cmd \
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 

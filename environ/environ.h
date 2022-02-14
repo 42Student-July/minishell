@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:45 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 17:59:42 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:26:14 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "libft.h"
 # include "execute_struct.h"
 # include "error_handle.h"
+# include "self_cmd.h"
 
 # define DQUOTE 2
 # define NULL_CHAR 1
