@@ -6,7 +6,7 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 23:29:42 by tkirihar          #+#    #+#              #
-#    Updated: 2022/02/14 15:13:26 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/02/14 15:39:51 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,13 @@ OBJS = 			$(addprefix $(OBJSDIR), $(SRCNAME:%.c=%.o))
 CC =			gcc
 CFLAGS =		-Wall -Wextra -Werror
 RM =			rm -rf
+UNAME =			$(shell uname)
 
 HEADERS = 		./includes/ \
-				$(shell brew --prefix readline)/include \
+
+ifeq ($(UNAME),Darwin)
+	HEADERS	+=	$(shell brew --prefix readline)/include
+endif
 
 INCLUDES = 		$(addprefix -I, $(HEADERS))
 
