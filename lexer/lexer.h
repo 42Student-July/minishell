@@ -38,7 +38,7 @@ typedef struct s_lexer
 	size_t		read_position;
 	char		ch;
 	bool		skip_whitespace;
-	t_list		*io_here_delimeters;
+	t_list		*io_here_delimiters;
 } t_lexer;
 
 t_lexer *new_lexer(char *input);
@@ -60,5 +60,6 @@ t_token *new_quote_token(t_lexer *lexer, t_tokentype type);
 bool is_word_token(t_tokentype);
 bool is_forbidden_char(char c);
 void add_heredoc_delimiter(t_lexer *lexer);
+void read_heredoc(t_lexer *lexer);
 
 #endif

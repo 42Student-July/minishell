@@ -57,6 +57,7 @@ SRCS :=	ft_strlen.c \
 		ft_my_atof.c\
 		ft_isspace.c\
 		ft_isletter.c\
+		ft_my_lstpop_front.c\
 
 B_SRCS=	ft_lstnew.c \
 	 ft_lstadd_front.c \

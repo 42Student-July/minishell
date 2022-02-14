@@ -19,5 +19,5 @@ void	add_heredoc_delimiter(t_lexer *lexer)
 		pos_tail++;
 	}
 	delimiter = ft_substr(lexer->input, pos, pos_tail - pos);
-	ft_lstadd_back(&lexer->io_here_delimeters, ft_lstnew(delimiter));
+	ft_lstadd_back(&lexer->io_here_delimiters, ft_lstnew(delimiter));
 }

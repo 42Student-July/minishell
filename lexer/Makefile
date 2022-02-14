@@ -27,6 +27,7 @@ SRCS = new_lexer.c\
 		is_word_token.c\
 		is_forbidden_char.c\
 		add_heredoc_delimiter.c\
+		read_heredoc.c\
 
 OBJS = ${SRCS:.c=.o}
 
