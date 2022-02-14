@@ -26,7 +26,7 @@ void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 		if (split == NULL)
 			abort_minishell(MALLOC_ERROR, ea);
 		if (!ft_lstadd_back(&env_lst, \
-			ft_lstnew(create_kvs_content(split[KEY], split[VALUE]))))
+			ft_lstnew(ft_kvsnew(split[KEY], split[VALUE]))))
 			abort_minishell_with(MALLOC_ERROR, ea, split);
 		i++;
 		free_char_dptr(split);
@@ -37,5 +37,5 @@ void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 bool	store_arg_in_env(t_exec_attr *ea, char *key, char *value)
 {
 	return (ft_lstadd_back(&ea->env_lst, \
-		ft_lstnew(create_kvs_content(key, value))));
+		ft_lstnew(ft_kvsnew(key, value))));
 }

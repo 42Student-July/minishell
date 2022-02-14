@@ -36,7 +36,7 @@ char	*convert_env_var(t_exec_attr *ea, char *arg)
 	ret = get_list_by_key(ea->env_lst, key);
 	if (ret == NULL)
 		return (NULL);
-	value = get_value(ret->content);
+	value = ft_kvsget_value(ret->content);
 	return (value);
 }
 

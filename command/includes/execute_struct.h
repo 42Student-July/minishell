@@ -26,11 +26,5 @@ typedef struct s_exec_attr
 	t_list		*export_lst;
 }	t_exec_attr;
 
-typedef struct s_kvs
-{
-	char	*key;
-	char	*value;
-}	t_kvs;
-
 #endif
 

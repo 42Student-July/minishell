@@ -12,22 +12,6 @@
 
 #include "environ.h"
 
-char	*get_key(void *content)
-{
-	t_kvs	*kvs;
-
-	kvs = (t_kvs *)content;
-	return (kvs->key);
-}
-
-char	*get_value(void *content)
-{
-	t_kvs	*kvs;
-
-	kvs = (t_kvs *)content;
-	return (kvs->value);
-}
-
 bool	is_lvalue_bigger_ascii(char *lvalue, char *rvalue)
 {
 	size_t	llen;
