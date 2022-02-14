@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:43:17 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 17:58:54 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 21:28:59 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	is_lvalue_bigger_ascii(char *lvalue, char *rvalue)
 	return (false);
 }
 
-bool	is_same_key(char *a, char *b)
+bool	is_same_str(char *a, char *b)
 {
 	if (ft_strlen(a) != ft_strlen(b))
 		return (false);

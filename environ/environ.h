@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:45 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 16:26:14 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 21:28:59 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool		store_arg_in_export(t_exec_attr *ea, char *key, char *value);
 char		*get_value(void *content);
 char		*get_key(void *content);
 bool		is_lvalue_bigger_ascii(char *lvalue, char *rvalue);
-bool		is_same_key(char *a, char *b);
+bool		is_same_str(char *a, char *b);
 
 // kvs_utils_2.c
 void		*create_kvs_content(char *key, char *value);
