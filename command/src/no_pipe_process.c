@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 14:30:19 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:00:05 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	no_pipe_process(t_exec_attr *ea)
 {
 	// TODO: コマンドが存在しない時、ここでsegvする
 	if (is_self_cmd(get_cmd_name(ea->cmd_lst)))
-		execute_self_cmd(ea->cmd_lst, ea);
+		execute_self_cmd(ea->cmd_lst->content, ea);
 	else
 		execute_ext_cmd(ea);
 }

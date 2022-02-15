@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 13:59:25 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:59:17 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		print_cmdv(char **cmdv);
 
 // execute_self.c
 bool		is_self_cmd(char *cmd);
-void		execute_self_cmd(t_list	*cmd, t_exec_attr *ea);
+void		execute_self_cmd(t_cmd	*c, t_exec_attr *ea);
 void		create_cmd_from_arg(int argc, const char *argv[], t_exec_attr *ea);
 void		exec_in_child_process(t_exec_attr *ea);
 bool		exec_in_main_process(t_exec_attr *ea);

@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:18 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 09:47:29 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:58:36 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@ bool	is_(char *command, char *cmd)
 	return (false);
 }
 
-void	execute_self_cmd(t_list	*cmd, t_exec_attr *ea)
+void	execute_self_cmd(t_cmd	*c, t_exec_attr *ea)
 {
 	if (is_redirect_flag(ea))
 		change_direction(ea);
-	if (is_(CD, get_cmd_name(cmd)))
+	if (is_(CD, c->cmd))
 		exec_self_cd(ea);
-	else if (is_(EXPORT, get_cmd_name(cmd)))
+	else if (is_(EXPORT, c->cmd))
 		exec_self_export(ea);
-	else if (is_(EXIT, get_cmd_name(cmd)))
+	else if (is_(EXIT, c->cmd))
 		exec_self_exit(ea);
-	else if (is_(UNSET, get_cmd_name(cmd)))
+	else if (is_(UNSET, c->cmd))
 		exec_self_unset(ea);
-	else if (is_(PWD, get_cmd_name(cmd)))
+	else if (is_(PWD, c->cmd))
 		exec_self_pwd(ea);
-	else if (is_(ECHO, get_cmd_name(cmd)))
+	else if (is_(ECHO, c->cmd))
 		exec_self_echo(ea);
-	else if (is_(ENV, get_cmd_name(cmd)))
+	else if (is_(ENV, c->cmd))
 		exec_self_env(ea);
 }
 
