@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 15:00:26 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:27:23 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	exec_cmd(t_cmd *cmd, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	else if (pid == 0)
 	{
 		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
-		cmd_path = find_path(cmd, ea);
+		cmd_path = find_path(cmd->cmd, ea);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
 			printf("exec error\n");
