@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:25:57 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/11 17:59:33 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:51:16 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define FORK_ERROR "fork error\n"
 # define WAIT_ERROR "wait error\n"
 # define INVALID_IDENTIFER_MSG "not an identifier\n"
+# define OPENDIR_ERROR "opendir error\n"
 
 # define INVALID_IDENTIFER 0
 # define NO_VALUE 1

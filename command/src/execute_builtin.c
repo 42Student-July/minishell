@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/10 12:20:27 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:05:36 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,18 @@ void	execute_builtin(t_exec_attr *ea)
 
 void	x_execve(t_exec_attr *ea)
 {
-	char	**environ;
+	// char	**environ;
+	
+	(void)ea;
 
-	environ = convert_envlst_to_array(ea);
-	if (execve(ea->command[CMD_NAME], ea->command, environ) == -1)
-	{
-		printf("stderror(perror) : %s\n", strerror(errno));
-		free(environ);
-		exit(EXIT_FAILURE);
-	}
-	free(environ);
+	// environ = convert_envlst_to_array(ea);
+	// if (execve(ea->command[CMD_NAME], ea->command, environ) == -1)
+	// {
+	// 	printf("stderror(perror) : %s\n", strerror(errno));
+	// 	free(environ);
+	// 	exit(EXIT_FAILURE);
+	// }
+	// free(environ);
 }
 
 bool	is_not_exec_path(const char *command)

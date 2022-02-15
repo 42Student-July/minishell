@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 09:19:55 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:21:05 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 09:33:03 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void	exec_self_unset(t_exec_attr *ea)
 {
 	// envlstとexportlstから対象の文字列を削除
-	if (ea->command[CMD_ARG] == NULL)
+	(void)ea;
+	if (get_cmd_arg(ea->cmd, ea) == NULL)
 		return ;
-	if (is_invalid_name(ea->command[CMD_ARG]))
-		print_error_msg_with_var(UNSET, ea->command[CMD_ARG]);
-	del_lst_by_key(ea->env_lst, ea->command[CMD_ARG]);
-	del_lst_by_key(ea->export_lst, ea->command[CMD_ARG]);
+	if (is_invalid_name(get_cmd_arg(ea->cmd, ea)))
+		print_error_msg_with_var(UNSET, get_cmd_arg(ea->cmd, ea));
+	del_lst_by_key(ea->env_lst, get_cmd_arg(ea->cmd, ea));
+	del_lst_by_key(ea->export_lst, get_cmd_arg(ea->cmd, ea));
 }
