@@ -76,7 +76,7 @@ void	close_pipe(int **pipe_fd, int cmd_i)
 	close(pipe_fd[cmd_i - 1][PIPE_OUT]);
 }
 
-void	exec_cmd(t_redirect_cmd *rc, int pipe_cnt, int cmd_i, int **pipe_fd)
+void	exec_cmd(t_cmd *rc, int pipe_cnt, int cmd_i, int **pipe_fd)
 {
 	int		pid;
 	char	**cmdv;
@@ -140,17 +140,17 @@ void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
 
 void	pipe_process(t_list *cmd, int pipe_cnt)
 {
-	int				cmd_i;
-	int				**pipe_fd;
-	t_list			*current_cmd;
-	t_redirect_cmd	*rc;
+	int		cmd_i;
+	int		**pipe_fd;
+	t_list	*current_cmd;
+	t_cmd	*rc;
 
 	pipe_fd = malloc_pipe_fd(pipe_cnt);
 	cmd_i = 0;
 	current_cmd = cmd;
 	while (cmd_i < pipe_cnt + 1)
 	{
-		rc = (t_redirect_cmd *)current_cmd->content;
+		rc = (t_cmd *)current_cmd->content;
 		make_pipe(cmd_i, pipe_cnt, pipe_fd);
 		exec_cmd(rc, pipe_cnt, cmd_i, pipe_fd);
 		close_pipe(pipe_fd, cmd_i);

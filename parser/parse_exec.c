@@ -3,17 +3,6 @@
 #include "libft.h"
 #include "parser.h"
 
-t_cmd	*exec_cmd_init(void)
-{
-	t_exec_cmd	*cmd;
-
-	cmd = (t_exec_cmd *)ft_calloc(sizeof(t_exec_cmd), 1);
-	if (cmd == NULL)
-		exit(EXIT_FAILURE);
-	cmd->type = CMD_EXEC;
-	return ((t_cmd *)cmd);
-}
-
 void	skip_redirect(t_list **token_list)
 {
 	t_token	*token;
@@ -29,15 +18,16 @@ void	skip_redirect(t_list **token_list)
 	*token_list = (*token_list)->next;
 }
 
-// echo "hello" > hoge.txt
-t_cmd	*parse_exec(t_list *token_list)
+void	parse_exec(t_list *token_list, t_cmd **cmd_p)
 {
-	t_exec_cmd	*exec_cmd;
 	t_token		*token;
+	t_cmd *cmd;
 
+	if (cmd_p == NULL)
+		exit(EXIT_FAILURE);
+	cmd = *cmd_p;
 	if (token_list == NULL)
-		return (NULL);
-	exec_cmd = (t_exec_cmd *)exec_cmd_init();
+		return ;
 	while (token_list != NULL)
 	{
 		token = token_list->content;
@@ -50,14 +40,13 @@ t_cmd	*parse_exec(t_list *token_list)
 		}
 		if (!is_word_token(token->type))
 			exit(EXIT_FAILURE);
-		ft_lstadd_back(&exec_cmd->args, ft_lstnew(get_literal(token)));
+		ft_lstadd_back(&cmd->args, ft_lstnew(get_literal(token)));
 		token_list = token_list->next;
 	}
-	if (exec_cmd->args != NULL)
+	if (cmd->args != NULL)
 	{
-		exec_cmd->cmd = ft_strdup(exec_cmd->args->content);
-		if (exec_cmd->cmd == NULL)
+		cmd->cmd = ft_strdup(cmd->args->content);
+		if (cmd->cmd == NULL)
 			exit(EXIT_FAILURE);
 	}
-	return ((t_cmd *)exec_cmd);
 }
