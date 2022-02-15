@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 10:25:54 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:58:08 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,22 +142,35 @@ void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
 
 void	pipe_process(t_exec_attr *ea)
 {
+<<<<<<< HEAD
 	int				cmd_i;
 	int				**pipe_fd;
 	// t_list			*current_cmd;
 	t_redirect_cmd	*rc;
+=======
+	int		cmd_i;
+	int		**pipe_fd;
+	t_list	*current_cmd;
+	t_cmd	*rc;
+>>>>>>> 13c24023ccdc61f176f012fa0116862f0a005cb8
 
 	pipe_fd = malloc_pipe_fd(ea->pipe_count);
 	cmd_i = 0;
 	// current_cmd = ea->cmd;
 	while (cmd_i < ea->pipe_count + 1)
 	{
+<<<<<<< HEAD
 		rc = (t_redirect_cmd *)ea->cmd->content;
 		make_pipe(cmd_i, ea->pipe_count, pipe_fd);
 		if (is_self_cmd(get_cmd_name(ea->cmd)))
 			// TODO: ea->cmdの参照位置を替えていると、eaがcmdを追いきれなくてleakする。
 			execute_self_cmd(ea->cmd, ea);
 		exec_cmd(rc, ea, cmd_i, pipe_fd);
+=======
+		rc = (t_cmd *)current_cmd->content;
+		make_pipe(cmd_i, pipe_cnt, pipe_fd);
+		exec_cmd(rc, pipe_cnt, cmd_i, pipe_fd);
+>>>>>>> 13c24023ccdc61f176f012fa0116862f0a005cb8
 		close_pipe(pipe_fd, cmd_i);
 		cmd_i++;
 		ea->cmd = ea->cmd->next;

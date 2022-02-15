@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 09:44:24 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:57:16 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ bool		is_redirect_flag(t_exec_attr *ea);
 // init.c
 void		init(t_exec_attr **ea);
 void		init_new(t_exec_attr **ea);
-
 
 // convert_lst_to_argv.c
 char		**convert_lst_to_argv(t_list *args);

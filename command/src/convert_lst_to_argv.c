@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_arglst_to_array.c                          :+:      :+:    :+:   */
+/*   convert_lst_to_argv.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 19:37:24 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/14 18:42:56 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:57:41 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ char	**convert_lst_to_argv(t_list *args)
 	i = 0;
 	current_arg = args;
 	while (current_arg != NULL)
-	{
-		cmdv[i] = (char *)current_arg->content;
-		if (cmdv[i] == NULL)
 		{
 			printf("malloc error\n");
 			exit(EXIT_FAILURE);
