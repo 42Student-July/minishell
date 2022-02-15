@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 17:01:05 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:26:05 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	store_allenv_in_export(t_exec_attr *ea, char **environ)
 		if (value == NULL)
 			abort_minishell_with(MALLOC_ERROR, ea, split);
 		if (!ft_lstadd_back(&export_lst, \
-				ft_lstnew(create_kvs_content(split[KEY], value))))
+				ft_lstnew(ft_kvsnew(split[KEY], value))))
 			abort_minishell_with(MALLOC_ERROR, ea, split);
 		free_char_dptr(split);
 		free(value);
