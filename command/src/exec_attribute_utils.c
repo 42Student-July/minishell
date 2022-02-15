@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:31:09 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 09:43:03 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:04:18 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_exec_cmd	*get_exec_cmd(t_exec_attr *ea)
 {
 	t_redirect_cmd	*rc;
 
-	rc = ea->cmd->content;
+	rc = ea->cmd_lst->content;
 	return (rc->cmd);
 }
 
