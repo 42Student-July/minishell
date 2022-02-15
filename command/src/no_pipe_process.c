@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 15:00:05 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:25:03 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ void	execute_ext_cmd(t_exec_attr *ea)
 	char	**environ;
 
 	cmdv = convert_lst_to_argv(get_cmd(ea)->args);
-	cmd_path = find_path(ea->cmd_lst->content, ea);
+	cmd_path = find_path(get_cmd_name(ea->cmd_lst), ea);
+	if (cmd_path == NULL)
+	{
+		printf("%s: command not found\n", get_cmd_name(ea->cmd_lst));
+		return ;
+	}
 	environ = convert_envlst_to_array(ea);
 	pid = fork();
 	if (pid == -1)
