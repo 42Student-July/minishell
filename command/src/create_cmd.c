@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 13:25:13 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:13:54 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,14 +151,14 @@ char	*create_cmd_from_path(char *command, char **path)
 }
 
 // TODO: 引数を一つにする
-char	*find_path(t_redirect_cmd *rc, t_exec_attr *ea)
+char	*find_path(t_cmd *cmd, t_exec_attr *ea)
 {
 	char			*env_path;
 	char			**path;
 	char			*command;
 	char			*new_cmd;
 
-	command = rc->cmd->cmd;
+	command = cmd->cmd;
 	env_path = ft_kvsget_value(get_list_by_key(ea->env_lst, "PATH")->content);
 	path = ft_split(env_path, ':');
 	if (path == NULL)

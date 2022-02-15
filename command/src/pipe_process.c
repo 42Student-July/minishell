@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 14:05:22 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:13:06 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ void	close_pipe(int **pipe_fd, int cmd_i)
 }
 
 // TODO:構造体がexec単位でわけられているので、eaを渡したくない
-void	exec_cmd(t_redirect_cmd *rc, t_exec_attr *ea, int cmd_i, int **pipe_fd)
+void	exec_cmd(t_cmd *cmd, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 {
 	int		pid;
 	char	**cmdv;
 	char	*cmd_path;
 
 	(void)ea->env_lst;
-	cmdv = convert_lst_to_argv(rc->cmd->args);
+	cmdv = convert_lst_to_argv(cmd->args);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -94,7 +94,7 @@ void	exec_cmd(t_redirect_cmd *rc, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	else if (pid == 0)
 	{
 		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
-		cmd_path = find_path(rc, ea);
+		cmd_path = find_path(cmd, ea);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
 			printf("exec error\n");
@@ -145,22 +145,21 @@ void	pipe_process(t_exec_attr *ea)
 	int				cmd_i;
 	int				**pipe_fd;
 	// t_list			*current_cmd;
-	t_redirect_cmd	*rc;
+	t_cmd			*cmd;
 
 	pipe_fd = malloc_pipe_fd(ea->pipe_count);
 	cmd_i = 0;
 	// current_cmd = ea->cmd;
 	while (cmd_i < ea->pipe_count + 1)
 	{
-		rc = (t_redirect_cmd *)ea->cmd->content;
+		cmd = (t_cmd *)ea->cmd_lst->content;
 		make_pipe(cmd_i, ea->pipe_count, pipe_fd);
 		if (is_self_cmd(get_cmd_name(ea->cmd_lst)))
 			// TODO: ea->cmdの参照位置を替えていると、eaがcmdを追いきれなくてleakする。
 			execute_self_cmd(ea->cmd_lst, ea);
-		exec_cmd(rc, ea, cmd_i, pipe_fd);
-		rc = (t_cmd *)current_cmd->content;
-		make_pipe(cmd_i, pipe_cnt, pipe_fd);
-		exec_cmd(rc, pipe_cnt, cmd_i, pipe_fd);
+		exec_cmd(cmd, ea, cmd_i, pipe_fd);
 		close_pipe(pipe_fd, cmd_i);
 		cmd_i++;
+		ea->cmd_lst = ea->cmd_lst->next;
+	}
 }
