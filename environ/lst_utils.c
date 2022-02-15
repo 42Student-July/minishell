@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 13:27:06 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 13:04:11 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 21:28:59 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_list	*get_list_by_key(t_list *lst, char *key)
 	ret = lst;
 	while (ret != NULL)
 	{
-		if (is_same_key(ft_kvsget_key(ret->content), key))
+		if (is_same_str(ft_kvsget_key(ret->content), key))
 			return (ret);
 		ret = ret->next;
 	}

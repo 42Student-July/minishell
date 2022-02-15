@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/14 14:24:31 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/02/14 18:49:07 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,10 @@ SRCNAME	:=	execute_builtin.c \
 			redirect_process.c \
 			init.c \
 			create_cmd.c \
-			convert_arglst_to_array.c \
+			convert_lst_to_argv.c \
 			no_pipe_process.c \
 			pipe_process.c \
+			exec_attribute_utils.c \
 			$(SELFCMD_SRCS) \
 
 

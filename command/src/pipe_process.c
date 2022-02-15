@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/11 21:53:46 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/15 10:25:54 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,15 @@ void	close_pipe(int **pipe_fd, int cmd_i)
 	close(pipe_fd[cmd_i - 1][PIPE_OUT]);
 }
 
-void	exec_cmd(t_redirect_cmd *rc, int pipe_cnt, int cmd_i, int **pipe_fd)
+// TODO:構造体がexec単位でわけられているので、eaを渡したくない
+void	exec_cmd(t_redirect_cmd *rc, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 {
 	int		pid;
 	char	**cmdv;
 	char	*cmd_path;
 
-	cmdv = convert_arglst_to_array(rc);
+	(void)ea->env_lst;
+	cmdv = convert_lst_to_argv(rc->cmd->args);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -91,8 +93,8 @@ void	exec_cmd(t_redirect_cmd *rc, int pipe_cnt, int cmd_i, int **pipe_fd)
 	}
 	else if (pid == 0)
 	{
-		set_pipe_fd(pipe_cnt, cmd_i, pipe_fd);
-		cmd_path = ft_strjoin("/bin/", cmdv[0]);
+		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
+		cmd_path = find_path(rc, ea);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
 			printf("exec error\n");
@@ -114,13 +116,13 @@ void	wait_process(int pipe_cnt)
 	i = 0;
 	while (i < pipe_cnt + 1)
 	{
-		printf("%s %d\n", __FILE__, __LINE__);
+		// printf("%s %d\n", __FILE__, __LINE__);
 		if (wait(&status) == -1)
 		{
 			printf("cprocess error\n");
 			exit(EXIT_FAILURE);
 		}
-		printf("%s %d\n", __FILE__, __LINE__);
+		// printf("%s %d\n", __FILE__, __LINE__);
 		i++;
 	}
 }
@@ -138,26 +140,29 @@ void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
 	free(pipe_fd);
 }
 
-void	pipe_process(t_list *cmd, int pipe_cnt)
+void	pipe_process(t_exec_attr *ea)
 {
 	int				cmd_i;
 	int				**pipe_fd;
-	t_list			*current_cmd;
+	// t_list			*current_cmd;
 	t_redirect_cmd	*rc;
 
-	pipe_fd = malloc_pipe_fd(pipe_cnt);
+	pipe_fd = malloc_pipe_fd(ea->pipe_count);
 	cmd_i = 0;
-	current_cmd = cmd;
-	while (cmd_i < pipe_cnt + 1)
+	// current_cmd = ea->cmd;
+	while (cmd_i < ea->pipe_count + 1)
 	{
-		rc = (t_redirect_cmd *)current_cmd->content;
-		make_pipe(cmd_i, pipe_cnt, pipe_fd);
-		exec_cmd(rc, pipe_cnt, cmd_i, pipe_fd);
+		rc = (t_redirect_cmd *)ea->cmd->content;
+		make_pipe(cmd_i, ea->pipe_count, pipe_fd);
+		if (is_self_cmd(get_cmd_name(ea->cmd)))
+			// TODO: ea->cmdの参照位置を替えていると、eaがcmdを追いきれなくてleakする。
+			execute_self_cmd(ea->cmd, ea);
+		exec_cmd(rc, ea, cmd_i, pipe_fd);
 		close_pipe(pipe_fd, cmd_i);
 		cmd_i++;
-		current_cmd = current_cmd->next;
+		ea->cmd = ea->cmd->next;
 	}
-	wait_process(pipe_cnt);
-	free_pipe_fd(pipe_fd, pipe_cnt);
-	printf("%s %d\n", __FILE__, __LINE__);
+	wait_process(ea->pipe_count);
+	free_pipe_fd(pipe_fd, ea->pipe_count);
+	// printf("%s %d\n", __FILE__, __LINE__);
 }

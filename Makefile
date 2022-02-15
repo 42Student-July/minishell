@@ -1,6 +1,7 @@
 NAME		:=	minishell
 CC			:=	gcc
 CFLAGS		:=	-g -Wall -Wextra -Werror
+DEBUG		:= -g -fsanitize=address
 
 
 LIBFT_DIR			=	libft
@@ -62,7 +63,7 @@ YELLOW		=	'\033[33m'
 RESET		=	'\033[0m'
 
 $(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_REPL) $(LIB_COMMAND) $(LIB_ENVIRON) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_SIGNAL) $(OBJS)
-	@$(CC) $(CFLAGS) $(INCLUDES)  -o $(NAME) $(OBJS) $(LIB_COMMAND) $(LIB_REPL) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_ENVIRON) $(LIB_LEXER) $(LIB_SIGNAL) $(GNL) $(LIBFT) $(RLFLAGS)
+	@$(CC) $(CFLAGS) $(INCLUDES)  -o $(NAME) $(OBJS) $(LIB_REPL) $(LIB_COMMAND) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_ENVIRON) $(LIB_LEXER) $(LIB_SIGNAL) $(GNL) $(LIBFT) $(RLFLAGS)
 	@echo $(YELLOW)"@@@@@ $(NAME) compiling done @@@@@"$(RESET)
 
 $(LIBFT): dummy
@@ -160,5 +161,9 @@ test-build: $(LIBFT) $(LIB_LEXER) $(LIB_PARSER) $(GTEST) $(SRCS_TEST)
 	g++ -std=c++11  $(SRCS_TEST) $(LIB_PARSER) $(LIB_LEXER) $(LIBFT)  $(GTEST_DIR)/googletest-release-1.11.0/googletest/src/gtest_main.cc $(GTEST_DIR)/gtest/gtest-all.cc \
 	 -DDEBUG \
 	-I$(GTEST_DIR) -I/usr/local/opt/llvm/include $(INCLUDES) -I test -lpthread -o tester -lgtest -g -lreadline
+
+.PHONY: debug
+debug:	CFLAGS += $(DEBUG)
+debug:	re
 
 .PHONY: all clean fclean re bonus

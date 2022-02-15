@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:25:22 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:48:30 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include "error_handle.h"
 # include "environ.h"
 
-# define DIR 1
 # define CMD_ARG 1
 # define UNSET "unset"
 
