@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 15:27:23 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:44:59 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	exec_cmd(t_cmd *cmd, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	{
 		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
 		cmd_path = find_path(cmd->cmd, ea);
+		if (is_self_cmd(get_cmd_name(ea->cmd_lst)))
+			execute_self_cmd(cmd, ea);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
 			printf("exec error\n");
@@ -152,9 +154,6 @@ void	pipe_process(t_exec_attr *ea)
 	while (cmd_i < ea->pipe_count + 1)
 	{
 		make_pipe(cmd_i, ea->pipe_count, pipe_fd);
-		if (is_self_cmd(get_cmd_name(ea->cmd_lst)))
-			// TODO: ea->cmdの参照位置を替えていると、eaがcmdを追いきれなくてleakする。
-			execute_self_cmd(current_cmd, ea);
 		exec_cmd(current_cmd, ea, cmd_i, pipe_fd);
 		close_pipe(pipe_fd, cmd_i);
 		cmd_i++;
