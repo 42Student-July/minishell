@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 09:44:24 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:59:25 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char		*create_environ_line(char *key, char *value, bool is_end);
 bool		is_dollar(char *arg);
 char		*convert_env_var(t_exec_attr *ea, char *arg);
 void		create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea);
-char		*find_path(t_redirect_cmd *rc, t_exec_attr *ea);
+char		*find_path(t_cmd *rc, t_exec_attr *ea);
 
 // redirect_process.c
 void		change_direction(t_exec_attr *ea);
@@ -80,7 +80,6 @@ bool		is_redirect_flag(t_exec_attr *ea);
 // init.c
 void		init(t_exec_attr **ea);
 void		init_new(t_exec_attr **ea);
-
 
 // convert_lst_to_argv.c
 char		**convert_lst_to_argv(t_list *args);
