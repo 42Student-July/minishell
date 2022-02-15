@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 15:44:59 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:51:45 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	exec_cmd(t_cmd *cmd, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	{
 		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
 		cmd_path = find_path(cmd->cmd, ea);
-		if (is_self_cmd(get_cmd_name(ea->cmd_lst)))
+		if (is_self_cmd(cmd->cmd))
 			execute_self_cmd(cmd, ea);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
