@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:18 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 14:58:36 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:47:45 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ bool	is_(char *command, char *cmd)
 
 void	execute_self_cmd(t_cmd	*c, t_exec_attr *ea)
 {
-	if (is_redirect_flag(ea))
-		change_direction(ea);
+	// if (is_redirect_flag(ea))
+	// 	change_direction(ea);
 	if (is_(CD, c->cmd))
 		exec_self_cd(ea);
 	else if (is_(EXPORT, c->cmd))
