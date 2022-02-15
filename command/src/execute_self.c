@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:18 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 15:47:45 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:23:35 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	execute_self_cmd(t_cmd	*c, t_exec_attr *ea)
 	else if (is_(PWD, c->cmd))
 		exec_self_pwd(ea);
 	else if (is_(ECHO, c->cmd))
-		exec_self_echo(ea);
+		exec_self_echo(c, ea);
 	else if (is_(ENV, c->cmd))
 		exec_self_env(ea);
 }

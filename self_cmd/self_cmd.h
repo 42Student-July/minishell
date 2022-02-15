@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 20:48:30 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:23:50 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		exec_self_pwd(t_exec_attr *ea);
 void		exec_self_cd(t_exec_attr *ea);
 
 // self_echo.c
-void		exec_self_echo(t_exec_attr *ea);
+void		exec_self_echo(t_cmd *cmd, t_exec_attr *ea);
 
 // self_exit.c
 void		exec_self_exit(t_exec_attr *ea);
