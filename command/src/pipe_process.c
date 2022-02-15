@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 15:51:45 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:32:48 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,23 @@ void	close_pipe(int **pipe_fd, int cmd_i)
 	close(pipe_fd[cmd_i - 1][PIPE_OUT]);
 }
 
+void	wait_process(int pipe_cnt)
+{
+	int	status;
+	int	i;
+
+	i = 0;
+	while (i < pipe_cnt + 1)
+	{
+		if (wait(&status) == -1)
+		{
+			printf("cprocess error\n");
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+}
+
 // TODO:構造体がexec単位でわけられているので、eaを渡したくない
 void	exec_cmd(t_cmd *cmd, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 {
@@ -110,25 +127,6 @@ void	exec_cmd(t_cmd *cmd, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	}
 }
 
-void	wait_process(int pipe_cnt)
-{
-	int	status;
-	int	i;
-
-	i = 0;
-	while (i < pipe_cnt + 1)
-	{
-		// printf("%s %d\n", __FILE__, __LINE__);
-		if (wait(&status) == -1)
-		{
-			printf("cprocess error\n");
-			exit(EXIT_FAILURE);
-		}
-		// printf("%s %d\n", __FILE__, __LINE__);
-		i++;
-	}
-}
-
 void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
 {
 	int	i;
@@ -159,4 +157,5 @@ void	pipe_process(t_exec_attr *ea)
 		cmd_i++;
 		current_cmd = ea->cmd_lst->next->content;
 	}
+	wait_process(ea->pipe_count);
 }
