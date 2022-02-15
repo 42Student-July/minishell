@@ -55,7 +55,7 @@ void compare_files(t_list *str_list, test_t_file expected_files)
 		for (auto &s : expected_files)
 		{
 			EXPECT_STREQ(s.first.c_str(), (char *)((t_file *)str_list->content)->filename);
-			EXPECT_EQ(s.second, ((t_file *)str_list->content)->is_append);
+			EXPECT_EQ(s.second, ((t_file *)str_list->content)->is_double);
 			str_list = str_list->next;
 		}
 	}
@@ -89,7 +89,7 @@ typedef struct s_redirect_cmd
 	t_cmd *cmd;
 	t_list *filenames_in;
 	t_list *filenames_out;
-	bool is_append;
+	bool is_double;
 
 } t_redirect_cmd;
 */

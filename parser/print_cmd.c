@@ -17,7 +17,7 @@ void print_files(char *name, t_list *list)
 		if (tmp->content == NULL)
 			printf("\n");
 		printf("(%s,", (char *)file->filename);
-		if (file->is_append)
+		if (file->is_double)
 			printf("true),");
 		else
 			printf("false),");

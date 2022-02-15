@@ -24,7 +24,11 @@ SRCS = new_lexer.c\
 		skip_whitespace.c\
 		join_new_line.c\
 		new_quote_token.c\
-		is_word.c\
+		is_word_token.c\
+		is_forbidden_char.c\
+		add_heredoc_delimiter.c\
+		read_heredoc.c\
+		print_kvs.c\
 
 OBJS = ${SRCS:.c=.o}
 

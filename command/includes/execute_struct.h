@@ -35,12 +35,6 @@ typedef struct s_exec_attr
 	int		pipe_count;
 }	t_exec_attr;
 
-typedef struct s_kvs
-{
-	char	*key;
-	char	*value;
-}	t_kvs;
-
 typedef struct s_env
 {
 	t_list		*env_lst;
@@ -52,7 +46,6 @@ t_exec_cmd	*get_exec_cmd(t_exec_attr *ea);
 char		*get_cmd_name(t_list *cmd);
 char		**get_args(t_list *cmd, t_exec_attr *ea);
 char		*get_cmd_arg(t_list *cmd, t_exec_attr *ea);
-
 
 #endif
 

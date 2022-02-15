@@ -19,7 +19,7 @@ static void delete_exec_cmd(t_exec_cmd **cmd)
 	t_cmd *cmd;
 	t_list *filenames_in;
 	t_list *filenames_out;
-	bool is_append;
+	bool is_double;
 
 } t_redirect_cmd;
 

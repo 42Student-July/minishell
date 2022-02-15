@@ -48,7 +48,7 @@ t_list	*get_list_by_key(t_list *lst, char *key)
 	ret = lst;
 	while (ret != NULL)
 	{
-		if (is_same_str(get_key(ret->content), key))
+		if (is_same_str(ft_kvsget_key(ret->content), key))
 			return (ret);
 		ret = ret->next;
 	}
@@ -64,8 +64,8 @@ t_list	*get_list_by_min_ascii_key(t_list *lst)
 	tmp = lst;
 	while (lst->next != NULL)
 	{
-		min_key = get_key(tmp->content);
-		next_key = get_key(lst->next->content);
+		min_key = ft_kvsget_key(tmp->content);
+		next_key = ft_kvsget_key(lst->next->content);
 		// lvalueの方が大きいので、tmpをrvalueにchange
 		if (is_lvalue_bigger_ascii(min_key, next_key))
 			tmp = lst->next;

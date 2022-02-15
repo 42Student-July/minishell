@@ -37,8 +37,10 @@ typedef struct s_lexer
 	size_t		position;
 	size_t		read_position;
 	char		ch;
-	bool skip_whitespace;
-}	t_lexer;
+	bool		skip_whitespace;
+	t_list		*io_here_delimiters;
+	t_list	*heredocs;
+} t_lexer;
 
 t_lexer *new_lexer(char *input);
 void delete_lexer(t_lexer *lexer);
@@ -56,6 +58,10 @@ bool is_redirect(t_tokentype type);
 void skip_whitespace(t_lexer *lexer);
 bool join_new_line(t_lexer *lexer);
 t_token *new_quote_token(t_lexer *lexer, t_tokentype type);
-bool is_word(t_tokentype);
+bool is_word_token(t_tokentype);
+bool is_forbidden_char(char c);
+void add_heredoc_delimiter(t_lexer *lexer);
+void read_heredoc(t_lexer *lexer);
+void print_kvs(t_list *kvs);
 
 #endif

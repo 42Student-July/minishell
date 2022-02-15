@@ -27,7 +27,7 @@ typedef struct s_redirect_cmd
 typedef struct s_file
 {
 	char *filename;
-	bool is_append;
+	bool is_double;
 } t_file;
 
 typedef enum e_cmd_type {
@@ -36,12 +36,13 @@ typedef enum e_cmd_type {
 	CMD_EXEC,
 } t_cmd_type;
 
-t_list *parse_pipe(t_list *token_list);
+t_list *parse_pipe(t_list *token_list, t_list **heredocs);
 t_cmd *parse_exec(t_list *token_list);
-t_cmd *parse_redirect(t_list *token_list);
+t_cmd *parse_redirect(t_list *token_list, t_list **heredocs);
 void print_cmd(t_list *cmd);
+void print_lists(char *name, t_list *list);
 void delete_cmd(t_cmd **cmd);
-t_file *new_file(t_token *token, bool is_append);
+t_file *new_file(char *filename, bool is_double);
 void delete_file(void *file_ptr);
 void delete_pipe(void *cmd);
 

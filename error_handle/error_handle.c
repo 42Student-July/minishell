@@ -33,23 +33,23 @@ void	free_exec_attr(t_exec_attr *ea)
 	// 	free(ea);
 }
 
-void	free_lst(t_list *lst)
-{
-	t_list	*tmp;
+// void	free_lst(t_list *lst)
+// {
+// 	t_list	*tmp;
 
-	tmp = lst;
-	while (lst != NULL)
-	{
-		free_all_kvs((t_kvs *)lst->content);
-		lst = lst->next;
-	}
-	lst = tmp;
-	while (lst != NULL)
-	{
-		free(lst);
-		lst = lst->next;
-	}
-}
+// 	tmp = lst;
+// 	while (lst != NULL)
+// 	{
+// 		free_all_kvs((t_kvs *)lst->content);
+// 		lst = lst->next;
+// 	}
+// 	lst = tmp;
+// 	while (lst != NULL)
+// 	{
+// 		free(lst);
+// 		lst = lst->next;
+// 	}
+// }
 
 void	free_char_dptr(char **dptr)
 {

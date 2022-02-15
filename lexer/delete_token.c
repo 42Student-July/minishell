@@ -1,6 +1,6 @@
 #include "lexer.h"
 
-void delete_token(void *token)
+void	delete_token(void *token)
 {
 	t_token *tmp_token;
 

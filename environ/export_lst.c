@@ -61,9 +61,9 @@ void	store_allenv_in_export(t_exec_attr *ea, char **environ)
 }
 
 bool	store_arg_in_export(t_exec_attr *ea, char *key, char *value)
-{	
+{
 	if (!ft_lstadd_back(&ea->export_lst, \
-			ft_lstnew(create_kvs_content(key, value))))
+			ft_lstnew(ft_kvsnew(key, value))))
 		return (false);
 	sort_listkey_by_ascii(ea->export_lst);
 	return (true);
