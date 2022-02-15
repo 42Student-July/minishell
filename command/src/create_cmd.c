@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 23:42:05 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 10:19:52 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea)
 	// ea->command = command;
 }
 
-char	*concat_path_and_cmd(t_exec_attr *ea, char *path, char *command)
+char	*concat_path_and_cmd(char *path, char *command)
 {
 	char			*new_cmd;
 	size_t			new_cmd_len;
@@ -123,31 +123,29 @@ char	*concat_path_and_cmd(t_exec_attr *ea, char *path, char *command)
 	return (new_cmd);
 }
 
-char	*create_cmd_from_path(char *command, t_exec_attr *ea, char **path)
+char	*create_cmd_from_path(char *command, char **path)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
 	size_t			i;
-	char			*new_cmd;
 
 	i = 0;
 	while (path[i] != NULL)
 	{
 		dirp = opendir(path[i]);
-		i++;
 		if (dirp == NULL)
+		{
+			i++;
 			continue ;
+		}
 		dp = readdir(dirp);
 		while (dp != NULL)
 		{
 			if (is_same_str(dp->d_name, command))
-			{
-				new_cmd = concat_path_and_cmd(ea, path, command);
-				if (new_cmd == NULL)
-					abort_minishell_with(MALLOC_ERROR, ea, path);
-			}
+				return (concat_path_and_cmd(path[i], command));
 			dp = readdir(dirp);
 		}
+		i++;
 	}
 	return (NULL);
 }
@@ -158,11 +156,15 @@ char	*find_path(t_redirect_cmd *rc, t_exec_attr *ea)
 	char			*env_path;
 	char			**path;
 	char			*command;
+	char			*new_cmd;
 
 	command = rc->cmd->cmd;
 	env_path = get_value(get_list_by_key(ea->env_lst, "PATH")->content);
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
-	return (create_cmd_from_path(command, ea, path));
+	new_cmd = create_cmd_from_path(command, path);
+	if (new_cmd == NULL)
+		abort_minishell_with(MALLOC_ERROR, ea, path);
+	return (new_cmd);
 }
