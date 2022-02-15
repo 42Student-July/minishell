@@ -49,7 +49,9 @@ t_token	*next_token(t_lexer *lexer)
 			token = new_token(TOKEN_EXIT_STATUS, "$?");
 		}
 		else
-			return (new_env_token(lexer));
+		{
+			return (new_ident_token(lexer));
+		}
 	}
 	else if (ft_isspace(lexer->ch))
 	{

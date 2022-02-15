@@ -13,13 +13,10 @@
 
 void	start_repl(void)
 {
-	t_lexer *lexer;
-	t_token *token;
-	t_list *token_list;
+	t_lexer_product *l_product;
 	t_exec_attr *ea;
 	char *line;
 
-	token_list = NULL;
 	init_new(&ea);
 	while (true)
 	{
@@ -28,28 +25,15 @@ void	start_repl(void)
 		set_dfl_signal(); // if文の下に置くべきかも？
 		if (line == NULL)
 			break ;
-		lexer = new_lexer(line);
-		free(line);
-		while (true)
-		{
-			token = next_token(lexer);
-			ft_lstadd_back(&token_list, ft_lstnew(token));
-			if (token->type == TOKEN_EOF)
-				break ;
-		}
-		while (lexer->io_here_delimiters != NULL)
-		{
-			read_heredoc(lexer);
-		}
-		if (ft_strlen(lexer->input) > 0) // 空文字列をヒストリーに入れないための対処法
-			add_history(lexer->input);
-		// print_tokens(token_list);
-		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
-		// print_cmd(cmd);
-		execute_cmd(ea);
-		print_kvs(lexer->heredocs);
-		ft_lstclear(&token_list, delete_token);
-		delete_lexer(lexer);
+		l_product = analyze(line);
+		if (ft_strlen(l_product->input) > 0) // 空文字列をヒストリーに入れないための対処法
+			add_history(l_product->input);
+		print_tokens(l_product->token_list);
+		ea->cmd = parse_pipe(l_product->token_list, &l_product->heredocs);
+		print_cmd(ea->cmd);
+		// execute_cmd(ea);
+		print_kvs(l_product->heredocs);
+		delete_lexer_product(&l_product);
 	}
 	clear_history();
 }

@@ -29,6 +29,8 @@ SRCS = new_lexer.c\
 		add_heredoc_delimiter.c\
 		read_heredoc.c\
 		print_kvs.c\
+		analyze.c\
+		delete_lexer_product.c\
 
 OBJS = ${SRCS:.c=.o}
 
