@@ -47,22 +47,39 @@ void print_lists(char *name, t_list *list)
 }
 
 
-void print_cmd(const t_cmd *cmd)
+void print_exec_cmd(t_exec_cmd *cmd)
 {
-	printf("\tcmd: %s\n", cmd->cmd);
-	print_lists("\targs: ", cmd->args);
-	print_files("\tfilenames_in: ", cmd->filenames_in);
-	print_files("\tfilenames_out: ", cmd->filenames_out);
+	if (cmd->type != CMD_EXEC)
+		return;
+	printf("\t\texec_cmd: %s\n", cmd->cmd);
+	print_lists("\t\targs: ", cmd->args);
 }
 
-void print_cmds(t_list *cmd)
+void print_redirect_cmd(const t_redirect_cmd *cmd)
 {
-	const t_cmd *tmp;
+	if (cmd->type != CMD_REDIRECT)
+		return;
+	print_exec_cmd((t_exec_cmd *)cmd->cmd);
+	print_files("\t\tfilenames_in: ", cmd->filenames_in);
+	print_files("\t\tfilenames_out: ", cmd->filenames_out);
+}
+
+
+
+void print_pipe_cmd(t_list *cmd)
+{
+	const t_redirect_cmd *tmp;
 
 	if (cmd == NULL)
 		return;
 	printf("pipe_cmd:\n");
 	tmp = cmd->content;
-	print_cmd(tmp);
-	print_cmds(cmd->next);
+	print_redirect_cmd(tmp);
+	print_pipe_cmd(cmd->next);
 }
+
+void print_cmd(t_list *cmd)
+{
+	print_pipe_cmd(cmd);
+}
+

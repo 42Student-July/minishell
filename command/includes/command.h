@@ -79,7 +79,7 @@ bool		is_redirect_flag(t_exec_attr *ea);
 void		init(t_exec_attr **ea);
 
 // convert_arglst_to_array.c
-char		**convert_arglst_to_array(t_cmd *rc);
+char		**convert_arglst_to_array(t_redirect_cmd *rc);
 
 // no_pipe_process.c
 void		no_pipe_process(t_list *cmd);
