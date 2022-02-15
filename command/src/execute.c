@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:57:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 18:48:18 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:04:18 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	execute_cmd(t_exec_attr *ea)
 {
-	ea->pipe_count = ft_lstsize(ea->cmd) - 1;
+	ea->pipe_count = ft_lstsize(ea->cmd_lst) - 1;
 	if (ea->pipe_count == 0)
 	{
 		no_pipe_process(ea);

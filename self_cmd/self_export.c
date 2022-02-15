@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 09:32:43 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:04:18 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exec_self_export(t_exec_attr *ea)
 {
 	(void)ea;
-	if (get_cmd_arg(ea->cmd, ea) == NULL)
+	if (get_cmd_arg(ea->cmd_lst, ea) == NULL)
 		print_all_export_lst(ea);
 	else
 		export_with_args(ea);
@@ -52,16 +52,16 @@ void	export_with_args(t_exec_attr *ea)
 	int			ret;
 	// ft_splitでは引数が"a="の場合と"a"の判別がつけられない実装になっている
 	// そのため、strchrでまず引数に=があるか判定してから、各実装に入る
-	if (ft_strchr(get_cmd_arg(ea->cmd, ea), '=') == NULL)
-		store_arg_in_export(ea, get_cmd_arg(ea->cmd, ea), NULL);
+	if (ft_strchr(get_cmd_arg(ea->cmd_lst, ea), '=') == NULL)
+		store_arg_in_export(ea, get_cmd_arg(ea->cmd_lst, ea), NULL);
 	else
 	{
-		arg = ft_split(get_cmd_arg(ea->cmd, ea), '=');
+		arg = ft_split(get_cmd_arg(ea->cmd_lst, ea), '=');
 		if (arg == NULL)
 			abort_minishell(MALLOC_ERROR, ea);
 		ret = check_export_arg(arg);
 		if (ret == INVALID_IDENTIFER)
-			print_error_msg_with_var(get_cmd_arg(ea->cmd, ea), arg[KEY]);
+			print_error_msg_with_var(get_cmd_arg(ea->cmd_lst, ea), arg[KEY]);
 		else
 		{
 			if (ret == NO_VALUE)

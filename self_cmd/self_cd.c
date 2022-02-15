@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 09:43:23 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:04:18 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void	x_chdir(const char *path)
 
 void	exec_self_cd(t_exec_attr *ea)
 {
-	x_chdir(get_cmd_arg(ea->cmd, ea));
+	x_chdir(get_cmd_arg(ea->cmd_lst, ea));
 }

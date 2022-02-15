@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:44:58 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 09:44:31 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:19:45 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef void(*	t_content_f)(void *);
 
 typedef struct s_exec_attr
 {
-	t_list	*cmd;
+	t_list	*cmd_lst;
 	t_list	*env_lst;
 	t_list	*export_lst;
 	int		pipe_count;
@@ -42,7 +42,7 @@ typedef struct s_env
 }	t_env;
 
 // exec_attribute_utils.c
-t_exec_cmd	*get_exec_cmd(t_exec_attr *ea);
+t_cmd		*get_cmd(t_exec_attr *ea);
 char		*get_cmd_name(t_list *cmd);
 char		**get_args(t_list *cmd, t_exec_attr *ea);
 char		*get_cmd_arg(t_list *cmd, t_exec_attr *ea);
