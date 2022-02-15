@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:44:58 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 17:16:43 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 09:44:31 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXECUTE_STRUCT_H
 
 # include "libft.h"
+# include "parser/parser.h"
 
 typedef void(*	t_content_f)(void *);
 
@@ -45,6 +46,12 @@ typedef struct s_env
 	t_list		*env_lst;
 	t_list		*export_lst;
 }	t_env;
+
+// exec_attribute_utils.c
+t_exec_cmd	*get_exec_cmd(t_exec_attr *ea);
+char		*get_cmd_name(t_list *cmd);
+char		**get_args(t_list *cmd, t_exec_attr *ea);
+char		*get_cmd_arg(t_list *cmd, t_exec_attr *ea);
 
 
 #endif
