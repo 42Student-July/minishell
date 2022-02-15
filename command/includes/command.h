@@ -55,8 +55,8 @@ int			execute_cmd(t_exec_attr *ea);
 void		print_cmdv(char **cmdv);
 
 // execute_self.c
-bool		is_self_cmd(const char *c);
-void		execute_self(t_exec_attr *ea);
+bool		is_self_cmd(char *cmd);
+void		execute_self_cmd(t_list	*cmd, t_exec_attr *ea);
 void		create_cmd_from_arg(int argc, const char *argv[], t_exec_attr *ea);
 void		exec_in_child_process(t_exec_attr *ea);
 bool		exec_in_main_process(t_exec_attr *ea);
