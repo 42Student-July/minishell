@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/14 21:37:59 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 10:25:54 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,20 +144,23 @@ void	pipe_process(t_exec_attr *ea)
 {
 	int				cmd_i;
 	int				**pipe_fd;
-	t_list			*current_cmd;
+	// t_list			*current_cmd;
 	t_redirect_cmd	*rc;
 
 	pipe_fd = malloc_pipe_fd(ea->pipe_count);
 	cmd_i = 0;
-	current_cmd = ea->cmd;
+	// current_cmd = ea->cmd;
 	while (cmd_i < ea->pipe_count + 1)
 	{
-		rc = (t_redirect_cmd *)current_cmd->content;
+		rc = (t_redirect_cmd *)ea->cmd->content;
 		make_pipe(cmd_i, ea->pipe_count, pipe_fd);
+		if (is_self_cmd(get_cmd_name(ea->cmd)))
+			// TODO: ea->cmdの参照位置を替えていると、eaがcmdを追いきれなくてleakする。
+			execute_self_cmd(ea->cmd, ea);
 		exec_cmd(rc, ea, cmd_i, pipe_fd);
 		close_pipe(pipe_fd, cmd_i);
 		cmd_i++;
-		current_cmd = current_cmd->next;
+		ea->cmd = ea->cmd->next;
 	}
 	wait_process(ea->pipe_count);
 	free_pipe_fd(pipe_fd, ea->pipe_count);
