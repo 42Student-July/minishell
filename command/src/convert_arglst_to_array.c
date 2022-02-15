@@ -12,14 +12,14 @@
 
 #include "command.h"
 
-char	**convert_arglst_to_array(t_cmd *rc)
+char	**convert_arglst_to_array(t_redirect_cmd *rc)
 {
 	char	**cmdv;
 	size_t	cmdc;
 	size_t	i;
 	t_list	*current_arg;
 
-	cmdc = ft_lstsize(rc->args);
+	cmdc = ft_lstsize(rc->cmd->args);
 	cmdv = (char **)malloc(sizeof(char *) * (cmdc + NULL_CHAR));
 	if (cmdv == NULL)
 	{
@@ -27,7 +27,7 @@ char	**convert_arglst_to_array(t_cmd *rc)
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
-	current_arg = rc->args;
+	current_arg = rc->cmd->args;
 	while (current_arg != NULL)
 	{
 		cmdv[i] = (char *)current_arg->content;

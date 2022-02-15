@@ -12,7 +12,7 @@
 
 #include "command.h"
 
-void	do_execute_cmd(t_cmd *rc)
+void	do_execute_cmd(t_redirect_cmd *rc)
 {
 	pid_t	pid;
 	int		status;
@@ -42,5 +42,8 @@ void	do_execute_cmd(t_cmd *rc)
 
 void	no_pipe_process(t_list *cmd)
 {
-	do_execute_cmd(cmd->content);
+	t_redirect_cmd	*rc;
+
+	rc = cmd->content;
+	do_execute_cmd(rc);
 }
