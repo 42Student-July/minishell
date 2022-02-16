@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 16:26:40 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 17:15:14 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,16 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		printf("fork error\n");
 	else if (pid == 0)
 	{
+		if (has_redirect_file(c))
+			change_direction(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
 			printf("exec error\n");
 			exit(EXIT_FAILURE);
 		}
+		// こっちはいらないかもしれないけど一応
+		if (has_redirect_file(c))
+			revert_direction(c, ea);
 	}
 	else
 	{
