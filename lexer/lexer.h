@@ -63,5 +63,6 @@ bool is_forbidden_char(char c);
 void add_heredoc_delimiter(t_lexer *lexer);
 void read_heredoc(t_lexer *lexer);
 void print_kvs(t_list *kvs);
+bool is_metachar(const char c);
 
 #endif

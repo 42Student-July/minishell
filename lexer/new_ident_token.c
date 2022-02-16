@@ -8,7 +8,7 @@ t_token	*new_ident_token(t_lexer *lexer)
 	size_t	pos;
 
 	pos = lexer->position;
-	while (!ft_isspace(lexer->ch) && lexer->ch != '\0')
+	while (!is_metachar(lexer->ch) && lexer->ch != '\0')
 	{
 		if (is_forbidden_char(lexer->ch))
 			exit(EXIT_FAILURE);

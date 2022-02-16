@@ -29,6 +29,7 @@ SRCS = new_lexer.c\
 		add_heredoc_delimiter.c\
 		read_heredoc.c\
 		print_kvs.c\
+		is_metachar.c\
 
 OBJS = ${SRCS:.c=.o}
 
