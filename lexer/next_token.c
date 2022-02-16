@@ -13,10 +13,6 @@ t_token	*next_token(t_lexer *lexer)
 		token = new_token(TOKEN_ILLEGAL, NULL);
 	else if (lexer->ch == '=')
 		token = new_token(TOKEN_ASSIGN, "=");
-	else if (lexer->ch == '\'' || lexer->ch == '"')
-	{
-		token = (new_quote_token(lexer, lexer->ch));
-	}
 	else if (lexer->ch == '>')
 	{
 		if (peek_char(lexer) == '>')
