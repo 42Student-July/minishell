@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 23:45:26 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/16 23:50:10 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ char	*get_arg1(t_cmd *cmd)
 // 引数の+-は1つまで
 int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 {
-	int		exit_status;
-	int		argc;
-	char	*arg1;
-	char	*error_message;
+	long int	exit_status;
+	int			argc;
+	char		*arg1;
+	char		*error_message;
 
 	(void)ea;
 	argc = ft_lstsize(cmd->args);
