@@ -17,26 +17,26 @@ extern "C"
 
 
 
-TEST(lexer, normal)
-{
-	char *input = ft_strdup("\"'=");
+// TEST(lexer, normal)
+// {
+// 	char *input = ft_strdup("\"'=");
 
-	std::vector<std::pair<t_tokentype, std::string>> expected = {
-		{TOKEN_DQUOTE, "\""},
-		{TOKEN_SQUOTE, "'"},
-		{TOKEN_ASSIGN, "="},
-		{TOKEN_EOF, ""},
-	};
+// 	std::vector<std::pair<t_tokentype, std::string>> expected = {
+// 		{TOKEN_DQUOTE, "\""},
+// 		{TOKEN_SQUOTE, "'"},
+// 		{TOKEN_ASSIGN, "="},
+// 		{TOKEN_EOF, ""},
+// 	};
 
-	t_lexer *lexer = new_lexer(input);
-	for (auto &expected_token : expected)
-	{
-		t_token *token = next_token(lexer);
-		compare_token(token, expected_token);
-		delete_token(token);
-	}
-	delete_lexer(lexer);
-}
+// 	t_lexer *lexer = new_lexer(input);
+// 	for (auto &expected_token : expected)
+// 	{
+// 		t_token *token = next_token(lexer);
+// 		compare_token(token, expected_token);
+// 		delete_token(token);
+// 	}
+// 	delete_lexer(lexer);
+// }
 
 TEST(lexer, single_term)
 {
@@ -46,7 +46,7 @@ TEST(lexer, single_term)
 		{TOKEN_REDIRECT_OUT, ">"},
 		{TOKEN_REDIRECT_IN, "<"},
 		{TOKEN_PIPE, "|"},
-		{TOKEN_ENV, "$"},
+		{TOKEN_IDENT, "$"},
 		{TOKEN_EOF, ""},
 	};
 
@@ -66,6 +66,7 @@ TEST(lexer, word)
 
 	std::vector<std::pair<t_tokentype, std::string>> expected = {
 		{TOKEN_IDENT, "echo"},
+		{TOKEN_WHITESPACE, " "},
 		{TOKEN_IDENT, "hello"},
 		{TOKEN_EOF, ""},
 	};
@@ -85,8 +86,11 @@ TEST(lexer, heredoc_append)
 
 	std::vector<std::pair<t_tokentype, std::string>> expected = {
 		{TOKEN_HEREDOC, "<<"},
+		{TOKEN_WHITESPACE, " "},
 		{TOKEN_REDIRECT_APPEND, ">>"},
+		{TOKEN_WHITESPACE, " "},
 		{TOKEN_REDIRECT_IN, "<"},
+		{TOKEN_WHITESPACE, " "},
 		{TOKEN_REDIRECT_OUT, ">"},
 		{TOKEN_EOF, ""},
 	};
@@ -107,7 +111,8 @@ TEST(lexer, env)
 	// "echo "hoge \n fuga""
 
 	std::vector<std::pair<t_tokentype, std::string>> expected = {
-		{TOKEN_ENV, "$PATH"},
+		{TOKEN_IDENT, "$PATH"},
+		{TOKEN_WHITESPACE, " "},
 		{TOKEN_EXIT_STATUS, "$?"},
 		{TOKEN_EOF, ""},
 	};
@@ -121,3 +126,22 @@ TEST(lexer, env)
 	}
 	delete_lexer(lexer);
 }
+
+
+TEST(lexer, lexer_product)
+{
+	char *input = ft_strdup("$PATH $?");
+	// "echo "hoge \n fuga""
+
+	std::vector<std::pair<t_tokentype, std::string>> expected = {
+		{TOKEN_IDENT, "$PATH"},
+		{TOKEN_WHITESPACE, " "},
+		{TOKEN_EXIT_STATUS, "$?"},
+		{TOKEN_EOF, ""},
+	};
+
+ 	t_lexer_product *lexer_product = analyze(input);
+	delete_lexer_product(&lexer_product);
+}
+
+

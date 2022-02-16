@@ -10,8 +10,6 @@ typedef enum e_tokentype
 	TOKEN_ILLEGAL = -1,
 	TOKEN_EOF = 0,
 	TOKEN_IDENT = 1,
-	TOKEN_NUMBER = 2,
-	TOKEN_STRING,
 	TOKEN_ASSIGN = '=',
 	TOKEN_SQUOTE = '\'',
 	TOKEN_DQUOTE = '"',
@@ -20,7 +18,8 @@ typedef enum e_tokentype
 	TOKEN_PIPE = '|',
 	TOKEN_ENV = '$',
 	TOKEN_WHITESPACE = ' ',
-	TOKEN_REDIRECT_APPEND, TOKEN_HEREDOC,
+	TOKEN_REDIRECT_APPEND,
+	TOKEN_HEREDOC,
 	TOKEN_EXIT_STATUS,
 }	t_tokentype;
 
@@ -42,7 +41,6 @@ typedef struct s_lexer
 	size_t		position;
 	size_t		read_position;
 	char		ch;
-	bool		skip_whitespace;
 	t_list		*io_here_delimiters;
 	t_list	*heredocs;
 } t_lexer;
@@ -70,5 +68,7 @@ void read_heredoc(t_lexer *lexer);
 void print_kvs(t_list *kvs);
 t_lexer_product *analyze(char *line);
 void delete_lexer_product(t_lexer_product **l_product);
+void split_whitespace(t_lexer_product *l_product);
+void trim_whitespace(t_lexer_product);
 
 #endif

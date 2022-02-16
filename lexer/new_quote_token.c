@@ -19,6 +19,5 @@ t_token *new_quote_token(t_lexer *lexer, t_tokentype type)
 	token = new_token(type, quote);
 	free(quote);
 	quote = NULL;
-	lexer->skip_whitespace = false;
 	return (token);
 }

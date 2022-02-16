@@ -48,7 +48,7 @@ t_list	*get_list_by_key(t_list *lst, char *key)
 	ret = lst;
 	while (ret != NULL)
 	{
-		if (is_same_str(ft_kvsget_key(ret->content), key))
+		if (ft_streq(ft_kvsget_key(ret->content), key))
 			return (ret);
 		ret = ret->next;
 	}

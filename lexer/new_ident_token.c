@@ -22,6 +22,5 @@ t_token	*new_ident_token(t_lexer *lexer)
 	token = new_token(TOKEN_IDENT, ident);
 	free(ident);
 	ident = NULL;
-	lexer->skip_whitespace = false;
 	return (token);
 }

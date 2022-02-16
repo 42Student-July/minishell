@@ -15,7 +15,7 @@
 // 引数のコマンド名と実行時のコマンドが一致していたらtrue
 bool	is_(char *command, char *cmd)
 {
-	if (is_same_str(cmd, command))
+	if (ft_streq(cmd, command))
 		return (true);
 	return (false);
 }

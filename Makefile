@@ -149,9 +149,10 @@ $(GTEST):
 #it is important to compile the library with right order (libft is the latest)
 SRCS_TEST = test/test_helper.cpp\
 			test/lexer_test.cpp\
-			test/exec_parser_test.cpp\
-			test/redirect_parser_test.cpp\
-			test/pipe_parser_test.cpp\
+			test/skip_whitespace_test.cpp\
+			# test/exec_parser_test.cpp\
+			# test/redirect_parser_test.cpp\
+			# test/pipe_parser_test.cpp\
 
 .PHONY: test
 test: test-build

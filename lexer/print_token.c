@@ -26,10 +26,6 @@ char *get_token_type_name(t_tokentype type)
 		return ("ENV");
 	else if (type == TOKEN_IDENT)
 		return ("IDENT");
-	else if (type == TOKEN_NUMBER)
-		return ("NUMBER");
-	else if (type == TOKEN_STRING)
-		return ("STRING");
 	else
 		return ("UNKNOWN");
 }

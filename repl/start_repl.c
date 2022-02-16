@@ -28,9 +28,11 @@ void	start_repl(void)
 		l_product = analyze(line);
 		if (ft_strlen(l_product->input) > 0) // 空文字列をヒストリーに入れないための対処法
 			add_history(l_product->input);
+		// envvar_expansion(l_product);
+		split_whitespace(l_product);
 		print_tokens(l_product->token_list);
-		ea->cmd = parse_pipe(l_product->token_list, &l_product->heredocs);
-		print_cmd(ea->cmd);
+		ea->cmd_lst = parse_pipe(l_product->token_list, &l_product->heredocs);
+		print_cmds(ea->cmd_lst);
 		// execute_cmd(ea);
 		print_kvs(l_product->heredocs);
 		delete_lexer_product(&l_product);

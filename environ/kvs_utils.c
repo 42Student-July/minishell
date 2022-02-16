@@ -28,12 +28,3 @@ bool	is_lvalue_bigger_ascii(char *lvalue, char *rvalue)
 		return (true);
 	return (false);
 }
-
-bool	is_same_str(char *a, char *b)
-{
-	if (ft_strlen(a) != ft_strlen(b))
-		return (false);
-	if (ft_strncmp(a, b, ft_strlen(a)) != 0)
-		return (false);
-	return (true);
-}

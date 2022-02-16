@@ -30,6 +30,19 @@ void compare_token(t_token *token,
 	}
 }
 
+void compare_tokens(t_list *token_list, std::vector<std::pair<t_tokentype, std::string>> expected_tokens)
+{
+	t_list *current = token_list;
+
+	ASSERT_EQ(ft_lstsize(token_list), expected_tokens.size());
+	for (auto &expected_token : expected_tokens)
+	{
+		t_token *token = (t_token *)current->content;
+		compare_token(token, expected_token);
+		current = current->next;
+	}
+}
+
 void compare_string(t_list *str_list, std::vector<std::string> expected_strings)
 {
 	if (expected_strings.size() == 0)
@@ -74,14 +87,7 @@ t_list *init_input_lists(std::vector<std::pair<t_tokentype, std::string>> init_t
 	return (list);
 }
 
-void check_exec_cmd(t_exec_cmd *result, test_t_exec_cmd expected)
-{
-	if (expected.first == "")
-		EXPECT_EQ(result->cmd, (void *)NULL);
-	else
-		EXPECT_STREQ(result->cmd, expected.first.c_str());
-	compare_string(result->args, expected.second);
-}
+
 /*
 typedef struct s_redirect_cmd
 {
@@ -94,14 +100,12 @@ typedef struct s_redirect_cmd
 } t_redirect_cmd;
 */
 void check_redirect_cmd(
-	t_redirect_cmd *result,
-	test_t_redirect_cmd expected)
+	t_cmd *result,
+	test_t_cmd expected)
 {
-	test_t_exec_cmd expected_cmd = std::get<0>(expected);
-	test_t_file expected_in = std::get<1>(expected);
-	test_t_file expected_out = std::get<2>(expected);
+	test_t_file expected_in = std::get<2>(expected);
+	test_t_file expected_out = std::get<3>(expected);
 
-	check_exec_cmd((t_exec_cmd *)result->cmd, expected_cmd);
 	compare_files(result->filenames_in, expected_in);
 	compare_files(result->filenames_out, expected_out);
 }
@@ -121,10 +125,10 @@ void check_pipe_cmd(t_list *result, test_t_pipe_cmd expected)
 		EXPECT_EQ(result, (void *)NULL);
 		return;
 	}
-	test_t_redirect_cmd expected_redirect_cmd = expected[0];
+	test_t_cmd expected_redirect_cmd = expected[0];
 	if (result == NULL)
 		return;
-	check_redirect_cmd((t_redirect_cmd *)result->content, expected_redirect_cmd);
+	check_redirect_cmd((t_cmd *)result->content, expected_redirect_cmd);
 	expected.erase(expected.begin());
 	check_pipe_cmd(result->next, expected);
 }

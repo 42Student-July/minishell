@@ -31,6 +31,7 @@ SRCS = new_lexer.c\
 		print_kvs.c\
 		analyze.c\
 		delete_lexer_product.c\
+		split_whitespace.c\
 
 OBJS = ${SRCS:.c=.o}
 

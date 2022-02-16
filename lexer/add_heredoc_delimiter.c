@@ -8,8 +8,6 @@ void	add_heredoc_delimiter(t_lexer *lexer)
 	size_t pos_tail;
 
 	read_char(lexer);
-	if (lexer->skip_whitespace)
-		skip_whitespace(lexer);
 	pos = lexer->position;
 	pos_tail = pos;
 	while (!ft_isspace(lexer->input[pos_tail]) && lexer->input[pos_tail] != '\0')
