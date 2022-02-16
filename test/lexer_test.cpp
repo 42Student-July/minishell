@@ -119,3 +119,26 @@ TEST(lexer, env)
 	}
 	delete_lexer(lexer);
 }
+
+TEST(lexer, quote)
+{
+	char *input = ft_strdup("echo 'hello' \"hello\" joined'hello' joined\"hello\"");
+
+	std::vector<std::pair<t_tokentype, std::string>> expected = {
+		{TOKEN_IDENT, "echo"},
+		{TOKEN_IDENT, "'hello'"},
+		{TOKEN_IDENT, "\"hello\""},
+		{TOKEN_IDENT, "joined'hello'"},
+    {TOKEN_IDENT, "joined\"hello\""},
+		{TOKEN_EOF, ""},
+	};
+
+	t_lexer *lexer = new_lexer(input);
+	for (auto &expected_token : expected)
+	{
+		t_token *token = next_token(lexer);
+		compare_token(token, expected_token);
+		delete_token(token);
+	}
+	delete_lexer(lexer);
+}
