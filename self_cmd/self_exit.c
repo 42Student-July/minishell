@@ -6,13 +6,13 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 23:50:10 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/16 23:53:08 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 
-static int	get_two_complement(int exit_status)
+static int	get_two_complement(long int exit_status)
 {
 	int8_t	two_complement;
 
@@ -47,18 +47,18 @@ bool	is_num(char *str)
 	return (true);
 }
 
-void	exit_success(int exit_status)
+void	exit_success(long int exit_status)
 {
 	printf("start exit_success\n");
-	printf("exit_status %d\n", exit_status);
+	printf("exit_status %ld\n", exit_status);
 	ft_putendl_fd("exit", STDERR_FILENO);
 	exit(exit_status);
 }
 
-void	exit_failure(int exit_status, char *error_message)
+void	exit_failure(long int exit_status, char *error_message)
 {
 	printf("start exit_failure\n");
-	printf("exit_status %d\n", exit_status);
+	printf("exit_status %ld\n", exit_status);
 	ft_putendl_fd("exit", STDERR_FILENO);
 	ft_putendl_fd(error_message, STDERR_FILENO);
 	exit(exit_status);
