@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 19:50:06 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/16 21:42:33 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,27 +64,36 @@ void	exit_failure(int exit_status, char *error_message)
 	exit(exit_status);
 }
 
-char	*make_error_message(char *arg, char *error)
+char	*make_arg_error_message(char *arg, char *error)
 {
 	char	*error_message;
 	char	*tmp_str;
 	char	*tmp_arg;
 
-	if (arg == NULL)
-		tmp_str = "minishell: exit: ";
-	else
-	{
-		tmp_arg = ft_strjoin(arg, ": ");
-		if (tmp_arg == NULL)
-			exit(EXIT_FAILURE);
-		tmp_str = ft_strjoin("minishell: exit: ", tmp_arg);
-		if (tmp_str == NULL)
-			exit(EXIT_FAILURE);
-		free(tmp_arg);
-	}
+	if (arg == NULL || error == NULL)
+		exit (EXIT_FAILURE);
+	tmp_arg = ft_strjoin(arg, ": ");
+	if (tmp_arg == NULL)
+		exit(EXIT_FAILURE);
+	tmp_str = ft_strjoin("minishell: exit: ", tmp_arg);
+	if (tmp_str == NULL)
+		exit(EXIT_FAILURE);
+	free(tmp_arg);
 	error_message = ft_strjoin(tmp_str, error);
 	if (error_message)
 	free(tmp_str);
+	return (error_message);
+}
+
+char	*make_dfl_error_message(char *error)
+{
+	char	*error_message;
+
+	if (error == NULL)
+		exit(EXIT_FAILURE);
+	error_message = ft_strjoin("minishell: exit: ", error);
+	if (error_message == NULL)
+		exit(EXIT_FAILURE);
 	return (error_message);
 }
 
@@ -114,13 +123,17 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	arg1 = get_arg1(cmd);
 	if (!is_num(arg1))
 	{
-		error_message = make_error_message(arg1, "numeric argument required");
+		error_message = make_arg_error_message(arg1, \
+											"numeric argument required");
 		exit_failure(255, error_message);
 	}
 	argc = ft_lstsize(cmd->args);
 	if (argc > 2)
 	{
-		printf("too many arguments\n"); // ここにきたらexitしない
+		// ここにきたらexitしない
+		error_message = make_dfl_error_message("too many arguments");
+		ft_putendl_fd("exit", STDERR_FILENO);
+		ft_putendl_fd(error_message, STDERR_FILENO);
 		return (1);
 	}
 	if (argc == 1)
