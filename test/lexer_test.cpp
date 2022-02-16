@@ -44,7 +44,7 @@ TEST(lexer, single_term)
 		{TOKEN_REDIRECT_OUT, ">"},
 		{TOKEN_REDIRECT_IN, "<"},
 		{TOKEN_PIPE, "|"},
-		{TOKEN_ENV, "$"},
+		{TOKEN_IDENT, "$"},
 		{TOKEN_EOF, ""},
 	};
 
@@ -78,11 +78,7 @@ TEST(lexer, word)
 }
 
 TEST(lexer, heredoc_append)
-{
-	char *input = ft_strdup("<< >> < >");
-
-	std::vector<std::pair<t_tokentype, std::string>> expected = {
-		{TOKEN_HEREDOC, "<<"},
+{ char *input = ft_strdup("<< >> < >"); std::vector<std::pair<t_tokentype, std::string>> expected = { {TOKEN_HEREDOC, "<<"},
 		{TOKEN_REDIRECT_APPEND, ">>"},
 		{TOKEN_REDIRECT_IN, "<"},
 		{TOKEN_REDIRECT_OUT, ">"},
@@ -105,8 +101,8 @@ TEST(lexer, env)
 	// "echo "hoge \n fuga""
 
 	std::vector<std::pair<t_tokentype, std::string>> expected = {
-		{TOKEN_ENV, "$PATH"},
-		{TOKEN_EXIT_STATUS, "$?"},
+		{TOKEN_IDENT, "$PATH"},
+		{TOKEN_IDENT, "$?"},
 		{TOKEN_EOF, ""},
 	};
 
