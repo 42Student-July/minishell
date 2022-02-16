@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 14:04:18 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 09:53:40 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,14 @@ void	x_chdir(const char *path)
 	}
 }
 
-void	exec_self_cd(t_exec_attr *ea)
+void	exec_self_cd(t_cmd *cmd, t_exec_attr *ea)
 {
-	x_chdir(get_cmd_arg(ea->cmd_lst, ea));
+	char	*argv_one;
+
+	argv_one = get_argv_one(cmd);
+	if (argv_one == NULL)
+		return ;
+	(void)ea;
+	// TODO: 引数が２つある場合などにも対応する
+	x_chdir(argv_one);
 }

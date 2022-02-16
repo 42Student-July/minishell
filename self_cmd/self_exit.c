@@ -6,14 +6,15 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/10 14:20:55 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 10:18:40 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 
-void	exec_self_exit(t_exec_attr *ea)
+void	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 {
+	(void)cmd;
 	(void)ea;
 	exit(0);
 }

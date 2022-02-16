@@ -6,15 +6,16 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:36:05 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:20:52 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 09:45:42 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 
 // TODO:引数あるバージョンは未対応
-void	exec_self_env(t_exec_attr *ea)
+void	exec_self_env(t_cmd *cmd, t_exec_attr *ea)
 {
+	(void)cmd;
 	print_all_env_lst(ea);
 }
 
