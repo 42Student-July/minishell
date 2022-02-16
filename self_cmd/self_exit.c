@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 22:32:07 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/16 22:50:45 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,16 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	char	*error_message;
 
 	(void)ea;
+	argc = ft_lstsize(cmd->args);
 	arg1 = get_arg1(cmd);
+	if (argc == 1)
+		exit_success(EXIT_SUCCESS);
 	if (!is_num(arg1))
 	{
 		error_message = make_arg_error_message(arg1, \
 											"numeric argument required");
 		exit_failure(255, error_message);
 	}
-	argc = ft_lstsize(cmd->args);
 	if (argc > 2)
 	{
 		// ここにきたらexitしない
@@ -136,8 +138,6 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 		ft_putendl_fd(error_message, STDERR_FILENO);
 		return (1);
 	}
-	if (argc == 1)
-		exit_success(EXIT_SUCCESS);
 	// current_arglst = cmd->args;
 	exit_status = ft_atoi(arg1);
 	if (exit_status < 0)
