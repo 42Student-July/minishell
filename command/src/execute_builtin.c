@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/14 16:05:36 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:10:14 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ char	**convert_envlst_to_array(t_exec_attr *ea)
 		return (NULL);
 	while (i < env_lst_size)
 	{
+		if (ft_kvsget_value(tmp->content) == NULL)
+		{
+			i++;
+			tmp = tmp->next;
+			continue ;
+		}
 		//　TODO: 行数長くなっちゃうからget_keyの引数はlstでもいいのかも
 		array[i] = create_environ_line(\
 			ft_kvsget_key(tmp->content), ft_kvsget_value(tmp->content), false);
