@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_cmd.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 10:16:21 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 19:46:09 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		exec_self_cd(t_cmd *cmd, t_exec_attr *ea);
 void		exec_self_echo(t_cmd *cmd, t_exec_attr *ea);
 
 // self_exit.c
-void		exec_self_exit(t_cmd *cmd, t_exec_attr *ea);
+int			exec_self_exit(t_cmd *cmd, t_exec_attr *ea);
 
 // self_env.c
 void		exec_self_env(t_cmd *cmd, t_exec_attr *ea);
