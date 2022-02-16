@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:57 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/10 14:28:13 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 10:05:24 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ static void	x_getcwd(char *pathname, int bufsiz)
 	}
 }
 
-void	exec_self_pwd(t_exec_attr *ea)
+void	exec_self_pwd(t_cmd *cmd, t_exec_attr *ea)
 {
 	char	pathname[BUFSIZ];
 
+	(void)cmd;
 	(void)ea;
 	x_getcwd(pathname, BUFSIZ);
-	printf("%s\n", pathname);
+	ft_putstr_fd(pathname, STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
 }

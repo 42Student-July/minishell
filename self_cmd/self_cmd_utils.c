@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 09:26:06 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/10 14:20:44 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 10:14:38 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_invalid_name(char *name)
 			return (true);
 		i++;
 	}
-	return (true);
+	return (false);
 }
 
 void	print_error_msg_with_var(char *cmd_name, char *var)

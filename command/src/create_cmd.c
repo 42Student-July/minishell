@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 14:13:54 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:24:25 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,12 @@ char	*concat_path_and_cmd(char *path, char *command)
 	return (new_cmd);
 }
 
-char	*create_cmd_from_path(char *command, char **path)
+char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
 	size_t			i;
+	char			*new_cmd;
 
 	i = 0;
 	while (path[i] != NULL)
@@ -141,8 +142,13 @@ char	*create_cmd_from_path(char *command, char **path)
 		dp = readdir(dirp);
 		while (dp != NULL)
 		{
-			if (is_same_str(dp->d_name, command))
-				return (concat_path_and_cmd(path[i], command));
+			if (is_same_str(dp->d_name, cmd))
+			{
+				new_cmd = concat_path_and_cmd(path[i], cmd);
+				if (new_cmd == NULL)
+					abort_minishell_with(MALLOC_ERROR, ea, path);
+				return (new_cmd);
+			}
 			dp = readdir(dirp);
 		}
 		i++;
@@ -151,20 +157,18 @@ char	*create_cmd_from_path(char *command, char **path)
 }
 
 // TODO: 引数を一つにする
-char	*find_path(t_cmd *cmd, t_exec_attr *ea)
+char	*find_path(char *cmd_name, t_exec_attr *ea)
 {
 	char			*env_path;
 	char			**path;
-	char			*command;
 	char			*new_cmd;
 
-	command = cmd->cmd;
 	env_path = ft_kvsget_value(get_list_by_key(ea->env_lst, "PATH")->content);
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
-	new_cmd = create_cmd_from_path(command, path);
+	new_cmd = create_cmd_from_path(cmd_name, path, ea);
 	if (new_cmd == NULL)
-		abort_minishell_with(MALLOC_ERROR, ea, path);
+		return (NULL);
 	return (new_cmd);
 }

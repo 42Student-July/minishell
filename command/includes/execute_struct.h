@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:44:58 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 14:19:45 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 10:21:26 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ typedef struct s_env
 // exec_attribute_utils.c
 t_cmd		*get_cmd(t_exec_attr *ea);
 char		*get_cmd_name(t_list *cmd);
-char		**get_args(t_list *cmd, t_exec_attr *ea);
-char		*get_cmd_arg(t_list *cmd, t_exec_attr *ea);
+char		*get_argv_one(t_cmd *cmd);
 
 #endif
 

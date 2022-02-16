@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 13:59:25 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 10:25:18 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@
 # include "self_cmd.h"
 # include "error_handle.h"
 
-# define CD "cd"
-# define ECHO "echo"
-# define PWD "pwd"
-# define EXIT "exit"
-# define ENV "env"
-# define EXPORT "export"
-# define UNSET "unset"
 # define MY_COMMAND_NUM 4
 # define CMD_NAME 0
 # define CMD_ARG 1
@@ -55,7 +48,7 @@ void		print_cmdv(char **cmdv);
 
 // execute_self.c
 bool		is_self_cmd(char *cmd);
-void		execute_self_cmd(t_list	*cmd, t_exec_attr *ea);
+void		execute_self_cmd(t_cmd	*c, t_exec_attr *ea);
 void		create_cmd_from_arg(int argc, const char *argv[], t_exec_attr *ea);
 void		exec_in_child_process(t_exec_attr *ea);
 bool		exec_in_main_process(t_exec_attr *ea);
@@ -71,7 +64,7 @@ char		*create_environ_line(char *key, char *value, bool is_end);
 bool		is_dollar(char *arg);
 char		*convert_env_var(t_exec_attr *ea, char *arg);
 void		create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea);
-char		*find_path(t_cmd *rc, t_exec_attr *ea);
+char		*find_path(char *cmd_name, t_exec_attr *ea);
 
 // redirect_process.c
 void		change_direction(t_exec_attr *ea);
@@ -86,7 +79,7 @@ char		**convert_lst_to_argv(t_list *args);
 
 // no_pipe_process.c
 void		no_pipe_process(t_exec_attr *ea);
-void		execute_ext_cmd(t_exec_attr *ea);
+void		execute_ext_cmd(t_cmd *c, t_exec_attr *ea);
 
 
 // pipe_process.c
