@@ -20,7 +20,12 @@
 # include "error_handle.h"
 # include "environ.h"
 
-# define CMD_ARG 1
+# define CD "cd"
+# define ECHO "echo"
+# define PWD "pwd"
+# define EXIT "exit"
+# define ENV "env"
+# define EXPORT "export"
 # define UNSET "unset"
 
 // self_pwd.c
