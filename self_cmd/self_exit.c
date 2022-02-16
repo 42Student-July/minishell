@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 23:40:06 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/16 23:41:59 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	is_num(char *str)
 {
 	size_t	i;
 
-	if (!(str[0] == '-' || ft_isdigit(str[0])))
+	if (!(str[0] == '+' || str[0] == '-' || ft_isdigit(str[0])))
 		return (false);
 	i = 1;
 	while (str[i] != '\0')
