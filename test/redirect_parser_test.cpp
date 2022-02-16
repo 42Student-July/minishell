@@ -25,14 +25,15 @@ TEST(parse_redirect, simple_redirect_in)
 		{TOKEN_EOF, ""},
 	};
 	t_list *input = init_input_lists(input_vector);
-	test_t_redirect_cmd expected = {
-		{"cat", {"cat"}},
+	test_t_cmd expected = {
+		"cat",
+		{"cat"},
 		{{"test.txt", false}},
 		{},
 	};
 
-	t_cmd *cmd = (t_cmd *)parse_redirect(input);
-	check_redirect_cmd((t_redirect_cmd *)cmd, expected);
+	t_cmd *cmd = parse_cmd(input, NULL);
+	check_redirect_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -47,13 +48,14 @@ TEST(parse_redirect, simple_redirect_out)
 	};
 	t_list *input = init_input_lists(input_vector);
 
-	test_t_redirect_cmd expected = {
-		{"echo", {"echo"}},
+	test_t_cmd expected = {
+		"echo",
+		{"echo"},
 		{},
 		{{"test.txt", false}},
 	};
-	t_cmd *cmd = (t_cmd *)parse_redirect(input);
-	check_redirect_cmd((t_redirect_cmd *)cmd, expected);
+	t_cmd *cmd = parse_cmd(input, NULL);
+	check_redirect_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -68,13 +70,14 @@ TEST(parse_redirect, simple_redirect_append)
 	};
 	t_list *input = init_input_lists(input_vector);
 
-	test_t_redirect_cmd expected = {
-		{"echo", {"echo"}},
+	test_t_cmd expected = {
+		"echo",
+		{"echo"},
 		{},
 		{{"test.txt", true}},
 	};
-	t_cmd *cmd = (t_cmd *)parse_redirect(input);
-	check_redirect_cmd((t_redirect_cmd *)cmd, expected);
+	t_cmd *cmd = parse_cmd(input, NULL);
+	check_redirect_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -93,14 +96,15 @@ TEST(parse_redirect, redirect_out_triple)
 	};
 	t_list *input = init_input_lists(input_vector);
 
-	test_t_redirect_cmd expected = {
-		{"echo", {"echo"}},
+	test_t_cmd expected = {
+		"echo",
+		{"echo"},
 		{},
 		{{"test1.txt", false}, {"test2.txt", false}, {"test3.txt", false}},
 	};
 
-	t_cmd *cmd = (t_cmd *)parse_redirect(input);
-	check_redirect_cmd((t_redirect_cmd *)cmd, expected);
+	t_cmd *cmd = parse_cmd(input, NULL);
+	check_redirect_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -119,14 +123,15 @@ TEST(parse_redirect, redirect_in_triple)
 	};
 	t_list *input = init_input_lists(input_vector);
 
-	test_t_redirect_cmd expected = {
-		{"echo", {"echo"}},
+	test_t_cmd expected = {
+		"echo",
+		{"echo"},
 		{{"test1.txt", false}, {"test2.txt", false}, {"test3.txt", false}},
 		{},
 	};
 
-	t_cmd *cmd = (t_cmd *)parse_redirect(input);
-	check_redirect_cmd((t_redirect_cmd *)cmd, expected);
+	t_cmd *cmd = parse_cmd(input, NULL);
+	check_redirect_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -151,8 +156,9 @@ TEST(parse_redirect, redirect_multiple)
 	};
 	t_list *input = init_input_lists(input_vector);
 
-	test_t_redirect_cmd expected = {
-		{"cat", {"cat"}},
+	test_t_cmd expected = {
+		"cat",
+		{"cat"},
 		{{"main.c", false}, {"README.md", false}},
 		{{"out1.txt", false},
 		 {"out2.txt", false},
@@ -160,8 +166,8 @@ TEST(parse_redirect, redirect_multiple)
 		 {"out3.txt", false}},
 	};
 
-	t_cmd *cmd = (t_cmd *)parse_redirect(input);
-	check_redirect_cmd((t_redirect_cmd *)cmd, expected);
+	t_cmd *cmd = parse_cmd(input, NULL);
+	check_redirect_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -180,14 +186,15 @@ TEST(parse_redirect, redirect_multiple2)
 		{TOKEN_EOF, ""},
 	};
 	t_list *input = init_input_lists(input_vector);
-	test_t_redirect_cmd expected = {
-		{"cat", {"cat", "README.md", "main.c"}},
+	test_t_cmd expected = {
+		"cat",
+		{"cat", "README.md", "main.c"},
 		{{"main.c", false}},
 		{{"out.txt", false}},
 	};
 
-	t_cmd *cmd = (t_cmd *)parse_redirect(input);
-	check_redirect_cmd((t_redirect_cmd *)cmd, expected);
+	t_cmd *cmd = parse_cmd(input, NULL);
+	check_redirect_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -205,14 +212,15 @@ TEST(parse_redirect, redirect_before_command)
 	};
 	t_list *input = init_input_lists(input_vector);
 
-	test_t_redirect_cmd expected = {
-		{"cat", {"cat"}},
+	test_t_cmd expected = {
+		"cat",
+		{"cat"},
 		{{"main.c", false}},
 		{{"out.txt", false}},
 	};
 
-	t_cmd *cmd = (t_cmd *)parse_redirect(input);
-	check_redirect_cmd((t_redirect_cmd *)cmd, expected);
+	t_cmd *cmd = parse_cmd(input, NULL);
+	check_redirect_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -227,10 +235,10 @@ TEST(parse_redirect, only_input)
 	};
 	t_list *input = init_input_lists(input_vector);
 
-	test_t_redirect_cmd expected = {{}, {{"main.c", false}}, {}};
+	test_t_cmd expected = {"", {}, {{"main.c", false}}, {}};
 
-	t_cmd *cmd = (t_cmd *)parse_redirect(input);
-	check_redirect_cmd((t_redirect_cmd *)cmd, expected);
+	t_cmd *cmd = parse_cmd(input, NULL);
+	check_redirect_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }

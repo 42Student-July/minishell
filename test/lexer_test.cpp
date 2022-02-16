@@ -15,28 +15,26 @@ extern "C"
 #include "test_helper.h"
 }
 
+// TEST(lexer, normal)
+// {
+// 	char *input = ft_strdup("\"'=");
 
+// 	std::vector<std::pair<t_tokentype, std::string>> expected = {
+// 		{TOKEN_DQUOTE, "\""},
+// 		{TOKEN_SQUOTE, "'"},
+// 		{TOKEN_ASSIGN, "="},
+// 		{TOKEN_EOF, ""},
+// 	};
 
-TEST(lexer, normal)
-{
-	char *input = ft_strdup("\"'=");
-
-	std::vector<std::pair<t_tokentype, std::string>> expected = {
-		{TOKEN_DQUOTE, "\""},
-		{TOKEN_SQUOTE, "'"},
-		{TOKEN_ASSIGN, "="},
-		{TOKEN_EOF, ""},
-	};
-
-	t_lexer *lexer = new_lexer(input);
-	for (auto &expected_token : expected)
-	{
-		t_token *token = next_token(lexer);
-		compare_token(token, expected_token);
-		delete_token(token);
-	}
-	delete_lexer(lexer);
-}
+// 	t_lexer *lexer = new_lexer(input);
+// 	for (auto &expected_token : expected)
+// 	{
+// 		t_token *token = next_token(lexer);
+// 		compare_token(token, expected_token);
+// 		delete_token(token);
+// 	}
+// 	delete_lexer(lexer);
+// }
 
 TEST(lexer, single_term)
 {

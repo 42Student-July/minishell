@@ -33,8 +33,9 @@ TEST(parse_exec, one_command)
 		{"echo", "hello", "world!", "yay!", "wow!"},
 	};
 
-	t_cmd *cmd = (t_cmd *)parse_exec(input);
-	check_exec_cmd((t_exec_cmd *)cmd, expected);
+	t_cmd *cmd = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
+	parse_exec(input, &cmd);
+	check_exec_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -52,8 +53,9 @@ TEST(parse_exec, no_args)
 		{"echo"},
 	};
 
-	t_cmd *cmd = (t_cmd *)parse_exec(input);
-	check_exec_cmd((t_exec_cmd *)cmd, expected);
+	t_cmd *cmd = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
+	parse_exec(input, &cmd);
+	check_exec_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
@@ -74,8 +76,9 @@ TEST(parse_exec, no_args_and_extra_tokens)
 		{"echo", "echo3"},
 	};
 
-	t_cmd *cmd = (t_cmd *)parse_exec(input);
-	check_exec_cmd((t_exec_cmd *)cmd, expected);
+	t_cmd *cmd = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
+	parse_exec(input, &cmd);
+	check_exec_cmd(cmd, expected);
 	delete_cmd(&cmd);
 	ft_lstclear(&input, &delete_token);
 }
