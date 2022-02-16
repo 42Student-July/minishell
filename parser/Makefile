@@ -13,7 +13,7 @@ INCLUDES	=	$(addprefix -I, $(HEADERS))
 
 SRCS = parse_exec.c\
 		parse_pipe.c\
-		parse_redirect.c\
+		parse_cmd.c\
 		print_cmd.c\
 		delete_cmd.c\
 		new_file.c\

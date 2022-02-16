@@ -11,6 +11,8 @@ t_list *parse_pipe(t_list *token_list, t_list **heredocs)
 	t_list *lst;
 
 	left_tokens = token_list;
+	if (((t_token *)left_tokens->content)->type == TOKEN_EOF)
+		return (NULL);
 	while (token_list != NULL)
 	{
 		token = token_list->content;

@@ -6,50 +6,11 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 14:10:14 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 17:31:42 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/command.h"
-
-void	execute_builtin(t_exec_attr *ea)
-{
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (pid == -1)
-		abort_minishell(FORK_ERROR, ea);
-	else if (pid == 0)
-	{
-		if (is_redirect_flag(ea))
-			change_direction(ea);
-		x_execve(ea);
-		exit(0);
-	}
-	else
-	{
-		pid = wait(&status);
-		if (pid == -1)
-			abort_minishell(FORK_ERROR, ea);
-	}
-}
-
-void	x_execve(t_exec_attr *ea)
-{
-	// char	**environ;
-	
-	(void)ea;
-
-	// environ = convert_envlst_to_array(ea);
-	// if (execve(ea->command[CMD_NAME], ea->command, environ) == -1)
-	// {
-	// 	printf("stderror(perror) : %s\n", strerror(errno));
-	// 	free(environ);
-	// 	exit(EXIT_FAILURE);
-	// }
-	// free(environ);
-}
 
 bool	is_not_exec_path(const char *command)
 {

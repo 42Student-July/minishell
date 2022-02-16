@@ -45,9 +45,9 @@ void	start_repl(void)
 			add_history(lexer->input);
 		// print_tokens(token_list);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
-		// print_cmd(cmd);
+		// print_cmds(ea->cmd_lst);
 		execute_cmd(ea);
-		print_kvs(lexer->heredocs);
+		// print_kvs(lexer->heredocs);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
 	}

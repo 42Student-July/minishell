@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/15 17:32:48 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 17:24:51 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ void	wait_process(int pipe_cnt)
 }
 
 // TODO:構造体がexec単位でわけられているので、eaを渡したくない
-void	exec_cmd(t_cmd *cmd, t_exec_attr *ea, int cmd_i, int **pipe_fd)
+void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 {
 	int		pid;
 	char	**cmdv;
 	char	*cmd_path;
 
 	(void)ea->env_lst;
-	cmdv = convert_lst_to_argv(cmd->args);
+	cmdv = convert_lst_to_argv(c->args);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -111,9 +111,11 @@ void	exec_cmd(t_cmd *cmd, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	else if (pid == 0)
 	{
 		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
-		cmd_path = find_path(cmd->cmd, ea);
-		if (is_self_cmd(cmd->cmd))
-			execute_self_cmd(cmd, ea);
+		cmd_path = find_path(c->cmd, ea);
+		if (has_redirect_file(c))
+			change_direction(c, ea);
+		if (is_self_cmd(c->cmd))
+			execute_self_cmd(c, ea);
 		if (execve(cmd_path, cmdv, NULL) == -1)
 		{
 			printf("exec error\n");

@@ -23,8 +23,8 @@ TEST(parse_pipe, no_pipe)
 		{TOKEN_EOF, ""},
 	};
 	t_list *input = init_input_lists(input_vector);
-	test_t_pipe_cmd expected = {{{"echo", {"echo"}}, {}, {}}};
-	t_list *cmd = parse_pipe(input);
+	test_t_pipe_cmd expected = {{"echo", {"echo"}, {}, {}}};
+	t_list *cmd = parse_pipe(input, NULL);
 	check_pipe_cmd(cmd, expected);
 	ft_lstclear(&cmd, &delete_pipe);
 	ft_lstclear(&input, &delete_token);
@@ -45,9 +45,9 @@ TEST(parse_pipe, simple_pipe)
 
 	t_list *input = init_input_lists(input_vector);
 
-	test_t_pipe_cmd expected = {{{"cat", {"cat"}}, {{"in.txt", false}}, {}},
-								{{"wc", {"wc", "-l"}}, {}, {}}};
-	t_list *cmd = parse_pipe(input);
+	test_t_pipe_cmd expected = {{"cat", {"cat"}, {{"in.txt", false}}, {}},
+								{"wc", {"wc", "-l"}, {}, {}}};
+	t_list *cmd = parse_pipe(input, NULL);
 	check_pipe_cmd(cmd, expected);
 	ft_lstclear(&cmd, &delete_pipe);
 	ft_lstclear(&input, &delete_token);
@@ -72,10 +72,10 @@ TEST(parse_pipe, multiple_pipes)
 
 	t_list *input = init_input_lists(input_vector);
 
-	test_t_pipe_cmd expected = {{{"cat", {"cat", "main.c"}}, {{"in.txt", false}}, {}},
-								{{"wc", {"wc", "-l"}}, {}, {}},
-								{{"wc", {"wc", "-l"}}, {}, {}}};
-	t_list *cmd = (t_list *)parse_pipe(input);
+	test_t_pipe_cmd expected = {{"cat", {"cat", "main.c"}, {{"in.txt", false}}, {}},
+								{"wc", {"wc", "-l"}, {}, {}},
+								{"wc", {"wc", "-l"}, {}, {}}};
+	t_list *cmd = parse_pipe(input, NULL);
 	check_pipe_cmd(cmd, expected);
 	ft_lstclear(&cmd, &delete_pipe);
 	ft_lstclear(&input, &delete_token);

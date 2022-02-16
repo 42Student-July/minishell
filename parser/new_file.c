@@ -10,7 +10,7 @@ t_file *new_file(char *filename, bool is_double)
 	file = (t_file *)ft_calloc(sizeof(t_file), 1);
 	if (file == NULL)
 		exit(EXIT_FAILURE);
-	file->filename = filename;
+	file->filename = ft_strdup(filename);
 	if (file->filename == NULL)
 		exit(EXIT_FAILURE);
 	file->is_double = is_double;

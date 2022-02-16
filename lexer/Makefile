@@ -18,7 +18,6 @@ SRCS = new_lexer.c\
 		print_token.c\
 		new_ident_token.c\
 		peek_char.c\
-		new_env_token.c\
 		get_literal.c\
 		is_redirect.c\
 		skip_whitespace.c\
@@ -29,6 +28,7 @@ SRCS = new_lexer.c\
 		add_heredoc_delimiter.c\
 		read_heredoc.c\
 		print_kvs.c\
+		is_metachar.c\
 
 OBJS = ${SRCS:.c=.o}
 

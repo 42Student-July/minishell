@@ -6,10 +6,26 @@ t_token	*new_ident_token(t_lexer *lexer)
 	char	*ident;
 	t_token	*token;
 	size_t	pos;
+	char	c;
 
 	pos = lexer->position;
-	while (!ft_isspace(lexer->ch) && lexer->ch != '\0')
+	c = 0;
+	while (!is_metachar(lexer->ch) && lexer->ch != '\0')
 	{
+		if (lexer->ch == '"' || lexer->ch == '\'')
+		{
+			c = lexer->ch;
+			read_char(lexer);
+			while (lexer->ch != c)
+			{
+				if (lexer->ch == '\0')
+				{
+					if (!join_new_line(lexer))
+						exit(EXIT_FAILURE);
+				}
+				read_char(lexer);
+			}
+		}
 		if (is_forbidden_char(lexer->ch))
 			exit(EXIT_FAILURE);
 		read_char(lexer);

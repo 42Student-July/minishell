@@ -3,5 +3,5 @@
 
 bool	is_word_token(t_tokentype type)
 {
-	return (type == TOKEN_IDENT || type == TOKEN_DQUOTE || type == TOKEN_SQUOTE);
+	return (type == TOKEN_IDENT);
 }

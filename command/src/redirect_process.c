@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 16:06:50 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:50:37 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,48 @@
 bool	is_redirect_flag(t_exec_attr *ea)
 {
 	(void)ea;
-	// if (ea->infile != NULL || ea->outfile != NULL)
+	// if (cmd->filename_in != NULL || cmd->filename_out != NULL)
 	// 	return (true);
 	return (false);
 }
 
-void	change_direction(t_exec_attr *ea)
+bool	has_redirect_file(t_cmd *cmd)
 {
-	(void)ea;
-	// if (ea->infile != NULL)
-	// {
-	// 	close(STDIN_FILENO);
-	// 	if (open(ea->infile, O_RDONLY) == -1)
-	// 		abort_minishell(ea->infile, ea);
-	// }
-	// if (ea->outfile != NULL)
-	// {
-	// 	close(STDOUT_FILENO);
-	// 	if (open(ea->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666) == -1)
-	// 		abort_minishell(ea->infile, ea);
-	// }
+	if (cmd->filenames_in != NULL || cmd->filenames_out != NULL)
+		return (true);
+	return (false);
+}
+
+void	change_direction(t_cmd *cmd, t_exec_attr *ea)
+{
+	if (cmd->filenames_in != NULL)
+	{
+		ea->stdin_copy = dup(STDIN_FILENO);
+		close(STDIN_FILENO);
+		if (open(get_filename(cmd, IN), O_RDONLY) == -1)
+			abort_minishell(OPEN_ERROR, ea);
+	}
+	if (cmd->filenames_out != NULL)
+	{
+		ea->stdout_copy = dup(STDOUT_FILENO);
+		close(STDOUT_FILENO);
+		if (open(get_filename(cmd, OUT), O_WRONLY | O_CREAT | O_TRUNC, 0666) == -1)
+			abort_minishell(OPEN_ERROR, ea);
+	}
+}
+
+void	revert_direction(t_cmd *cmd, t_exec_attr *ea)
+{
+	if (cmd->filenames_in != NULL)
+	{
+		close(STDIN_FILENO);
+		if (dup2(ea->stdin_copy, STDIN_FILENO) == -1)
+			abort_minishell(OPEN_ERROR, ea);
+	}
+	if (cmd->filenames_out != NULL)
+	{
+		close(STDOUT_FILENO);
+		if (dup2(ea->stdout_copy, STDOUT_FILENO) == -1)
+			abort_minishell(OPEN_ERROR, ea);
+	}
 }

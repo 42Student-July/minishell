@@ -10,19 +10,11 @@ typedef enum e_tokentype
 	TOKEN_ILLEGAL = -1,
 	TOKEN_EOF = 0,
 	TOKEN_IDENT = 1,
-	TOKEN_NUMBER = 2,
-	TOKEN_STRING,
-	TOKEN_ASSIGN = '=',
-	TOKEN_SQUOTE = '\'',
-	TOKEN_DQUOTE = '"',
 	TOKEN_REDIRECT_IN = '<',
 	TOKEN_REDIRECT_OUT = '>',
 	TOKEN_PIPE = '|',
-	TOKEN_ENV = '$',
-	TOKEN_WHITESPACE = ' ',
 	TOKEN_REDIRECT_APPEND,
 	TOKEN_HEREDOC,
-	TOKEN_EXIT_STATUS,
 }	t_tokentype;
 
 typedef struct s_token
@@ -63,5 +55,6 @@ bool is_forbidden_char(char c);
 void add_heredoc_delimiter(t_lexer *lexer);
 void read_heredoc(t_lexer *lexer);
 void print_kvs(t_list *kvs);
+bool is_metachar(const char c);
 
 #endif
