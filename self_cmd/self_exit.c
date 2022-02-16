@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 19:47:50 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/16 19:50:06 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,5 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 		exit_success(exit_status % 256);
 	else
 		exit_success(exit_status);
-	return (0);
+	return (exit_status);
 }
