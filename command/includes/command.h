@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 10:25:18 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:33:41 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define PIPE_IN 0
 # define PIPE_OUT 1
 # define SLASH 1
+# define IN 0
+# define OUT 1
 
 // execute.c
 int			execute_cmd(t_exec_attr *ea);
@@ -67,8 +69,9 @@ void		create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea);
 char		*find_path(char *cmd_name, t_exec_attr *ea);
 
 // redirect_process.c
-void		change_direction(t_exec_attr *ea);
-bool		is_redirect_flag(t_exec_attr *ea);
+void		change_direction(t_cmd *cmd, t_exec_attr *ea);
+bool		has_redirect_file(t_cmd *cmd);
+void		revert_direction(t_cmd *cmd, t_exec_attr *ea);
 
 // init.c
 void		init(t_exec_attr **ea);

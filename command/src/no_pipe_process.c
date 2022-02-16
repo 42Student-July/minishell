@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 14:05:33 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:26:40 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,13 @@ void	no_pipe_process(t_exec_attr *ea)
 	if (ea->cmd_lst == NULL)
 		return ;
 	if (is_self_cmd(c->cmd))
+	{
+		if (has_redirect_file(c))
+			change_direction(c, ea);
 		execute_self_cmd(c, ea);
+		if (has_redirect_file(c))
+			revert_direction(c, ea);
+	}
 	else
 		execute_ext_cmd(c, ea);
 }
