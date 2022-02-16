@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 19:44:43 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/16 19:47:50 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	argc = ft_lstsize(cmd->args);
 	if (argc > 2)
 	{
-		printf("too many arguments\n"); // ここにきたらexit
+		printf("too many arguments\n"); // ここにきたらexitしない
 		return (1);
 	}
 	if (argc == 1)
