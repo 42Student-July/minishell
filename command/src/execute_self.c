@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:18 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 10:11:08 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:57:39 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ bool	is_(char *command, char *cmd)
 void	execute_self_cmd(t_cmd	*c, t_exec_attr *ea)
 {
 	// TODO:argsだけ渡して成り立つものはargsの渡しで片付ける
-	// if (is_redirect_flag(ea))
-	// 	change_direction(ea);
 	// echo hoge fugaみたいなケースはargsの線形リストに入るので、線形リストを回さないとだめ
 	if (is_(CD, c->cmd))
 		exec_self_cd(c, ea);
