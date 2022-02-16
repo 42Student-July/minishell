@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 15:23:42 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 09:57:52 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@
 # include "self_cmd.h"
 # include "error_handle.h"
 
-# define CD "cd"
-# define ECHO "echo"
-# define PWD "pwd"
-# define EXIT "exit"
-# define ENV "env"
-# define EXPORT "export"
-# define UNSET "unset"
 # define MY_COMMAND_NUM 4
 # define CMD_NAME 0
 # define CMD_ARG 1
