@@ -6,30 +6,30 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 21:42:33 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/16 22:32:07 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 
-// static int	get_two_complement(int exit_status)
-// {
-// 	int8_t	two_complement;
-
-// 	two_complement = exit_status;
-// 	two_complement ^= 0xff;
-// 	two_complement += 1;
-// 	printf("%d\n", two_complement);
-// 	return (two_complement);
-// }
-
-int	get_two_complement(int exit_status)
+static int	get_two_complement(int exit_status)
 {
-	exit_status ^= 0xffffffff;
-	exit_status += 1;
-	printf("%d\n", exit_status);
-	return (exit_status);
+	int8_t	two_complement;
+
+	two_complement = exit_status;
+	two_complement ^= 0xff;
+	two_complement += 1;
+	printf("%u\n", (unsigned int)two_complement);
+	return (two_complement);
 }
+
+// int	get_two_complement(int exit_status)
+// {
+// 	exit_status ^= 0xffffffff;
+// 	exit_status += 1;
+// 	printf("%u\n", (unsigned int)exit_status);
+// 	return (exit_status);
+// }
 
 bool	is_num(char *str)
 {
