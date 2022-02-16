@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 14:10:14 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:25:23 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	execute_builtin(t_exec_attr *ea)
 		abort_minishell(FORK_ERROR, ea);
 	else if (pid == 0)
 	{
-		if (is_redirect_flag(ea))
+		// if (has_redirect_file(ea))
 			change_direction(ea);
 		x_execve(ea);
 		exit(0);

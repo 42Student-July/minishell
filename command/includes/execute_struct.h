@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:44:58 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 10:21:26 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:47:58 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_exec_attr
 	t_list	*env_lst;
 	t_list	*export_lst;
 	int		pipe_count;
+	int		stdin_copy;
+	int		stdout_copy;
 }	t_exec_attr;
 
 typedef struct s_env
