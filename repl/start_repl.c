@@ -43,10 +43,10 @@ void	start_repl(void)
 		}
 		if (ft_strlen(lexer->input) > 0) // 空文字列をヒストリーに入れないための対処法
 			add_history(lexer->input);
-		// print_tokens(token_list);
+		print_tokens(token_list);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
-		// print_cmd(cmd);
-		execute_cmd(ea);
+		print_cmds(ea->cmd_lst);
+		// execute_cmd(ea);
 		print_kvs(lexer->heredocs);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
