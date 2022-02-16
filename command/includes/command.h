@@ -85,4 +85,7 @@ void		execute_ext_cmd(t_cmd *c, t_exec_attr *ea);
 // pipe_process.c
 void		pipe_process(t_exec_attr *ea);
 
+// t_cmd_utils.c
+char		*get_filename(t_cmd *c, int io);
+
 #endif
