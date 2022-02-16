@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 23:41:59 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/16 23:45:26 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 		ft_putendl_fd(error_message, STDERR_FILENO);
 		return (1);
 	}
-	// current_arglst = cmd->args;
 	exit_status = ft_atoi(arg1);
 	if (exit_status < 0)
 		exit_status = get_two_complement(exit_status);
