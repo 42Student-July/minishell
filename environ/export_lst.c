@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 13:26:05 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:45:47 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	*create_export_value(char *value)
 	if (new_value == NULL)
 		return (NULL);
 	ft_strlcat(new_value, "\"", new_value_len);
-	ft_strlcat(new_value, value, new_value_len);
+	if (value != NULL)
+		ft_strlcat(new_value, value, new_value_len);
 	ft_strlcat(new_value, "\"", new_value_len);
 	return (new_value);
 }
