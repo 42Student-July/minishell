@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 17:34:42 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:06:42 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea);
 char		*find_path(char *cmd_name, t_exec_attr *ea);
 
 // redirect_process.c
-void		change_direction(t_cmd *cmd, t_exec_attr *ea);
+void		redirect(t_cmd *cmd, t_exec_attr *ea);
 bool		has_redirect_file(t_cmd *cmd);
 void		revert_direction(t_cmd *cmd, t_exec_attr *ea);
 

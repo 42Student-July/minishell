@@ -27,7 +27,7 @@ bool	has_redirect_file(t_cmd *cmd)
 	return (false);
 }
 
-void	change_direction(t_cmd *cmd, t_exec_attr *ea)
+void	redirect(t_cmd *cmd, t_exec_attr *ea)
 {
 	if (cmd->filenames_in != NULL)
 	{
