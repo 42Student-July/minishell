@@ -1,7 +1,8 @@
 #include "libft.h"
 #include <stdio.h>
+#include <limits.h>
 
-static long long	ft_atoll(const char *str)
+long long	ft_atoll(const char *str)
 {
 	size_t		i;
 	long long	num;
@@ -10,7 +11,7 @@ static long long	ft_atoll(const char *str)
 	num = 0;
 	i = 0;
 	sign = 1;
-	if (!str)
+	if (str == NULL)
 		return (0);
 	while (ft_isspace(str[i]))
 		i++;
@@ -28,15 +29,26 @@ static long long	ft_atoll(const char *str)
 	return (num * sign);
 }
 
-long	ft_atol(const char *str)
+long	ft_atol(const char *str, int *status)
 {
 	long long	num;
 
 	num = ft_atoll(str);
-	return (num);
+	*status = 0;
+	printf("long_max: %lld\n", LONG_LONG_MAX);
+	printf("num:      %lld\n", num);
+	if (num < LONG_MIN || LONG_MAX < num)
+	{
+		printf("flag\n");
+		*status = 1;
+	}
+	return ((long)num);
 }
 
 int main()
 {
-	printf("%ld\n", ft_atol("11"));
+	int status;
+	status = 0;
+	printf("%ld\n", ft_atol("1111111111111111111", &status));
+	printf("%d\n", status);
 }
