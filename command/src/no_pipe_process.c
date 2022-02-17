@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 17:15:14 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:06:42 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	else if (pid == 0)
 	{
 		if (has_redirect_file(c))
-			change_direction(c, ea);
+			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
 			printf("exec error\n");
@@ -55,15 +55,13 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 void	no_pipe_process(t_exec_attr *ea)
 {
 	t_cmd *c;
-	
+
 	c = get_cmd(ea);
 	// TODO: コマンドが存在しない時、ここでsegvする
-	if (ea->cmd_lst == NULL)
-		return ;
 	if (is_self_cmd(c->cmd))
 	{
 		if (has_redirect_file(c))
-			change_direction(c, ea);
+			redirect(c, ea);
 		execute_self_cmd(c, ea);
 		if (has_redirect_file(c))
 			revert_direction(c, ea);

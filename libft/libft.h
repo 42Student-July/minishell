@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 20:14:14 by akito             #+#    #+#             */
-/*   Updated: 2022/02/10 10:14:14 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:47:00 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	*ft_kvsnew(char *key, char *value);
 char	*ft_kvsget(t_list *list, char *key);
 bool	ft_streq(char *a, char *b);
 void	ft_kvsdelete(void *elm);
+void	ft_kvsreplace_value(void *content, char *new_value);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new_elm);

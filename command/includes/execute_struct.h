@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:44:58 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 16:47:58 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:16:28 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ typedef struct s_env
 t_cmd		*get_cmd(t_exec_attr *ea);
 char		*get_cmd_name(t_list *cmd);
 char		*get_argv_one(t_cmd *cmd);
+
+// redirect_process.c
+void		redirect(t_cmd *cmd, t_exec_attr *ea);
+bool		has_redirect_file(t_cmd *cmd);
+void		revert_direction(t_cmd *cmd, t_exec_attr *ea);
+void		redirect_dev_null(t_exec_attr *ea);
+void		revert_redirect_out(t_exec_attr *ea);
 
 #endif
 

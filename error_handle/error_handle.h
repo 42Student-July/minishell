@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:25:57 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 16:51:07 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:14:12 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define OPENDIR_ERROR "opendir error\n"
 # define OPEN_ERROR "open error\n"
 # define DUP2_ERROR "dup2 error\n"
+# define GETCWD_ERROR "getcwd error"
 
 # define INVALID_IDENTIFER 0
 # define NO_VALUE 1

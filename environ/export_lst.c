@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 13:45:47 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:54:06 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*create_export_value(char *value)
 {
-	// 合成して ex)declare -x key="value"を作る
 	char 		*new_value;
 	size_t		new_value_len;
 	size_t		value_len;

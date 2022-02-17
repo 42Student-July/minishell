@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 16:50:37 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:14:57 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,15 @@ bool	has_redirect_file(t_cmd *cmd)
 	return (false);
 }
 
-void	change_direction(t_cmd *cmd, t_exec_attr *ea)
+void	redirect_dev_null(t_exec_attr *ea)
+{
+	ea->stdout_copy = dup(STDOUT_FILENO);
+	close(STDOUT_FILENO);
+	if (open("/dev/null", O_WRONLY) == -1)
+		abort_minishell(OPEN_ERROR, ea);
+}
+
+void	redirect(t_cmd *cmd, t_exec_attr *ea)
 {
 	if (cmd->filenames_in != NULL)
 	{
@@ -45,18 +53,25 @@ void	change_direction(t_cmd *cmd, t_exec_attr *ea)
 	}
 }
 
+void	revert_redirect_in(t_exec_attr *ea)
+{
+	close(STDIN_FILENO);
+	if (dup2(ea->stdin_copy, STDIN_FILENO) == -1)
+		abort_minishell(OPEN_ERROR, ea);
+}
+
+void	revert_redirect_out(t_exec_attr *ea)
+{
+	close(STDOUT_FILENO);
+	if (dup2(ea->stdout_copy, STDOUT_FILENO) == -1)
+		abort_minishell(OPEN_ERROR, ea);
+}
+
+
 void	revert_direction(t_cmd *cmd, t_exec_attr *ea)
 {
 	if (cmd->filenames_in != NULL)
-	{
-		close(STDIN_FILENO);
-		if (dup2(ea->stdin_copy, STDIN_FILENO) == -1)
-			abort_minishell(OPEN_ERROR, ea);
-	}
+		revert_redirect_in(ea);
 	if (cmd->filenames_out != NULL)
-	{
-		close(STDOUT_FILENO);
-		if (dup2(ea->stdout_copy, STDOUT_FILENO) == -1)
-			abort_minishell(OPEN_ERROR, ea);
-	}
+		revert_redirect_out(ea);
 }

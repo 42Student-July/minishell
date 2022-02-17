@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 10:07:03 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 10:18:28 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	exec_self_export(t_cmd *cmd, t_exec_attr *ea)
 	char	*argv_one;
 
 	argv_one = get_argv_one(cmd);
-	printf("argv_one : %s\n", argv_one);
 	(void)ea;
 	if (argv_one == NULL)
 		print_all_export_lst(ea);
