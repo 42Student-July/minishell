@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 14:24:59 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:22:27 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,8 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 		ft_putendl_fd(error_message, STDERR_FILENO);
 		return (1);
 	}
-	exit_status = ft_atoi(arg1);
-	// exit_status = ft_atol(arg1);
+	ft_atol(arg1, &exit_status);
+	printf("atol: %ld\n", exit_status);
 	if (exit_status < 0)
 		exit_status = get_two_complement(exit_status);
 	if (exit_status > 255)
