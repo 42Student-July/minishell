@@ -11,8 +11,6 @@ long 	ft_atol(const char *nptr)
 	num = 0;
 	i = 0;
 	sign = 1;
-	if (nptr == NULL)
-		return (0);
 	while (ft_isspace(nptr[i]))
 		i++;
 	if (nptr[i] == '+' || nptr[i] == '-')
@@ -24,6 +22,8 @@ long 	ft_atol(const char *nptr)
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		num = (num * 10) + (nptr[i] - '0');
+		if (num < 0)
+			printf("overflow\n");
 		i++;
 	}
 	return (num * sign);
@@ -33,7 +33,8 @@ int main()
 {
 	// int status;
 	// status = 0;
-	long	exit_status = 0;
-	exit_status = ft_atol("100000");
+	long	exit_status;
+	exit_status = ft_atol("-9223372036854775808");
 	printf("%ld\n", exit_status);
+	printf("%ld\n", LONG_MIN);
 }
