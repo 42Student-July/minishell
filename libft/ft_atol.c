@@ -29,26 +29,10 @@ long long	ft_atoll(const char *str)
 	return (num * sign);
 }
 
-long	ft_atol(const char *str, int *status)
-{
-	long long	num;
-
-	num = ft_atoll(str);
-	*status = 0;
-	printf("long_max: %lld\n", LONG_LONG_MAX);
-	printf("num:      %lld\n", num);
-	if (num < LONG_MIN || LONG_MAX < num)
-	{
-		printf("flag\n");
-		*status = 1;
-	}
-	return ((long)num);
-}
-
 int main()
 {
 	int status;
 	status = 0;
-	printf("%ld\n", ft_atol("1111111111111111111", &status));
+	printf("%ld\n", ft_atoll("1111111111111111111", &status));
 	printf("%d\n", status);
 }
