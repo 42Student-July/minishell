@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 17:24:51 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:06:42 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
 		cmd_path = find_path(c->cmd, ea);
 		if (has_redirect_file(c))
-			change_direction(c, ea);
+			redirect(c, ea);
 		if (is_self_cmd(c->cmd))
 			execute_self_cmd(c, ea);
 		if (execve(cmd_path, cmdv, NULL) == -1)

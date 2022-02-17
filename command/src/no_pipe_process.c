@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 10:13:46 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:06:42 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	else if (pid == 0)
 	{
 		if (has_redirect_file(c))
-			change_direction(c, ea);
+			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
 			printf("exec error\n");
@@ -61,7 +61,7 @@ void	no_pipe_process(t_exec_attr *ea)
 	if (is_self_cmd(c->cmd))
 	{
 		if (has_redirect_file(c))
-			change_direction(c, ea);
+			redirect(c, ea);
 		execute_self_cmd(c, ea);
 		if (has_redirect_file(c))
 			revert_direction(c, ea);

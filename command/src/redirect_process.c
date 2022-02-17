@@ -45,18 +45,25 @@ void	redirect(t_cmd *cmd, t_exec_attr *ea)
 	}
 }
 
+void	revert_redirect_in(t_exec_attr *ea)
+{
+	close(STDIN_FILENO);
+	if (dup2(ea->stdin_copy, STDIN_FILENO) == -1)
+		abort_minishell(OPEN_ERROR, ea);
+}
+
+void	revert_redirect_out(t_exec_attr *ea)
+{
+	close(STDOUT_FILENO);
+	if (dup2(ea->stdout_copy, STDOUT_FILENO) == -1)
+		abort_minishell(OPEN_ERROR, ea);
+}
+
+
 void	revert_direction(t_cmd *cmd, t_exec_attr *ea)
 {
 	if (cmd->filenames_in != NULL)
-	{
-		close(STDIN_FILENO);
-		if (dup2(ea->stdin_copy, STDIN_FILENO) == -1)
-			abort_minishell(OPEN_ERROR, ea);
-	}
+		revert_redirect_in(ea);
 	if (cmd->filenames_out != NULL)
-	{
-		close(STDOUT_FILENO);
-		if (dup2(ea->stdout_copy, STDOUT_FILENO) == -1)
-			abort_minishell(OPEN_ERROR, ea);
-	}
+		revert_redirect_out(ea);
 }
