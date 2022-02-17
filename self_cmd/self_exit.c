@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 00:13:24 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/17 14:24:59 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@ static int	get_two_complement(long exit_status)
 	printf("%u\n", (unsigned int)two_complement);
 	return (two_complement);
 }
-
-// int	get_two_complement(int exit_status)
-// {
-// 	exit_status ^= 0xffffffff;
-// 	exit_status += 1;
-// 	printf("%u\n", (unsigned int)exit_status);
-// 	return (exit_status);
-// }
 
 bool	is_num(char *str)
 {
@@ -142,7 +134,7 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 		ft_putendl_fd(error_message, STDERR_FILENO);
 		return (1);
 	}
-	// exit_status = ft_atoi(arg1);
+	exit_status = ft_atoi(arg1);
 	// exit_status = ft_atol(arg1);
 	if (exit_status < 0)
 		exit_status = get_two_complement(exit_status);
