@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 17:15:14 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 10:13:46 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,9 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 void	no_pipe_process(t_exec_attr *ea)
 {
 	t_cmd *c;
-	
+
 	c = get_cmd(ea);
 	// TODO: コマンドが存在しない時、ここでsegvする
-	if (ea->cmd_lst == NULL)
-		return ;
 	if (is_self_cmd(c->cmd))
 	{
 		if (has_redirect_file(c))
