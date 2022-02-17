@@ -36,6 +36,7 @@ bool 	ft_atol(const char *nptr, long *num)
 			return (false);
 		i++;
 	}
+	*num *= sign;
 	return (true);
 }
 
@@ -43,7 +44,7 @@ bool 	ft_atol(const char *nptr, long *num)
 // {
 // 	long	exit_status;
 // 	bool	 flag;
-// 	flag = ft_atol("-9223372036854775808888", &exit_status);
+// 	flag = ft_atol("-922337", &exit_status);
 // 	printf("%d\n", flag);
 // 	printf("%ld\n", exit_status);
 // }
