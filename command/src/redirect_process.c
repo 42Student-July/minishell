@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 16:50:37 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:14:57 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ bool	has_redirect_file(t_cmd *cmd)
 	if (cmd->filenames_in != NULL || cmd->filenames_out != NULL)
 		return (true);
 	return (false);
+}
+
+void	redirect_dev_null(t_exec_attr *ea)
+{
+	ea->stdout_copy = dup(STDOUT_FILENO);
+	close(STDOUT_FILENO);
+	if (open("/dev/null", O_WRONLY) == -1)
+		abort_minishell(OPEN_ERROR, ea);
 }
 
 void	redirect(t_cmd *cmd, t_exec_attr *ea)
