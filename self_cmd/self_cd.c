@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 16:34:17 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:37:27 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ void	x_chdir(const char *path, t_exec_attr *ea)
 		abort_minishell(GETCWD_ERROR, ea);
 	if (chdir(path) == -1)
 	{
-		// TODO:いい感じのエラーメッセージを追加する
-		// printf("stderror(perror) : %s\n", strerror(errno));
-		exit(EXIT_FAILURE);
+		perror(path);
+		return ;
 	}
 	if (getcwd(pwd, PATH_MAX) == NULL)
 		abort_minishell(GETCWD_ERROR, ea);
