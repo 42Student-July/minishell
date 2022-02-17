@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:57:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 14:04:18 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 10:12:40 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	execute_cmd(t_exec_attr *ea)
 {
+	if (ea->cmd_lst == NULL)
+		return (0);
 	ea->pipe_count = ft_lstsize(ea->cmd_lst) - 1;
 	if (ea->pipe_count == 0)
 	{
