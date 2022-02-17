@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 10:16:21 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 15:10:50 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "libft.h"
 # include "error_handle.h"
 # include "environ.h"
+# include <limits.h>
 
 # define CD "cd"
 # define ECHO "echo"
