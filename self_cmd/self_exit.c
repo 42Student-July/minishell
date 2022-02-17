@@ -6,22 +6,22 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 17:08:30 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 02:05:41 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 
-static int	get_two_complement(long exit_status)
-{
-	int8_t	two_complement;
+// static int	get_two_complement(long exit_status)
+// {
+// 	int8_t	two_complement;
 
-	two_complement = exit_status;
-	two_complement ^= 0xff;
-	two_complement += 1;
-	printf("%u\n", (unsigned int)two_complement);
-	return (two_complement);
-}
+// 	two_complement = exit_status;
+// 	two_complement ^= 0xff;
+// 	two_complement += 1;
+// 	printf("%u\n", (unsigned int)two_complement);
+// 	return (two_complement);
+// }
 
 bool	is_num(char *str)
 {
@@ -39,18 +39,18 @@ bool	is_num(char *str)
 	return (true);
 }
 
-void	exit_success(long exit_status)
+void	exit_success(unsigned int exit_status)
 {
 	printf("start exit_success\n");
-	printf("exit_status %ld\n", exit_status);
+	printf("exit_status %u\n", exit_status);
 	ft_putendl_fd("exit", STDERR_FILENO);
 	exit(exit_status);
 }
 
-void	exit_failure(long exit_status, char *error_message)
+void	exit_failure(unsigned int exit_status, char *error_message)
 {
 	printf("start exit_failure\n");
-	printf("exit_status %ld\n", exit_status);
+	printf("exit_status %u\n", exit_status);
 	ft_putendl_fd("exit", STDERR_FILENO);
 	ft_putendl_fd(error_message, STDERR_FILENO);
 	exit(exit_status);
@@ -110,17 +110,18 @@ char	*get_arg1(t_cmd *cmd)
 // 引数の+-は1つまで
 int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 {
-	long	exit_status;
-	int		argc;
-	char	*arg1;
-	char	*error_message;
+	unsigned int	exit_status;
+	int				argc;
+	char			*arg1;
+	long			arg1_num;
+	char			*error_message;
 
 	(void)ea;
 	argc = ft_lstsize(cmd->args);
 	arg1 = get_arg1(cmd);
 	if (argc == 1)
 		exit_success(EXIT_SUCCESS);
-	if (!is_num(arg1) || !ft_atol(arg1, &exit_status))
+	if (!is_num(arg1) || !ft_atol(arg1, &arg1_num))
 	{
 		error_message = make_arg_error_message(arg1, \
 											"numeric argument required");
@@ -134,8 +135,7 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 		ft_putendl_fd(error_message, STDERR_FILENO);
 		return (1);
 	}
-	if (exit_status < 0)
-		exit_status = get_two_complement(exit_status);
+	exit_status = arg1_num;
 	if (exit_status > 255)
 		exit_success(exit_status % 256);
 	else
