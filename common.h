@@ -9,3 +9,5 @@ typedef enum e_stdio {
 	STDERR = 2
 }						t_stdio;
 #endif
+
+int	g_exit_status;
