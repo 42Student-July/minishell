@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 22:45:11 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 00:48:41 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	if (cmd_path == NULL)
 	{
 		printf("%s: command not found\n", c->cmd);
+		g_exit_status = 127;
 		return ;
 	}
 	environ = convert_envlst_to_array(ea);
