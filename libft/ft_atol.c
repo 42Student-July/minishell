@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-long long	ft_atoll(const char *str)
+long 	ft_atol(const char *nptr)
 {
 	size_t		i;
 	long long	num;
@@ -11,19 +11,19 @@ long long	ft_atoll(const char *str)
 	num = 0;
 	i = 0;
 	sign = 1;
-	if (str == NULL)
+	if (nptr == NULL)
 		return (0);
-	while (ft_isspace(str[i]))
+	while (ft_isspace(nptr[i]))
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (nptr[i] == '+' || nptr[i] == '-')
 	{
-		if (str[i] == '-')
+		if (nptr[i] == '-')
 			sign = -1;
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		num = (num * 10) + (str[i] - '0');
+		num = (num * 10) + (nptr[i] - '0');
 		i++;
 	}
 	return (num * sign);
@@ -31,8 +31,9 @@ long long	ft_atoll(const char *str)
 
 int main()
 {
-	int status;
-	status = 0;
-	printf("%ld\n", ft_atoll("1111111111111111111", &status));
-	printf("%d\n", status);
+	// int status;
+	// status = 0;
+	long	exit_status = 0;
+	exit_status = ft_atol("100000");
+	printf("%ld\n", exit_status);
 }
