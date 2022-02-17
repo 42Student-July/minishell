@@ -2,39 +2,48 @@
 #include <stdio.h>
 #include <limits.h>
 
-long 	ft_atol(const char *nptr)
+static void	read_sign(int *sign, size_t *i, char c)
+{
+	if (c == '+' || c == '-')
+	{
+		if (c == '-')
+			*sign *= -1;
+		(*i)++;
+	}
+}
+
+bool 	ft_atol(const char *nptr, long *num)
 {
 	size_t		i;
-	long long	num;
 	int			sign;
 
-	num = 0;
+	*num = 0;
 	i = 0;
 	sign = 1;
 	while (ft_isspace(nptr[i]))
 		i++;
-	if (nptr[i] == '+' || nptr[i] == '-')
+	if (!ft_strncmp(nptr, "-9223372036854775808", 20) \
+		&& ft_strlen(nptr) == 20)
 	{
-		if (nptr[i] == '-')
-			sign = -1;
-		i++;
+		*num = LONG_MIN;
+		return (true);
 	}
+	read_sign(&sign, &i, nptr[i]);
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		num = (num * 10) + (nptr[i] - '0');
-		if (num < 0)
-			printf("overflow\n");
+		*num = (*num * 10) + (nptr[i] - '0');
+		if (*num < 0)
+			return (false);
 		i++;
 	}
-	return (num * sign);
+	return (true);
 }
 
-int main()
-{
-	// int status;
-	// status = 0;
-	long	exit_status;
-	exit_status = ft_atol("-9223372036854775808");
-	printf("%ld\n", exit_status);
-	printf("%ld\n", LONG_MIN);
-}
+// int main()
+// {
+// 	long	exit_status;
+// 	bool	 flag;
+// 	flag = ft_atol("-9223372036854775808888", &exit_status);
+// 	printf("%d\n", flag);
+// 	printf("%ld\n", exit_status);
+// }
