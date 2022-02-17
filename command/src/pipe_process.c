@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 15:06:42 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:54:57 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,11 @@ void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	int		pid;
 	char	**cmdv;
 	char	*cmd_path;
+	char	**environ;
 
 	(void)ea->env_lst;
 	cmdv = convert_lst_to_argv(c->args);
+	environ = convert_envlst_to_array(ea);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -116,7 +118,7 @@ void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 			redirect(c, ea);
 		if (is_self_cmd(c->cmd))
 			execute_self_cmd(c, ea);
-		if (execve(cmd_path, cmdv, NULL) == -1)
+		if (execve(cmd_path, cmdv, environ) == -1)
 		{
 			printf("exec error\n");
 			exit(EXIT_FAILURE);
