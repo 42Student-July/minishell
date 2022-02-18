@@ -11,6 +11,7 @@ char	*get_tmpfile_name(char *suffix)
 	char	*tmp;
 
 	tmp = ft_strjoin("/tmp/minishell-thd-", suffix);
+	free(suffix);
 	return (tmp);
 }
 
