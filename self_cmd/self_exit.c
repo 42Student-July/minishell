@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 02:05:41 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:26:53 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ bool	is_num(char *str)
 
 	if (!(str[0] == '+' || str[0] == '-' || ft_isdigit(str[0])))
 		return (false);
+	if ((str[0] == '+' || str[0] == '-') && ft_strlen(str) == 1)
+		return (false);
 	i = 1;
 	while (str[i] != '\0')
 	{
@@ -41,16 +43,16 @@ bool	is_num(char *str)
 
 void	exit_success(unsigned int exit_status)
 {
-	printf("start exit_success\n");
-	printf("exit_status %u\n", exit_status);
+	// printf("start exit_success\n");
+	// printf("exit_status %u\n", exit_status);
 	ft_putendl_fd("exit", STDERR_FILENO);
 	exit(exit_status);
 }
 
 void	exit_failure(unsigned int exit_status, char *error_message)
 {
-	printf("start exit_failure\n");
-	printf("exit_status %u\n", exit_status);
+	// printf("start exit_failure\n");
+	// printf("exit_status %u\n", exit_status);
 	ft_putendl_fd("exit", STDERR_FILENO);
 	ft_putendl_fd(error_message, STDERR_FILENO);
 	exit(exit_status);
@@ -67,7 +69,7 @@ char	*make_arg_error_message(char *arg, char *error)
 	tmp_arg = ft_strjoin(arg, ": ");
 	if (tmp_arg == NULL)
 		exit(EXIT_FAILURE);
-	tmp_str = ft_strjoin("minishell: exit: ", tmp_arg);
+	tmp_str = ft_strjoin("bash: exit: ", tmp_arg);
 	if (tmp_str == NULL)
 		exit(EXIT_FAILURE);
 	free(tmp_arg);
@@ -83,7 +85,7 @@ char	*make_dfl_error_message(char *error)
 
 	if (error == NULL)
 		exit(EXIT_FAILURE);
-	error_message = ft_strjoin("minishell: exit: ", error);
+	error_message = ft_strjoin("bash: exit: ", error);
 	if (error_message == NULL)
 		exit(EXIT_FAILURE);
 	return (error_message);
