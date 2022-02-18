@@ -51,7 +51,6 @@ void skip_whitespace(t_lexer *lexer);
 bool join_new_line(t_lexer *lexer);
 t_token *new_quote_token(t_lexer *lexer, t_tokentype type);
 bool is_word_token(t_tokentype);
-bool is_forbidden_char(char c);
 void add_heredoc_delimiter(t_lexer *lexer);
 void read_heredoc(t_lexer *lexer);
 void print_kvs(t_list *kvs);
