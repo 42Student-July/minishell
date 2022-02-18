@@ -87,19 +87,3 @@ char	*expand_envvar_str(const char *input, void *env)
 	}
 	return (str);
 }
-
-void expand_envvar(void *env)
-{
-	t_list	*lst;
-	char	*tmp;
-
-	lst = env;
-	while (lst != NULL)
-	{
-		tmp = expand_envvar_str(ft_kvsget_value(lst->content), env);
-		free(lst->content);
-		lst->content = ft_kvsnew(ft_kvsget_key(lst->content), tmp);
-		free(tmp);
-		lst = lst->next;
-	}
-}
