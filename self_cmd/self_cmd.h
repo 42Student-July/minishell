@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/17 15:10:50 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 09:49:03 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ void		print_all_export_lst(t_exec_attr *ea);
 // self_cmd_utils.c
 bool		is_invalid_name(char *name);
 void		print_error_msg_with_var(char *cmd_name, char *var);
+void		print_error(char *cmd, char *input);
 
 #endif

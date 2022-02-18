@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 09:26:06 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 10:14:38 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 09:48:33 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,12 @@ void	print_error_msg_with_var(char *cmd_name, char *var)
 	ft_putstr_fd(var, STDERR_FILENO);
 	ft_putstr_fd("': ", STDERR_FILENO);
 	ft_putstr_fd(INVALID_IDENTIFER_MSG, STDERR_FILENO);
+}
+
+void	print_error(char *cmd, char *input)
+{
+	ft_putstr_fd("bash: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	perror(input);
 }

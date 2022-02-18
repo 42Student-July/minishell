@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 17:37:27 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 10:33:59 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	update_all_environ(char *pwd, char *oldpwd, t_exec_attr *ea)
 	update_value(ea->export_lst, "PWD", pwd, ea);
 }
 
-void	x_chdir(const char *path, t_exec_attr *ea)
+void	x_chdir(char *path, t_exec_attr *ea)
 {
 	char	old_pwd[PATH_MAX];
 	char	pwd[PATH_MAX];
@@ -42,7 +42,7 @@ void	x_chdir(const char *path, t_exec_attr *ea)
 		abort_minishell(GETCWD_ERROR, ea);
 	if (chdir(path) == -1)
 	{
-		perror(path);
+		print_error(CD, path);
 		return ;
 	}
 	if (getcwd(pwd, PATH_MAX) == NULL)
