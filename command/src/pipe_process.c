@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 22:48:50 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 23:18:23 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,26 @@ void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	else if (pid == 0)
 	{
 		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
-		cmd_path = find_path(c->cmd, ea);
+		if (is_path(c->cmd))
+		{
+			cmd_path = ft_strdup(c->cmd);
+			if (cmd_path == NULL)
+			{
+				printf("ft_strdup error\n");
+				exit(EXIT_FAILURE);
+			}
+		}
+		else
+		{
+			cmd_path = find_path(c->cmd, ea);
+			if (cmd_path == NULL)
+			{
+				printf("%s: command not found\n", c->cmd);
+				exit(127);
+			}
+		}
+		printf("%s\n", cmd_path);
+		// cmd_path = find_path(c->cmd, ea);
 		if (has_redirect_file(c))
 			redirect(c, ea);
 		if (is_self_cmd(c->cmd))
