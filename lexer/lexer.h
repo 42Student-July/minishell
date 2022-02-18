@@ -56,4 +56,10 @@ void read_heredoc(t_lexer *lexer);
 void print_kvs(t_list *kvs);
 bool is_metachar(const char c);
 
+
+// helper
+char *replace_string(char *str, const char *from, const char *to);
+char *expand_single_envvar(char *str, const char *from, const char *to, size_t *i);
+char *expand_envvar_str(const char *input, void *env);
+
 #endif
