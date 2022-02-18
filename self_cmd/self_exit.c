@@ -6,22 +6,11 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 15:26:53 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:47:07 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
-
-// static int	get_two_complement(long exit_status)
-// {
-// 	int8_t	two_complement;
-
-// 	two_complement = exit_status;
-// 	two_complement ^= 0xff;
-// 	two_complement += 1;
-// 	printf("%u\n", (unsigned int)two_complement);
-// 	return (two_complement);
-// }
 
 bool	is_num(char *str)
 {
@@ -43,16 +32,12 @@ bool	is_num(char *str)
 
 void	exit_success(unsigned int exit_status)
 {
-	// printf("start exit_success\n");
-	// printf("exit_status %u\n", exit_status);
 	ft_putendl_fd("exit", STDERR_FILENO);
 	exit(exit_status);
 }
 
 void	exit_failure(unsigned int exit_status, char *error_message)
 {
-	// printf("start exit_failure\n");
-	// printf("exit_status %u\n", exit_status);
 	ft_putendl_fd("exit", STDERR_FILENO);
 	ft_putendl_fd(error_message, STDERR_FILENO);
 	exit(exit_status);
@@ -101,15 +86,6 @@ char	*get_arg1(t_cmd *cmd)
 	return (arg1);
 }
 
-// この処理は子プロセスでは実行不可
-// メッセージは全て標準エラー出力
-// エラーのケースは基本255で終了
-// 引数が多いかの判定より引数が整数か確認する判定が優先される
-// exitされないケースがあるので戻り値の実装は必須
-// 引数の正常な範囲はlong int
-// 引数の00などは0として捉える
-// 引数がマイナスのケースは2の補数を求めて、それをunsigned intとして扱う
-// 引数の+-は1つまで
 int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 {
 	unsigned int	exit_status;
@@ -131,7 +107,6 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	}
 	if (argc > 2)
 	{
-		// ここにきたらexitしない
 		error_message = make_dfl_error_message("too many arguments");
 		ft_putendl_fd("exit", STDERR_FILENO);
 		ft_putendl_fd(error_message, STDERR_FILENO);
