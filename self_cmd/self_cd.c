@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 10:33:59 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:29:47 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,23 @@ void	x_chdir(char *path, t_exec_attr *ea)
 
 	redirect_dev_null(ea);
 	if (getcwd(old_pwd, PATH_MAX) == NULL)
-		abort_minishell(GETCWD_ERROR, ea);
-	if (chdir(path) == -1)
 	{
+		revert_redirect_out(ea);
+		print_error(PWD, path);
+		return ;
+	}
+	if (chdir(path) == -1)
+	{		
+		revert_redirect_out(ea);
 		print_error(CD, path);
 		return ;
 	}
 	if (getcwd(pwd, PATH_MAX) == NULL)
-		abort_minishell(GETCWD_ERROR, ea);
+	{
+		revert_redirect_out(ea);
+		print_error(PWD, path);
+		return ;
+	}
 	revert_redirect_out(ea);
 	// printf("old_pwd : %s\n", old_pwd);
 	// printf("pwd : %s\n", pwd);
@@ -60,7 +69,6 @@ void	exec_self_cd(t_cmd *cmd, t_exec_attr *ea)
 	argv_one = get_argv_one(cmd);
 	if (argv_one == NULL)
 		return ;
-	(void)ea;
 	// TODO: 引数が２つある場合などにも対応する
 	x_chdir(argv_one, ea);
 }
