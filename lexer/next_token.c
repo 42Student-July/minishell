@@ -8,8 +8,6 @@ t_token	*next_token(t_lexer *lexer)
 	skip_whitespace(lexer);
 	if (lexer->ch == '\0')
 		token = new_token(TOKEN_EOF, NULL);
-	else if (is_forbidden_char(lexer->ch))
-		token = new_token(TOKEN_ILLEGAL, NULL);
 	else if (lexer->ch == '>')
 	{
 		if (peek_char(lexer) == '>')
