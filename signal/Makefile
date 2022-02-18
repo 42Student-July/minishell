@@ -6,7 +6,7 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 23:29:42 by tkirihar          #+#    #+#              #
-#    Updated: 2022/02/14 15:39:51 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/02/17 23:17:45 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ CFLAGS =		-Wall -Wextra -Werror
 RM =			rm -rf
 UNAME =			$(shell uname)
 
-HEADERS = 		./includes/ \
+HEADERS =		.. \
+				./includes/ \
 
 ifeq ($(UNAME),Darwin)
 	HEADERS	+=	$(shell brew --prefix readline)/include

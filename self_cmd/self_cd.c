@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 15:29:47 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 00:27:04 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,14 @@ void	x_chdir(char *path, t_exec_attr *ea)
 	update_all_environ(pwd, old_pwd, ea);
 }
 
-void	exec_self_cd(t_cmd *cmd, t_exec_attr *ea)
+int	exec_self_cd(t_cmd *cmd, t_exec_attr *ea)
 {
 	char	*argv_one;
 
 	argv_one = get_argv_one(cmd);
 	if (argv_one == NULL)
-		return ;
+		return (1);
 	// TODO: 引数が２つある場合などにも対応する
 	x_chdir(argv_one, ea);
+	return (0);
 }

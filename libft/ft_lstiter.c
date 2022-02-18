@@ -21,3 +21,14 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 		lst = lst->next;
 	}
 }
+
+void	ft_lstiter_with_var(t_list *lst, void (*f)(void *, void *), void *var)
+{
+	if (f == NULL)
+		return ;
+	while (lst != NULL)
+	{
+		f(lst->content, var);
+		lst = lst->next;
+	}
+}
