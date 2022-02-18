@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 15:47:07 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:49:39 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*make_arg_error_message(char *arg, char *error)
 	free(tmp_arg);
 	error_message = ft_strjoin(tmp_str, error);
 	if (error_message)
+		exit(EXIT_FAILURE);
 	free(tmp_str);
 	return (error_message);
 }
