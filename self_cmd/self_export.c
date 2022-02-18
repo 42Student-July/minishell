@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   self_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/17 10:18:28 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 00:28:20 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 
-void	exec_self_export(t_cmd *cmd, t_exec_attr *ea)
+int	exec_self_export(t_cmd *cmd, t_exec_attr *ea)
 {
 	char	*argv_one;
 
@@ -22,6 +22,7 @@ void	exec_self_export(t_cmd *cmd, t_exec_attr *ea)
 		print_all_export_lst(ea);
 	else
 		export_with_args(argv_one, ea);
+	return (0);
 }
 
 // 新しく追加

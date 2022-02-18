@@ -11,6 +11,33 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+// プロンプトに終了ステータスが表示されるようになる関数
+// おそらくテスターが通らなくなるのでデバッグ用
+// char	*do_readline()
+// {
+// 	char	*line;
+// 	char	*prompt;
+
+// 	prompt = ft_strjoin(ft_itoa(g_exit_status), " >> ");
+// 	if (prompt == NULL)
+// 		exit(EXIT_FAILURE);
+// 	set_interactive_signal();
+// 	line = readline(prompt);
+// 	set_dfl_signal();
+// 	free(prompt);
+// 	return (line);
+// }
+
+char	*do_readline()
+{
+	char	*line;
+
+	set_interactive_signal();
+	line = readline(">> ");
+	set_dfl_signal();
+	return (line);
+}
+
 void	start_repl(void)
 {
 	t_lexer *lexer;
@@ -23,9 +50,7 @@ void	start_repl(void)
 	init_new(&ea);
 	while (true)
 	{
-		set_interactive_signal();
-		line = readline(">> ");
-		set_dfl_signal(); // if文の下に置くべきかも？
+		line = do_readline();
 		if (line == NULL)
 			break ;
 		lexer = new_lexer(line);

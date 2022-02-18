@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_self.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:18 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 16:57:39 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 00:25:57 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ void	execute_self_cmd(t_cmd	*c, t_exec_attr *ea)
 	// TODO:argsだけ渡して成り立つものはargsの渡しで片付ける
 	// echo hoge fugaみたいなケースはargsの線形リストに入るので、線形リストを回さないとだめ
 	if (is_(CD, c->cmd))
-		exec_self_cd(c, ea);
+		g_exit_status = exec_self_cd(c, ea);
 	else if (is_(EXPORT, c->cmd))
-		exec_self_export(c, ea);
+		g_exit_status = exec_self_export(c, ea);
 	else if (is_(EXIT, c->cmd))
-		exec_self_exit(c, ea);
+		g_exit_status = exec_self_exit(c, ea);
 	else if (is_(UNSET, c->cmd))
-		exec_self_unset(c, ea);
+		g_exit_status = exec_self_unset(c, ea);
 	else if (is_(PWD, c->cmd))
-		exec_self_pwd(c, ea);
+		g_exit_status = exec_self_pwd(c, ea);
 	else if (is_(ECHO, c->cmd))
-		exec_self_echo(c, ea);
+		g_exit_status = exec_self_echo(c, ea);
 	else if (is_(ENV, c->cmd))
-		exec_self_env(c, ea);
+		g_exit_status = exec_self_env(c, ea);
 }
 
 // TODO: is_関数を使う
