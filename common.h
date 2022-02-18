@@ -8,6 +8,7 @@ typedef enum e_stdio {
 	STDOUT = 1,
 	STDERR = 2
 }						t_stdio;
-#endif
 
-int	g_exit_status;
+extern int	g_exit_status;
+
+#endif
