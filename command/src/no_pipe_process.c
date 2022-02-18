@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 22:42:15 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 23:20:19 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		cmd_path = find_path(c->cmd, ea);
 		if (cmd_path == NULL)
 		{
-			printf("%s: command not found\n", c->cmd);
+			printf("%s: command not found\n", c->cmd); // 標準エラー出力にする
 			g_exit_status = 127;
 			return ;
 		}

@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 23:18:23 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 23:20:15 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 			cmd_path = find_path(c->cmd, ea);
 			if (cmd_path == NULL)
 			{
-				printf("%s: command not found\n", c->cmd);
+				printf("%s: command not found\n", c->cmd); // 標準エラー出力にする
 				exit(127);
 			}
 		}
