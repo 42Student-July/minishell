@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 23:20:15 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 23:21:56 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,6 @@ void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 				exit(127);
 			}
 		}
-		printf("%s\n", cmd_path);
-		// cmd_path = find_path(c->cmd, ea);
 		if (has_redirect_file(c))
 			redirect(c, ea);
 		if (is_self_cmd(c->cmd))
