@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 15:24:25 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:47:09 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*concat_path_and_cmd(char *path, char *command)
 	size_t			new_cmd_len;
 
 	new_cmd_len = ft_strlen(path) + SLASH + ft_strlen(command) + NULL_CHAR;
-	new_cmd = (char *)malloc(sizeof(char) * (new_cmd_len));
+	new_cmd = (char *)ft_calloc(sizeof(char), (new_cmd_len));
 	if (new_cmd == NULL)
 		return (NULL);
 	ft_strlcat(new_cmd, path, new_cmd_len);
