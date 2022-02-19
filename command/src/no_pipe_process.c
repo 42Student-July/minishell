@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 23:20:19 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/19 16:17:24 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,11 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	else
 	{
 		pid = wait(&status);
-		g_exit_status = WEXITSTATUS(status);
-		if (pid == -1)
-			printf("cprocess error\n");
+		if (!WIFSIGNALED(status)) // signalを受け取らなかったときだけ更新する
+			g_exit_status = WEXITSTATUS(status);
+		if (pid == -1 && !WIFSIGNALED(status))
+			exit(EXIT_FAILURE);
+		printf("g_exit_status %d\n", g_exit_status);
 	}
 }
 
