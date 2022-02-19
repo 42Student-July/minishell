@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/19 15:57:07 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/19 15:57:49 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	update_all_environ(char *pwd, t_exec_attr *ea)
 
 	// OLDPWDは前のPWDからパクって来る
 	old_pwd = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
-	export_oldpwd = ft_kvsget_value(get_lst_by_key(ea->export_lst, "PWD")->content);
+	export_oldpwd = ft_kvsget_value \
+		(get_lst_by_key(ea->export_lst, "PWD")->content);
 	update_value(ea->env_lst, "OLDPWD", old_pwd, ea);
 	update_value(ea->env_lst, "PWD", pwd, ea);
 	export_pwd = create_export_value(pwd);
