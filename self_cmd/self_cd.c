@@ -32,22 +32,30 @@ void	update_all_environ(char *pwd, char *oldpwd, t_exec_attr *ea)
 	update_value(ea->export_lst, "PWD", pwd, ea);
 }
 
-void	x_chdir(const char *path, t_exec_attr *ea)
+void	x_chdir(char *path, t_exec_attr *ea)
 {
 	char	old_pwd[PATH_MAX];
 	char	pwd[PATH_MAX];
 
 	redirect_dev_null(ea);
 	if (getcwd(old_pwd, PATH_MAX) == NULL)
-		abort_minishell(GETCWD_ERROR, ea);
-	if (chdir(path) == -1)
 	{
-		// TODO:いい感じのエラーメッセージを追加する
-		// printf("stderror(perror) : %s\n", strerror(errno));
-		exit(EXIT_FAILURE);
+		revert_redirect_out(ea);
+		print_error(PWD, path);
+		return ;
+	}
+	if (chdir(path) == -1)
+	{		
+		revert_redirect_out(ea);
+		print_error(CD, path);
+		return ;
 	}
 	if (getcwd(pwd, PATH_MAX) == NULL)
-		abort_minishell(GETCWD_ERROR, ea);
+	{
+		revert_redirect_out(ea);
+		print_error(PWD, path);
+		return ;
+	}
 	revert_redirect_out(ea);
 	// printf("old_pwd : %s\n", old_pwd);
 	// printf("pwd : %s\n", pwd);
@@ -61,7 +69,6 @@ int	exec_self_cd(t_cmd *cmd, t_exec_attr *ea)
 	argv_one = get_argv_one(cmd);
 	if (argv_one == NULL)
 		return (1);
-	(void)ea;
 	// TODO: 引数が２つある場合などにも対応する
 	x_chdir(argv_one, ea);
 	return (0);

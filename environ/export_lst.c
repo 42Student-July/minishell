@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/17 16:54:06 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:45:43 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*create_export_value(char *value)
 	else
 		value_len = ft_strlen(value);
 	new_value_len = (value_len + DQUOTE + NULL_CHAR);
-	new_value = (char *)malloc(sizeof(char) * new_value_len);
+	new_value = (char *)ft_calloc(sizeof(char), new_value_len);
 	if (new_value == NULL)
 		return (NULL);
 	ft_strlcat(new_value, "\"", new_value_len);

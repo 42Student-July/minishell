@@ -29,6 +29,7 @@ SRCS = new_lexer.c\
 		print_kvs.c\
 		is_metachar.c\
 		expand_envvar.c\
+		word_split.c\
 
 OBJS = ${SRCS:.c=.o}
 
