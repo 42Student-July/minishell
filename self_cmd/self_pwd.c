@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:57 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/19 15:57:07 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:42:40 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ char	*x_getcwd(t_exec_attr *ea)
 {
 	char	*pathname;
 
-	pathname = getcwd(NULL, 0);
-	if (pathname == NULL)
-	{
+	// TODO: getcwdは一応残しておく
+	// pathname = getcwd(NULL, 0);
+	// if (pathname == NULL)
+	// {
 		// pathnameがnullの場合、環境変数のPWDからとってきて表示する
 		pathname = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
-	}
+	// }
 	return (pathname);
 }
 

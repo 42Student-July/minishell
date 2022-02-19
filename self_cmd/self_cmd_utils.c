@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 09:26:06 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/18 09:48:33 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:38:12 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,21 @@ void	print_error(char *cmd, char *input)
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	perror(input);
+}
+
+bool	has_caps(char *path)
+{
+	size_t	i;
+
+	i = 0;
+	while (path[i] != '\0')
+	{
+		if (ft_iscap_alpha(path[i]))
+		{
+			printf("kita\n");
+			return (true);
+		}
+		i++;
+	}
+	return (false);
 }
