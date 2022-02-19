@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/19 15:57:49 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/19 15:58:54 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	update_all_environ(char *pwd, t_exec_attr *ea)
 
 int	x_chdir(char *path, t_exec_attr *ea)
 {
-	char	pwd[PATH_MAX];
+	char	*pwd;
 
 	redirect_dev_null(ea);
 	if (chdir(path) == -1)
@@ -42,7 +42,8 @@ int	x_chdir(char *path, t_exec_attr *ea)
 		print_error(CD, path);
 		return (1);
 	}
-	if (getcwd(pwd, PATH_MAX) == NULL)
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
 	{
 		revert_redirect_out(ea);
 		print_error(PWD, path);
