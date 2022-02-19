@@ -59,6 +59,7 @@ void	word_split(t_list *lst)
 				free(token->literal);
 				token->literal = str;
 				token = new_token(TOKEN_IDENT, str_next);
+				free(str_next);
 				ft_lstadd_next(lst, token);
 			}
 		}
