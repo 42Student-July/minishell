@@ -13,30 +13,30 @@
 
 // プロンプトに終了ステータスが表示されるようになる関数
 // おそらくテスターが通らなくなるのでデバッグ用
-// char	*do_readline()
-// {
-// 	char	*line;
-// 	char	*prompt;
-
-// 	prompt = ft_strjoin(ft_itoa(g_exit_status), " >> ");
-// 	if (prompt == NULL)
-// 		exit(EXIT_FAILURE);
-// 	set_interactive_signal();
-// 	line = readline(prompt);
-// 	set_dfl_signal();
-// 	free(prompt);
-// 	return (line);
-// }
-
 char	*do_readline()
 {
 	char	*line;
+	char	*prompt;
 
+	prompt = ft_strjoin(ft_itoa(g_exit_status), " >> ");
+	if (prompt == NULL)
+		exit(EXIT_FAILURE);
 	set_interactive_signal();
-	line = readline(">> ");
+	line = readline(prompt);
 	set_dfl_signal();
+	free(prompt);
 	return (line);
 }
+
+// char	*do_readline()
+// {
+// 	char	*line;
+
+// 	set_interactive_signal();
+// 	line = readline(">> ");
+// 	set_dfl_signal();
+// 	return (line);
+// }
 
 void	start_repl(void)
 {
