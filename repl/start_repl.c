@@ -74,7 +74,7 @@ void	start_repl(void)
 		// ft_lstiter_with_var(token_list, expand_envvar, ea->env_lst);
 		word_split(token_list);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
-		// execute_cmd(ea);
+		execute_cmd(ea);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
 	}

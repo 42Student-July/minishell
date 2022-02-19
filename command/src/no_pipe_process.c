@@ -6,11 +6,25 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 00:48:41 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/18 23:20:19 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
+
+bool	is_path(char *cmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (cmd[i] != '\0')
+	{
+		if (cmd[i] == '/')
+			return (true);
+		i++;
+	}
+	return (false);
+}
 
 void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 {
@@ -21,12 +35,24 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	char	**environ;
 
 	cmdv = convert_lst_to_argv(c->args);
-	cmd_path = find_path(c->cmd, ea);
-	if (cmd_path == NULL)
+	if (is_path(c->cmd))
 	{
-		printf("%s: command not found\n", c->cmd);
-		g_exit_status = 127;
-		return ;
+		cmd_path = ft_strdup(c->cmd);
+		if (cmd_path == NULL)
+		{
+			printf("ft_strdup error\n");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		cmd_path = find_path(c->cmd, ea);
+		if (cmd_path == NULL)
+		{
+			printf("%s: command not found\n", c->cmd); // 標準エラー出力にする
+			g_exit_status = 127;
+			return ;
+		}
 	}
 	environ = convert_envlst_to_array(ea);
 	pid = fork();
