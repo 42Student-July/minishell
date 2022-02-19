@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 00:27:04 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/19 15:42:12 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	update_all_environ(char *pwd, char *oldpwd, t_exec_attr *ea)
 	update_value(ea->export_lst, "PWD", pwd, ea);
 }
 
-void	x_chdir(char *path, t_exec_attr *ea)
+int	x_chdir(char *path, t_exec_attr *ea)
 {
 	char	old_pwd[PATH_MAX];
 	char	pwd[PATH_MAX];
@@ -42,24 +42,25 @@ void	x_chdir(char *path, t_exec_attr *ea)
 	{
 		revert_redirect_out(ea);
 		print_error(PWD, path);
-		return ;
+		return (1);
 	}
 	if (chdir(path) == -1)
 	{		
 		revert_redirect_out(ea);
 		print_error(CD, path);
-		return ;
+		return (1);
 	}
 	if (getcwd(pwd, PATH_MAX) == NULL)
 	{
 		revert_redirect_out(ea);
 		print_error(PWD, path);
-		return ;
+		return (1);
 	}
 	revert_redirect_out(ea);
 	// printf("old_pwd : %s\n", old_pwd);
 	// printf("pwd : %s\n", pwd);
 	update_all_environ(pwd, old_pwd, ea);
+	return (0);
 }
 
 int	exec_self_cd(t_cmd *cmd, t_exec_attr *ea)
@@ -70,6 +71,5 @@ int	exec_self_cd(t_cmd *cmd, t_exec_attr *ea)
 	if (argv_one == NULL)
 		return (1);
 	// TODO: 引数が２つある場合などにも対応する
-	x_chdir(argv_one, ea);
-	return (0);
+	return (x_chdir(argv_one, ea));
 }
