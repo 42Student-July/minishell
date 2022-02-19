@@ -56,6 +56,7 @@ void read_heredoc(t_lexer *lexer);
 void print_kvs(t_list *kvs);
 bool is_metachar(const char c);
 void word_split(t_list *lst);
+void expand_quote(void *input);
 
 // helper
 char *replace_string(char *str, const char *from, const char *to);

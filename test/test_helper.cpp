@@ -39,7 +39,15 @@ void compare_tokens(t_list *token_list,
 	for (auto &expected_token : expected_tokens)
 	{
 		t_token *token = (t_token *)current->content;
-		compare_token(token, expected_token);
+		if (token->type == TOKEN_EOF)
+		{
+			EXPECT_EQ(token->type, expected_token.first);
+			EXPECT_STREQ(token->literal, "");
+		}
+		else
+		{
+			compare_token(token, expected_token);
+		}
 		current = current->next;
 	}
 }
