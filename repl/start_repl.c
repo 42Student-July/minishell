@@ -72,6 +72,7 @@ void	start_repl(void)
 		// print_kvs(lexer->heredocs);
 		// print_kvs(ea->env_lst);
 		// ft_lstiter_with_var(token_list, expand_envvar, ea->env_lst);
+		word_split(token_list);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
 		// execute_cmd(ea);
 		ft_lstclear(&token_list, delete_token);
