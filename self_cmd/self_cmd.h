@@ -20,6 +20,7 @@
 # include "error_handle.h"
 # include "environ.h"
 # include <limits.h>
+# include <sys/stat.h>
 
 # define CD "cd"
 # define ECHO "echo"

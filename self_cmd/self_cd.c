@@ -50,6 +50,18 @@ char	*create_new_pwd(char *oldpwd, char *path)
 	return (new_value);
 }
 
+bool	is_symlink(char *path, t_exec_attr *ea)
+{
+	struct stat	buf;
+	char		*old_pwd;
+	char		*pwd;
+
+	old_pwd = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
+	pwd = create_new_pwd(old_pwd, path);
+	lstat(pwd, &buf);
+	free(pwd);
+	return (S_ISLNK(buf.st_mode));
+}
 
 int	x_chdir(char *path, t_exec_attr *ea)
 {
@@ -63,6 +75,10 @@ int	x_chdir(char *path, t_exec_attr *ea)
 		print_error(CD, path);
 		return (1);
 	}
+	if (is_symlink(path, ea))
+	{
+		
+	}
 	// 大文字の入力だったときのPWDの対応
 	if (has_caps(path))
 	{
@@ -73,6 +89,7 @@ int	x_chdir(char *path, t_exec_attr *ea)
 	}
 	else
 	{
+		redirect_dev_null(ea);
 		pwd = getcwd(NULL, 0);
 		if (pwd == NULL)
 		{
