@@ -64,7 +64,7 @@ void	start_repl(void)
 		}
 		while (lexer->io_here_delimiters != NULL)
 		{
-			read_heredoc(lexer);
+			read_heredoc(lexer, ea->env_lst);
 		}
 		if (ft_strlen(lexer->input) > 0) // 空文字列をヒストリーに入れないための対処法
 			add_history(lexer->input);
