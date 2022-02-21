@@ -104,7 +104,7 @@ char	*expand_envvar_str(const char *input, void *env)
 	while (str[i] != '\0')
 	{
 		update_flag(str[i], &in_sq, &in_dq);
-		if (str[i] == '$' && str[i + 1] != '\0' && !in_sq)
+		if (str[i] == '$' && str[i + 1] != '\0' && (ft_isalpha(str[i+1]) || str[i+1] == '_') && !in_sq)
 			process_single_envvar(&str, &i, env);
 		else
 			i++;
