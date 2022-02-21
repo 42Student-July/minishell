@@ -98,66 +98,35 @@ TEST(env, expand_envvar_tail)
 	ft_lstclear(&lst, &ft_kvsdelete);
 }
 
-TEST(env, expand_envvar_wtf)
-{
-	std::vector<std::pair<t_tokentype, std::string>> input_vector = {
-		{TOKEN_IDENT, "hoge\"'$A'\""},
-		{TOKEN_EOF, ""},
-	};
-	t_list *input = init_input_lists(input_vector);
-
-	char *key = ft_strdup("A");
-	char *value = ft_strdup("|wtf|");
-	char *expected = ft_strdup("hoge\"'|wtf|'\"");
-	t_list *lst = ft_lstnew(ft_kvsnew(key, value));
-	ft_lstiter_with_var(input, expand_envvar, lst);
-	EXPECT_STREQ(((t_token *)input->content)->literal, expected);
-	free(input);
-	free(key);
-	free(value);
-	free(expected);
-	ft_lstclear(&lst, &ft_kvsdelete);
-}
-
-TEST(env, expand_envvar_wtf2)
-{
-	std::vector<std::pair<t_tokentype, std::string>> input_vector = {
-		{TOKEN_IDENT, "hoge'$A'"},
-		{TOKEN_EOF, ""},
-	};
-	t_list *input = init_input_lists(input_vector);
-
-	char *key = ft_strdup("A");
-	char *value = ft_strdup("|wtf|");
-	char *expected = ft_strdup("hoge'$A'");
-	t_list *lst = ft_lstnew(ft_kvsnew(key, value));
-	ft_lstiter_with_var(input, expand_envvar, lst);
-	EXPECT_STREQ(((t_token *)input->content)->literal, expected);
-	free(input);
-	free(key);
-	free(value);
-	free(expected);
-	ft_lstclear(&lst, &ft_kvsdelete);
-}
 
 TEST(env, expand_envvar_wtf3)
 {
 	std::vector<std::pair<t_tokentype, std::string>> input_vector = {
 		{TOKEN_IDENT, "hoge\"'$A'\""},
-		{TOKEN_IDENT, "hoge'\"$A\"'"},
+		{TOKEN_IDENT, "hoge\"$A\""},
+		{TOKEN_IDENT, "fuga'\"$A\"'"},
+		{TOKEN_IDENT, "hoge'$A'"},
+		{TOKEN_IDENT, "hoge\"'$A'\""},
 		{TOKEN_EOF, ""},
 	};
 	t_list *input = init_input_lists(input_vector);
 
 	char *key = ft_strdup("A");
 	char *value = ft_strdup("|wtf|");
-	char *expected = ft_strdup("hoge'\"|wtf|\"'");
 	t_list *lst = ft_lstnew(ft_kvsnew(key, value));
+
+	std::vector<std::pair<t_tokentype, std::string>> expected = {
+		{TOKEN_IDENT, "hoge\"'|wtf|'\""},
+		{TOKEN_IDENT, "hoge\"|wtf|\""},
+		{TOKEN_IDENT, "fuga'\"$A\"'"},
+		{TOKEN_IDENT, "hoge'$A'"},
+		{TOKEN_IDENT, "hoge\"'|wtf|'\""},
+		{TOKEN_EOF, ""},
+	};
 	ft_lstiter_with_var(input, expand_envvar, lst);
-	EXPECT_STREQ(((t_token *)input->content)->literal, expected);
+	compare_tokens(input, expected);
 	free(input);
 	free(key);
 	free(value);
-	free(expected);
 	ft_lstclear(&lst, &ft_kvsdelete);
 }

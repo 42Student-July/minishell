@@ -119,8 +119,10 @@ void	expand_envvar(void *tokenp, void *envvar)
 
 	token = (t_token *)tokenp;
 	if (token->type == TOKEN_IDENT)
+	{
 		str = expand_envvar_str(token->literal, envvar);
-	free(token->literal);
-	token->literal = str;
+		free(token->literal);
+		token->literal = str;
+	}
 }
 
