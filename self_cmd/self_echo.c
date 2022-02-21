@@ -34,12 +34,7 @@ int	exec_self_echo(t_cmd *cmd, t_exec_attr *ea)
 		while (str[i])
 		{
 			if (ft_strchr("n", str[i]) == NULL)
-			{
-				ft_putstr_fd("echo: -", STDERR_FILENO);
-				ft_putchar_fd(str[i], STDERR_FILENO);
-				ft_putstr_fd(": invalid option\n", STDERR_FILENO);
-				return (1);
-			}
+				break;
 			i++;
 		}
 		if (str[1] == '\0' || str[i] != '\0')
