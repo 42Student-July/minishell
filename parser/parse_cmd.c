@@ -53,7 +53,10 @@ t_cmd	*parse_cmd(t_list *token_list, t_list **heredocs)
 		else if (token->type == TOKEN_HEREDOC)
 		{
 			token = token_list->next->content;
+			char *s = token->literal;
+			(void)s;
 			filename = ft_kvsget(*heredocs, token->literal);
+
 			printf("%s\n", filename);
 			ft_lstadd_back(&cmd->filenames_in, ft_lstnew(new_file(filename,
 							true)));

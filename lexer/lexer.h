@@ -63,6 +63,6 @@ char *expand_quote_str(const char *str);
 char *replace_string(char *str, const char *from, const char *to);
 char *expand_single_envvar(char *str, const char *from, const char *to, size_t *i);
 char *expand_envvar_str(const char *input, void *env);
-void	expand_envvar(void *tokenp, void *envvar);
+void expand_envvar(t_list *lst, t_list *env_lst);
 
 #endif
