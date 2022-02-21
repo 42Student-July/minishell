@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/21 20:09:03 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/21 23:06:57 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	create_virtual_path(char *path, t_exec_attr *ea)
 
 	old_pwd = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
 	pwd = create_new_pwd(old_pwd, path);
-	// TODO:ここで存在しないディレクトリを指定している場合、無限に/../が入力できてしまう
 	if (getcwd(NULL, 0) == NULL)
 	{	
 		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", STDERR_FILENO);
@@ -133,7 +132,14 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	char	*old_pwd;
 	char	*path;
 
+	// .が２つ以上だったケースも考慮しないとだめ
 	//TODO: dirが絶対パスだったときの考慮も入れる
+	//TODO:: 最初が/だったケースも
+	if (chdir(arg) == -1)
+	{	
+		print_error(CD, arg);
+		return (1);
+	}
 	if (!is_current_dir_exist(ea))
 	{
 		create_virtual_path(arg, ea);
@@ -147,11 +153,6 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	}
 	else
 		path = arg;
-	if (chdir(path) == -1)
-	{		
-		print_error(CD, path);
-		return (1);
-	}
 	// 大文字の入力だったときのPWDの対応
 	// シンボリックリンクだったときの対応
 	if (has_caps(path) || is_symlink(path, ea))
