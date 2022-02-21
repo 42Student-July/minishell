@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/19 17:43:10 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/21 13:50:41 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,46 @@ bool	is_symlink(char *path, t_exec_attr *ea)
 	return (S_ISLNK(buf.st_mode));
 }
 
-int	x_chdir(char *path, t_exec_attr *ea)
+bool	is_end_of_slash(char *path)
+{
+	size_t	i;
+
+	i = 0;
+	while (path[i] != '\0')
+		i++;
+	if (path[i - 1] == '/')
+		return (true);
+	return (false);
+}
+
+char	*create_str_removed_end(char *path)
+{
+	size_t	i;
+
+	i = 0;
+	while (path[i] != '\0')
+		i++;
+	path[i - 1] = '\0';
+	return (ft_strdup(path));
+}
+
+
+int	x_chdir(char *arg, t_exec_attr *ea)
 {
 	char	*pwd;
 	char	*old_pwd;
+	char	*path;
 
-	redirect_dev_null(ea);
+	if (is_end_of_slash(arg))
+	{
+		path = create_str_removed_end(arg);
+		if (path == NULL)
+			abort_minishell(MALLOC_ERROR, ea);
+	}
+	else
+		path = arg;
 	if (chdir(path) == -1)
 	{		
-		revert_redirect_out(ea);
 		print_error(CD, path);
 		return (1);
 	}
@@ -100,6 +131,8 @@ int	x_chdir(char *path, t_exec_attr *ea)
 	}
 	revert_redirect_out(ea);
 	update_all_environ(pwd, ea);
+	if (is_end_of_slash(arg))
+		free(path);
 	return (0);
 }
 
