@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/21 13:50:41 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/21 20:09:03 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,18 @@ char	*create_new_pwd(char *oldpwd, char *path)
 
 	oldpwd_len = ft_strlen(oldpwd);
 	path_len = ft_strlen(path);
-	new_value_len = (oldpwd_len + SLASH + path_len + NULL_CHAR);
+	// virtual pathの場合、最後に"/"が入る場合があるため、新しい"/"とかぶってしまう。
+	// なので、/を余分に付け加えないようにする
+	if (oldpwd[oldpwd_len - 1] == '/')
+		new_value_len = (oldpwd_len + path_len + NULL_CHAR);
+	else
+		new_value_len = (oldpwd_len + SLASH + path_len + NULL_CHAR);
 	new_value = (char *)ft_calloc(sizeof(char), new_value_len);
 	if (new_value == NULL)
 		return (NULL);
 	ft_strlcat(new_value, oldpwd, new_value_len);
-	ft_strlcat(new_value, "/", new_value_len);
+	if (oldpwd[oldpwd_len - 1] != '/')
+		ft_strlcat(new_value, "/", new_value_len);
 	ft_strlcat(new_value, path, new_value_len);
 	return (new_value);
 }
@@ -68,6 +74,9 @@ bool	is_end_of_slash(char *path)
 	size_t	i;
 
 	i = 0;
+	// slash onlyの場合は対象外とする
+	if (ft_strlen(path) == 1)
+		return (false);
 	while (path[i] != '\0')
 		i++;
 	if (path[i - 1] == '/')
@@ -86,6 +95,37 @@ char	*create_str_removed_end(char *path)
 	return (ft_strdup(path));
 }
 
+bool	is_current_dir_exist(t_exec_attr *ea)
+{
+	char	*pwd;
+
+	redirect_dev_null(ea);
+	pwd = getcwd(NULL, 0);
+	revert_redirect_out(ea);
+	if (pwd == NULL)
+		return (false);
+	return (true);
+}
+
+void	create_virtual_path(char *path, t_exec_attr *ea)
+{
+	char	*pwd;
+	char	*old_pwd;
+
+	old_pwd = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
+	pwd = create_new_pwd(old_pwd, path);
+	// TODO:ここで存在しないディレクトリを指定している場合、無限に/../が入力できてしまう
+	if (getcwd(NULL, 0) == NULL)
+	{	
+		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", STDERR_FILENO);
+		update_all_environ(pwd, ea);
+	}
+	else
+	{
+		pwd = getcwd(NULL, 0);
+		update_all_environ(pwd, ea);
+	}
+}
 
 int	x_chdir(char *arg, t_exec_attr *ea)
 {
@@ -93,6 +133,12 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	char	*old_pwd;
 	char	*path;
 
+	//TODO: dirが絶対パスだったときの考慮も入れる
+	if (!is_current_dir_exist(ea))
+	{
+		create_virtual_path(arg, ea);
+		return (1);
+	}
 	if (is_end_of_slash(arg))
 	{
 		path = create_str_removed_end(arg);
@@ -106,12 +152,9 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 		print_error(CD, path);
 		return (1);
 	}
-	if (is_symlink(path, ea))
-	{
-		
-	}
 	// 大文字の入力だったときのPWDの対応
-	if (has_caps(path))
+	// シンボリックリンクだったときの対応
+	if (has_caps(path) || is_symlink(path, ea))
 	{
 		old_pwd = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
 		pwd = create_new_pwd(old_pwd, path);
