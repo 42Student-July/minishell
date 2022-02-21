@@ -69,21 +69,60 @@ void	process_single_envvar(char **str, size_t *i, t_list *env)
 	*str = tmp;
 }
 
+void	update_flag(char c, bool *in_sq, bool *in_dq)
+{
+	if (c == '\'')
+	{
+		if (*in_sq == false && *in_dq == false)
+			*in_sq = true;
+		else if (*in_sq == true && *in_dq == false)
+			*in_sq = false;
+	}
+	if (c == '\"')
+	{
+		if (*in_sq == false && *in_dq == false)
+			*in_dq = true;
+		else if (*in_sq == false && *in_dq == true)
+			*in_dq = false;
+	}
+}
+
+
 char	*expand_envvar_str(const char *input, void *env)
 {
 	char	*str;
 	size_t	i;
+	bool	in_sq;
+	bool	in_dq;
 
+	in_sq = false;
+	in_dq = false;
 	str = ft_strdup(input);
 	if (str == NULL)
 		exit(EXIT_FAILURE);
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '$' && str[i + 1] != '\0')
+		update_flag(str[i], &in_sq, &in_dq);
+		if (str[i] == '$' && str[i + 1] != '\0' && !in_sq)
 			process_single_envvar(&str, &i, env);
 		else
 			i++;
 	}
 	return (str);
 }
+
+void	expand_envvar(void *tokenp, void *envvar)
+{
+	t_token *token;
+	char	*str;
+
+	token = (t_token *)tokenp;
+	if (token->type == TOKEN_IDENT)
+	{
+		str = expand_envvar_str(token->literal, envvar);
+		free(token->literal);
+		token->literal = str;
+	}
+}
+

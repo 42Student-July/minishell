@@ -97,3 +97,36 @@ TEST(env, expand_envvar_tail)
 	free(result);
 	ft_lstclear(&lst, &ft_kvsdelete);
 }
+
+
+TEST(env, expand_envvar_wtf3)
+{
+	std::vector<std::pair<t_tokentype, std::string>> input_vector = {
+		{TOKEN_IDENT, "hoge\"'$A'\""},
+		{TOKEN_IDENT, "hoge\"$A\""},
+		{TOKEN_IDENT, "fuga'\"$A\"'"},
+		{TOKEN_IDENT, "hoge'$A'"},
+		{TOKEN_IDENT, "hoge\"'$A'\""},
+		{TOKEN_EOF, ""},
+	};
+	t_list *input = init_input_lists(input_vector);
+
+	char *key = ft_strdup("A");
+	char *value = ft_strdup("|wtf|");
+	t_list *lst = ft_lstnew(ft_kvsnew(key, value));
+
+	std::vector<std::pair<t_tokentype, std::string>> expected = {
+		{TOKEN_IDENT, "hoge\"'|wtf|'\""},
+		{TOKEN_IDENT, "hoge\"|wtf|\""},
+		{TOKEN_IDENT, "fuga'\"$A\"'"},
+		{TOKEN_IDENT, "hoge'$A'"},
+		{TOKEN_IDENT, "hoge\"'|wtf|'\""},
+		{TOKEN_EOF, ""},
+	};
+	ft_lstiter_with_var(input, expand_envvar, lst);
+	compare_tokens(input, expected);
+	free(input);
+	free(key);
+	free(value);
+	ft_lstclear(&lst, &ft_kvsdelete);
+}

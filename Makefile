@@ -148,9 +148,10 @@ $(GTEST):
 
 #it is important to compile the library with right order (libft is the latest)
 SRCS_TEST = test/test_helper.cpp\
-			test/word_splitting_test.cpp\
-			test/expand_quote_test.cpp\
-			# test/expand_envvar_test.cpp\
+			test/expand_envvar_test.cpp\
+			# test/word_splitting_test.cpp\
+			# test/expand_quote_test.cpp\
+			test/expand_envvar_test.cpp\
 			# test/lexer_test.cpp\
 			# test/exec_parser_test.cpp\
 			# test/redirect_parser_test.cpp\
