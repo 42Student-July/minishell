@@ -3,32 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   self_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:57 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 00:32:22 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:42:40 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 
-static void	x_getcwd(char *pathname, int bufsiz)
+char	*x_getcwd(t_exec_attr *ea)
 {
-	if (getcwd(pathname, bufsiz) == NULL)
-	{
-		// TODO:いい感じのエラーメッセージを追加する
-		// printf("stderror(perror) : %s\n", strerror(errno));
-		exit(EXIT_FAILURE);
-	}
+	char	*pathname;
+
+	// TODO: getcwdは一応残しておく
+	// pathname = getcwd(NULL, 0);
+	// if (pathname == NULL)
+	// {
+		// pathnameがnullの場合、環境変数のPWDからとってきて表示する
+		pathname = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
+	// }
+	return (pathname);
 }
 
 int	exec_self_pwd(t_cmd *cmd, t_exec_attr *ea)
 {
-	char	pathname[PATH_MAX];
+	char	*pathname;
 
 	(void)cmd;
-	(void)ea;
-	x_getcwd(pathname, PATH_MAX);
+	pathname = x_getcwd(ea);
 	ft_putstr_fd(pathname, STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);

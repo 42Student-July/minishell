@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_utils_2.c                                      :+:      :+:    :+:   */
+/*   strcut_back_test.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/17 15:44:59 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/19 15:57:07 by mhirabay         ###   ########.fr       */
+/*   Created: 2022/02/21 16:27:27 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/02/21 16:31:40 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environ.h"
+#include "../../libft/libft.h"
 
-bool	update_value(t_list *lst, char *key, char *new_v, t_exec_attr *ea)
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <limits.h>
+#include <stdbool.h>
+
+int	main()
 {
-	t_list	*target;
-	char	*tmp;
-
-	target = get_lst_by_key(lst, key);
-	if (target == NULL)
-	{
-		printf("invalid key\n");
-		return (false);
-	}
-	tmp = ft_strdup(new_v);
-	if (tmp == NULL)
-		abort_minishell(MALLOC_ERROR, ea);
-	ft_kvsreplace_value(target->content, tmp);
-	return (true);
+	char *a;
+	
+	a = ft_strdup("/Users/masashi/Projects/42tokyo/minishell/test/test_sh");
+	printf("ft_strcut_back(a, '/') : %s\n", ft_strcut_back(a, '/'));
+	
+	
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_cmd.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/18 09:49:03 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:29:08 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "error_handle.h"
 # include "environ.h"
 # include <limits.h>
+# include <sys/stat.h>
 
 # define CD "cd"
 # define ECHO "echo"
@@ -29,6 +30,7 @@
 # define EXPORT "export"
 # define UNSET "unset"
 # define CMD_ARG 1
+# define SLASH 1
 
 // self_pwd.c
 int			exec_self_pwd(t_cmd *cmd, t_exec_attr *ea);
@@ -66,5 +68,6 @@ void		print_all_export_lst(t_exec_attr *ea);
 bool		is_invalid_name(char *name);
 void		print_error_msg_with_var(char *cmd_name, char *var);
 void		print_error(char *cmd, char *input);
+bool		has_caps(char *path);
 
 #endif

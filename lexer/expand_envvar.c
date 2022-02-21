@@ -69,21 +69,74 @@ void	process_single_envvar(char **str, size_t *i, t_list *env)
 	*str = tmp;
 }
 
+void	update_flag(char c, bool *in_sq, bool *in_dq)
+{
+	if (c == '\'')
+	{
+		if (*in_sq == false && *in_dq == false)
+			*in_sq = true;
+		else if (*in_sq == true && *in_dq == false)
+			*in_sq = false;
+	}
+	if (c == '\"')
+	{
+		if (*in_sq == false && *in_dq == false)
+			*in_dq = true;
+		else if (*in_sq == false && *in_dq == true)
+			*in_dq = false;
+	}
+}
+
 char	*expand_envvar_str(const char *input, void *env)
 {
 	char	*str;
 	size_t	i;
+	bool	in_sq;
+	bool	in_dq;
 
+	in_sq = false;
+	in_dq = false;
 	str = ft_strdup(input);
 	if (str == NULL)
 		exit(EXIT_FAILURE);
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '$' && str[i + 1] != '\0')
+		update_flag(str[i], &in_sq, &in_dq);
+		if (str[i] == '$' && str[i + 1] != '\0' && (ft_isalpha(str[i
+					+ 1]) || str[i + 1] == '_') && !in_sq)
 			process_single_envvar(&str, &i, env);
 		else
 			i++;
 	}
 	return (str);
+}
+
+void	expand_envvar(t_list *lst, t_list *env_lst)
+{
+	char	*str;
+	t_token	*token;
+	bool	is_heredoc;
+
+	is_heredoc = false;
+	while (lst != NULL)
+	{
+		token = lst->content;
+		if (token->type == TOKEN_IDENT)
+		{
+			if (is_heredoc)
+			{
+				is_heredoc = false;
+			}
+			else
+			{
+				str = expand_envvar_str(token->literal, env_lst);
+				free(token->literal);
+				token->literal = str;
+			}
+		}
+		if (token->type == TOKEN_HEREDOC)
+			is_heredoc = true;
+		lst = lst->next;
+	}
 }
