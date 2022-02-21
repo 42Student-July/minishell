@@ -128,8 +128,8 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 			print_error(PWD, path);
 			return (1);
 		}
+		revert_redirect_out(ea);
 	}
-	revert_redirect_out(ea);
 	update_all_environ(pwd, ea);
 	if (is_end_of_slash(arg))
 		free(path);
