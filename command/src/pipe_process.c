@@ -6,11 +6,12 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/21 15:39:53 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/21 20:05:21 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
+#include "errno.h"
 
 int	**malloc_pipe_fd(int pipe_cnt)
 {
@@ -76,33 +77,38 @@ void	close_pipe(int **pipe_fd, int cmd_i)
 	close(pipe_fd[cmd_i - 1][PIPE_OUT]);
 }
 
-void	wait_process(int pipe_cnt)
+void	wait_process(int pipe_cnt, int *cpid_array)
 {
 	int		status;
 	int		i;
 	pid_t	pid;
+	bool	is_EINTR;
 
+	(void)cpid_array;
 	i = 0;
 	while (i < pipe_cnt + 1)
 	{
+		is_EINTR = false;
 		while (true)
 		{
-			pid = wait(&status);
+			pid = waitpid(cpid_array[i], &status, 0);
 			if (pid > 0)
 				break ;
-			if (WIFSIGNALED(status))
+			if (errno == EINTR)
+			{
+				is_EINTR = true;
 				continue ;
-			printf("flag\n");
+			}
 			exit(EXIT_FAILURE);
 		}
-		if (!WIFSIGNALED(status))
+		if (!is_EINTR)
 			g_exit_status = WEXITSTATUS(status);
 		i++;
 	}
 }
 
 // TODO:構造体がexec単位でわけられているので、eaを渡したくない
-void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
+void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd, int *cpid_array)
 {
 	int		pid;
 	char	**cmdv;
@@ -113,6 +119,7 @@ void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	cmdv = convert_lst_to_argv(c->args);
 	environ = convert_envlst_to_array(ea);
 	pid = fork();
+	cpid_array[cmd_i] = pid;
 	if (pid == -1)
 	{
 		printf("fork error\n");
@@ -174,6 +181,7 @@ void	pipe_process(t_exec_attr *ea)
 	int				cmd_i;
 	int				**pipe_fd;
 	t_cmd			*current_cmd;
+	int				cpid_array[10];
 
 	pipe_fd = malloc_pipe_fd(ea->pipe_count);
 	cmd_i = 0;
@@ -181,10 +189,10 @@ void	pipe_process(t_exec_attr *ea)
 	while (cmd_i < ea->pipe_count + 1)
 	{
 		make_pipe(cmd_i, ea->pipe_count, pipe_fd);
-		exec_cmd(current_cmd, ea, cmd_i, pipe_fd);
+		exec_cmd(current_cmd, ea, cmd_i, pipe_fd, cpid_array);
 		close_pipe(pipe_fd, cmd_i);
 		cmd_i++;
 		current_cmd = ea->cmd_lst->next->content;
 	}
-	wait_process(ea->pipe_count);
+	wait_process(ea->pipe_count, cpid_array);
 }
