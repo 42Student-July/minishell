@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 23:21:56 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/21 15:39:53 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,25 @@ void	close_pipe(int **pipe_fd, int cmd_i)
 
 void	wait_process(int pipe_cnt)
 {
-	int	status;
-	int	i;
+	int		status;
+	int		i;
+	pid_t	pid;
 
 	i = 0;
 	while (i < pipe_cnt + 1)
 	{
-		if (wait(&status) == -1)
+		while (true)
 		{
-			printf("cprocess error\n");
+			pid = wait(&status);
+			if (pid > 0)
+				break ;
+			if (WIFSIGNALED(status))
+				continue ;
+			printf("flag\n");
 			exit(EXIT_FAILURE);
 		}
-		g_exit_status = WEXITSTATUS(status);
+		if (!WIFSIGNALED(status))
+			g_exit_status = WEXITSTATUS(status);
 		i++;
 	}
 }
