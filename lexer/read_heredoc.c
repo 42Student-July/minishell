@@ -56,19 +56,28 @@ void	register_heredocs(t_lexer *lexer, char *buf)
 	ft_lstadd_back(&lexer->heredocs, ft_lstnew(kvs));
 }
 
-void	read_heredoc(t_lexer *lexer)
+void	read_heredoc(t_lexer *lexer, t_list *env_list)
 {
 	char	*buffer;
 	char	*tmp;
 	char	*line;
+	char	**delimiter;
+	bool has_quote;
 
+	delimiter = (char **)&(lexer->io_here_delimiters->content);
 	buffer = NULL;
+	has_quote = ft_strchr(*delimiter, '\'') != NULL || ft_strchr(*delimiter, '"') != NULL;
+	if (has_quote)
+	{
+		tmp = expand_quote_str(*delimiter);
+		free(*delimiter);
+		*delimiter = tmp;
+	}
 	line = readline("> ");
 	while (line != NULL)
 	{
-		if (ft_strncmp(line, (char *)lexer->io_here_delimiters->content,
-				ft_strlen(line)) == 0 &&
-			ft_strlen(line) == ft_strlen((char *)lexer->io_here_delimiters->content))
+		if (ft_strncmp(line, *delimiter, ft_strlen(line)) == 0 &&
+			ft_strlen(line) == ft_strlen(*delimiter))
 		{
 			free(line);
 			line = NULL;
@@ -82,6 +91,12 @@ void	read_heredoc(t_lexer *lexer)
 		free(buffer);
 		buffer = tmp;
 		line = readline("> ");
+	}
+	if (!has_quote)
+	{
+		tmp = expand_envvar_str(buffer, env_list);
+		free(buffer);
+		buffer = tmp;
 	}
 	register_heredocs(lexer, buffer);
 }
