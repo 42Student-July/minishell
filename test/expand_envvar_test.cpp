@@ -123,7 +123,7 @@ TEST(env, expand_envvar_wtf3)
 		{TOKEN_IDENT, "hoge\"'|wtf|'\""},
 		{TOKEN_EOF, ""},
 	};
-	ft_lstiter_with_var(input, expand_envvar, lst);
+	expand_envvar(input, lst);
 	compare_tokens(input, expected);
 	free(input);
 	free(key);
