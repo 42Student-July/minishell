@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 20:14:14 by akito             #+#    #+#             */
-/*   Updated: 2022/02/19 16:40:26 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/21 16:26:29 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_isspace(int c);
 int		ft_isletter(int c);
+char	*ft_strcut_back(char *str, char c);
 
 // extra files
 
