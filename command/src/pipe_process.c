@@ -6,103 +6,127 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/17 15:06:42 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:00:47 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
+#include "errno.h"
 
-int	**malloc_pipe_fd(int pipe_cnt)
+void	malloc_pipe_fd(t_pipe_attr *pa)
 {
 	int	i;
-	int	**pipe_fd;
 
-	pipe_fd = (int **)malloc(sizeof(int *) * pipe_cnt);
-	if (pipe_fd == NULL)
+	pa->pipe_fd = (int **)malloc(sizeof(int *) * pa->pipe_count);
+	if (pa->pipe_fd == NULL)
 	{
 		printf("malloc error\n");
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
-	while (i < pipe_cnt)
+	while (i < pa->pipe_count)
 	{
-		pipe_fd[i] = (int *)malloc(sizeof(int) * 2);
-		if (pipe_fd[i] == NULL)
+		pa->pipe_fd[i] = (int *)malloc(sizeof(int) * 2);
+		if (pa->pipe_fd[i] == NULL)
 		{
 			printf("malloc error\n");
 			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
-	return (pipe_fd);
+	return ;
 }
 
-void	make_pipe(int cmd_i, int pipe_cnt, int **pipe_fd)
+void	malloc_cpid_array(t_pipe_attr *pa)
 {
-	if (cmd_i != pipe_cnt)
+	pa->cpid_array = (int *)malloc(sizeof(int *) * (pa->pipe_count + 1));
+	if (pa->cpid_array == NULL)
 	{
-		pipe(pipe_fd[cmd_i]);
+		printf("malloc error\n");
+		exit(EXIT_FAILURE);
 	}
 }
 
-void	set_pipe_fd(int pipe_cnt, int cmd_i, int **pipe_fd)
+void	make_pipe(t_pipe_attr *pa)
 {
-	if (cmd_i == 0)
+	if (pa->cmd_i != pa->pipe_count)
 	{
-		dup2(pipe_fd[cmd_i][PIPE_OUT], STDOUT_FILENO);
-		close(pipe_fd[cmd_i][PIPE_IN]);
-		close(pipe_fd[cmd_i][PIPE_OUT]);
+		pipe(pa->pipe_fd[pa->cmd_i]);
 	}
-	else if (cmd_i == pipe_cnt)
+}
+
+void	set_pipe_fd(t_pipe_attr *pa)
+{
+	if (pa->cmd_i == 0)
 	{
-		dup2(pipe_fd[cmd_i - 1][PIPE_IN], STDIN_FILENO);
-		close(pipe_fd[cmd_i - 1][PIPE_IN]);
-		close(pipe_fd[cmd_i - 1][PIPE_OUT]);
+		dup2(pa->pipe_fd[pa->cmd_i][PIPE_OUT], STDOUT_FILENO);
+		close(pa->pipe_fd[pa->cmd_i][PIPE_IN]);
+		close(pa->pipe_fd[pa->cmd_i][PIPE_OUT]);
+	}
+	else if (pa->cmd_i == pa->pipe_count)
+	{
+		dup2(pa->pipe_fd[pa->cmd_i - 1][PIPE_IN], STDIN_FILENO);
+		close(pa->pipe_fd[pa->cmd_i - 1][PIPE_IN]);
+		close(pa->pipe_fd[pa->cmd_i - 1][PIPE_OUT]);
 	}
 	else
 	{
-		dup2(pipe_fd[cmd_i - 1][PIPE_IN], STDIN_FILENO);
-		dup2(pipe_fd[cmd_i][PIPE_OUT], STDOUT_FILENO);
-		close(pipe_fd[cmd_i - 1][PIPE_IN]);
-		close(pipe_fd[cmd_i - 1][PIPE_OUT]);
-		close(pipe_fd[cmd_i][PIPE_IN]);
-		close(pipe_fd[cmd_i][PIPE_OUT]);
+		dup2(pa->pipe_fd[pa->cmd_i - 1][PIPE_IN], STDIN_FILENO);
+		dup2(pa->pipe_fd[pa->cmd_i][PIPE_OUT], STDOUT_FILENO);
+		close(pa->pipe_fd[pa->cmd_i - 1][PIPE_IN]);
+		close(pa->pipe_fd[pa->cmd_i - 1][PIPE_OUT]);
+		close(pa->pipe_fd[pa->cmd_i][PIPE_IN]);
+		close(pa->pipe_fd[pa->cmd_i][PIPE_OUT]);
 	}
 }
 
-void	close_pipe(int **pipe_fd, int cmd_i)
+void	close_pipe(t_pipe_attr *pa)
 {
-	close(pipe_fd[cmd_i - 1][PIPE_IN]);
-	close(pipe_fd[cmd_i - 1][PIPE_OUT]);
+	close(pa->pipe_fd[pa->cmd_i - 1][PIPE_IN]);
+	close(pa->pipe_fd[pa->cmd_i - 1][PIPE_OUT]);
 }
 
-void	wait_process(int pipe_cnt)
+void	wait_process(t_pipe_attr *pa)
 {
-	int	status;
-	int	i;
+	int		status;
+	int		i;
+	pid_t	pid;
+	bool	is_EINTR;
 
 	i = 0;
-	while (i < pipe_cnt + 1)
+	while (i < pa->pipe_count + 1)
 	{
-		if (wait(&status) == -1)
+		is_EINTR = false;
+		while (true)
 		{
-			printf("cprocess error\n");
+			pid = waitpid(pa->cpid_array[i], &status, 0);
+			if (pid > 0)
+				break ;
+			if (errno == EINTR)
+			{
+				is_EINTR = true;
+				continue ;
+			}
 			exit(EXIT_FAILURE);
 		}
+		if (!is_EINTR)
+			g_exit_status = WEXITSTATUS(status);
 		i++;
 	}
 }
 
 // TODO:構造体がexec単位でわけられているので、eaを渡したくない
-void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
+void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 {
 	int		pid;
 	char	**cmdv;
 	char	*cmd_path;
+	char	**environ;
 
-	(void)ea->env_lst;
-	cmdv = convert_lst_to_argv(c->args);
+	cmdv = convert_lst_to_argv(pa->current_cmd->args);
+	environ = convert_envlst_to_array(ea);
 	pid = fork();
+	pa->cpid_array[pa->cmd_i] = pid;
 	if (pid == -1)
 	{
 		printf("fork error\n");
@@ -110,22 +134,45 @@ void	exec_cmd(t_cmd *c, t_exec_attr *ea, int cmd_i, int **pipe_fd)
 	}
 	else if (pid == 0)
 	{
-		set_pipe_fd(ea->pipe_count, cmd_i, pipe_fd);
-		cmd_path = find_path(c->cmd, ea);
-		if (has_redirect_file(c))
-			redirect(c, ea);
-		if (is_self_cmd(c->cmd))
-			execute_self_cmd(c, ea);
-		if (execve(cmd_path, cmdv, NULL) == -1)
+		set_pipe_fd(pa);
+		if (!is_self_cmd(pa->current_cmd->cmd))
 		{
-			printf("exec error\n");
-			exit(EXIT_FAILURE);
+			if (is_path(pa->current_cmd->cmd))
+			{
+				cmd_path = ft_strdup(pa->current_cmd->cmd);
+				if (cmd_path == NULL)
+				{
+					printf("ft_strdup error\n");
+					exit(EXIT_FAILURE);
+				}
+			}
+			else
+			{
+				cmd_path = find_path(pa->current_cmd->cmd, ea);
+				if (cmd_path == NULL)
+				{
+					printf("%s: command not found\n", pa->current_cmd->cmd); // 標準エラー出力にする
+					exit(127);
+				}
+			}
+		}
+		if (has_redirect_file(pa->current_cmd))
+			redirect(pa->current_cmd, ea);
+		if (is_self_cmd(pa->current_cmd->cmd))
+			execute_self_cmd(pa->current_cmd, ea);
+		else
+		{
+			if (execve(cmd_path, cmdv, environ) == -1)
+			{
+				perror("exec error");
+				exit(EXIT_FAILURE);
+			}
 		}
 		exit(0);
 	}
-	else if (cmd_i > 0)
+	else if (pa->cmd_i > 0)
 	{
-		close_pipe(pipe_fd, cmd_i);
+		close_pipe(pa);
 	}
 }
 
@@ -142,22 +189,23 @@ void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
 	free(pipe_fd);
 }
 
-void	pipe_process(t_exec_attr *ea)
+void	pipe_process(t_exec_attr *ea, int pipe_count)
 {
-	int				cmd_i;
-	int				**pipe_fd;
-	t_cmd			*current_cmd;
+	t_pipe_attr	pa;
+	t_list		*tmp;
 
-	pipe_fd = malloc_pipe_fd(ea->pipe_count);
-	cmd_i = 0;
-	current_cmd = ea->cmd_lst->content;
-	while (cmd_i < ea->pipe_count + 1)
+	pa.pipe_count = pipe_count;
+	malloc_pipe_fd(&pa);
+	malloc_cpid_array(&pa);
+	pa.cmd_i = 0;
+	tmp = ea->cmd_lst;
+	while (pa.cmd_i < pa.pipe_count + 1)
 	{
-		make_pipe(cmd_i, ea->pipe_count, pipe_fd);
-		exec_cmd(current_cmd, ea, cmd_i, pipe_fd);
-		close_pipe(pipe_fd, cmd_i);
-		cmd_i++;
-		current_cmd = ea->cmd_lst->next->content;
+		pa.current_cmd = tmp->content;
+		make_pipe(&pa);
+		exec_cmd(ea, &pa);
+		pa.cmd_i++;
+		tmp = tmp->next;
 	}
-	wait_process(ea->pipe_count);
+	wait_process(&pa);
 }

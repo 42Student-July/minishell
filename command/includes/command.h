@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/17 15:16:19 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/21 23:23:34 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "environ.h"
 # include "self_cmd.h"
 # include "error_handle.h"
+# include "common.h"
 
 # define MY_COMMAND_NUM 4
 # define CMD_NAME 0
@@ -77,9 +78,10 @@ char		**convert_lst_to_argv(t_list *args);
 // no_pipe_process.c
 void		no_pipe_process(t_exec_attr *ea);
 void		execute_ext_cmd(t_cmd *c, t_exec_attr *ea);
+bool		is_path(char *cmd);
 
 // pipe_process.c
-void		pipe_process(t_exec_attr *ea);
+void		pipe_process(t_exec_attr *ea, int pipe_count);
 
 // t_cmd_utils.c
 char		*get_filename(t_cmd *c, int io);

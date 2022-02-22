@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 13:27:06 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 21:28:59 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/19 15:57:07 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	sort_listkey_by_ascii(t_list *lst)
 	}
 }
 
-t_list	*get_list_by_key(t_list *lst, char *key)
+t_list	*get_lst_by_key(t_list *lst, char *key)
 {
 	t_list	*ret;
 
@@ -78,6 +78,6 @@ void	del_lst_by_key(t_list *lst, char *key)
 {
 	t_list	*tmp;
 
-	tmp = get_list_by_key(lst, key);
+	tmp = get_lst_by_key(lst, key);
 	ft_lstdel(lst, tmp);
 }

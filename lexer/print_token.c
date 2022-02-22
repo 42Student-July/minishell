@@ -16,6 +16,8 @@ char *get_token_type_name(t_tokentype type)
 		return ("PIPE");
 	else if (type == TOKEN_IDENT)
 		return ("IDENT");
+	else if (type == TOKEN_HEREDOC)
+		return ("HEREDOC");
 	else
 		return ("UNKNOWN");
 }

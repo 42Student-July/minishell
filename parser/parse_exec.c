@@ -3,7 +3,7 @@
 #include "libft.h"
 #include "parser.h"
 
-void	skip_redirect(t_list **token_list)
+void	skip_redirect(t_list **token_list, t_cmd *cmd)
 {
 	t_token	*token;
 
@@ -11,23 +11,32 @@ void	skip_redirect(t_list **token_list)
 		exit(EXIT_FAILURE);
 	*token_list = (*token_list)->next;
 	if (*token_list == NULL)
-		exit(EXIT_FAILURE);
+	{
+		cmd->is_invalid_syntax = true;
+		return ;
+	}
 	token = (t_token *)(*token_list)->content;
 	if (!is_word_token(token->type))
-		exit(EXIT_FAILURE);
+	{
+		cmd->is_invalid_syntax = true;
+		return ;
+	}
 	*token_list = (*token_list)->next;
 }
 
 void	parse_exec(t_list *token_list, t_cmd **cmd_p)
 {
-	t_token		*token;
-	t_cmd *cmd;
+	t_token	*token;
+	t_cmd	*cmd;
 
 	if (cmd_p == NULL)
 		exit(EXIT_FAILURE);
 	cmd = *cmd_p;
 	if (token_list == NULL)
+	{
+		cmd->is_invalid_syntax = true;
 		return ;
+	}
 	while (token_list != NULL)
 	{
 		token = token_list->content;
@@ -35,11 +44,14 @@ void	parse_exec(t_list *token_list, t_cmd **cmd_p)
 			break ;
 		if (is_redirect(token->type))
 		{
-			skip_redirect(&token_list);
+			skip_redirect(&token_list, cmd);
 			continue ;
 		}
 		if (!is_word_token(token->type))
-			exit(EXIT_FAILURE);
+		{
+			cmd->is_invalid_syntax = true;
+			return ;
+		}
 		ft_lstadd_back(&cmd->args, ft_lstnew(get_literal(token)));
 		token_list = token_list->next;
 	}

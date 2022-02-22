@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 20:14:14 by akito             #+#    #+#             */
-/*   Updated: 2022/02/17 16:47:00 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/21 16:26:29 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		ft_iscap_alpha(int c);
 size_t	ft_strlen(const char *str);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
@@ -63,6 +64,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_isspace(int c);
 int		ft_isletter(int c);
+char	*ft_strcut_back(char *str, char c);
 
 // extra files
 
@@ -92,5 +94,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 bool	ft_lstdel(t_list *lst, t_list *target);
 t_list	*ft_my_lstpop_front(t_list **lst);
+void ft_lstiter_with_var(t_list *lst, void (*f)(void *, void *), void *var);
 
 #endif

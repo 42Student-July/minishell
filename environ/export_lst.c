@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/17 16:54:06 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:02:15 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*create_export_value(char *value)
 {
-	char 		*new_value;
+	char		*new_value;
 	size_t		new_value_len;
 	size_t		value_len;
 
@@ -23,7 +23,7 @@ char	*create_export_value(char *value)
 	else
 		value_len = ft_strlen(value);
 	new_value_len = (value_len + DQUOTE + NULL_CHAR);
-	new_value = (char *)malloc(sizeof(char) * new_value_len);
+	new_value = (char *)ft_calloc(sizeof(char), new_value_len);
 	if (new_value == NULL)
 		return (NULL);
 	ft_strlcat(new_value, "\"", new_value_len);
@@ -62,9 +62,25 @@ void	store_allenv_in_export(t_exec_attr *ea, char **environ)
 
 bool	store_arg_in_export(t_exec_attr *ea, char *key, char *value)
 {
-	if (!ft_lstadd_back(&ea->export_lst, \
-			ft_lstnew(ft_kvsnew(key, value))))
-		return (false);
+	char	*export_value;
+	t_list	*target;
+
+	export_value = create_export_value(value);
+	if (export_value == NULL)
+		abort_minishell(MALLOC_ERROR, ea);
+	// もし値が存在するなら更新する
+	target = get_lst_by_key(ea->export_lst, key);
+	if (target != NULL)
+	{
+		if (!update_value(ea->export_lst, key, export_value, ea))
+			return (false);
+	}
+	else
+	{
+		if (!ft_lstadd_back(&ea->export_lst, \
+			ft_lstnew(ft_kvsnew(key, export_value))))
+			return (false);
+	}
 	sort_listkey_by_ascii(ea->export_lst);
 	return (true);
 }

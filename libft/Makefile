@@ -6,7 +6,7 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 18:26:26 by akito             #+#    #+#              #
-#    Updated: 2022/02/17 16:52:04 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/02/21 16:26:49 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS :=	ft_strlen.c \
 		ft_isalnum.c \
 		ft_isascii.c \
 		ft_isprint.c \
+		ft_iscap_alpha.c \
 		ft_toupper.c \
 		ft_tolower.c \
 		ft_calloc.c \
@@ -65,6 +66,7 @@ SRCS :=	ft_strlen.c \
 		ft_streq.c\
 		ft_kvsdelete.c\
 		ft_kvsreplace_value.c\
+		ft_strcut_back.c\
 
 B_SRCS=	ft_lstnew.c \
 	 ft_lstadd_front.c \

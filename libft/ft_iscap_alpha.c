@@ -1,24 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_iscap_alpha.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akito <akito@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 18:24:47 by akito             #+#    #+#             */
-/*   Updated: 2021/09/09 18:24:48 by akito            ###   ########.fr       */
+/*   Created: 2022/02/19 16:37:53 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/02/19 16:40:09 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	ft_iscap_alpha(int c)
 {
-	if (f == NULL)
-		return ;
-	while (lst != NULL)
-	{
-		f(lst->content);
-		lst = lst->next;
-	}
+	return (('A' <= c && c <= 'Z'));
 }
-

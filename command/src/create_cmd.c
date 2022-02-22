@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 15:24:25 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/19 15:57:07 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*convert_env_var(t_exec_attr *ea, char *arg)
 	// TODO:あとで消す quote対応
 	arg = ft_strtrim(arg, "\'");
 	key = ++arg;
-	ret = get_list_by_key(ea->env_lst, key);
+	ret = get_lst_by_key(ea->env_lst, key);
 	if (ret == NULL)
 		return (NULL);
 	value = ft_kvsget_value(ret->content);
@@ -114,7 +114,7 @@ char	*concat_path_and_cmd(char *path, char *command)
 	size_t			new_cmd_len;
 
 	new_cmd_len = ft_strlen(path) + SLASH + ft_strlen(command) + NULL_CHAR;
-	new_cmd = (char *)malloc(sizeof(char) * (new_cmd_len));
+	new_cmd = (char *)ft_calloc(sizeof(char), (new_cmd_len));
 	if (new_cmd == NULL)
 		return (NULL);
 	ft_strlcat(new_cmd, path, new_cmd_len);
@@ -163,7 +163,7 @@ char	*find_path(char *cmd_name, t_exec_attr *ea)
 	char			**path;
 	char			*new_cmd;
 
-	env_path = ft_kvsget_value(get_list_by_key(ea->env_lst, "PATH")->content);
+	env_path = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PATH")->content);
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
