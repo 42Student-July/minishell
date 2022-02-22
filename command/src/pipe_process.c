@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/22 00:36:01 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/22 14:08:33 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,32 +135,38 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 	else if (pid == 0)
 	{
 		set_pipe_fd(pa);
-		if (is_path(pa->current_cmd->cmd))
+		if (!is_self_cmd(pa->current_cmd->cmd))
 		{
-			cmd_path = ft_strdup(pa->current_cmd->cmd);
-			if (cmd_path == NULL)
+			if (is_path(pa->current_cmd->cmd))
 			{
-				printf("ft_strdup error\n");
-				exit(EXIT_FAILURE);
+				cmd_path = ft_strdup(pa->current_cmd->cmd);
+				if (cmd_path == NULL)
+				{
+					printf("ft_strdup error\n");
+					exit(EXIT_FAILURE);
+				}
 			}
-		}
-		else
-		{
-			cmd_path = find_path(pa->current_cmd->cmd, ea);
-			if (cmd_path == NULL)
+			else
 			{
-				printf("%s: command not found\n", pa->current_cmd->cmd); // 標準エラー出力にする
-				exit(127);
+				cmd_path = find_path(pa->current_cmd->cmd, ea);
+				if (cmd_path == NULL)
+				{
+					printf("%s: command not found\n", pa->current_cmd->cmd); // 標準エラー出力にする
+					exit(127);
+				}
 			}
 		}
 		if (has_redirect_file(pa->current_cmd))
 			redirect(pa->current_cmd, ea);
 		if (is_self_cmd(pa->current_cmd->cmd))
 			execute_self_cmd(pa->current_cmd, ea);
-		if (execve(cmd_path, cmdv, environ) == -1)
+		else
 		{
-			printf("exec error\n");
-			exit(EXIT_FAILURE);
+			if (execve(cmd_path, cmdv, environ) == -1)
+			{
+				perror("exec error");
+				exit(EXIT_FAILURE);
+			}
 		}
 		exit(0);
 	}
