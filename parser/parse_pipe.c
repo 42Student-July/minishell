@@ -16,7 +16,7 @@ t_list *parse_pipe(t_list *token_list, t_list **heredocs)
 	tmp = result;
 	while (tmp != NULL)
 	{
-		if (((t_cmd *)tmp->content)->cmd == NULL)
+		if (!is_valid_cmd(tmp->content))
 		{
 			printf("syntax error\n");
 			ft_lstclear(&result, delete_pipe);

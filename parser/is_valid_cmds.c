@@ -1,6 +1,6 @@
 #include "parser.h"
 
-bool is_valid_cmds(t_list *cmds)
+bool	is_valid_cmds(t_list *cmds)
 {
 	t_list	*cmd_list;
 	t_cmd	*cmd;
@@ -14,4 +14,10 @@ bool is_valid_cmds(t_list *cmds)
 		cmd_list = cmd_list->next;
 	}
 	return (true);
+}
+
+bool	is_valid_cmd(t_cmd *cmd)
+{
+	return (!(cmd->cmd == NULL && cmd->filenames_in == NULL &&
+			cmd->filenames_out == NULL));
 }

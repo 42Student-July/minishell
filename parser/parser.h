@@ -35,5 +35,6 @@ t_file *new_file(char *filename, bool is_double);
 void delete_file(void *file_ptr);
 void delete_pipe(void *cmd);
 bool is_valid_cmds(t_list *cmds);
+bool is_valid_cmd(t_cmd *cmd);
 
 #endif
