@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/22 14:08:33 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:00:47 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,18 +192,20 @@ void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
 void	pipe_process(t_exec_attr *ea, int pipe_count)
 {
 	t_pipe_attr	pa;
+	t_list		*tmp;
 
 	pa.pipe_count = pipe_count;
 	malloc_pipe_fd(&pa);
 	malloc_cpid_array(&pa);
 	pa.cmd_i = 0;
-	pa.current_cmd = ea->cmd_lst->content;
+	tmp = ea->cmd_lst;
 	while (pa.cmd_i < pa.pipe_count + 1)
 	{
+		pa.current_cmd = tmp->content;
 		make_pipe(&pa);
 		exec_cmd(ea, &pa);
 		pa.cmd_i++;
-		pa.current_cmd = ea->cmd_lst->next->content;
+		tmp = tmp->next;
 	}
 	wait_process(&pa);
 }
