@@ -18,7 +18,12 @@ mkdir dir\n chmod 000 dir\n cd dir\n pwd\nchmod 777 dir
 mkdir dir\n ln -s dir link\n cd link\n pwd
 mkdir dir\n ln -s dir link\n rmdir dir\n cd link\n pwd
 mkdir -p a/b\n ln -s a c\n cd c\n pwd\n cd b\n pwd
-mkdir -p a/b\n ln -s a c\n rm -rf ../../c\n pwd\n cd ..\n pwd
+mkdir -p a/b\n ln -s a c\n cd c\n rm -rf ../../c\n pwd\n cd .\n pwd
+mkdir -p a/b\n ln -s a c\n cd c\n rm -rf ../../c\n pwd\n cd b\n pwd
+mkdir -p a/b\n ln -s a c\n cd c\n rm -rf ../../c\n pwd\n cd m\n pwd
+mkdir -p a/b\n ln -s a c\n cd c\n cd b\n pwd\n cd ../../a\n pwd
+mkdir -p a b\n ln -s a c\n cd c\n cd b\n pwd\n cd ../../a\n pwd
+mkdir -p a/b/c\n ln -s a li\n ln -s b a/link2\n cd li\n pwd\n cd b\n pwd\n cd ../link2\n pwd\n cd c\n pwd\n
 mkdir dir\n cd dir\n rmdir ../dir\n cd ./\n pwd\ncd .\n pwd\n cd ./././././\n pwd\n cd .////////./\n pwd\n cd ../\n pwd
 mkdir -p a/b/c\n cd a/b/c\n rm -rf ../../b\n cd ./\n pwd\n cd ../\n pwd\n cd .////./\n pwd
 mkdir -p a/b/c\n cd a/b/c\n rm -rf ../../b\n cd ./\n pwd\n cd .././.\n pwd\n cd ./\n pwd\n cd ../\n pwd
