@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:20:16 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/14 17:01:49 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/22 22:34:05 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 
 bool	store_arg_in_env(t_exec_attr *ea, char *key, char *value)
 {
-	return (ft_lstadd_back(&ea->env_lst, \
-		ft_lstnew(ft_kvsnew(key, value))));
+	t_list	*target;
+
+	target = get_list_by_key(ea->env_lst, key);
+	if (target != NULL)
+	{
+		if (!update_value(ea->env_lst, key, value, ea))
+			return (false);
+	}
+	else
+		ft_lstadd_back(&ea->env_lst, \
+			ft_lstnew(ft_kvsnew(key, value)));
+	return (true);
 }
