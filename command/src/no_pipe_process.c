@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/18 23:20:19 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/21 15:27:54 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,17 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	}
 	else
 	{
-		pid = wait(&status);
-		g_exit_status = WEXITSTATUS(status);
-		if (pid == -1)
-			printf("cprocess error\n");
+		while (true)
+		{
+			pid = wait(&status);
+			if (pid > 0)
+				break ;
+			if (WIFSIGNALED(status))
+				continue ;
+			exit(EXIT_FAILURE);
+		}
+		if (!WIFSIGNALED(status))
+			g_exit_status = WEXITSTATUS(status);
 	}
 }
 
