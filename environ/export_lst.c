@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/18 17:45:43 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:54:39 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*create_export_value(char *value)
 	size_t		new_value_len;
 	size_t		value_len;
 
+	printf("value : %s\n", value);
 	if (value == NULL)
 		value_len = 0;
 	else
@@ -62,8 +63,13 @@ void	store_allenv_in_export(t_exec_attr *ea, char **environ)
 
 bool	store_arg_in_export(t_exec_attr *ea, char *key, char *value)
 {
+	char	*export_value;
+
+	export_value = create_export_value(value);
+	if (export_value == NULL)
+		abort_minishell(MALLOC_ERROR, ea);
 	if (!ft_lstadd_back(&ea->export_lst, \
-			ft_lstnew(ft_kvsnew(key, value))))
+			ft_lstnew(ft_kvsnew(key, export_value))))
 		return (false);
 	sort_listkey_by_ascii(ea->export_lst);
 	return (true);
