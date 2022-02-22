@@ -23,8 +23,10 @@ t_token	*next_token(t_lexer *lexer)
 		if (peek_char(lexer) == '<')
 		{
 			read_char(lexer);
-			token = new_token(TOKEN_HEREDOC, "<<");
-			add_heredoc_delimiter(lexer);
+			if (!add_heredoc_delimiter(lexer))
+				token = new_token(TOKEN_ILLEGAL, NULL);
+			else
+				token = new_token(TOKEN_HEREDOC, "<<");
 			return (token);
 		}
 		else

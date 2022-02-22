@@ -62,6 +62,18 @@ void	start_repl(void)
 			if (token->type == TOKEN_EOF)
 				break ;
 		}
+		print_tokens(token_list);
+		if (((t_token *)token_list->content)->type == TOKEN_EOF)
+		{
+			ft_lstclear(&token_list, delete_token);
+			continue;
+		}
+		if (!is_valid_tokens(token_list))
+		{
+			printf("syntax error\n");
+			ft_lstclear(&token_list, delete_token);
+			continue;
+		}
 		while (lexer->io_here_delimiters != NULL)
 		{
 			read_heredoc(lexer, ea->env_lst);
@@ -78,6 +90,13 @@ void	start_repl(void)
 		ft_lstiter(token_list, &expand_quote);
 		// print_tokens(token_list);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
+		print_cmds(ea->cmd_lst);
+		if (!is_valid_cmds(ea->cmd_lst))
+		{
+			printf("syntax error\n");
+			ft_lstclear(&token_list, delete_token);
+			continue;
+		}
 		execute_cmd(ea);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);

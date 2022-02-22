@@ -31,6 +31,7 @@ SRCS = new_lexer.c\
 		expand_envvar.c\
 		word_split.c\
 		expand_quote.c\
+		is_valid_tokens.c\
 
 OBJS = ${SRCS:.c=.o}
 
