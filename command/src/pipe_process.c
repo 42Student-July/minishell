@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/22 17:00:47 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:44:12 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,17 +176,24 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 	}
 }
 
-void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
+void	free_pipe_fd(t_pipe_attr *pa)
 {
 	int	i;
 
 	i = 0;
-	while (i < pipe_cnt)
+	while (i < pa->pipe_count)
 	{
-		free(pipe_fd[i]);
+		free(pa->pipe_fd[i]);
 		i++;
 	}
-	free(pipe_fd);
+	free(pa->pipe_fd);
+}
+
+void	free_pipe_attr(t_pipe_attr *pa)
+{
+	// ここでpa->current_cmdもfreeすべきかも
+	free_pipe_fd(pa);
+	free(pa->cpid_array);
 }
 
 void	pipe_process(t_exec_attr *ea, int pipe_count)
@@ -208,4 +215,5 @@ void	pipe_process(t_exec_attr *ea, int pipe_count)
 		tmp = tmp->next;
 	}
 	wait_process(&pa);
+	free_pipe_attr(&pa);
 }
