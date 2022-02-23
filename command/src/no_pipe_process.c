@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/21 15:27:54 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:34:01 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ bool	is_path(char *cmd)
 
 void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 {
-	pid_t	pid;
+	pid_t	cpid;
+	pid_t	wait_ret;
 	int		status;
 	char	**cmdv;
 	char	*cmd_path;
@@ -55,10 +56,10 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		}
 	}
 	environ = convert_envlst_to_array(ea);
-	pid = fork();
-	if (pid == -1)
+	cpid = fork();
+	if (cpid == -1)
 		printf("fork error\n");
-	else if (pid == 0)
+	else if (cpid == 0)
 	{
 		if (has_redirect_file(c))
 			redirect(c, ea);
@@ -75,8 +76,8 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	{
 		while (true)
 		{
-			pid = wait(&status);
-			if (pid > 0)
+			wait_ret = waitpid(cpid, &status, 0);
+			if (wait_ret > 0)
 				break ;
 			if (WIFSIGNALED(status))
 				continue ;
