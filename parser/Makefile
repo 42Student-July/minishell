@@ -18,6 +18,8 @@ SRCS = parse_exec.c\
 		delete_cmd.c\
 		new_file.c\
 		delete_file.c\
+		is_valid_cmds.c\
+		cmd_init.c\
 
 
 OBJS = ${SRCS:.c=.o}

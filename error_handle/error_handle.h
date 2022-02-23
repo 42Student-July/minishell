@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:25:57 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 16:51:07 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:02:12 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define OPENDIR_ERROR "opendir error\n"
 # define OPEN_ERROR "open error\n"
 # define DUP2_ERROR "dup2 error\n"
+# define GETCWD_ERROR "getcwd error"
 
 # define INVALID_IDENTIFER 0
 # define NO_VALUE 1
@@ -41,5 +42,11 @@ void		free_all_kvs(t_kvs *kvs);
 // debug.c
 void		print_command_debug(t_exec_attr *ea);
 void		print_array(char **array);
+
+// print_cmd.c
+void		print_files(char *name, t_list *list);
+void		print_lists(char *name, t_list *list);
+void		print_cmd(const t_cmd *cmd);
+void		print_cmds(t_list *cmd);
 
 #endif

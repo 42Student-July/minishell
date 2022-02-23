@@ -15,6 +15,7 @@ SRCS = 	env_lst.c \
 		export_lst.c \
 		kvs_utils.c \
 		lst_utils.c \
+		lst_utils_2.c \
 
 OBJS = ${SRCS:.c=.o}
 

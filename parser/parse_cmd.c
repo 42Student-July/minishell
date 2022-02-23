@@ -9,15 +9,7 @@ input: cat fuga.txt ... hoge.txt > b.txt
 [TOKEN_IDENT, TOKEN_IDENT, TOKEN_REDIRECT_OUT, TOKEN_IDENT, TOKEN_EOF]
 */
 
-t_cmd	*cmd_init(void)
-{
-	t_cmd	*cmd;
 
-	cmd = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
-	if (cmd == NULL)
-		exit(EXIT_FAILURE);
-	return (cmd);
-}
 
 t_cmd	*parse_cmd(t_list *token_list, t_list **heredocs)
 {
@@ -27,6 +19,8 @@ t_cmd	*parse_cmd(t_list *token_list, t_list **heredocs)
 
 	cmd = cmd_init();
 	parse_exec(token_list, &cmd);
+	if (cmd->is_invalid_syntax)
+		return (cmd);
 	while (token_list != NULL)
 	{
 		token = token_list->content;
@@ -54,7 +48,6 @@ t_cmd	*parse_cmd(t_list *token_list, t_list **heredocs)
 		{
 			token = token_list->next->content;
 			filename = ft_kvsget(*heredocs, token->literal);
-			printf("%s\n", filename);
 			ft_lstadd_back(&cmd->filenames_in, ft_lstnew(new_file(filename,
 							true)));
 		}

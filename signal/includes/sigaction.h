@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 23:34:51 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/14 14:53:09 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/17 23:15:21 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@
 # include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-# define ABC 1
-
-extern int	g_exit_status;
+# include "common.h"
 
 // set_dfl_signal.c
 

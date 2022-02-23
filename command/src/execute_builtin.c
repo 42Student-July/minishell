@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 17:31:42 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:45:29 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*create_environ_line(char *key, char *value, bool is_end)
 	key_size = ft_strlen(key);
 	value_size = ft_strlen(value);
 	line_size = key_size + EQUAL + value_size + LF;
-	line = (char *)malloc(sizeof(char) * line_size);
+	line = (char *)ft_calloc(sizeof(char), line_size);
 	if (line == NULL)
 		return (NULL);
 	ft_strlcat(line, key, line_size);

@@ -3,23 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   self_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 13:35:12 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/16 09:54:02 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/18 00:33:04 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "self_cmd.h"
+#include <stdbool.h>
 
-void	exec_self_echo(t_cmd *cmd, t_exec_attr *ea)
+int	exec_self_echo(t_cmd *cmd, t_exec_attr *ea)
 {
-	char	*argv_one;
+	t_list	*args;
+	char	*str;
+	int		i;
+	bool display_return ;
 
-	argv_one = get_argv_one(cmd);
-	if (argv_one == NULL)
-		return ;
+	args = cmd->args->next;
 	(void)ea;
+	display_return = false;
 	// TODO: pipeでつないだときへの対応、引数が2つの場合にも対応
-	ft_putstr_fd(argv_one, STDOUT_FILENO);
+	while (args != NULL)
+	{
+		str = args->content;
+		if (str == NULL || str[0] != '-')
+			break ;
+		i = 1;
+		while (str[i])
+		{
+			if (ft_strchr("n", str[i]) == NULL)
+				break;
+			i++;
+		}
+		if (str[1] == '\0' || str[i] != '\0')
+			break ;
+		i = 1;
+		while (str[i] != '\0')
+		{
+			if (str[i] == 'n')
+				display_return = true;
+			i++;
+		}
+		args = args->next;
+	}
+	while (args != NULL)
+	{
+		str = args->content;
+		if (str == NULL)
+			break ;
+		args = args->next;
+		ft_putstr_fd(str, STDOUT_FILENO);
+		if (args != NULL)
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		else if (!display_return)
+			ft_putchar_fd('\n', STDOUT_FILENO);
+	}
+	return (0);
 }

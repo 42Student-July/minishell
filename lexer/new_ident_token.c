@@ -26,8 +26,6 @@ t_token	*new_ident_token(t_lexer *lexer)
 				read_char(lexer);
 			}
 		}
-		if (is_forbidden_char(lexer->ch))
-			exit(EXIT_FAILURE);
 		read_char(lexer);
 	}
 	ident = ft_substr(lexer->input, pos, lexer->position - pos);

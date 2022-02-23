@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:31:09 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 10:21:03 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:29:52 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_argv_one(t_cmd *cmd)
 	}
 	if (cmd->args->next == NULL)
 	{
-		ft_putstr_fd("no args", STDERR_FILENO);
+		// ft_putstr_fd("no args", STDERR_FILENO);
 		return (NULL);
 	}
 	return (cmd->args->next->content);
