@@ -13,25 +13,19 @@
 
 // プロンプトに終了ステータスが表示されるようになる関数
 // おそらくテスターが通らなくなるのでデバッグ用
-// char	*do_readline()
-// {
-// 	char	*line;
-// 	char	*prompt;
-
-// 	prompt = ft_strjoin(ft_itoa(g_exit_status), " >> ");
-// 	if (prompt == NULL)
-// 		exit(EXIT_FAILURE);
-// 	set_interactive_signal();
-// 	line = readline(prompt);
-// 	set_dfl_signal();
-// 	free(prompt);
-// 	return (line);
-// }
+void	print_exit_status()
+{
+	if (g_exit_status == 0)
+		printf(F_GREEN"%d "F_RESET, g_exit_status);
+	else
+		printf(F_RED"%d "F_RESET, g_exit_status);
+}
 
 char	*do_readline()
 {
 	char	*line;
 
+	print_exit_status(); //テスターに通すときはコメントアウト
 	set_interactive_signal();
 	line = readline(">> ");
 	set_dfl_signal();
