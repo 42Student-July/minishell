@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:44:59 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/23 22:13:10 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:55:35 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	update_value(t_list *lst, char *key, char *new_v, t_exec_attr *ea)
 	if (target == NULL)
 	{
 		// keyがなかったら新規作成する
-		if (!ft_lstadd_back(&ea->export_lst, \
+		if (!ft_lstadd_back(&lst, \
 			ft_lstnew(ft_kvsnew(key, new_v))))
 			return (false);
 		return (true);
