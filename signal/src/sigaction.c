@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 14:18:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/23 14:08:31 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/23 14:17:01 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ void	interactive_sigint(int sig)
 
 void	dfl_sigint(int sig)
 {
-	(void)sig;
 	printf("\n");
-	g_exit_status = 130;
+	g_exit_status = 128 + sig;
 }
 
 void	dfl_sigquit(int sig)
 {
-	(void)sig;
 	printf("Quit: 3\n");
-	g_exit_status = 131;
+	g_exit_status = 128 + sig;
 }
