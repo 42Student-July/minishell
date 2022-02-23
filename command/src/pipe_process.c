@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/22 17:00:47 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:48:44 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,19 +176,6 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 	}
 }
 
-void	free_pipe_fd(int **pipe_fd, int pipe_cnt)
-{
-	int	i;
-
-	i = 0;
-	while (i < pipe_cnt)
-	{
-		free(pipe_fd[i]);
-		i++;
-	}
-	free(pipe_fd);
-}
-
 void	pipe_process(t_exec_attr *ea, int pipe_count)
 {
 	t_pipe_attr	pa;
@@ -208,4 +195,5 @@ void	pipe_process(t_exec_attr *ea, int pipe_count)
 		tmp = tmp->next;
 	}
 	wait_process(&pa);
+	free_pipe_attr(&pa);
 }
