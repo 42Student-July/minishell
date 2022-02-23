@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/18 00:28:20 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:30:43 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ void	export_with_args(char *arg, t_exec_attr *ea)
 	int			ret;
 	// ft_splitでは引数が"a="の場合と"a"の判別がつけられない実装になっている
 	// そのため、strchrでまず引数に=があるか判定してから、各実装に入る
-
 	if (ft_strchr(arg, '=') == NULL)
+	{
+		if (is_invalid_name(arg))
+			print_error_msg_with_var(EXPORT, arg);
 		store_arg_in_export(ea, arg, NULL);
+	}
 	else
 	{
 		kv = ft_split(arg, '=');
