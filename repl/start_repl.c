@@ -25,7 +25,7 @@ char	*do_readline()
 {
 	char	*line;
 
-	print_exit_status(); //テスターに通すときはコメントアウト
+	// print_exit_status(); //テスターに通すときはコメントアウト
 	set_interactive_signal();
 	line = readline(">> ");
 	set_dfl_signal();
