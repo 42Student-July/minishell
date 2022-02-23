@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/23 13:30:43 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:28:20 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ int	exec_self_export(t_cmd *cmd, t_exec_attr *ea)
 	char	*argv_one;
 
 	argv_one = get_argv_one(cmd);
-	(void)ea;
 	if (argv_one == NULL)
 		print_all_export_lst(ea);
 	else
-		export_with_args(argv_one, ea);
+		export_with_args(cmd, ea);
 	return (0);
 }
 
@@ -50,40 +49,54 @@ int	check_export_arg(char **arg)
 	return (10);
 }
 
-void	export_with_args(char *arg, t_exec_attr *ea)
+
+void	export_with_args(t_cmd *cmd, t_exec_attr *ea)
 {
 	char		**kv;
 	int			ret;
-	// ft_splitでは引数が"a="の場合と"a"の判別がつけられない実装になっている
-	// そのため、strchrでまず引数に=があるか判定してから、各実装に入る
-	if (ft_strchr(arg, '=') == NULL)
+	char		*arg;
+	t_list		*lst;
+
+	lst = cmd->args->next;
+	while (lst != NULL)
 	{
-		if (is_invalid_name(arg))
-			print_error_msg_with_var(EXPORT, arg);
-		store_arg_in_export(ea, arg, NULL);
-	}
-	else
-	{
-		kv = ft_split(arg, '=');
-		if (kv == NULL)
-			abort_minishell(MALLOC_ERROR, ea);
-		ret = check_export_arg(kv);
-		if (ret == INVALID_IDENTIFER)
-			print_error_msg_with_var(EXPORT, kv[KEY]);
+		arg = (char *)(lst->content);
+		// ft_splitでは引数が"a="の場合と"a"の判別がつけられない実装になっている
+		// そのため、strchrでまず引数に=があるか判定してから、各実装に入る
+		if (ft_strchr(arg, '=') == NULL)
+		{
+			if (is_invalid_name(arg))
+			{
+				print_error_msg_with_var(EXPORT, arg);
+				lst = lst->next;
+				continue ;
+			}
+			store_arg_in_export(ea, arg, NULL);
+		}
 		else
 		{
-			if (ret == NO_VALUE)
+			kv = ft_split(arg, '=');
+			if (kv == NULL)
+				abort_minishell(MALLOC_ERROR, ea);
+			ret = check_export_arg(kv);
+			if (ret == INVALID_IDENTIFER)
+				print_error_msg_with_var(EXPORT, kv[KEY]);
+			else
 			{
-				// valueがnullだけど=が存在する場合、valueには\0を入れる。
-				kv[VALUE] = ft_strdup("");
-				if (kv[VALUE] == NULL)
+				if (ret == NO_VALUE)
+				{
+					// valueがnullだけど=が存在する場合、valueには\0を入れる。
+					kv[VALUE] = ft_strdup("");
+					if (kv[VALUE] == NULL)
+						abort_minishell_with(MALLOC_ERROR, ea, kv);
+				}
+				if (!store_arg_in_env(ea, kv[KEY], kv[VALUE]))
+					abort_minishell_with(MALLOC_ERROR, ea, kv);
+				if (!store_arg_in_export(ea, kv[KEY], kv[VALUE]))
 					abort_minishell_with(MALLOC_ERROR, ea, kv);
 			}
-			if (!store_arg_in_env(ea, kv[KEY], kv[VALUE]))
-				abort_minishell_with(MALLOC_ERROR, ea, kv);
-			if (!store_arg_in_export(ea, kv[KEY], kv[VALUE]))
-				abort_minishell_with(MALLOC_ERROR, ea, kv);
+			free(kv);
 		}
-		free(kv);
+		lst = lst->next;
 	}
 }
