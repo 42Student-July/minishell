@@ -73,15 +73,9 @@ void	start_repl(void)
 		}
 		if (ft_strlen(lexer->input) > 0) // 空文字列をヒストリーに入れないための対処法
 			add_history(lexer->input);
-		// print_tokens(token_list);
-		// print_tokens(token_list);
-		// print_kvs(lexer->heredocs);
-		// print_kvs(ea->env_lst);
 		expand_envvar(token_list, ea->env_lst);
-		// print_tokens(token_list);
-		// word_split(token_list);
+		word_split(token_list);
 		ft_lstiter(token_list, &expand_quote);
-		// print_tokens(token_list);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
 		if (!is_valid_cmds(ea->cmd_lst))
 		{

@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/24 03:48:59 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:54:54 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ char	*get_arg1(t_cmd *cmd)
 	t_list	*arg1_lst;
 
 	arg1_lst = cmd->args->next;
+	if (arg1_lst == NULL)
+		return (cmd->args->content);
 	arg1 = arg1_lst->content;
 	return (ft_strtrim(arg1, " "));
 }

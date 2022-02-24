@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:19:25 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/22 11:02:15 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/23 16:58:37 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,14 @@ bool	store_arg_in_export(t_exec_attr *ea, char *key, char *value)
 	char	*export_value;
 	t_list	*target;
 
-	export_value = create_export_value(value);
-	if (export_value == NULL)
-		abort_minishell(MALLOC_ERROR, ea);
+	if (value != NULL)
+	{
+		export_value = create_export_value(value);
+		if (export_value == NULL)
+			abort_minishell(MALLOC_ERROR, ea);
+	}
+	else
+		export_value = NULL;
 	// もし値が存在するなら更新する
 	target = get_lst_by_key(ea->export_lst, key);
 	if (target != NULL)

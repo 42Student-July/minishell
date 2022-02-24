@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/23 14:50:23 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/23 14:02:29 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			exec_self_unset(t_cmd *cmd, t_exec_attr *ea);
 int			exec_self_export(t_cmd *cmd, t_exec_attr *ea);
 void		store_arg_only_export(t_exec_attr *ea, char *key);
 int			check_export_arg(char **arg);
-void		export_with_args(char *arg, t_exec_attr *ea);
+void		export_with_args(t_cmd *cmd, t_exec_attr *ea);
 bool		addlst_sort_by_ascii(t_list **export_lst, char **arg);
 
 // self_export_utils.c

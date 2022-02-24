@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/21 23:06:57 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/24 10:38:28 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,20 @@ void	update_all_environ(char *pwd, t_exec_attr *ea)
 	char	*export_pwd;
 	char	*export_oldpwd;
 	char	*old_pwd;
+	t_list	*pwdlst;
 
-	// OLDPWDは前のPWDからパクって来る
-	old_pwd = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
-	export_oldpwd = ft_kvsget_value \
-		(get_lst_by_key(ea->export_lst, "PWD")->content);
+	pwdlst = get_lst_by_key(ea->env_lst, "PWD");
+	if (pwdlst == NULL)
+	{
+		old_pwd = NULL;
+		export_oldpwd = NULL;
+	}
+	else
+	{
+		// OLDPWDは前のPWDからパクって来る
+		old_pwd = ft_kvsget_value(pwdlst->content);
+		export_oldpwd = ft_kvsget_value(pwdlst->content);
+	}
 	update_value(ea->env_lst, "OLDPWD", old_pwd, ea);
 	update_value(ea->env_lst, "PWD", pwd, ea);
 	export_pwd = create_export_value(pwd);
@@ -61,8 +70,13 @@ bool	is_symlink(char *path, t_exec_attr *ea)
 	struct stat	buf;
 	char		*old_pwd;
 	char		*pwd;
+	t_list		*pwdlst;
 
-	old_pwd = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
+	pwdlst = get_lst_by_key(ea->env_lst, "PWD");
+	//TODO: unset PWDをするとsegvになるので回避
+	if (pwdlst == NULL)
+		return (false);
+	old_pwd = ft_kvsget_value(pwdlst->content);
 	pwd = create_new_pwd(old_pwd, path);
 	lstat(pwd, &buf);
 	free(pwd);
