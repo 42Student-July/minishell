@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:36:05 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/18 00:34:31 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:43:16 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	print_env_kvs(void *content)
 	t_kvs	*kvs;
 
 	kvs = (t_kvs *)content;
-	if (kvs->value == NULL)
-		printf("%s=\n", kvs->key);
-	else
+	if (kvs->value != NULL)
 		printf("%s=%s\n", kvs->key, kvs->value);
 }
