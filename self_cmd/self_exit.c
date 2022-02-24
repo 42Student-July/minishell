@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/24 13:27:25 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:54:54 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*get_arg1(t_cmd *cmd)
 	if (arg1_lst == NULL)
 		return (cmd->args->content);
 	arg1 = arg1_lst->content;
-	return (arg1);
+	return (ft_strtrim(arg1, " "));
 }
 
 int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
@@ -101,14 +101,14 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 
 	(void)ea;
 	argc = ft_lstsize(cmd->args);
-	arg1 = ft_strtrim(get_arg1(cmd), " ");
+	if (argc == 1)
+		exit_success(EXIT_SUCCESS);
+	arg1 = get_arg1(cmd);
 	if (arg1 == NULL)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	if (argc == 1)
-		exit_success(EXIT_SUCCESS);
 	if (!is_num(arg1) || !ft_atol(arg1, &arg1_num))
 	{
 		error_message = make_arg_error_message(arg1, \
