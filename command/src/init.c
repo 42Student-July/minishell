@@ -34,6 +34,7 @@ void	init_oldpwd(t_exec_attr *ea)
 	oldpwd = get_lst_by_key(ea->export_lst, "OLDPWD");
 	ft_lstdel(ea->export_lst, oldpwd);
 	store_arg_in_export(ea, "OLDPWD", NULL);
+	ea->current_pwd = getcwd(NULL, 0);
 }
 
 void	init_new(t_exec_attr **ea)

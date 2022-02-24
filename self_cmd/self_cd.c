@@ -6,60 +6,55 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/24 10:38:28 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/24 15:59: by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 
-void	update_all_environ(char *pwd, t_exec_attr *ea)
+void	update_all_environ(char *new_pwd, t_exec_attr *ea)
 {
+	char	*export_new_pwd;
 	char	*export_pwd;
-	char	*export_oldpwd;
-	char	*old_pwd;
+	char	*pwd;
 	t_list	*pwdlst;
 
-	pwdlst = get_lst_by_key(ea->env_lst, "PWD");
-	if (pwdlst == NULL)
-	{
-		old_pwd = NULL;
-		export_oldpwd = NULL;
-	}
-	else
-	{
-		// OLDPWDは前のPWDからパクって来る
-		old_pwd = ft_kvsget_value(pwdlst->content);
-		export_oldpwd = ft_kvsget_value(pwdlst->content);
-	}
-	update_value(ea->env_lst, "OLDPWD", old_pwd, ea);
-	update_value(ea->env_lst, "PWD", pwd, ea);
+	pwd = ea->current_pwd;
+	ea->current_pwd = new_pwd;
 	export_pwd = create_export_value(pwd);
-	if (export_pwd == NULL)
+	export_new_pwd = create_export_value(new_pwd);
+	if (export_new_pwd == NULL)
 		abort_minishell(MALLOC_ERROR, ea);
-	update_value(ea->export_lst, "OLDPWD", export_oldpwd, ea);
-	update_value(ea->export_lst, "PWD", pwd, ea);
+	pwdlst = get_lst_by_key(ea->env_lst, "PWD");
+	if (pwdlst != NULL)
+	{
+		update_value(ea->env_lst, "PWD", new_pwd, ea);
+		update_value(ea->export_lst, "PWD", new_pwd, ea);
+	}
+	update_value(ea->env_lst, "OLDPWD", pwd, ea);
+	update_value(ea->export_lst, "OLDPWD", export_pwd, ea);
 }
 
-char	*create_new_pwd(char *oldpwd, char *path)
+char	*create_new_pwd(char *pwd, char *path)
 {
 	char	*new_value;
 	size_t	new_value_len;
 	size_t	path_len;
-	size_t	oldpwd_len;
+	size_t	pwd_len;
 
-	oldpwd_len = ft_strlen(oldpwd);
+	pwd_len = ft_strlen(pwd);
 	path_len = ft_strlen(path);
 	// virtual pathの場合、最後に"/"が入る場合があるため、新しい"/"とかぶってしまう。
 	// なので、/を余分に付け加えないようにする
-	if (oldpwd[oldpwd_len - 1] == '/')
-		new_value_len = (oldpwd_len + path_len + NULL_CHAR);
+	if (pwd[pwd_len - 1] == '/')
+		new_value_len = (pwd_len + path_len + NULL_CHAR);
 	else
-		new_value_len = (oldpwd_len + SLASH + path_len + NULL_CHAR);
+		new_value_len = (pwd_len + SLASH + path_len + NULL_CHAR);
 	new_value = (char *)ft_calloc(sizeof(char), new_value_len);
 	if (new_value == NULL)
 		return (NULL);
-	ft_strlcat(new_value, oldpwd, new_value_len);
-	if (oldpwd[oldpwd_len - 1] != '/')
+	ft_strlcat(new_value, pwd, new_value_len);
+	if (pwd[pwd_len - 1] != '/')
 		ft_strlcat(new_value, "/", new_value_len);
 	ft_strlcat(new_value, path, new_value_len);
 	return (new_value);
@@ -68,18 +63,13 @@ char	*create_new_pwd(char *oldpwd, char *path)
 bool	is_symlink(char *path, t_exec_attr *ea)
 {
 	struct stat	buf;
-	char		*old_pwd;
 	char		*pwd;
-	t_list		*pwdlst;
+	char		*new_pwd;
 
-	pwdlst = get_lst_by_key(ea->env_lst, "PWD");
-	//TODO: unset PWDをするとsegvになるので回避
-	if (pwdlst == NULL)
-		return (false);
-	old_pwd = ft_kvsget_value(pwdlst->content);
-	pwd = create_new_pwd(old_pwd, path);
-	lstat(pwd, &buf);
-	free(pwd);
+	pwd = ea->current_pwd;
+	new_pwd = create_new_pwd(pwd, path);
+	lstat(new_pwd, &buf);
+	free(new_pwd);
 	return (S_ISLNK(buf.st_mode));
 }
 
@@ -124,26 +114,22 @@ bool	is_current_dir_exist(t_exec_attr *ea)
 void	create_virtual_path(char *path, t_exec_attr *ea)
 {
 	char	*pwd;
-	char	*old_pwd;
+	char	*new_pwd;
 
-	old_pwd = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
-	pwd = create_new_pwd(old_pwd, path);
-	if (getcwd(NULL, 0) == NULL)
+	pwd = ea->current_pwd;
+	new_pwd = getcwd(NULL, 0);
+	if (new_pwd == NULL)
 	{	
+		new_pwd = create_new_pwd(pwd, path);
 		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", STDERR_FILENO);
-		update_all_environ(pwd, ea);
 	}
-	else
-	{
-		pwd = getcwd(NULL, 0);
-		update_all_environ(pwd, ea);
-	}
+	update_all_environ(new_pwd, ea);
 }
 
 int	x_chdir(char *arg, t_exec_attr *ea)
 {
+	char	*new_pwd;
 	char	*pwd;
-	char	*old_pwd;
 	char	*path;
 
 	// .が２つ以上だったケースも考慮しないとだめ
@@ -171,16 +157,16 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	// シンボリックリンクだったときの対応
 	if (has_caps(path) || is_symlink(path, ea))
 	{
-		old_pwd = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PWD")->content);
-		pwd = create_new_pwd(old_pwd, path);
-		if (pwd == NULL)
+		pwd = ea->current_pwd;
+		new_pwd = create_new_pwd(pwd, path);
+		if (new_pwd == NULL)
 			abort_minishell(MALLOC_ERROR, ea);
 	}
 	else
 	{
 		redirect_dev_null(ea);
-		pwd = getcwd(NULL, 0);
-		if (pwd == NULL)
+		new_pwd = getcwd(NULL, 0);
+		if (new_pwd == NULL)
 		{
 			revert_redirect_out(ea);
 			print_error(PWD, path);
@@ -188,7 +174,7 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 		}
 		revert_redirect_out(ea);
 	}
-	update_all_environ(pwd, ea);
+	update_all_environ(new_pwd, ea);
 	if (is_end_of_slash(arg))
 		free(path);
 	return (0);
