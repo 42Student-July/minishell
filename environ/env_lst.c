@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:20:16 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/22 23:02:07 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:42:02 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 		split = ft_split(environ[i], '=');
 		if (split == NULL)
 			abort_minishell(MALLOC_ERROR, ea);
+		if (split[VALUE] == NULL)
+		{
+			split[VALUE] = ft_strdup("");
+		}
 		if (!ft_lstadd_back(&env_lst, \
 			ft_lstnew(ft_kvsnew(split[KEY], split[VALUE]))))
 			abort_minishell_with(MALLOC_ERROR, ea, split);

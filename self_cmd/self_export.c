@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/23 16:20:00 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:44:44 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea)
 				continue ;
 			}
 			store_arg_in_export(ea, arg, NULL);
+			store_arg_in_env(ea, arg, NULL);
 		}
 		// 先頭ポインタが"="だったとき、keyが存在しないのでerrorとする
 		else if (ft_strchr(arg, '=') == arg)
