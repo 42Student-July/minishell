@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 09:26:06 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/22 16:07:09 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:26:59 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ bool	is_invalid_name(char *name)
 
 void	print_error_msg_with_var(char *cmd_name, char *var)
 {
+	ft_putstr_fd("bash: ", STDERR_FILENO);
 	ft_putstr_fd(cmd_name, STDERR_FILENO);
 	ft_putstr_fd(": `", STDERR_FILENO);
 	ft_putstr_fd(var, STDERR_FILENO);
