@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/23 16:32:40 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:27:25 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*get_arg1(t_cmd *cmd)
 
 	arg1_lst = cmd->args->next;
 	if (arg1_lst == NULL)
-		return (NULL);
+		return (cmd->args->content);
 	arg1 = arg1_lst->content;
 	return (arg1);
 }
