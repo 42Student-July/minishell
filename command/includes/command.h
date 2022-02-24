@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/21 23:23:34 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:49:58 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ bool		is_path(char *cmd);
 
 // pipe_process.c
 void		pipe_process(t_exec_attr *ea, int pipe_count);
+
+// free_pipe_attr.c
+void		free_pipe_attr(t_pipe_attr *pa);
 
 // t_cmd_utils.c
 char		*get_filename(t_cmd *c, int io);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/16 17:32:20 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/02/23 22:51:31 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCNAME	:=	execute_builtin.c \
 			convert_lst_to_argv.c \
 			no_pipe_process.c \
 			pipe_process.c \
+			free_pipe_attr.c \
 			exec_attribute_utils.c \
 			cmd_utils.c \
 
