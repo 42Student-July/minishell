@@ -85,6 +85,8 @@ char	*get_arg1(t_cmd *cmd)
 	t_list	*arg1_lst;
 
 	arg1_lst = cmd->args->next;
+	if (arg1_lst == NULL)
+		return (NULL);
 	arg1 = arg1_lst->content;
 	return (arg1);
 }
