@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/23 16:32:40 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/24 03:48:59 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*get_arg1(t_cmd *cmd)
 
 	arg1_lst = cmd->args->next;
 	arg1 = arg1_lst->content;
-	return (arg1);
+	return (ft_strtrim(arg1, " "));
 }
 
 int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
@@ -99,14 +99,14 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 
 	(void)ea;
 	argc = ft_lstsize(cmd->args);
-	arg1 = ft_strtrim(get_arg1(cmd), " ");
+	if (argc == 1)
+		exit_success(EXIT_SUCCESS);
+	arg1 = get_arg1(cmd);
 	if (arg1 == NULL)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	if (argc == 1)
-		exit_success(EXIT_SUCCESS);
 	if (!is_num(arg1) || !ft_atol(arg1, &arg1_num))
 	{
 		error_message = make_arg_error_message(arg1, \
