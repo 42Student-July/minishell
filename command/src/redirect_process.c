@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/25 03:40:24 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/26 00:17:54 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	redirect_dev_null(t_exec_attr *ea)
 	close(fd);
 }
 
-
 void	redirect_in(t_cmd *cmd, t_exec_attr *ea)
 {
 	t_list	*current_filename;
@@ -85,20 +84,36 @@ void	redirect_out(t_cmd *cmd, t_exec_attr *ea)
 	int		fd;
 
 	(void)ea;
+	printf("%s %d\n", __FILE__, __LINE__);
 	current_filename = cmd->filenames_out;
 	i = 0;
 	while (current_filename != NULL)
 	{
 		f = (t_file *)current_filename->content;
-		fd = open(f->filename, \
-					O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		if (fd == -1)
+		if (f->is_double) // アペンドのリダイレクト
 		{
-			perror("open");
-			exit(EXIT_FAILURE);
+			fd = open(f->filename, \
+						O_WRONLY | O_CREAT | O_APPEND, 0666);
+			if (fd == -1)
+			{
+				perror("open");
+				exit(EXIT_FAILURE);
+			}
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
 		}
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
+		else // デフォルトのリダイレクト
+		{
+			fd = open(f->filename, \
+						O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			if (fd == -1)
+			{
+				perror("open");
+				exit(EXIT_FAILURE);
+			}
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+		}
 		current_filename = current_filename->next;
 		i++;
 	}
