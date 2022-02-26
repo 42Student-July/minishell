@@ -1,5 +1,6 @@
 #include "lexer.h"
 #include "libft.h"
+#include "common.h"
 
 static bool	is_word_char(char c)
 {
@@ -59,13 +60,19 @@ char	*replace_string(char *str, const char *from, const char *to)
 
 void	process_single_envvar(char **str, size_t *i, t_list *env)
 {
-	char	*env_var;
-	char	*tmp;
+	char		*env_var;
+	char		*tmp;
 
-	env_var = get_word(&((*str)[*i + 1]));
-	tmp = expand_single_envvar(*str, env_var, ft_kvsget(env, env_var), i);
+	if (((*str)[*i + 1]) == '?')
+		tmp = ft_itoa(g_exit_status);
+	else
+	{
+		env_var = get_word(&((*str)[*i + 1]));
+		tmp = expand_single_envvar(*str, env_var, ft_kvsget(env, env_var), i);
+		free(env_var);
+
+	}
 	free(*str);
-	free(env_var);
 	*str = tmp;
 }
 
