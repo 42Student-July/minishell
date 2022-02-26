@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/26 00:17:54 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/26 15:05:26 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	redirect_out(t_cmd *cmd, t_exec_attr *ea)
 	int		fd;
 
 	(void)ea;
-	printf("%s %d\n", __FILE__, __LINE__);
 	current_filename = cmd->filenames_out;
 	i = 0;
 	while (current_filename != NULL)
@@ -125,4 +124,11 @@ void	redirect(t_cmd *cmd, t_exec_attr *ea)
 		redirect_in(cmd, ea);
 	if (cmd->filenames_out != NULL)
 		redirect_out(cmd, ea);
+}
+
+void	reset_redirect(t_exec_attr *ea)
+{
+	dup2(ea->stdfd[0], STDIN_FILENO);
+	dup2(ea->stdfd[1], STDOUT_FILENO);
+	dup2(ea->stdfd[2], STDERR_FILENO);
 }
