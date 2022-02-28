@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/24 15:59: by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/28 13:51:13 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ bool	is_current_dir_exist(t_exec_attr *ea)
 {
 	char	*pwd;
 
-	redirect_dev_null(ea);
+	(void)ea;
+	// redirect_dev_null(ea);
 	pwd = getcwd(NULL, 0);
-	revert_redirect_out(ea);
+	// revert_redirect_out(ea);
 	if (pwd == NULL)
 		return (false);
 	return (true);
@@ -119,7 +120,7 @@ void	create_virtual_path(char *path, t_exec_attr *ea)
 	pwd = ea->current_pwd;
 	new_pwd = getcwd(NULL, 0);
 	if (new_pwd == NULL)
-	{	
+	{
 		new_pwd = create_new_pwd(pwd, path);
 		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", STDERR_FILENO);
 	}
@@ -136,7 +137,7 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	//TODO: dirが絶対パスだったときの考慮も入れる
 	//TODO:: 最初が/だったケースも
 	if (chdir(arg) == -1)
-	{	
+	{
 		print_error(CD, arg);
 		return (1);
 	}
@@ -164,15 +165,15 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	}
 	else
 	{
-		redirect_dev_null(ea);
+		// redirect_dev_null(ea);
 		new_pwd = getcwd(NULL, 0);
 		if (new_pwd == NULL)
 		{
-			revert_redirect_out(ea);
+			// revert_redirect_out(ea);
 			print_error(PWD, path);
 			return (1);
 		}
-		revert_redirect_out(ea);
+		// revert_redirect_out(ea);
 	}
 	update_all_environ(new_pwd, ea);
 	if (is_end_of_slash(arg))
