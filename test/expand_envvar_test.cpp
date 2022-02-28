@@ -15,6 +15,7 @@ extern "C"
 #include "test_helper.h"
 }
 
+int g_exit_status = 0;
 
 TEST(env, replace_string)
 {
