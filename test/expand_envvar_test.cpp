@@ -15,6 +15,7 @@ extern "C"
 #include "test_helper.h"
 }
 
+int g_exit_status = 0;
 
 TEST(env, replace_string)
 {
@@ -129,4 +130,16 @@ TEST(env, expand_envvar_wtf3)
 	free(key);
 	free(value);
 	ft_lstclear(&lst, &ft_kvsdelete);
+}
+
+TEST(env, expand_envvar_exit_status)
+{
+	g_exit_status = 65536;
+	char *input = ft_strdup("fuga$?hoge");
+	char *expected = ft_strdup("fuga65536hoge");
+	char *result = expand_envvar_str(input, NULL);
+	EXPECT_STREQ(result, expected);
+	free(input);
+	free(expected);
+	free(result);
 }

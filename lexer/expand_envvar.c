@@ -1,5 +1,6 @@
 #include "lexer.h"
 #include "libft.h"
+#include "common.h"
 
 static bool	is_word_char(char c)
 {
@@ -59,13 +60,24 @@ char	*replace_string(char *str, const char *from, const char *to)
 
 void	process_single_envvar(char **str, size_t *i, t_list *env)
 {
-	char	*env_var;
-	char	*tmp;
+	char		*env_var;
+	char		*exit_s;
+	char		*tmp;
 
-	env_var = get_word(&((*str)[*i + 1]));
-	tmp = expand_single_envvar(*str, env_var, ft_kvsget(env, env_var), i);
+	if (((*str)[*i + 1]) == '?')
+	{
+		exit_s = ft_itoa(g_exit_status);
+		tmp = expand_single_envvar(*str, "?", exit_s, i);
+		free(exit_s);
+	}
+	else
+	{
+		env_var = get_word(&((*str)[*i + 1]));
+		tmp = expand_single_envvar(*str, env_var, ft_kvsget(env, env_var), i);
+		free(env_var);
+
+	}
 	free(*str);
-	free(env_var);
 	*str = tmp;
 }
 
@@ -104,7 +116,7 @@ char	*expand_envvar_str(const char *input, void *env)
 	{
 		update_flag(str[i], &in_sq, &in_dq);
 		if (str[i] == '$' && str[i + 1] != '\0' && (ft_isalpha(str[i
-					+ 1]) || str[i + 1] == '_') && !in_sq)
+					+ 1]) || str[i + 1] == '_' || str[i + 1] == '?') && !in_sq)
 			process_single_envvar(&str, &i, env);
 		else
 			i++;
