@@ -116,7 +116,7 @@ char	*expand_envvar_str(const char *input, void *env)
 	{
 		update_flag(str[i], &in_sq, &in_dq);
 		if (str[i] == '$' && str[i + 1] != '\0' && (ft_isalpha(str[i
-					+ 1]) || str[i + 1] == '_') && !in_sq)
+					+ 1]) || str[i + 1] == '_' || str[i + 1] == '?') && !in_sq)
 			process_single_envvar(&str, &i, env);
 		else
 			i++;
