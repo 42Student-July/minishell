@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:44:58 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/26 14:48:11 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/28 13:50:41 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_exec_attr
 	t_list	*env_lst;
 	t_list	*export_lst;
 	int		stdfd[3];
+	char	*current_pwd;
 }	t_exec_attr;
 
 typedef struct s_env
