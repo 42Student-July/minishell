@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/26 15:05:26 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/28 15:32:23 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	redirect(t_cmd *cmd, t_exec_attr *ea)
 		redirect_out(cmd, ea);
 }
 
-void	reset_redirect(t_exec_attr *ea)
+void	reset_stdfd(t_exec_attr *ea)
 {
 	dup2(ea->stdfd[0], STDIN_FILENO);
 	dup2(ea->stdfd[1], STDOUT_FILENO);
