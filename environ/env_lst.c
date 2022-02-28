@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:20:16 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/24 16:42:02 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/28 13:39:15 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 			ft_lstnew(ft_kvsnew(split[KEY], split[VALUE]))))
 			abort_minishell_with(MALLOC_ERROR, ea, split);
 		i++;
-		free_char_dptr(split);
+		// free_char_dptr(split);
 	}
 	ea->env_lst = env_lst;
 }
