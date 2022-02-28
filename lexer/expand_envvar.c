@@ -61,7 +61,7 @@ char	*replace_string(char *str, const char *from, const char *to)
 void	process_single_envvar(char **str, size_t *i, t_list *env)
 {
 	char		*env_var;
-	char		*exit_s
+	char		*exit_s;
 	char		*tmp;
 
 	if (((*str)[*i + 1]) == '?')
