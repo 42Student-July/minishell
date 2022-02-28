@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/28 15:25:00 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/28 15:32:23 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ bool	is_current_dir_exist(t_exec_attr *ea)
 	(void)ea;
 	redirect_dev_null(ea);
 	pwd = getcwd(NULL, 0);
-	reset_redirect(ea);
+	reset_stdfd(ea);
 	if (pwd == NULL)
 		return (false);
 	return (true);
@@ -167,7 +167,7 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	{
 		redirect_dev_null(ea);
 		new_pwd = getcwd(NULL, 0);
-		reset_redirect(ea);
+		reset_stdfd(ea);
 		if (new_pwd == NULL)
 		{
 			// revert_redirect_out(ea);

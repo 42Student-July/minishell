@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/26 14:48:36 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/02/28 15:32:23 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	no_pipe_process(t_exec_attr *ea)
 			redirect(c, ea);
 		execute_self_cmd(c, ea);
 		if (has_redirect_file(c))
-			reset_redirect(ea);
+			reset_stdfd(ea);
 	}
 	else
 		execute_ext_cmd(c, ea);
