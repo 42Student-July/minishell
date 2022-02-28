@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/24 16:44:44 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/02/28 17:27:03 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea)
 	int			ret;
 	char		*arg;
 	t_list		*lst;
+	char		*tmp_str;
 
 	lst = cmd->args->next;
 	while (lst != NULL)
@@ -98,6 +99,11 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea)
 					if (kv[VALUE] == NULL)
 						abort_minishell_with(MALLOC_ERROR, ea, kv);
 				}
+				tmp_str = ft_strtrim(kv[VALUE], " ");
+				if (tmp_str == NULL)
+					abort_minishell_with(MALLOC_ERROR, ea, kv);
+				free(kv[VALUE]);
+				kv[VALUE] = tmp_str;
 				if (!store_arg_in_env(ea, kv[KEY], kv[VALUE]))
 					abort_minishell_with(MALLOC_ERROR, ea, kv);
 				if (!store_arg_in_export(ea, kv[KEY], kv[VALUE]))
