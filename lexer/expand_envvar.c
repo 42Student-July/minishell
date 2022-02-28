@@ -61,10 +61,15 @@ char	*replace_string(char *str, const char *from, const char *to)
 void	process_single_envvar(char **str, size_t *i, t_list *env)
 {
 	char		*env_var;
+	char		*exit_s
 	char		*tmp;
 
 	if (((*str)[*i + 1]) == '?')
-		tmp = ft_itoa(g_exit_status);
+	{
+		exit_s = ft_itoa(g_exit_status);
+		tmp = expand_single_envvar(*str, "?", exit_s, i);
+		free(exit_s);
+	}
 	else
 	{
 		env_var = get_word(&((*str)[*i + 1]));
