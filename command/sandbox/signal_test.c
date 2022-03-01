@@ -17,7 +17,7 @@ void	interactive_sigint(int sig, siginfo_t *info, void *ucontext)
 	rl_redisplay();         // プロンプトを再描画
 }
 
-void	set_interactive_sigint()
+void	set_sigint_handler_during_readline()
 {
 	struct sigaction act;
 	act.sa_sigaction = interactive_sigint;
@@ -26,31 +26,31 @@ void	set_interactive_sigint()
 	sigaction(SIGINT, &act, NULL);
 }
 
-void	dfl_sigint(int sig, siginfo_t *info, void *ucontext)
+void	handle_sigint_during_command(int sig, siginfo_t *info, void *ucontext)
 {
 	(void)ucontext;
 	g_fin_status = 1;
 }
 
-void	set_dfl_sigint()
+void	set_sigint_handler_during_command()
 {
 	struct sigaction act;
-	act.sa_sigaction = dfl_sigint;
+	act.sa_sigaction = handle_sigint_during_command;
 	act.sa_flags = 0;
 	sigemptyset(&act.sa_mask);
 	sigaction(SIGINT, &act, NULL);
 }
 
-void	dfl_sigquit(int sig, siginfo_t *info, void *ucontext)
+void	handle_sigquit_during_command(int sig, siginfo_t *info, void *ucontext)
 {
 	(void)ucontext;
 	printf("Quit: 3\n");
 }
 
-void	set_dfl_sigquit()
+void	set_sigquit_handler_during_command()
 {
 	struct sigaction act;
-	act.sa_sigaction = dfl_sigquit;
+	act.sa_sigaction = handle_sigquit_during_command;
 	act.sa_flags = 0;
 	sigemptyset(&act.sa_mask);
 	sigaction(SIGINT, &act, NULL);
@@ -63,10 +63,10 @@ char	*x_readline()
 
 	prompt = "minishell $";
 	signal(SIGQUIT, SIG_IGN); // sigquitがきたら無視する
-	set_interactive_sigint();
+	set_sigint_handler_during_readline();
 	cmd = readline(prompt);
-	set_dfl_sigint();
-	set_dfl_sigquit();
+	set_sigint_handler_during_command();
+	set_sigquit_handler_during_command();
 	signal(SIGQUIT, SIG_DFL); // sigquitをデフォルト動作に戻す
 	return (cmd);
 }

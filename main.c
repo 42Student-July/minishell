@@ -10,6 +10,6 @@ int main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	set_dfl_signal();
+	set_signal_handler_during_command();
 	start_repl();
 }

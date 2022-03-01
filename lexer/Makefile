@@ -5,6 +5,7 @@ CFLAGS		:=	-Wall -Wextra -Werror -pedantic -g
 HEADERS		=	. \
 				../ \
 				../libft/ \
+				../signal/includes/ \
 
 
 INCLUDES	=	$(addprefix -I, $(HEADERS))

@@ -22,18 +22,17 @@
 # include <readline/history.h>
 # include "common.h"
 
-// set_dfl_signal.c
+// set_signal_handler_during_command.c
 
-void	set_dfl_signal(void);
+void	set_signal_handler_during_command(void);
 
-// set_interactive_signal.c
+// set_signal_handler_during_readline.c
 
-void	set_interactive_signal(void);
+void	set_signal_handler_during_readline(void);
 
-// sigaction.c
+// set_signal_handler_during_heredoc.c
+void	set_signal_handler_during_heredoc(void);
 
-void	interactive_sigint(int sig);
-void	dfl_sigint(int sig);
-void	dfl_sigquit(int sig);
-
+// reset_signal_handler.c
+void	reset_signal_handler(void);
 #endif
