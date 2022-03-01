@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 13:27:06 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/19 15:57:07 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:37:11 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	sort_listkey_by_ascii(t_list *lst)
 	// 大文字アルファベット → _ → 小文字のアルファベットに並び替える
 	t_list	*min;
 
+	if (lst == NULL)
+		return ;
 	while (lst->next != NULL)
 	{
 		min = get_list_by_min_ascii_key(lst);
