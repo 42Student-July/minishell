@@ -157,6 +157,7 @@ bool	read_heredoc(t_lexer *lexer, t_list *env_list)
 				break;
 			exit(EXIT_FAILURE);
 		}
+		set_signal_handler_during_command();
 	}
 	return (true);
 }
