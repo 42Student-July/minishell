@@ -21,3 +21,5 @@ declare -x PWD="/Users/masashi/Projects/42tokyo/minishell/test/test_sh"
 declare -x SHLVL="1"
 ```
 現在OLDPWD以外は実装できていない。
+cdで移動したときに、pwdの""がついていない
+OLDPWDはPWDの値をコピーするため、もしcdしたときにPWDが存在しなかったら空文字になる。
