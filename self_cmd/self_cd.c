@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/28 15:32:23 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/01 14:02:39 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	update_all_environ(char *new_pwd, t_exec_attr *ea)
 	if (pwdlst != NULL)
 	{
 		update_value(ea->env_lst, "PWD", new_pwd, ea);
-		update_value(ea->export_lst, "PWD", new_pwd, ea);
+		update_value(ea->export_lst, "PWD", export_new_pwd, ea);
 	}
 	update_value(ea->env_lst, "OLDPWD", pwd, ea);
 	update_value(ea->export_lst, "OLDPWD", export_pwd, ea);
