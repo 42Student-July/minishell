@@ -6,11 +6,12 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/24 14:54:54 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/01 13:52:46 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
+#include "common.h"
 
 bool	is_num(char *str)
 {
@@ -102,7 +103,7 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	(void)ea;
 	argc = ft_lstsize(cmd->args);
 	if (argc == 1)
-		exit_success(EXIT_SUCCESS);
+		exit_success(g_exit_status);
 	arg1 = get_arg1(cmd);
 	if (arg1 == NULL)
 	{
