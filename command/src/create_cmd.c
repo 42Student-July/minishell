@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/19 15:57:07 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:40:24 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,12 @@ char	*find_path(char *cmd_name, t_exec_attr *ea)
 	char			*env_path;
 	char			**path;
 	char			*new_cmd;
+	t_list			*lst;
 
-	env_path = ft_kvsget_value(get_lst_by_key(ea->env_lst, "PATH")->content);
+	lst = get_lst_by_key(ea->env_lst, "PATH");
+	if (lst == NULL)
+		return (NULL);
+	env_path = ft_kvsget_value(lst->content);
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
