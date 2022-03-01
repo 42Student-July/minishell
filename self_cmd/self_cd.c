@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/01 14:02:39 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/01 15:13:17 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,23 @@ void	update_all_environ(char *new_pwd, t_exec_attr *ea)
 	char	*pwd;
 	t_list	*pwdlst;
 
-	pwd = ea->current_pwd;
+	pwdlst = get_lst_by_key(ea->env_lst, "PWD");
+	if (pwdlst == NULL)
+		// unsetでPWDがなくなったケース
+		pwd = ft_strdup("");
+	else
+	{
+		// export PWD= PWDの値を空文字に上書きしたケース
+		if (ft_strlen(ft_kvsget_value(pwdlst->content)) == 0)
+			pwd = ft_strdup("");
+		else
+			pwd = ea->current_pwd;
+	}
 	ea->current_pwd = new_pwd;
 	export_pwd = create_export_value(pwd);
 	export_new_pwd = create_export_value(new_pwd);
 	if (export_new_pwd == NULL)
 		abort_minishell(MALLOC_ERROR, ea);
-	pwdlst = get_lst_by_key(ea->env_lst, "PWD");
 	if (pwdlst != NULL)
 	{
 		update_value(ea->env_lst, "PWD", new_pwd, ea);
