@@ -13,3 +13,11 @@ export iのときに=""が入ってしまっている
 keyが存在しないときにvalueがkeyとして入ってしまっている
 OLDPWDが最初はNULL
 =がないvalueに更新をしたらちゃんと更新できる？
+
+env -iで初期化した場合、環境変数は以下
+```
+declare -x OLDPWD
+declare -x PWD="/Users/masashi/Projects/42tokyo/minishell/test/test_sh"
+declare -x SHLVL="1"
+```
+現在OLDPWD以外は実装できていない。
