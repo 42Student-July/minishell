@@ -3,21 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   self_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/28 17:27:03 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/01 15:32:52 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
+
+bool	is_sharp(char *arg)
+{
+	if (arg == NULL)
+		return (false);
+	// exportの第一引数が#から始まっている限り、なにが後ろにきたとしても、export(引数なし)と同じような実装になる。
+	if (*arg == '#')
+		return (true);
+	return (false);
+}
+
 
 int	exec_self_export(t_cmd *cmd, t_exec_attr *ea)
 {
 	char	*argv_one;
 
 	argv_one = get_argv_one(cmd);
-	if (argv_one == NULL)
+	if (argv_one == NULL || is_sharp(argv_one))
 		print_all_export_lst(ea);
 	else
 		export_with_args(cmd, ea);
