@@ -12,3 +12,8 @@ unset OLDPWD\n cd ..\n export OLDPWD=new_value\n export | grep OLDPWD | grep -v 
 unset PWD\n cd ..\n export PWD\n export | grep PWD
 unset OLDPWD\n cd ..\n export OLDPWD\n export | grep OLDPWD
 export =
+export # | grep -v -E '_=' 
+export ## | grep -v -E '_=' 
+export #jieafaeoi""" | grep -v -E '_=' 
+export #@ | grep -v -E '_='
+export a#
