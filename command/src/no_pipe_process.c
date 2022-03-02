@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_pipe_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/28 15:32:23 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:29:30 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
-			printf("exec error\n");
+			perror("exec error\n");
+			printf("cmd_path : %s\n", cmd_path);
+			print_array(cmdv);
 			exit(EXIT_FAILURE);
 		}
 		// こっちはいらないかもしれないけど一応
