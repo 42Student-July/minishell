@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/02 14:09:38 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/02 15:56:31 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,34 +27,6 @@ bool	is_path(char *cmd)
 	return (false);
 }
 
-// bool	has_cmdpath_in_pathlst(char *cmdpath, char **pathlst, t_exec_attr *ea)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (path[i] == NULL)
-// 	{
-// 		i++;
-// 	}
-
-// }
-
-// bool	path_exits(char *cmdpath, t_exec_attr *ea)
-// {
-// 	t_list	*lst;
-// 	char	**pathlst;
-// 	char	*envpath;
-
-// 	lst = get_lst_by_key(ea->env_lst, "PATH");
-// 	if (lst == NULL)
-// 		return (NULL);
-// 	envpath = ft_kvsget_value(lst->content);
-// 	pathlst = ft_split(envpath, ':');
-// 	if (pathlst == NULL)
-// 		exit(EXIT_FAILURE);
-// 	return (has_cmdpath_in_pathlst(cmdpath, pathlst, ea));
-// }
-
 // void	error_process(int cp_errno)
 // {
 // 	printf("errno %d\n", cp_errno);
@@ -65,6 +37,16 @@ bool	is_path(char *cmd)
 // 	}
 // 	else if (cp_errno == )
 // }
+
+bool	is_dir(char *cmd_path)
+{
+	DIR	*dir;
+
+	dir = opendir(cmd_path);
+	if (dir)
+		return (true);
+	return (false);
+}
 
 void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 {
@@ -104,6 +86,11 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	}
 	else if (cpid == 0)
 	{
+		if (is_dir(cmd_path))
+		{
+			ft_put_error("is a directory", c->cmd);
+			exit(126);
+		}
 		if (has_redirect_file(c))
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
