@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/02 17:12:26 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:25:04 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ bool	is_path(char *cmd)
 
 void	error_process(int cp_errno, char *cmd_path)
 {
+	int	exit_status;
+
+	exit_status = EXIT_FAILURE;
 	if (cp_errno == ENOENT)
-		g_exit_status = 127;
-	else if (cp_errno == EACCES)
-		g_exit_status = 126;
+		exit_status = 127;
+	else if (cp_errno == EACCES || cp_errno == ENOTDIR)
+		exit_status = 126;
 	ft_put_error(strerror(cp_errno), cmd_path);
+	exit(exit_status);
 }
 
 bool	is_dir(char *cmd_path)
