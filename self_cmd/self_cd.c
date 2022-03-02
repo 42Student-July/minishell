@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/01 15:13:17 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/02 09:47:34 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,9 @@ void	create_virtual_path(char *path, t_exec_attr *ea)
 	char	*new_pwd;
 
 	pwd = ea->current_pwd;
+	redirect_dev_null(ea);
 	new_pwd = getcwd(NULL, 0);
+	reset_stdfd(ea);
 	if (new_pwd == NULL)
 	{
 		new_pwd = create_new_pwd(pwd, path);
@@ -137,11 +139,120 @@ void	create_virtual_path(char *path, t_exec_attr *ea)
 	update_all_environ(new_pwd, ea);
 }
 
+char *remove_relative(char *path, t_exec_attr *ea)
+{
+	char	**split;
+	char	**new_split;
+	char	*new_str;
+	size_t	i;
+	size_t	new_str_len;
+	char	*tmp;
+
+	i = 0;
+	new_str_len = 0;
+	if (ft_strlen(path) == 1 && *path == '/')
+		return (ft_strdup("/"));
+	split = ft_split(path, '/');
+	while (split[i] != NULL)
+		i++;
+	new_split = (char **)malloc(sizeof(char *) * (i + 1));
+	if (new_split == NULL)
+		abort_minishell(MALLOC_ERROR, ea);
+	i = 0;
+	while (split[i] != NULL)
+	{	
+		// もしパスに..が存在する場合、前のパスを削除する
+		// ただし絶対パスの一番目を除く
+		if (i != 0 && is_same_str("..", split[i]))
+		{
+			new_str_len -= ft_strlen(split[i - 1]);
+			free(split[i - 1]);
+			split[i - 1] = ft_strdup("");
+		}
+		tmp = ft_strtrim(split[i], ".");
+		if (ft_strlen(tmp) != 0)
+		{
+			new_split[i] = ft_strjoin("/", tmp);
+			free(tmp);
+		}
+		else
+			new_split[i] = tmp;
+		if (new_split[i] == NULL)
+			abort_minishell(MALLOC_ERROR, ea);
+		new_str_len += ft_strlen(new_split[i]);
+		i++;
+	}
+	new_split[i] = NULL;
+	// もしnew_splitの値がすべて空文字 or ..だった場合、cdの向き先はhome(/)になる
+	i = 0;
+
+	bool flag = true;
+	while (new_split[i] != NULL && flag)
+	{
+		if (!is_same_str(new_split[i], ""))
+		{
+			flag = false;
+		}
+		i++;
+	}
+	
+	if (flag)
+	{
+		new_str = ft_strdup("/");
+		// free_char_dptr(split);
+		// free_char_dptr(new_split);
+		// printf("kita\n");
+		return (new_str);
+	}
+	new_str = (char *)calloc(sizeof(char), new_str_len + 1);
+	if (new_str == NULL)
+		abort_minishell(MALLOC_ERROR, ea);
+	i = 0;
+	while (new_split[i] != NULL)
+	{
+		ft_strlcat(new_str, new_split[i], new_str_len + 1);
+		i++;
+	}
+	if (is_end_of_slash(new_str))
+	{
+		path = create_str_removed_end(new_str);
+		if (path == NULL)
+			abort_minishell(MALLOC_ERROR, ea);
+	}
+	free_char_dptr(split);
+	free_char_dptr(new_split);
+	return (new_str);
+}
+
+bool	has_diff(char *path, t_exec_attr *ea)
+{
+	char	*cwd;
+	char	*pwd;
+	bool	flag;
+	char	*pwd_del_dot;
+
+	redirect_dev_null(ea);
+	cwd = getcwd(NULL, 0);
+	reset_stdfd(ea);
+	if (*path == '/')
+		pwd = path;
+	else
+		pwd = create_new_pwd(ea->current_pwd, path);
+	pwd_del_dot = remove_relative(pwd, ea);
+	flag = is_same_str(cwd, pwd_del_dot);
+	// printf("cwd : %s\n", cwd);
+	// printf("pwd_del_dot : %s\n", pwd_del_dot);
+	// printf("flag = %d\n", flag);
+	// free(pwd);
+	// free(pwd_del_dot);
+	return (!flag);
+}
+
 int	x_chdir(char *arg, t_exec_attr *ea)
 {
 	char	*new_pwd;
-	char	*pwd;
 	char	*path;
+	char	*tmp;
 
 	// .が２つ以上だったケースも考慮しないとだめ
 	//TODO: dirが絶対パスだったときの考慮も入れる
@@ -164,14 +275,11 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	}
 	else
 		path = arg;
-	// 大文字の入力だったときのPWDの対応
-	// シンボリックリンクだったときの対応
-	if (has_caps(path) || is_symlink(path, ea))
+	// printf("path : %s\n", path);
+	if (has_diff(path, ea))
 	{
-		pwd = ea->current_pwd;
-		new_pwd = create_new_pwd(pwd, path);
-		if (new_pwd == NULL)
-			abort_minishell(MALLOC_ERROR, ea);
+		tmp = create_new_pwd(ea->current_pwd, path);
+		new_pwd = remove_relative(tmp, ea);
 	}
 	else
 	{
