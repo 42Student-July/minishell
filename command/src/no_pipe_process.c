@@ -6,11 +6,12 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/28 15:32:23 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/02 13:05:52 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
+#include "errno.h"
 
 bool	is_path(char *cmd)
 {
@@ -25,6 +26,45 @@ bool	is_path(char *cmd)
 	}
 	return (false);
 }
+
+// bool	has_cmdpath_in_pathlst(char *cmdpath, char **pathlst, t_exec_attr *ea)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (path[i] == NULL)
+// 	{
+// 		i++;
+// 	}
+
+// }
+
+// bool	path_exits(char *cmdpath, t_exec_attr *ea)
+// {
+// 	t_list	*lst;
+// 	char	**pathlst;
+// 	char	*envpath;
+
+// 	lst = get_lst_by_key(ea->env_lst, "PATH");
+// 	if (lst == NULL)
+// 		return (NULL);
+// 	envpath = ft_kvsget_value(lst->content);
+// 	pathlst = ft_split(envpath, ':');
+// 	if (pathlst == NULL)
+// 		exit(EXIT_FAILURE);
+// 	return (has_cmdpath_in_pathlst(cmdpath, pathlst, ea));
+// }
+
+// void	error_process(int cp_errno)
+// {
+// 	printf("errno %d\n", cp_errno);
+// 	perror("execve");
+// 	if (cp_errno == ENOENT)
+// 	{
+// 		g_exit_status = 127;
+// 	}
+// 	else if (cp_errno == )
+// }
 
 void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 {
@@ -50,7 +90,9 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		cmd_path = find_path(c->cmd, ea);
 		if (cmd_path == NULL)
 		{
-			printf("%s: command not found\n", c->cmd); // 標準エラー出力にする
+			ft_putstr_fd("bash: ", STDERR_FILENO);
+			ft_putstr_fd(c->cmd, STDERR_FILENO);
+			ft_putstr_fd(": command not found\n", STDERR_FILENO);
 			g_exit_status = 127;
 			return ;
 		}
@@ -58,19 +100,19 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	environ = convert_envlst_to_array(ea);
 	cpid = fork();
 	if (cpid == -1)
-		printf("fork error\n");
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
 	else if (cpid == 0)
 	{
 		if (has_redirect_file(c))
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
-			printf("exec error\n");
-			exit(EXIT_FAILURE);
+			perror("execve");
+			// error_process(errno);
 		}
-		// こっちはいらないかもしれないけど一応
-		// if (has_redirect_file(c))
-		// 	revert_direction(c, ea);
 	}
 	else
 	{
