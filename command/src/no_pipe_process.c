@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/02 15:56:31 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:12:26 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,14 @@ bool	is_path(char *cmd)
 	return (false);
 }
 
-// void	error_process(int cp_errno)
-// {
-// 	printf("errno %d\n", cp_errno);
-// 	perror("execve");
-// 	if (cp_errno == ENOENT)
-// 	{
-// 		g_exit_status = 127;
-// 	}
-// 	else if (cp_errno == )
-// }
+void	error_process(int cp_errno, char *cmd_path)
+{
+	if (cp_errno == ENOENT)
+		g_exit_status = 127;
+	else if (cp_errno == EACCES)
+		g_exit_status = 126;
+	ft_put_error(strerror(cp_errno), cmd_path);
+}
 
 bool	is_dir(char *cmd_path)
 {
@@ -95,8 +93,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
-			perror("execve");
-			// error_process(errno);
+			error_process(errno, c->cmd);
 		}
 	}
 	else
