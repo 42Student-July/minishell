@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 10:13:04 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/21 10:38:36 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/02 15:51:25 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ int main() {
       unlink(fn);
     }
     else {
-		lstat(sln, &buf);
+		int a = lstat(NULL, &buf);
 		lstat(fn, &buf_2);
+		printf("a = %d\n", a);
 		// printf("link = %d\n", buf_2.st_nlink);
 		printf("link = %d\n", S_ISLNK(buf_2.st_mode));
 		// printf("link = %d\n", buf.st_nlink);
