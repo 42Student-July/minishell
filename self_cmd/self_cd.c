@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/02 09:47:34 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:32:30 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,64 +146,86 @@ char *remove_relative(char *path, t_exec_attr *ea)
 	char	*new_str;
 	size_t	i;
 	size_t	new_str_len;
-	char	*tmp;
+	size_t	ddot_count;
+	size_t	dot_count;
+	size_t	blank_count;
+	size_t	new_split_len;
 
 	i = 0;
 	new_str_len = 0;
-	if (ft_strlen(path) == 1 && *path == '/')
-		return (ft_strdup("/"));
+	ddot_count = 0;
+	dot_count = 0;
+	blank_count = 0;
 	split = ft_split(path, '/');
 	while (split[i] != NULL)
+	{
+		if (is_same_str("", split[i]))
+		{
+			blank_count++;
+		}
+		if (is_same_str(".", split[i]))
+		{
+			dot_count++;
+		}
+		if (is_same_str("..", split[i]))
+		{
+			ddot_count++;
+		}
 		i++;
-	new_split = (char **)malloc(sizeof(char *) * (i + 1));
+	}
+	new_split_len = i - blank_count - dot_count - (ddot_count * 2) + 1;
+	new_split = (char **)malloc(sizeof(char *) * new_split_len);
 	if (new_split == NULL)
 		abort_minishell(MALLOC_ERROR, ea);
 	i = 0;
+	size_t j = 0;
 	while (split[i] != NULL)
 	{	
 		// もしパスに..が存在する場合、前のパスを削除する
 		// ただし絶対パスの一番目を除く
-		if (i != 0 && is_same_str("..", split[i]))
+		if (is_same_str("", split[i]))
 		{
-			new_str_len -= ft_strlen(split[i - 1]);
-			free(split[i - 1]);
-			split[i - 1] = ft_strdup("");
+			i++;
+			continue ;
 		}
-		tmp = ft_strtrim(split[i], ".");
-		if (ft_strlen(tmp) != 0)
+		if (is_same_str(".", split[i]))
 		{
-			new_split[i] = ft_strjoin("/", tmp);
-			free(tmp);
+			i++;
+			continue ;
 		}
-		else
-			new_split[i] = tmp;
-		if (new_split[i] == NULL)
-			abort_minishell(MALLOC_ERROR, ea);
-		new_str_len += ft_strlen(new_split[i]);
+		if (is_same_str("..", split[i]))
+		{
+			// ddotがあったら一個前のnew_splitをfreeする
+			// そのときjをデクリメントする
+			// ただしjがマイナスになる場合はやめる
+			if (j != 0)
+			{
+				free(new_split[j - 1]);
+				new_split[j - 1] = NULL;
+				j--;
+			}
+			i++;
+			continue ;
+		}
+		new_split[j] = ft_strjoin("/", split[i]);
+		new_str_len += ft_strlen(new_split[j]);
+		j++;
 		i++;
 	}
-	new_split[i] = NULL;
+	new_split[j] = NULL;
+	// ..の数だけ後ろからpathを削除していく
 	// もしnew_splitの値がすべて空文字 or ..だった場合、cdの向き先はhome(/)になる
 	i = 0;
-
-	bool flag = true;
-	while (new_split[i] != NULL && flag)
-	{
-		if (!is_same_str(new_split[i], ""))
-		{
-			flag = false;
-		}
-		i++;
-	}
-	
-	if (flag)
+	if (new_split[0] == NULL)
 	{
 		new_str = ft_strdup("/");
-		// free_char_dptr(split);
-		// free_char_dptr(new_split);
+		free_char_dptr(split);
+		free_char_dptr(new_split);
 		// printf("kita\n");
 		return (new_str);
+	
 	}
+	// printf("kita\n");
 	new_str = (char *)calloc(sizeof(char), new_str_len + 1);
 	if (new_str == NULL)
 		abort_minishell(MALLOC_ERROR, ea);
@@ -221,15 +243,17 @@ char *remove_relative(char *path, t_exec_attr *ea)
 	}
 	free_char_dptr(split);
 	free_char_dptr(new_split);
+	// printf("new_str : %s\n", new_str);
 	return (new_str);
 }
 
 bool	has_diff(char *path, t_exec_attr *ea)
 {
-	char	*cwd;
-	char	*pwd;
-	bool	flag;
-	char	*pwd_del_dot;
+	char		*cwd;
+	char		*pwd;
+	bool		flag;
+	char		*pwd_del_dot;
+	struct stat buf;
 
 	redirect_dev_null(ea);
 	cwd = getcwd(NULL, 0);
@@ -239,12 +263,16 @@ bool	has_diff(char *path, t_exec_attr *ea)
 	else
 		pwd = create_new_pwd(ea->current_pwd, path);
 	pwd_del_dot = remove_relative(pwd, ea);
+	if (lstat(pwd_del_dot, &buf) == -1)
+		return (false);
 	flag = is_same_str(cwd, pwd_del_dot);
 	// printf("cwd : %s\n", cwd);
 	// printf("pwd_del_dot : %s\n", pwd_del_dot);
 	// printf("flag = %d\n", flag);
-	// free(pwd);
-	// free(pwd_del_dot);
+	// TODO:どっかでdouble freeにナル。
+	if (*path != '/')
+		free(pwd);
+	free(pwd_del_dot);
 	return (!flag);
 }
 
