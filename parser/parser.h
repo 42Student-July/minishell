@@ -14,8 +14,9 @@ typedef struct s_cmd
 
 typedef struct s_file
 {
-	char *filename;
-	bool is_double;
+	char	*filename;
+	bool	is_double;
+	int		fd;
 } t_file;
 
 typedef enum e_cmd_type {

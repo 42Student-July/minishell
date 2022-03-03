@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_struct.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:44:58 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/28 15:32:23 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:07:58 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void		redirect(t_cmd *cmd, t_exec_attr *ea);
 bool		has_redirect_file(t_cmd *cmd);
 void		redirect_dev_null(t_exec_attr *ea);
 void		reset_stdfd(t_exec_attr *ea);
+bool		open_files(t_cmd *cmd, t_exec_attr *ea);
 
 #endif
 
