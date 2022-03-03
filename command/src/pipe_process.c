@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 20:38:32 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 21:28:49 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,14 +153,14 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 				cmd_path = find_path(pa->current_cmd->cmd, ea);
 				if (cmd_path == NULL)
 				{
-					ft_put_error("command not found", pa->current_cmd->cmd);
+					ft_put_cmd_error(pa->current_cmd->cmd, "command not found");
 					exit(127);
 				}
 			}
 			// cmd_pathがディレクトリか確認する処理
 			if (is_dir(cmd_path))
 			{
-				ft_put_error("is a directory", pa->current_cmd->cmd);
+				ft_put_cmd_error(pa->current_cmd->cmd, "is a directory");
 				exit(126);
 			}
 		}
