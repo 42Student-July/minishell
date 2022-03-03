@@ -40,6 +40,5 @@ t_list	*filter_null_literal_token(t_list *lst)
 			lst = lst->next;
 		}
 	}
-	print_tokens(res);
 	return (res);
 }
