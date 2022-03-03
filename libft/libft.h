@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 20:14:14 by akito             #+#    #+#             */
-/*   Updated: 2022/03/02 13:59:17 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 21:05:19 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ char	*ft_kvsget(t_list *list, char *key);
 bool	ft_streq(char *a, char *b);
 void	ft_kvsdelete(void *elm);
 void	ft_kvsreplace_value(void *content, char *new_value);
-void	ft_put_error(char *message, char *cmd);
+void	ft_put_error(char *message);
+void	ft_put_cmd_error(char *cmd, char *message);
+void	ft_put_cmd_error(char *cmd, char *message);
 bool	ft_atol(const char *nptr, long *num);
 
 t_list	*ft_lstnew(void *content);
