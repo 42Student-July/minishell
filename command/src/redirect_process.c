@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/03 16:26:36 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:06:13 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ bool	open_files_out(t_cmd *cmd, t_exec_attr *ea)
 			if (fd == -1)
 			{
 				perror(f->filename);
+				g_exit_status = EXIT_FAILURE;
 				return (false);
 			}
 			f->fd = fd;
@@ -115,6 +116,7 @@ bool	open_files_out(t_cmd *cmd, t_exec_attr *ea)
 			if (fd == -1)
 			{
 				perror(f->filename);
+				g_exit_status = EXIT_FAILURE;
 				return (false);
 			}
 			f->fd = fd;
@@ -142,6 +144,7 @@ bool	open_files_in(t_cmd *cmd, t_exec_attr *ea)
 		if (fd == -1)
 		{
 			perror(f->filename);
+			g_exit_status = EXIT_FAILURE;
 			return (false);
 		}
 		f->fd = fd;
@@ -155,5 +158,14 @@ bool	open_files(t_cmd *cmd, t_exec_attr *ea)
 		return (false);
 	if (!open_files_out(cmd, ea))
 		return (false);
+	return (true);
+}
+
+bool	open_files_in_pipe(t_cmd *cmd, t_exec_attr *ea)
+{
+	if (!open_files_in(cmd, ea))
+		exit(EXIT_FAILURE);
+	if (!open_files_out(cmd, ea))
+		exit(EXIT_FAILURE);
 	return (true);
 }
