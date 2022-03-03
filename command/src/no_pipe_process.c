@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 20:11:54 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 20:38:16 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
+			// perror("exec error\n");
+			// printf("cmd_path : %s\n", cmd_path);
+			// print_array(cmdv);
 			execve_error(errno, c->cmd);
 		}
 	}
@@ -112,7 +115,12 @@ void	no_pipe_process(t_exec_attr *ea)
 	t_cmd *c;
 
 	c = get_cmd(ea);
+	// fileのopenの処理はコマンドに関わらず行う
+	if (has_redirect_file(c))
+		open_files(c, ea);
 	// TODO: コマンドが存在しない時、ここでsegvする
+	if (c->cmd == NULL)
+		return ;
 	if (is_self_cmd(c->cmd))
 	{
 		if (has_redirect_file(c))

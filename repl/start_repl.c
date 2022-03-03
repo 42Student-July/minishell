@@ -26,9 +26,9 @@ char	*do_readline()
 	char	*line;
 
 	// print_exit_status(); //テスターに通すときはコメントアウト
-	set_interactive_signal();
+	set_signal_handler_during_readline();
 	line = readline(">> ");
-	set_dfl_signal();
+	set_signal_handler_during_command();
 	return (line);
 }
 
@@ -37,8 +37,10 @@ void	start_repl(void)
 	t_lexer *lexer;
 	t_token *token;
 	t_list *token_list;
+	t_list *tmp;
 	t_exec_attr *ea;
 	char *line;
+	bool flag;
 
 	token_list = NULL;
 	init_new(&ea);
@@ -67,14 +69,23 @@ void	start_repl(void)
 			ft_lstclear(&token_list, delete_token);
 			continue;
 		}
-		while (lexer->io_here_delimiters != NULL)
+		flag = true;
+		while (lexer->io_here_delimiters != NULL && flag)
 		{
-			read_heredoc(lexer, ea->env_lst);
+			flag = read_heredoc(lexer, ea->env_lst);
+		}
+		if (!flag)
+		{
+			ft_lstclear(&token_list, delete_token);
+			continue;
 		}
 		if (ft_strlen(lexer->input) > 0) // 空文字列をヒストリーに入れないための対処法
 			add_history(lexer->input);
 		expand_envvar(token_list, ea->env_lst);
 		word_split(token_list);
+		tmp = filter_null_literal_token(token_list);
+		ft_lstclear(&token_list, delete_token);
+		token_list = tmp;
 		ft_lstiter(token_list, &expand_quote);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
 		if (!is_valid_cmds(ea->cmd_lst))

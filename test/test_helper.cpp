@@ -90,7 +90,13 @@ t_list *init_input_lists(std::vector<std::pair<t_tokentype, std::string>> init_t
 
 	for (auto &token : init_tokens)
 	{
-		t_token *t = new_token(token.first, (char *)token.second.c_str());
+		t_token *t;
+		if (token.second == "NULL")
+		{
+			t = new_token(token.first, NULL);
+		} else {
+			t = new_token(token.first, (char *)token.second.c_str());
+		}
 		ft_lstadd_back(&list, ft_lstnew(t));
 	}
 

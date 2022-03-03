@@ -14,8 +14,10 @@ NAME = 			libsignal.a
 
 SRCDIR = 		./src/
 SRCNAME = 		sigaction.c \
-				set_dfl_signal.c \
-				set_interactive_signal.c \
+				set_signal_handler_during_command.c \
+				set_signal_handler_during_readline.c \
+				set_signal_handler_during_heredoc.c \
+				reset_signal_handler.c \
 
 SRCS = 			$(addprefix $(SRCDIR), $(SRCNAME))
 

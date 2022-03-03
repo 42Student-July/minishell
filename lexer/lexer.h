@@ -52,7 +52,7 @@ bool join_new_line(t_lexer *lexer);
 t_token *new_quote_token(t_lexer *lexer, t_tokentype type);
 bool is_word_token(t_tokentype);
 bool add_heredoc_delimiter(t_lexer *lexer);
-void read_heredoc(t_lexer *lexer, t_list *env_list);
+bool read_heredoc(t_lexer *lexer, t_list *env_list);
 void print_kvs(t_list *kvs);
 bool is_metachar(const char c);
 void word_split(t_list *lst);
@@ -61,9 +61,11 @@ char *expand_quote_str(const char *str);
 bool is_valid_tokens(t_list *token_list);
 
 // helper
+t_token *token_dup(t_token *token);
 char *replace_string(char *str, const char *from, const char *to);
 char *expand_single_envvar(char *str, const char *from, const char *to, size_t *i);
 char *expand_envvar_str(const char *input, void *env);
 void expand_envvar(t_list *lst, t_list *env_lst);
+t_list *filter_null_literal_token(t_list *lst);
 
 #endif

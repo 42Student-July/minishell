@@ -21,3 +21,10 @@ declare -x PWD="/Users/masashi/Projects/42tokyo/minishell/test/test_sh"
 declare -x SHLVL="1"
 ```
 現在OLDPWD以外は実装できていない。
+cdで移動したときに、pwdの""がついていない done
+OLDPWDはPWDの値をコピーするため、もしcdしたときにPWDが存在しなかったら空文字になる。
+
+リダイレクト処理のみの動作 ex) < file
+pipeがあったらそのパイプのプロセスのみエラーになる。
+ただファイルが作成される。
+終了ステータスは1

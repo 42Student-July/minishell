@@ -21,25 +21,3 @@ void	print_exit_status_in_signal()
 		printf("%d ", g_exit_status);
 }
 
-void	interactive_sigint(int sig)
-{
-	(void)sig;
-	g_exit_status = 1;
-	printf("\n");
-	// print_exit_status_in_signal();
-	rl_replace_line("", 0); // プロンプトのバッファをクリア
-	rl_on_new_line();       // プロンプトを次の行に移動したいことを伝える？
-	rl_redisplay();         // プロンプトを再描画
-}
-
-void	dfl_sigint(int sig)
-{
-	printf("\n");
-	g_exit_status = 128 + sig;
-}
-
-void	dfl_sigquit(int sig)
-{
-	printf("Quit: 3\n");
-	g_exit_status = 128 + sig;
-}
