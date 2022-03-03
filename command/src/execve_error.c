@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_error.c                                       :+:      :+:    :+:   */
+/*   execve_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:41:05 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 16:41:36 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 20:10:26 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	exec_error(int cp_errno, char *cmd_path)
 	// errnoがENOEXECでも実行権限がなければEACCESに変更する
 	if (cp_errno == ENOEXEC && !can_exit(cmd_path))
 		cp_errno = EACCES;
-	else if (cp_errno == ENOEXEC)
+	else if (cp_errno == ENOEXEC) // ENOEXECは終了ステータス0
 		exit(EXIT_SUCCESS);
 	ft_put_error(strerror(cp_errno), cmd_path);
 	exit(exit_status);
