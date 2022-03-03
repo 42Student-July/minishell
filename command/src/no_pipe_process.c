@@ -6,12 +6,11 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 15:55:26 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:36:44 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
-#include "errno.h"
 
 bool	is_path(char *cmd)
 {
@@ -40,34 +39,6 @@ bool	can_exit(char *cmd_path)
 	if ((stat_buf.st_mode & S_IRUSR) != S_IRUSR)
 		return (false);
 	return (true);
-}
-
-void	error_process(int cp_errno, char *cmd_path)
-{
-	int	exit_status;
-
-	// printf("errno %d\n", cp_errno);
-	if (cp_errno == ENOENT)
-		exit_status = 127;
-	else
-		exit_status = 126; // command not found以外は終了ステータスが126
-	// errnoがENOEXECでも実行権限がなければEACCESに変更する
-	if (cp_errno == ENOEXEC && !can_exit(cmd_path))
-		cp_errno = EACCES;
-	else if (cp_errno == ENOEXEC)
-		exit(EXIT_SUCCESS);
-	ft_put_error(strerror(cp_errno), cmd_path);
-	exit(exit_status);
-}
-
-bool	is_dir(char *cmd_path)
-{
-	DIR	*dir;
-
-	dir = opendir(cmd_path);
-	if (dir)
-		return (true);
-	return (false);
 }
 
 void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
@@ -117,7 +88,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
-			error_process(errno, c->cmd);
+			exec_error(errno, c->cmd);
 		}
 	}
 	else

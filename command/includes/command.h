@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/23 22:49:58 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:45:49 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,10 @@ void		free_pipe_attr(t_pipe_attr *pa);
 
 // t_cmd_utils.c
 char		*get_filename(t_cmd *c, int io);
+void		exec_error(int cp_errno, char *cmd_path);
+bool		is_dir(char *cmd_path);
+
+// execve_error.c
+void		execve_error(int cp_errno, char *cmd_path);
 
 #endif
