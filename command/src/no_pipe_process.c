@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 20:38:16 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 21:08:52 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		cmd_path = find_path(c->cmd, ea);
 		if (cmd_path == NULL)
 		{
-			ft_put_error("command not found", c->cmd);
+			ft_put_cmd_error(c->cmd, "command not found");
 			g_exit_status = 127;
 			return ;
 		}
@@ -81,7 +81,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	{
 		if (is_dir(cmd_path))
 		{
-			ft_put_error("is a directory", c->cmd);
+			ft_put_cmd_error(c->cmd, "is a directory");
 			exit(126);
 		}
 		if (has_redirect_file(c))

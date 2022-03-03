@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:41:05 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 20:11:45 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 21:07:58 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void	execve_error(int cp_errno, char *cmd_path)
 		cp_errno = EACCES;
 	else if (cp_errno == ENOEXEC) // ENOEXECは終了ステータス0
 		exit(EXIT_SUCCESS);
-	ft_put_error(strerror(cp_errno), cmd_path);
+	ft_put_cmd_error(cmd_path, strerror(cp_errno));
 	exit(exit_status);
 }
