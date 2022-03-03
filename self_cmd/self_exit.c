@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 22:53:40 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 22:56:51 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 		exit(EXIT_FAILURE);
 	if (!is_num(arg1) || !ft_atol(arg1, &arg1_num))
 	{
-		// error_message = make_arg_error_message(arg1, \
-		// 									"numeric argument required");
 		ft_put_arg_error("exit", arg1, "numeric argument required");
 		free(arg1);
 		exit(255);
