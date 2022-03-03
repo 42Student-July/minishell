@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 22:42:28 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 22:53:40 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ bool	is_num(char *str)
 		i++;
 	}
 	return (true);
-}
-
-void	exit_success(unsigned int exit_status)
-{
-	exit(exit_status);
 }
 
 void	exit_failure(unsigned int exit_status, char *error_message)
@@ -102,19 +97,17 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	ft_putendl_fd("exit", STDERR_FILENO);
 	argc = ft_lstsize(cmd->args);
 	if (argc == 1)
-		exit_success(g_exit_status);
+		exit(g_exit_status);
 	arg1 = get_arg1(cmd);
 	if (arg1 == NULL)
-	{
-		perror("malloc");
 		exit(EXIT_FAILURE);
-	}
 	if (!is_num(arg1) || !ft_atol(arg1, &arg1_num))
 	{
-		error_message = make_arg_error_message(arg1, \
-											"numeric argument required");
+		// error_message = make_arg_error_message(arg1, \
+		// 									"numeric argument required");
+		ft_put_arg_error("exit", arg1, "numeric argument required");
 		free(arg1);
-		exit_failure(255, error_message);
+		exit(255);
 	}
 	free(arg1);
 	if (argc > 2)
@@ -126,8 +119,8 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	}
 	exit_status = arg1_num;
 	if (exit_status > 255)
-		exit_success(exit_status % 256);
+		exit(exit_status % 256);
 	else
-		exit_success(exit_status);
+		exit(exit_status);
 	return (exit_status);
 }
