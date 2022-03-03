@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 22:56:51 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 23:04:59 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ bool	is_num(char *str)
 		i++;
 	}
 	return (true);
-}
-
-void	exit_failure(unsigned int exit_status, char *error_message)
-{
-	ft_putendl_fd(error_message, STDERR_FILENO);
-	exit(exit_status);
 }
 
 char	*make_arg_error_message(char *arg, char *error)
@@ -91,7 +85,6 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	int				argc;
 	char			*arg1;
 	long			arg1_num;
-	char			*error_message;
 
 	(void)ea;
 	ft_putendl_fd("exit", STDERR_FILENO);
@@ -104,15 +97,13 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	if (!is_num(arg1) || !ft_atol(arg1, &arg1_num))
 	{
 		ft_put_arg_error("exit", arg1, "numeric argument required");
-		free(arg1);
 		exit(255);
 	}
 	free(arg1);
 	if (argc > 2)
 	{
-		error_message = make_dfl_error_message("too many arguments");
 		ft_putendl_fd("exit", STDERR_FILENO);
-		ft_putendl_fd(error_message, STDERR_FILENO);
+		ft_put_cmd_error("exit", "too many arguments");
 		return (1);
 	}
 	exit_status = arg1_num;
