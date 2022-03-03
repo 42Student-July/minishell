@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_process.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/28 15:32:23 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:20:35 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,80 +50,31 @@ void	redirect_dev_null(t_exec_attr *ea)
 	close(fd);
 }
 
-void	redirect_in(t_cmd *cmd, t_exec_attr *ea)
+void	change_fd(t_list *files)
 {
-	t_list	*current_filename;
 	t_file	*f;
 	int		i;
-	int		fd;
+	t_list	*tmp;
 
-	(void)ea;
-	current_filename = cmd->filenames_in;
 	i = 0;
-	while (current_filename != NULL)
+	tmp = files;
+	while (tmp != NULL)
 	{
-		f = (t_file *)current_filename->content;
-		fd = open(f->filename, O_RDONLY);
-		if (fd == -1)
-		{
-			perror("open");
-			exit(EXIT_FAILURE);
-		}
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-		current_filename = current_filename->next;
-		i++;
-	}
-}
-
-void	redirect_out(t_cmd *cmd, t_exec_attr *ea)
-{
-	t_list	*current_filename;
-	t_file	*f;
-	int		i;
-	int		fd;
-
-	(void)ea;
-	current_filename = cmd->filenames_out;
-	i = 0;
-	while (current_filename != NULL)
-	{
-		f = (t_file *)current_filename->content;
-		if (f->is_double) // アペンドのリダイレクト
-		{
-			fd = open(f->filename, \
-						O_WRONLY | O_CREAT | O_APPEND, 0666);
-			if (fd == -1)
-			{
-				perror("open");
-				exit(EXIT_FAILURE);
-			}
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		else // デフォルトのリダイレクト
-		{
-			fd = open(f->filename, \
-						O_WRONLY | O_CREAT | O_TRUNC, 0666);
-			if (fd == -1)
-			{
-				perror("open");
-				exit(EXIT_FAILURE);
-			}
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		current_filename = current_filename->next;
+		f = (t_file *)tmp->content;
+		dup2(f->fd, STDOUT_FILENO);
+		close(f->fd);
+		tmp = tmp->next;
 		i++;
 	}
 }
 
 void	redirect(t_cmd *cmd, t_exec_attr *ea)
 {
+	(void)ea;
 	if (cmd->filenames_in != NULL)
-		redirect_in(cmd, ea);
+		change_fd(cmd->filenames_in);
 	if (cmd->filenames_out != NULL)
-		redirect_out(cmd, ea);
+		change_fd(cmd->filenames_out);
 }
 
 void	reset_stdfd(t_exec_attr *ea)
@@ -131,4 +82,75 @@ void	reset_stdfd(t_exec_attr *ea)
 	dup2(ea->stdfd[0], STDIN_FILENO);
 	dup2(ea->stdfd[1], STDOUT_FILENO);
 	dup2(ea->stdfd[2], STDERR_FILENO);
+}
+
+bool	open_files_out(t_cmd *cmd)
+{
+	t_list	*current_filename;
+	t_file	*f;
+	int		fd;
+
+	current_filename = cmd->filenames_out;
+	while (current_filename != NULL)
+	{
+		f = (t_file *)current_filename->content;
+		// アペンドのリダイレクト
+		if (f->is_double)
+			fd = open(f->filename, \
+						O_WRONLY | O_CREAT | O_APPEND, 0666);
+		else
+			fd = open(f->filename, \
+					O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (fd == -1)
+		{
+			perror(f->filename);
+			g_exit_status = EXIT_FAILURE;
+			return (false);
+		}
+		f->fd = fd;
+		current_filename = current_filename->next;
+	}
+	return (true);
+}
+
+bool	open_files_in(t_cmd *cmd)
+{
+	t_list	*current_filename;
+	t_file	*f;
+	int		fd;
+
+	current_filename = cmd->filenames_in;
+	while (current_filename != NULL)
+	{
+		f = (t_file *)current_filename->content;
+		fd = open(f->filename, O_RDONLY);
+		if (fd == -1)
+		{
+			perror(f->filename);
+			g_exit_status = EXIT_FAILURE;
+			return (false);
+		}
+		f->fd = fd;
+	}
+	return (true);
+}
+
+bool	open_files(t_cmd *cmd, t_exec_attr *ea)
+{
+	(void)ea;
+	if (!open_files_in(cmd))
+		return (false);
+	if (!open_files_out(cmd))
+		return (false);
+	return (true);
+}
+
+bool	open_files_in_pipe(t_cmd *cmd, t_exec_attr *ea)
+{
+	(void)ea;
+	if (!open_files_in(cmd))
+		exit(EXIT_FAILURE);
+	if (!open_files_out(cmd))
+		exit(EXIT_FAILURE);
+	return (true);
 }

@@ -1,5 +1,13 @@
 > file
+< file
 > file | cat < no_such_file
+< file | cat < no_such_file
+ls | > file
+ls | < file
+ls | < file | pwd
+ls | > file | pwd
+ls | < file | pwd < file_2
+ls | < file | pwd > file_2
 echo hello > out1.txt > out2.txt > out3.txt > err1.txt > err2.txt > err3.txt\n cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
 echo hello >> out1.txt >> out2.txt >> out3.txt >> err1.txt >> err2.txt >> err3.txt\n cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
 ls > out1.txt > out2.txt > out3.txt > err1.txt > err2.txt > err3.txt\n cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt

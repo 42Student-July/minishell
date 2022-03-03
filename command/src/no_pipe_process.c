@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/02 16:29:30 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:24:43 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,12 @@ void	no_pipe_process(t_exec_attr *ea)
 	t_cmd *c;
 
 	c = get_cmd(ea);
+	// fileのopenの処理はコマンドに関わらず行う
+	if (has_redirect_file(c))
+		open_files(c, ea);
 	// TODO: コマンドが存在しない時、ここでsegvする
+	if (c->cmd == NULL)
+		return ;
 	if (is_self_cmd(c->cmd))
 	{
 		if (has_redirect_file(c))
