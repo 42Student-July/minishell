@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 16:36:44 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 20:11:54 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
-			exec_error(errno, c->cmd);
+			execve_error(errno, c->cmd);
 		}
 	}
 	else

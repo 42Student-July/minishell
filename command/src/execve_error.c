@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:41:05 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 20:10:26 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 20:11:45 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	can_exit(char *cmd_path)
 	return (true);
 }
 
-void	exec_error(int cp_errno, char *cmd_path)
+void	execve_error(int cp_errno, char *cmd_path)
 {
 	int	exit_status;
 
