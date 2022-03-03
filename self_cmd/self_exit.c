@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/04 00:22:09 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 01:47:49 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea, bool is_pipe)
 	if (argc > 2)
 	{
 		ft_put_cmd_error("exit", "too many arguments");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	exit_status = arg1_num;
 	if (exit_status > 255)
