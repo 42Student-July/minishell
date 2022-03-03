@@ -22,5 +22,5 @@ void	print_array(char **array)
 		printf("line : %s\n", array[i]);
 		i++;
 	}
-	printf("line_count = %zu\n", i + 1);
+	printf("line_count = %zu\n", i);
 }
