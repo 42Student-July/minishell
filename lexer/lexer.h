@@ -61,9 +61,11 @@ char *expand_quote_str(const char *str);
 bool is_valid_tokens(t_list *token_list);
 
 // helper
+t_token *token_dup(t_token *token);
 char *replace_string(char *str, const char *from, const char *to);
 char *expand_single_envvar(char *str, const char *from, const char *to, size_t *i);
 char *expand_envvar_str(const char *input, void *env);
 void expand_envvar(t_list *lst, t_list *env_lst);
+t_list *filter_null_literal_token(t_list *lst);
 
 #endif
