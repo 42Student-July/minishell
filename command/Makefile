@@ -6,7 +6,7 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/02/25 03:43:49 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/03/03 16:42:54 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCNAME	:=	execute_builtin.c \
 			free_pipe_attr.c \
 			exec_attribute_utils.c \
 			cmd_utils.c \
+			execve_error.c \
 
 
 SRCS	:= $(addprefix $(SRCDIR), $(SRCNAME))

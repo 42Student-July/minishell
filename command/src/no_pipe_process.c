@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_pipe_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 16:24:43 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/03 21:08:52 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@ bool	is_path(char *cmd)
 		i++;
 	}
 	return (false);
+}
+
+bool	can_exit(char *cmd_path)
+{
+	struct stat	stat_buf;
+
+	if (stat(cmd_path, &stat_buf) == -1)
+		exit(EXIT_FAILURE);
+	// 所有者の実行許可を確認している
+	if ((stat_buf.st_mode & S_IXUSR) != S_IXUSR)
+		return (false);
+	// 所有者の読み込み許可を確認している
+	if ((stat_buf.st_mode & S_IRUSR) != S_IRUSR)
+		return (false);
+	return (true);
 }
 
 void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
@@ -50,7 +65,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		cmd_path = find_path(c->cmd, ea);
 		if (cmd_path == NULL)
 		{
-			printf("%s: command not found\n", c->cmd); // 標準エラー出力にする
+			ft_put_cmd_error(c->cmd, "command not found");
 			g_exit_status = 127;
 			return ;
 		}
@@ -58,21 +73,26 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	environ = convert_envlst_to_array(ea);
 	cpid = fork();
 	if (cpid == -1)
-		printf("fork error\n");
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
 	else if (cpid == 0)
 	{
+		if (is_dir(cmd_path))
+		{
+			ft_put_cmd_error(c->cmd, "is a directory");
+			exit(126);
+		}
 		if (has_redirect_file(c))
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
-			perror("exec error\n");
-			printf("cmd_path : %s\n", cmd_path);
-			print_array(cmdv);
-			exit(EXIT_FAILURE);
+			// perror("exec error\n");
+			// printf("cmd_path : %s\n", cmd_path);
+			// print_array(cmdv);
+			execve_error(errno, c->cmd);
 		}
-		// こっちはいらないかもしれないけど一応
-		// if (has_redirect_file(c))
-		// 	revert_direction(c, ea);
 	}
 	else
 	{

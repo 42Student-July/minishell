@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 20:14:14 by akito             #+#    #+#             */
-/*   Updated: 2022/02/23 14:49:31 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 21:13:21 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdlib.h>
+
 typedef struct s_kvs
 {
 	char	*key;
@@ -82,6 +83,10 @@ char	*ft_kvsget(t_list *list, char *key);
 bool	ft_streq(char *a, char *b);
 void	ft_kvsdelete(void *elm);
 void	ft_kvsreplace_value(void *content, char *new_value);
+void	ft_put_error(char *message);
+void	ft_put_cmd_error(char *cmd, char *message);
+void	ft_put_arg_error(char *cmd, char *arg, char *message);
+bool	ft_atol(const char *nptr, long *num);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new_elm);
@@ -96,6 +101,5 @@ bool	ft_lstdel(t_list *lst, t_list *target);
 t_list	*ft_my_lstpop_front(t_list **lst);
 void ft_lstiter_with_var(t_list *lst, void (*f)(void *, void *), void *var);
 
-bool	ft_atol(const char *nptr, long *num);
 
 #endif

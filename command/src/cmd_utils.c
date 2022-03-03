@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_cmd_utils.c                                      :+:      :+:    :+:   */
+/*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:10:49 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/16 16:14:40 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:41:13 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,16 @@ char	*get_filename(t_cmd *c, int io)
 	else
 		return (NULL);
 	return (file->filename);
+}
+
+
+
+bool	is_dir(char *cmd_path)
+{
+	DIR	*dir;
+
+	dir = opendir(cmd_path);
+	if (dir)
+		return (true);
+	return (false);
 }
