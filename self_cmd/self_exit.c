@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 23:04:59 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 23:09:39 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,42 +29,6 @@ bool	is_num(char *str)
 		i++;
 	}
 	return (true);
-}
-
-char	*make_arg_error_message(char *arg, char *error)
-{
-	char	*error_message;
-	char	*tmp_str;
-	char	*tmp_arg;
-
-	if (arg == NULL || error == NULL)
-		exit (EXIT_FAILURE);
-	tmp_arg = ft_strjoin(arg, ": ");
-	if (tmp_arg == NULL)
-		exit(EXIT_FAILURE);
-	tmp_str = ft_strjoin("bash: exit: ", tmp_arg);
-	if (tmp_str == NULL)
-		exit(EXIT_FAILURE);
-	free(tmp_arg);
-	error_message = ft_strjoin(tmp_str, error);
-	if (error_message == NULL)
-	{
-		exit(EXIT_FAILURE);
-	}
-	free(tmp_str);
-	return (error_message);
-}
-
-char	*make_dfl_error_message(char *error)
-{
-	char	*error_message;
-
-	if (error == NULL)
-		exit(EXIT_FAILURE);
-	error_message = ft_strjoin("bash: exit: ", error);
-	if (error_message == NULL)
-		exit(EXIT_FAILURE);
-	return (error_message);
 }
 
 char	*get_arg1(t_cmd *cmd)
