@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/03 17:06:13 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:17:49 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,30 +97,20 @@ bool	open_files_out(t_cmd *cmd, t_exec_attr *ea)
 	while (current_filename != NULL)
 	{
 		f = (t_file *)current_filename->content;
-		if (f->is_double) // アペンドのリダイレクト
-		{
+		// アペンドのリダイレクト
+		if (f->is_double)
 			fd = open(f->filename, \
 						O_WRONLY | O_CREAT | O_APPEND, 0666);
-			if (fd == -1)
-			{
-				perror(f->filename);
-				g_exit_status = EXIT_FAILURE;
-				return (false);
-			}
-			f->fd = fd;
-		}
-		else // デフォルトのリダイレクト
-		{
+		else
 			fd = open(f->filename, \
-						O_WRONLY | O_CREAT | O_TRUNC, 0666);
-			if (fd == -1)
-			{
-				perror(f->filename);
-				g_exit_status = EXIT_FAILURE;
-				return (false);
-			}
-			f->fd = fd;
+					O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (fd == -1)
+		{
+			perror(f->filename);
+			g_exit_status = EXIT_FAILURE;
+			return (false);
 		}
+		f->fd = fd;
 		current_filename = current_filename->next;
 		i++;
 	}
