@@ -6,14 +6,14 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/04 00:08:27 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 00:22:09 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 #include "common.h"
 
-bool	is_num(char *str)
+static bool	is_num(char *str)
 {
 	size_t	i;
 
@@ -31,7 +31,7 @@ bool	is_num(char *str)
 	return (true);
 }
 
-char	*get_arg1(t_cmd *cmd)
+static char	*get_arg1(t_cmd *cmd)
 {
 	char	*arg1;
 	t_list	*arg1_lst;
@@ -51,8 +51,8 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea, bool is_pipe)
 	long			arg1_num;
 
 	(void)ea;
-	(void)is_pipe;
-	ft_putendl_fd("exit", STDERR_FILENO);
+	if (!is_pipe)
+		ft_putendl_fd("exit", STDERR_FILENO);
 	argc = ft_lstsize(cmd->args);
 	if (argc == 1)
 		exit(g_exit_status);
@@ -67,7 +67,6 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea, bool is_pipe)
 	free(arg1);
 	if (argc > 2)
 	{
-		ft_putendl_fd("exit", STDERR_FILENO);
 		ft_put_cmd_error("exit", "too many arguments");
 		return (1);
 	}
