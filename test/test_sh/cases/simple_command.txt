@@ -20,7 +20,29 @@ touch perm\n chmod 300 perm\n ./perm
 touch perm\n chmod 500 perm\n perm
 touch perm\n chmod 500 perm\n ./perm
 touch empty\n chmod +x empty\n ./empty
+touch perm\n chmod 000 perm\n perm | pwd
+touch perm\n chmod 000 perm\n ./perm | pwd
+touch perm\n chmod 100 perm\n perm | pwd
+touch perm\n chmod 100 perm\n ./perm | pwd
+touch perm\n chmod 300 perm\n perm | pwd
+touch perm\n chmod 300 perm\n ./perm | pwd
+touch perm\n chmod 500 perm\n perm | pwd
+touch perm\n chmod 500 perm\n ./perm | pwd
+touch empty\n chmod +x empty\n ./empty | pwd
+touch perm\n chmod 000 perm\n pwd | perm
+touch perm\n chmod 000 perm\n pwd | ./perm
+touch perm\n chmod 100 perm\n pwd | perm
+touch perm\n chmod 100 perm\n pwd | ./perm
+touch perm\n chmod 300 perm\n pwd | perm
+touch perm\n chmod 300 perm\n pwd | ./perm
+touch perm\n chmod 500 perm\n pwd | perm
+touch perm\n chmod 500 perm\n pwd | ./perm
+touch empty\n chmod +x empty\n pwd | ./empty
 mkdir dir\n dir
 mkdir dir\n ./dir
+mkdir dir\n dir | pwd
+mkdir dir\n ./dir | pwd
+mkdir dir\n pwd | dir
+mkdir dir\n pwd | ./dir
 ln -s exe sym\n chmod -h -x sym\n ./exe
 unset NO_ENV\n echo a | $NO_ENV | cat
