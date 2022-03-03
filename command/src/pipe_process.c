@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 16:35:40 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 20:16:07 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 		{
 			if (execve(cmd_path, cmdv, environ) == -1)
 			{
-				perror("exec error");
+				execve_error(errno, pa->current_cmd->cmd);
 				exit(EXIT_FAILURE);
 			}
 		}
