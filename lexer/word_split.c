@@ -11,6 +11,17 @@ void	ft_lstadd_next(t_list *lst, void *content)
 	lst->next = new;
 }
 
+bool has_only_whitespace(const char *str)
+{
+	while(*str)
+	{
+		if (!ft_isspace(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}
+
 bool	has_whitespace(const char *str)
 {
 	size_t	i;
@@ -74,6 +85,13 @@ void	word_split(t_list *lst)
 		token = lst->content;
 		if (token->type == TOKEN_IDENT)
 		{
+			if (has_only_whitespace(token->literal))
+			{
+				free(token->literal);
+				token->literal = NULL;
+				lst = lst->next;
+				continue;
+			}
 			if (has_whitespace(token->literal))
 			{
 				str = new_literal(token->literal, &pos);
