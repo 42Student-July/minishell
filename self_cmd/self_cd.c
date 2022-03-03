@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/02 16:32:30 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/03 13:08:49 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,11 +221,8 @@ char *remove_relative(char *path, t_exec_attr *ea)
 		new_str = ft_strdup("/");
 		free_char_dptr(split);
 		free_char_dptr(new_split);
-		// printf("kita\n");
 		return (new_str);
-	
 	}
-	// printf("kita\n");
 	new_str = (char *)calloc(sizeof(char), new_str_len + 1);
 	if (new_str == NULL)
 		abort_minishell(MALLOC_ERROR, ea);
@@ -243,7 +240,6 @@ char *remove_relative(char *path, t_exec_attr *ea)
 	}
 	free_char_dptr(split);
 	free_char_dptr(new_split);
-	// printf("new_str : %s\n", new_str);
 	return (new_str);
 }
 
@@ -266,10 +262,6 @@ bool	has_diff(char *path, t_exec_attr *ea)
 	if (lstat(pwd_del_dot, &buf) == -1)
 		return (false);
 	flag = is_same_str(cwd, pwd_del_dot);
-	// printf("cwd : %s\n", cwd);
-	// printf("pwd_del_dot : %s\n", pwd_del_dot);
-	// printf("flag = %d\n", flag);
-	// TODO:どっかでdouble freeにナル。
 	if (*path != '/')
 		free(pwd);
 	free(pwd_del_dot);
@@ -282,9 +274,6 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	char	*path;
 	char	*tmp;
 
-	// .が２つ以上だったケースも考慮しないとだめ
-	//TODO: dirが絶対パスだったときの考慮も入れる
-	//TODO:: 最初が/だったケースも
 	if (chdir(arg) == -1)
 	{
 		print_error(CD, arg);
@@ -303,7 +292,6 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	}
 	else
 		path = arg;
-	// printf("path : %s\n", path);
 	if (has_diff(path, ea))
 	{
 		tmp = create_new_pwd(ea->current_pwd, path);
@@ -316,11 +304,9 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 		reset_stdfd(ea);
 		if (new_pwd == NULL)
 		{
-			// revert_redirect_out(ea);
 			print_error(PWD, path);
 			return (1);
 		}
-		// revert_redirect_out(ea);
 	}
 	update_all_environ(new_pwd, ea);
 	if (is_end_of_slash(arg))
