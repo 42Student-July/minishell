@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 23:09:39 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 00:08:27 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*get_arg1(t_cmd *cmd)
 	return (ft_strtrim(arg1, " "));
 }
 
-int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
+int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea, bool is_pipe)
 {
 	unsigned int	exit_status;
 	int				argc;
@@ -51,6 +51,7 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	long			arg1_num;
 
 	(void)ea;
+	(void)is_pipe;
 	ft_putendl_fd("exit", STDERR_FILENO);
 	argc = ft_lstsize(cmd->args);
 	if (argc == 1)

@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/03 16:45:49 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 23:55:56 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		print_cmdv(char **cmdv);
 
 // execute_self.c
 bool		is_self_cmd(char *cmd);
-void		execute_self_cmd(t_cmd	*c, t_exec_attr *ea);
+void		execute_self_cmd(t_cmd	*c, t_exec_attr *ea, bool is_pipe);
 void		create_cmd_from_arg(int argc, const char *argv[], t_exec_attr *ea);
 void		exec_in_child_process(t_exec_attr *ea);
 bool		exec_in_main_process(t_exec_attr *ea);
