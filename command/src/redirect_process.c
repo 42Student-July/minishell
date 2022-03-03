@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/03 17:17:49 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:20:35 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,13 @@ void	reset_stdfd(t_exec_attr *ea)
 	dup2(ea->stdfd[2], STDERR_FILENO);
 }
 
-bool	open_files_out(t_cmd *cmd, t_exec_attr *ea)
+bool	open_files_out(t_cmd *cmd)
 {
 	t_list	*current_filename;
 	t_file	*f;
-	int		i;
 	int		fd;
 
-	(void)ea;
 	current_filename = cmd->filenames_out;
-	i = 0;
 	while (current_filename != NULL)
 	{
 		f = (t_file *)current_filename->content;
@@ -112,21 +109,17 @@ bool	open_files_out(t_cmd *cmd, t_exec_attr *ea)
 		}
 		f->fd = fd;
 		current_filename = current_filename->next;
-		i++;
 	}
 	return (true);
 }
 
-bool	open_files_in(t_cmd *cmd, t_exec_attr *ea)
+bool	open_files_in(t_cmd *cmd)
 {
 	t_list	*current_filename;
 	t_file	*f;
-	int		i;
 	int		fd;
 
-	(void)ea;
 	current_filename = cmd->filenames_in;
-	i = 0;
 	while (current_filename != NULL)
 	{
 		f = (t_file *)current_filename->content;
@@ -144,18 +137,20 @@ bool	open_files_in(t_cmd *cmd, t_exec_attr *ea)
 
 bool	open_files(t_cmd *cmd, t_exec_attr *ea)
 {
-	if (!open_files_in(cmd, ea))
+	(void)ea;
+	if (!open_files_in(cmd))
 		return (false);
-	if (!open_files_out(cmd, ea))
+	if (!open_files_out(cmd))
 		return (false);
 	return (true);
 }
 
 bool	open_files_in_pipe(t_cmd *cmd, t_exec_attr *ea)
 {
-	if (!open_files_in(cmd, ea))
+	(void)ea;
+	if (!open_files_in(cmd))
 		exit(EXIT_FAILURE);
-	if (!open_files_out(cmd, ea))
+	if (!open_files_out(cmd))
 		exit(EXIT_FAILURE);
 	return (true);
 }
