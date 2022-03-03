@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/04 01:47:49 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 01:55:01 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea, bool is_pipe)
 	long			arg1_num;
 
 	(void)ea;
-	if (!is_pipe)
+	if (!is_pipe) // pipeのときは出力しないらしい
 		ft_putendl_fd("exit", STDERR_FILENO);
 	argc = ft_lstsize(cmd->args);
 	if (argc == 1)
@@ -75,5 +75,5 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea, bool is_pipe)
 		exit(exit_status % 256);
 	else
 		exit(exit_status);
-	return (exit_status);
+	return (exit_status); // 無いとエラーになるので飾り
 }
