@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:48:01 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 21:03:14 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 21:05:01 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_put_cmd_error(char *cmd, char *message)
 	ft_putendl_fd(message, STDERR_FILENO);
 }
 
-void	ft_put_arg_error(char *cmd, char *arg, char *message)
+void	ft_put_cmd_error(char *cmd, char *message)
 {
 	ft_putstr_fd("bash: ", STDERR_FILENO); // 最後にminishellに変える予定
 	ft_putstr_fd(cmd, STDERR_FILENO);
