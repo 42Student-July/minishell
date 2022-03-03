@@ -96,6 +96,8 @@ void	no_pipe_process(t_exec_attr *ea)
 
 	c = get_cmd(ea);
 	// TODO: コマンドが存在しない時、ここでsegvする
+	if (c->cmd == NULL)
+		return ;
 	if (is_self_cmd(c->cmd))
 	{
 		if (has_redirect_file(c))
