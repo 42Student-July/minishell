@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/01 13:52:46 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/03 22:42:28 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ bool	is_num(char *str)
 
 void	exit_success(unsigned int exit_status)
 {
-	ft_putendl_fd("exit", STDERR_FILENO);
 	exit(exit_status);
 }
 
 void	exit_failure(unsigned int exit_status, char *error_message)
 {
-	ft_putendl_fd("exit", STDERR_FILENO);
 	ft_putendl_fd(error_message, STDERR_FILENO);
 	exit(exit_status);
 }
@@ -101,6 +99,7 @@ int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
 	char			*error_message;
 
 	(void)ea;
+	ft_putendl_fd("exit", STDERR_FILENO);
 	argc = ft_lstsize(cmd->args);
 	if (argc == 1)
 		exit_success(g_exit_status);
