@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/03 23:55:56 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 02:07:16 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define SLASH 1
 # define IN 0
 # define OUT 1
+# define NO_PIPE 0
+# define PIPE 1
 
 // execute.c
 int			execute_cmd(t_exec_attr *ea);

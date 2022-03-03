@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/04 00:08:01 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 02:07:59 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 		if (has_redirect_file(pa->current_cmd))
 			redirect(pa->current_cmd, ea);
 		if (is_self_cmd(pa->current_cmd->cmd))
-			execute_self_cmd(pa->current_cmd, ea, 1);
+			execute_self_cmd(pa->current_cmd, ea, PIPE);
 		else
 		{
 			if (execve(cmd_path, cmdv, environ) == -1)

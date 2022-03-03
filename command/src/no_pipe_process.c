@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/04 00:07:40 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 02:07:50 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	no_pipe_process(t_exec_attr *ea)
 	{
 		if (has_redirect_file(c))
 			redirect(c, ea);
-		execute_self_cmd(c, ea, 0);
+		execute_self_cmd(c, ea, NO_PIPE);
 		if (has_redirect_file(c))
 			reset_stdfd(ea);
 	}
