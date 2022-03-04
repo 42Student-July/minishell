@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:20:16 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 15:22:19 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:07:25 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,19 @@ void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 			abort_minishell(MALLOC_ERROR, ea);
 		if (split[VALUE] == NULL)
 		{
-			// valueがnullのときは空文字を入れる必要があるため、reallocをする。
-			tmp = split[KEY];
-			free_char_dptr(split);
-			split = (char **)malloc(sizeof(char *) * 3);
-			split[KEY] = tmp;
-			split[VALUE] = ft_strdup("");
-			split[VALUE + 1] = NULL;
+			// valueがnullのときはsplit[VALUE]に値を入れるとreallocが必要なのでtmpを用意
+			tmp = ft_strdup("");
+			if (!ft_lstadd_back(&env_lst, ft_lstnew(ft_kvsnew(split[KEY], tmp))))
+				abort_minishell_with(MALLOC_ERROR, ea, split);
+			free(tmp);
 		}
-		if (!ft_lstadd_back(&env_lst, \
+		else
+		{
+			if (!ft_lstadd_back(&env_lst, \
 			ft_lstnew(ft_kvsnew(split[KEY], split[VALUE]))))
-			abort_minishell_with(MALLOC_ERROR, ea, split);
+				abort_minishell_with(MALLOC_ERROR, ea, split);
+
+		}
 		i++;
 		free_char_dptr(split);
 	}
