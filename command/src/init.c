@@ -30,8 +30,10 @@ void	init_oldpwd(t_exec_attr *ea)
 	t_list *oldpwd;
 
 	oldpwd = get_lst_by_key(ea->env_lst, "OLDPWD");
+	ft_kvsdelete(oldpwd->content);
 	ft_lstdel(ea->env_lst, oldpwd);
 	oldpwd = get_lst_by_key(ea->export_lst, "OLDPWD");
+	ft_kvsdelete(oldpwd->content);
 	ft_lstdel(ea->export_lst, oldpwd);
 	store_arg_in_export(ea, "OLDPWD", NULL);
 	store_arg_in_env(ea, "OLDPWD", NULL);
