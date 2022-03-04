@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:07:21 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/03 17:20:35 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:47:29 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	redirect_dev_null(t_exec_attr *ea)
 	close(fd);
 }
 
-void	change_fd(t_list *files)
+void	change_fd(t_list *files, bool is_in)
 {
 	t_file	*f;
 	int		i;
@@ -61,7 +61,10 @@ void	change_fd(t_list *files)
 	while (tmp != NULL)
 	{
 		f = (t_file *)tmp->content;
-		dup2(f->fd, STDOUT_FILENO);
+		if (is_in)
+			dup2(f->fd, STDIN_FILENO);
+		else
+			dup2(f->fd, STDOUT_FILENO);
 		close(f->fd);
 		tmp = tmp->next;
 		i++;
@@ -72,9 +75,9 @@ void	redirect(t_cmd *cmd, t_exec_attr *ea)
 {
 	(void)ea;
 	if (cmd->filenames_in != NULL)
-		change_fd(cmd->filenames_in);
+		change_fd(cmd->filenames_in, true);
 	if (cmd->filenames_out != NULL)
-		change_fd(cmd->filenames_out);
+		change_fd(cmd->filenames_out, false);
 }
 
 void	reset_stdfd(t_exec_attr *ea)
@@ -131,6 +134,7 @@ bool	open_files_in(t_cmd *cmd)
 			return (false);
 		}
 		f->fd = fd;
+		current_filename = current_filename->next;
 	}
 	return (true);
 }
