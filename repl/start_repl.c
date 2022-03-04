@@ -84,7 +84,6 @@ void	start_repl(void)
 		word_split(token_list);
 		ft_lstiter(token_list, &expand_quote);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
-		print_cmds(ea->cmd_lst);
 		execute_cmd(ea);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
