@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:31:11 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 11:06:14 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:24:17 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	free_char_dptr(char **dptr)
 		while (dptr[i] != NULL)
 		{
 			free(dptr[i]);
-			printf("dptr[i] : %s\n", dptr[i]);
+			// printf("dptr[i] : %s\n", dptr[i]);
 			i++;
 		}
 		free(dptr);
