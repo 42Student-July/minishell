@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/04 02:07:50 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:19:41 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,30 @@ bool	can_exit(char *cmd_path)
 	return (true);
 }
 
+char	*find_execfile_in_currentdir(char *cmd, t_exec_attr *ea)
+{
+	DIR				*dirp;
+	struct dirent	*dp;
+	char			*cmd_path;
+
+	dirp = opendir(ea->current_pwd);
+	if (dirp == NULL)
+		return (NULL);
+	dp = readdir(dirp);
+	while (dp != NULL)
+	{
+		if (is_same_str(dp->d_name, cmd))
+		{
+			cmd_path = concat_path_and_cmd(ea->current_pwd, cmd);
+			if (cmd_path == NULL)
+				exit(EXIT_FAILURE);
+			return (cmd_path);
+		}
+		dp = readdir(dirp);
+	}
+	return (NULL);
+}
+
 void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 {
 	pid_t	cpid;
@@ -65,9 +89,13 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		cmd_path = find_path(c->cmd, ea);
 		if (cmd_path == NULL)
 		{
-			ft_put_cmd_error(c->cmd, "command not found");
-			g_exit_status = 127;
-			return ;
+			cmd_path = find_execfile_in_currentdir(c->cmd, ea);
+			if (cmd_path == NULL)
+			{
+				ft_put_cmd_error(c->cmd, "command not found");
+				g_exit_status = 127;
+				return ;
+			}
 		}
 	}
 	environ = convert_envlst_to_array(ea);

@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 02:07:16 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:18:29 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char		*create_environ_line(char *key, char *value, bool is_end);
 // create_cmd.c
 bool		is_dollar(char *arg);
 char		*convert_env_var(t_exec_attr *ea, char *arg);
+char		*concat_path_and_cmd(char *path, char *command);
 void		create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea);
 char		*find_path(char *cmd_name, t_exec_attr *ea);
 
