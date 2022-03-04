@@ -15,43 +15,43 @@ t_cmd	*parse_cmd(t_list *token_list, t_list **heredocs)
 {
 	t_cmd	*cmd;
 	t_token	*token;
+	t_list *lst;
 	char	*filename;
 
 	cmd = cmd_init();
-	parse_exec(token_list, &cmd);
-	if (cmd->is_invalid_syntax)
-		return (cmd);
-	while (token_list != NULL)
+	lst = token_list;
+	while (lst != NULL)
 	{
-		token = token_list->content;
+		token = lst->content;
 		if (token->type == TOKEN_EOF || token->type == TOKEN_PIPE)
 			break ;
 		if (token->type == TOKEN_REDIRECT_IN)
 		{
-			token = token_list->next->content;
+			token = lst->next->content;
 			ft_lstadd_back(&cmd->filenames_in,
 							ft_lstnew(new_file(token->literal, false)));
 		}
 		else if (token->type == TOKEN_REDIRECT_OUT)
 		{
-			token = token_list->next->content;
+			token = lst->next->content;
 			ft_lstadd_back(&cmd->filenames_out,
 							ft_lstnew(new_file(token->literal, false)));
 		}
 		else if (token->type == TOKEN_REDIRECT_APPEND)
 		{
-			token = token_list->next->content;
+			token = lst->next->content;
 			ft_lstadd_back(&cmd->filenames_out,
 							ft_lstnew(new_file(token->literal, true)));
 		}
 		else if (token->type == TOKEN_HEREDOC)
 		{
-			token = token_list->next->content;
+			token = lst->next->content;
 			filename = ft_kvsget(*heredocs, token->literal);
 			ft_lstadd_back(&cmd->filenames_in, ft_lstnew(new_file(filename,
 							true)));
 		}
-		token_list = token_list->next;
+		lst = lst->next;
 	}
+	parse_exec(token_list, &cmd);
 	return (cmd);
 }

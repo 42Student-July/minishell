@@ -3,38 +3,25 @@
 #include "libft.h"
 #include "parser.h"
 
-t_list *parse_pipe_helper(t_list *token_list, t_list **heredocs);
+t_list	*parse_pipe_helper(t_list *token_list, t_list **heredocs);
 
-t_list *parse_pipe(t_list *token_list, t_list **heredocs)
+t_list	*parse_pipe(t_list *token_list, t_list **heredocs)
 {
-	t_list *result;
-	// t_list *tmp;
+	t_list	*result;
 
 	result = parse_pipe_helper(token_list, heredocs);
 	if (result == NULL)
 		return (NULL);
-	// tmp = result;
-	// while (tmp != NULL)
-	// {
-	// 	if (!is_valid_cmd(tmp->content))
-	// 	{
-	// 		printf("syntax error\n");
-	// 		ft_lstclear(&result, delete_pipe);
-	// 		result = NULL;
-	// 		break;
-	// 	}
-	// 	tmp = tmp->next;
-	// }
 	return (result);
 }
 
-t_list *parse_pipe_helper(t_list *token_list, t_list **heredocs)
+t_list	*parse_pipe_helper(t_list *token_list, t_list **heredocs)
 {
-	t_list *left_tokens;
-	t_list *right_tokens;
-	t_token *token;
-	t_list *lst;
-	t_cmd *cmd;
+	t_list	*left_tokens;
+	t_list	*right_tokens;
+	t_token	*token;
+	t_list	*lst;
+	t_cmd	*cmd;
 
 	left_tokens = token_list;
 	if (((t_token *)left_tokens->content)->type == TOKEN_EOF)
@@ -47,7 +34,7 @@ t_list *parse_pipe_helper(t_list *token_list, t_list **heredocs)
 	{
 		token = token_list->content;
 		if (token->type == TOKEN_EOF)
-			break;
+			break ;
 		if (token->type == TOKEN_PIPE)
 		{
 			right_tokens = token_list->next;

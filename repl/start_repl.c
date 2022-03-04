@@ -64,7 +64,7 @@ void	start_repl(void)
 		}
 		if (!is_valid_tokens(token_list))
 		{
-			printf("syntax error\n");
+			write(STDERR, "syntax error\n", 13);
 			ft_lstclear(&token_list, delete_token);
 			continue;
 		}
@@ -84,6 +84,16 @@ void	start_repl(void)
 		word_split(token_list);
 		ft_lstiter(token_list, &expand_quote);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
+		if (!is_valid_cmds(ea->cmd_lst))
+		{
+			write(STDERR, "syntax error\n", 13);
+			g_exit_status = 2;
+			ft_lstclear(&token_list, delete_token);
+			token_list = NULL;
+			ft_lstclear(&ea->cmd_lst, delete_pipe);
+			ea->cmd_lst = NULL;
+			continue;
+		}
 		execute_cmd(ea);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
