@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 21:27:36 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 21:28:25 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/04 21:53:53 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,21 @@ void	update_all_environ(char *new_pwd, t_exec_attr *ea)
 		if (ft_strlen(ft_kvsget_value(pwdlst->content)) == 0)
 			pwd = ft_strdup("");
 		else
-			pwd = ea->current_pwd;
+			pwd = ft_strdup(ea->current_pwd);
 	}
-	// free(ea->current_pwd);
-	ea->current_pwd = new_pwd;
+	free(ea->current_pwd);
+	ea->current_pwd = ft_strdup(new_pwd);
 	export_pwd = create_export_value(pwd);
-	export_new_pwd = create_export_value(new_pwd);
 	if (pwdlst != NULL)
 	{
+		export_new_pwd = create_export_value(new_pwd);
 		update_value(ea->env_lst, "PWD", new_pwd, ea);
 		update_value(ea->export_lst, "PWD", export_new_pwd, ea);
+		free(export_new_pwd);
 	}
-	free(new_pwd);
-	free(export_new_pwd);
 	update_value(ea->env_lst, "OLDPWD", pwd, ea);
 	update_value(ea->export_lst, "OLDPWD", export_pwd, ea);
-	// free(pwd);
+	free(pwd);
 	free(export_pwd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/04 21:27:55 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/04 22:08:14 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ bool	is_current_dir_exist(t_exec_attr *ea)
 	redirect_dev_null(ea);
 	pwd = getcwd(NULL, 0);
 	reset_stdfd(ea);
+	free(pwd);
 	if (pwd == NULL)
 		return (false);
 	return (true);
@@ -168,6 +169,7 @@ bool	has_diff(char *path, t_exec_attr *ea)
 	if (*path != '/')
 		free(pwd);
 	free(pwd_del_dot);
+	free(cwd);
 	return (!flag);
 }
 
@@ -194,7 +196,7 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 			abort_minishell(MALLOC_ERROR, ea);
 	}
 	else
-		path = arg;
+		path = ft_strdup(arg);
 	if (has_diff(path, ea))
 	{
 		tmp = create_new_pwd(ea->current_pwd, path);
@@ -212,18 +214,20 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 		}
 	}
 	update_all_environ(new_pwd, ea);
-	if (is_end_of_slash(arg))
-		free(path);
+	free(path);
+	free(new_pwd);
 	return (0);
 }
 
 int	exec_self_cd(t_cmd *cmd, t_exec_attr *ea)
 {
 	char	*argv_one;
+	int		status;
 
 	argv_one = get_argv_one(cmd);
 	if (argv_one == NULL)
 		return (1);
 	// TODO: 引数が２つある場合などにも対応する
-	return (x_chdir(argv_one, ea));
+	status = x_chdir(argv_one, ea);
+	return (status);
 }
