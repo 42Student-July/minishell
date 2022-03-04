@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 14:54:54 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/03 13:08:49 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:40:39 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@ void	update_all_environ(char *new_pwd, t_exec_attr *ea)
 		else
 			pwd = ea->current_pwd;
 	}
+	// free(ea->current_pwd);
 	ea->current_pwd = new_pwd;
 	export_pwd = create_export_value(pwd);
 	export_new_pwd = create_export_value(new_pwd);
-	if (export_new_pwd == NULL)
-		abort_minishell(MALLOC_ERROR, ea);
 	if (pwdlst != NULL)
 	{
 		update_value(ea->env_lst, "PWD", new_pwd, ea);
 		update_value(ea->export_lst, "PWD", export_new_pwd, ea);
+		free(new_pwd);
+		free(export_new_pwd);
 	}
 	update_value(ea->env_lst, "OLDPWD", pwd, ea);
 	update_value(ea->export_lst, "OLDPWD", export_pwd, ea);
+	// free(pwd);
+	// free(export_new_pwd);
 }
 
 char	*create_new_pwd(char *pwd, char *path)
