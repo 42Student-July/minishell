@@ -8,23 +8,23 @@ t_list *parse_pipe_helper(t_list *token_list, t_list **heredocs);
 t_list *parse_pipe(t_list *token_list, t_list **heredocs)
 {
 	t_list *result;
-	t_list *tmp;
+	// t_list *tmp;
 
 	result = parse_pipe_helper(token_list, heredocs);
 	if (result == NULL)
 		return (NULL);
-	tmp = result;
-	while (tmp != NULL)
-	{
-		if (!is_valid_cmd(tmp->content))
-		{
-			printf("syntax error\n");
-			ft_lstclear(&result, delete_pipe);
-			result = NULL;
-			break;
-		}
-		tmp = tmp->next;
-	}
+	// tmp = result;
+	// while (tmp != NULL)
+	// {
+	// 	if (!is_valid_cmd(tmp->content))
+	// 	{
+	// 		printf("syntax error\n");
+	// 		ft_lstclear(&result, delete_pipe);
+	// 		result = NULL;
+	// 		break;
+	// 	}
+	// 	tmp = tmp->next;
+	// }
 	return (result);
 }
 
