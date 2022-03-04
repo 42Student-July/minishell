@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:31:11 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 13:24:17 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/04 22:18:30 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	free_exec_attr(t_exec_attr *ea)
 {
-	int		i;
-
-	i = 0;
 	free_lst(ea->env_lst);
 	free_lst(ea->export_lst);
 	free_lst(ea->cmd_lst);
