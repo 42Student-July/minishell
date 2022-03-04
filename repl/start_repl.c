@@ -84,6 +84,7 @@ void	start_repl(void)
 		word_split(token_list);
 		ft_lstiter(token_list, &expand_quote);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
+		print_cmds(ea->cmd_lst);
 		if (!is_valid_cmds(ea->cmd_lst))
 		{
 			write(STDERR, "syntax error\n", 13);

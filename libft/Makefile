@@ -63,6 +63,7 @@ SRCS :=	ft_strlen.c \
 		ft_kvsget_value.c\
 		ft_kvsget_key.c\
 		ft_kvsget.c\
+		ft_kvsget_elm.c\
 		ft_streq.c\
 		ft_kvsdelete.c\
 		ft_atol.c \

@@ -46,6 +46,25 @@ void	store_stdfd(t_exec_attr *ea)
 	ea->stdfd[2] = dup(STDERR_FILENO);
 }
 
+void increment_shlvl(t_exec_attr *ea)
+{
+	t_kvs *shlvl;
+	char *value;
+
+	shlvl = ft_kvsget_elm(ea->env_lst, "SHLVL");
+	if (shlvl == NULL)
+	{
+		shlvl = ft_kvsnew("SHLVL", "1");
+		ft_lstadd_back(&ea->env_lst, ft_lstnew(shlvl));
+	}
+	else
+	{
+		value = shlvl->value;
+		shlvl->value = ft_itoa(ft_atoi(shlvl->value) + 1);
+		free(value);
+	}
+}
+
 void	init_new(t_exec_attr **ea)
 {
 	extern char	**environ;
@@ -57,4 +76,5 @@ void	init_new(t_exec_attr **ea)
 	store_allenv_in_export(*ea, environ);
 	store_stdfd(*ea);
 	init_oldpwd(*ea);
+	increment_shlvl(*ea);
 }
