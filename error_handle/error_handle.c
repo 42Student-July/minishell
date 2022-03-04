@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:31:11 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/15 13:27:42 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/04 22:18:30 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,32 @@
 
 void	free_exec_attr(t_exec_attr *ea)
 {
-	// int		i;
-
-	// i = 0;
-	(void)ea;
-	// free_lst(ea->env_lst);
-	// free_lst(ea->export_lst);
-	// if (ea->command != NULL)
-	// {
-	// 	while (ea->command[i] != NULL)
-	// 	{
-	// 		free(ea->command[i]);
-	// 		i++;
-	// 	}
-	// 	free((void *)ea->command);
-	// }
-	// if (ea != NULL)
-	// 	free(ea);
+	free_lst(ea->env_lst);
+	free_lst(ea->export_lst);
+	free_lst(ea->cmd_lst);
+	free(ea->stdfd);
+	free(ea->current_pwd);
+	if (ea != NULL)
+		free(ea);
 }
 
-// void	free_lst(t_list *lst)
-// {
-// 	t_list	*tmp;
+void	free_lst(t_list *lst)
+{
+	t_list	*tmp;
 
-// 	tmp = lst;
-// 	while (lst != NULL)
-// 	{
-// 		free_all_kvs((t_kvs *)lst->content);
-// 		lst = lst->next;
-// 	}
-// 	lst = tmp;
-// 	while (lst != NULL)
-// 	{
-// 		free(lst);
-// 		lst = lst->next;
-// 	}
-// }
+	tmp = lst;
+	while (lst != NULL)
+	{
+		free_all_kvs((t_kvs *)lst->content);
+		lst = lst->next;
+	}
+	lst = tmp;
+	while (lst != NULL)
+	{
+		free(lst);
+		lst = lst->next;
+	}
+}
 
 void	free_char_dptr(char **dptr)
 {
@@ -61,6 +51,7 @@ void	free_char_dptr(char **dptr)
 		while (dptr[i] != NULL)
 		{
 			free(dptr[i]);
+			// printf("dptr[i] : %s\n", dptr[i]);
 			i++;
 		}
 		free(dptr);

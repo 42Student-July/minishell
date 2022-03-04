@@ -97,6 +97,7 @@ void	start_repl(void)
 		execute_cmd(ea);
 		ft_lstclear(&token_list, delete_token);
 		delete_lexer(lexer);
+		free_lst(ea->cmd_lst);
 	}
 	clear_history();
 }

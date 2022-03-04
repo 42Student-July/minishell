@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   self_cmd.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 00:07:00 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 21:30:23 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ int			exec_self_pwd(t_cmd *cmd, t_exec_attr *ea);
 
 // self_cd.c
 int			exec_self_cd(t_cmd *cmd, t_exec_attr *ea);
+char		*create_new_pwd(char *pwd, char *path);
+bool		is_symlink(char *path, t_exec_attr *ea);
+bool		is_end_of_slash(char *path);
+char		*create_str_removed_end(char *path);
+
+// self_cd_utils.c
+void		update_all_environ(char *new_pwd, t_exec_attr *ea);
 
 // self_echo.c
 int			exec_self_echo(t_cmd *cmd, t_exec_attr *ea);
