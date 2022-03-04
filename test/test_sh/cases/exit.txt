@@ -1,3 +1,4 @@
+exit
 exit 0
 exit 1
 exit -1
@@ -19,3 +20,24 @@ exit 0 0
 exit 0 0\n exit
 exit 0 0\n echo "this message should not be displayed" > file\n ls
 exit 0 0 | echo hello
+ls | exit
+ls | exit 0
+ls | exit 1
+ls | exit -1
+ls | exit 2147483647
+ls | exit 2147483648
+ls | exit -2147483648
+ls | exit -2147483649
+ls | exit 9223372036854775807
+ls | exit 9223372036854775808
+ls | exit "        42           "
+ls | exit ++42
+ls | exit 42 42
+ls | exit a
+ls | exit 1a
+ls | exit +
+ls | exit -
+ls | exit "          "
+ls | exit 0 0
+ls | exit 0 0\n exit
+ls | exit 0 0\n echo "this message should not be displayed" > file\n ls

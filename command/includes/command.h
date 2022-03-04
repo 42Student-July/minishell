@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/03 16:45:49 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 02:07:16 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define SLASH 1
 # define IN 0
 # define OUT 1
+# define NO_PIPE 0
+# define PIPE 1
 
 // execute.c
 int			execute_cmd(t_exec_attr *ea);
@@ -51,7 +53,7 @@ void		print_cmdv(char **cmdv);
 
 // execute_self.c
 bool		is_self_cmd(char *cmd);
-void		execute_self_cmd(t_cmd	*c, t_exec_attr *ea);
+void		execute_self_cmd(t_cmd	*c, t_exec_attr *ea, bool is_pipe);
 void		create_cmd_from_arg(int argc, const char *argv[], t_exec_attr *ea);
 void		exec_in_child_process(t_exec_attr *ea);
 bool		exec_in_main_process(t_exec_attr *ea);

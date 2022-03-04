@@ -6,14 +6,14 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 14:07:33 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/01 13:52:46 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 01:55:01 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "self_cmd.h"
 #include "common.h"
 
-bool	is_num(char *str)
+static bool	is_num(char *str)
 {
 	size_t	i;
 
@@ -31,56 +31,7 @@ bool	is_num(char *str)
 	return (true);
 }
 
-void	exit_success(unsigned int exit_status)
-{
-	ft_putendl_fd("exit", STDERR_FILENO);
-	exit(exit_status);
-}
-
-void	exit_failure(unsigned int exit_status, char *error_message)
-{
-	ft_putendl_fd("exit", STDERR_FILENO);
-	ft_putendl_fd(error_message, STDERR_FILENO);
-	exit(exit_status);
-}
-
-char	*make_arg_error_message(char *arg, char *error)
-{
-	char	*error_message;
-	char	*tmp_str;
-	char	*tmp_arg;
-
-	if (arg == NULL || error == NULL)
-		exit (EXIT_FAILURE);
-	tmp_arg = ft_strjoin(arg, ": ");
-	if (tmp_arg == NULL)
-		exit(EXIT_FAILURE);
-	tmp_str = ft_strjoin("bash: exit: ", tmp_arg);
-	if (tmp_str == NULL)
-		exit(EXIT_FAILURE);
-	free(tmp_arg);
-	error_message = ft_strjoin(tmp_str, error);
-	if (error_message == NULL)
-	{
-		exit(EXIT_FAILURE);
-	}
-	free(tmp_str);
-	return (error_message);
-}
-
-char	*make_dfl_error_message(char *error)
-{
-	char	*error_message;
-
-	if (error == NULL)
-		exit(EXIT_FAILURE);
-	error_message = ft_strjoin("bash: exit: ", error);
-	if (error_message == NULL)
-		exit(EXIT_FAILURE);
-	return (error_message);
-}
-
-char	*get_arg1(t_cmd *cmd)
+static char	*get_arg1(t_cmd *cmd)
 {
 	char	*arg1;
 	t_list	*arg1_lst;
@@ -92,43 +43,37 @@ char	*get_arg1(t_cmd *cmd)
 	return (ft_strtrim(arg1, " "));
 }
 
-int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea)
+int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea, bool is_pipe)
 {
 	unsigned int	exit_status;
 	int				argc;
 	char			*arg1;
 	long			arg1_num;
-	char			*error_message;
 
 	(void)ea;
+	if (!is_pipe) // pipeのときは出力しないらしい
+		ft_putendl_fd("exit", STDERR_FILENO);
 	argc = ft_lstsize(cmd->args);
 	if (argc == 1)
-		exit_success(g_exit_status);
+		exit(g_exit_status);
 	arg1 = get_arg1(cmd);
 	if (arg1 == NULL)
-	{
-		perror("malloc");
 		exit(EXIT_FAILURE);
-	}
 	if (!is_num(arg1) || !ft_atol(arg1, &arg1_num))
 	{
-		error_message = make_arg_error_message(arg1, \
-											"numeric argument required");
-		free(arg1);
-		exit_failure(255, error_message);
+		ft_put_arg_error("exit", arg1, "numeric argument required");
+		exit(255);
 	}
 	free(arg1);
 	if (argc > 2)
 	{
-		error_message = make_dfl_error_message("too many arguments");
-		ft_putendl_fd("exit", STDERR_FILENO);
-		ft_putendl_fd(error_message, STDERR_FILENO);
-		return (1);
+		ft_put_cmd_error("exit", "too many arguments");
+		return (EXIT_FAILURE);
 	}
 	exit_status = arg1_num;
 	if (exit_status > 255)
-		exit_success(exit_status % 256);
+		exit(exit_status % 256);
 	else
-		exit_success(exit_status);
-	return (exit_status);
+		exit(exit_status);
+	return (exit_status); // 無いとエラーになるので飾り
 }
