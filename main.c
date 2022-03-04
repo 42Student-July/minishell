@@ -13,3 +13,8 @@ int main(int argc, char **argv)
 	set_signal_handler_during_command();
 	start_repl();
 }
+
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q minishell");
+}
