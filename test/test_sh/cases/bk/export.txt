@@ -1,0 +1,6 @@
+unset OLDPWD\n cd ..\n export | grep OLDPWD | grep -v -E '_=' | cut -d " " -f 3 | sort
+unset PWD\n cd ..\n export PWD\n export | grep PWD
+export # | grep -v -E '^SHLVL'
+export ## |  grep -v -E '_=' | cut -d " " -f 3 | sort | grep -v -E '^SHLVL'
+export #jieafaeoi""" |  grep -v -E '_=' | cut -d " " -f 3 | sort | grep -v -E '^SHLVL'
+export #@ |  grep -v -E '_=' | cut -d " " -f 3 | sort | grep -v -E '^SHLVL'
