@@ -14,6 +14,8 @@ ls > out1.txt > out2.txt > out3.txt > err1.txt > err2.txt > err3.txt\n cat out1.
 ls >> out1.txt >> out2.txt >> out3.txt >> err1.txt >> err2.txt >> err3.txt\n cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
 ls no_such_file > out1.txt > out2.txt > out3.txt > err1.txt > err2.txt > err3.txt\n cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
 ls no_such_file >> out1.txt >> out2.txt >> out3.txt >> err1.txt >> err2.txt >> err3.txt\n cat out1.txt out2.txt out3.txt err1.txt err2.txt err3.txt
+cat < file < file < file
+cat < out1.txt <  out2.txt
 echo a > out\n echo b >> out\n echo c >> out\n echo d >> out\n cat out
 echo a > out\n echo b >> out\n echo c >> out\n echo d > out\n cat out
 unset NO_ENV\n echo a > $NO_ENV | echo b
