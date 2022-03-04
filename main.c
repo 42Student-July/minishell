@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	start_repl();
 }
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q minishell");
-}
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q minishell");
+// }
