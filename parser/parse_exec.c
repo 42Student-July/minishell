@@ -52,7 +52,8 @@ void	parse_exec(t_list *token_list, t_cmd **cmd_p)
 			cmd->is_invalid_syntax = true;
 			return ;
 		}
-		ft_lstadd_back(&cmd->args, ft_lstnew(get_literal(token)));
+		if (token->literal != NULL)
+			ft_lstadd_back(&cmd->args, ft_lstnew(get_literal(token)));
 		token_list = token_list->next;
 	}
 	if (cmd->args != NULL)

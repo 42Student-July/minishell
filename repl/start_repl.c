@@ -37,7 +37,6 @@ void	start_repl(void)
 	t_lexer *lexer;
 	t_token *token;
 	t_list *token_list;
-	t_list *tmp;
 	t_exec_attr *ea;
 	char *line;
 	bool flag;
@@ -83,9 +82,6 @@ void	start_repl(void)
 			add_history(lexer->input);
 		expand_envvar(token_list, ea->env_lst);
 		word_split(token_list);
-		tmp = filter_null_literal_token(token_list);
-		ft_lstclear(&token_list, delete_token);
-		token_list = tmp;
 		ft_lstiter(token_list, &expand_quote);
 		ea->cmd_lst = parse_pipe(token_list, &lexer->heredocs);
 		if (!is_valid_cmds(ea->cmd_lst))
