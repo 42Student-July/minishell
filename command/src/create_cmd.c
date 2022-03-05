@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 16:25:46 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:14:20 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 			dp = readdir(dirp);
 		}
 		i++;
+		closedir(dirp);
 	}
 	return (NULL);
 }
