@@ -13,7 +13,7 @@ static t_lexer_product	*new_lexer_product(void)
 	return (product);
 }
 
-t_lexer_product	*analyze_lex(char *line, t_list *env)
+t_lexer_product	*analyze_lex(const char *line, t_list *env)
 {
 	t_lexer			*lexer;
 	t_token			*token;

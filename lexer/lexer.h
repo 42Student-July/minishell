@@ -40,10 +40,11 @@ typedef struct s_lexer_product
 	t_list		*heredocs;
 }				t_lexer_product;
 
-t_lexer			*new_lexer(char *input);
+t_lexer			*new_lexer(const char *input);
 void			delete_lexer(t_lexer *lexer);
-void delete_lexer_without_heredocs(t_lexer *lexer);
-void read_char(t_lexer *lexer);
+void			delete_lexer_without_heredocs(t_lexer *lexer);
+void			delete_lexer_product(t_lexer_product *lexer_product);
+void			read_char(t_lexer *lexer);
 t_token			*new_token(t_tokentype type, char *literal);
 t_token			*next_token(t_lexer *lexer);
 void			delete_token(void *token);
@@ -66,7 +67,7 @@ void			word_split(t_list *lst);
 void			expand_quote(void *input);
 char			*expand_quote_str(const char *str);
 bool			is_valid_tokens(t_list *token_list);
-t_lexer_product *analyze_lex(char *line, t_list *env);
+t_lexer_product	*analyze_lex(const char *line, t_list *env);
 
 // helper
 t_token			*token_dup(t_token *token);

@@ -6,8 +6,8 @@
 #include "repl.h"
 #include "sigaction.h"
 #include <fcntl.h>
-#include <readline/readline.h>
 #include <readline/history.h>
+#include <readline/readline.h>
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -49,21 +49,19 @@ void	start_repl(void)
 		if (lexer_product == NULL)
 			continue ;
 		ea->cmd_lst = parse_pipe(lexer_product->token_list,
-				&lexer_product->heredocs);
+									&lexer_product->heredocs);
+		delete_lexer_product(lexer_product);
 		if (!is_valid_cmds(ea->cmd_lst))
 		{
 			write(STDERR, "syntax error\n", 13);
 			g_exit_status = 2;
-			ft_lstclear(&lexer_product->token_list, delete_token);
-			lexer_product->token_list = NULL;
-			free(lexer_product);
 			ft_lstclear(&ea->cmd_lst, delete_pipe);
 			ea->cmd_lst = NULL;
 			continue ;
 		}
 		execute_cmd(ea);
-		ft_lstclear(&lexer_product->token_list, delete_token);
-		free_lst(ea->cmd_lst);
+		ft_lstclear(&ea->cmd_lst, delete_pipe);
 	}
+	free_exec_attr(ea);
 	clear_history();
 }
