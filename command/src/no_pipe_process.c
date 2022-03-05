@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/06 00:57:22 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/06 00:58:40 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			ft_put_cmd_error(c->cmd, "command not found");
 			g_exit_status = 127;
 			return ;
-
 		}
 	}
 	environ = convert_envlst_to_array(ea);
