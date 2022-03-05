@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_str.c                                      :+:      :+:    :+:   */
+/*   ft_replace_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 16:36:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/05 22:35:12 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/05 22:41:00 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ char	*ft_replace_str(const char *src, const char *target, \
 	char	*work;
 	char	*tmp;
 	char	*p;
-	char	*ret;
-	size_t	ret_len;
 
 	work = ft_strdup(src);
 	if (work == NULL)
