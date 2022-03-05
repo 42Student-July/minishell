@@ -6,21 +6,55 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 16:36:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/05 16:41:44 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/05 22:32:45 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "stdio.h"
 
-int main()
+static char	*cat_str3(char *work, const char *replace, char *tmp)
 {
-	char src[100] = "1. this is a test.";
-	char *replace = "t";
-	char *target  = "|";
-	char *result;
+	char	*ret;
+	char	*tmp_join;
 
-	str_replace(src, replace, target, &result);
-	printf("%s\n", result); // => "1. |his is a |es|."
-	free(result);
-	return 0;
+	tmp_join = ft_strjoin(work, replace);
+	if (tmp_join == NULL)
+	{
+		free(work);
+		free(tmp);
+		return (NULL);
+	}
+	ret = ft_strjoin(tmp_join, tmp);
+	free(work);
+	free(tmp);
+	free(tmp_join);
+	if (ret == NULL)
+		return (NULL);
+	return (ret);
+}
+
+char	*replace_str(const char *src, const char *target, const char *replace)
+{
+	char	*work;
+	char	*tmp;
+	char	*p;
+	char	*ret;
+	size_t	ret_len;
+
+	work = ft_strdup(src);
+	if (work == NULL)
+		return (NULL);
+	p = ft_strnstr(work, target, ft_strlen(work));
+	if (p == NULL)
+		return (NULL);
+	*p = '\0';
+	p += ft_strlen(target);
+	tmp = ft_strdup(p);
+	if (tmp == NULL)
+	{
+		free(work);
+		return (NULL);
+	}
+	return (cat_str3(work, replace, tmp));
 }
