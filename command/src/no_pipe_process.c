@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/05 14:46:31 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/06 00:31:02 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,12 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		cmd_path = find_path(c->cmd, ea);
 		if (cmd_path == NULL)
 		{
-			// cmd_path = find_execfile_in_currentdir(c->cmd, ea);
-			// if (cmd_path == NULL)
-			// {
-				ft_put_cmd_error(c->cmd, "command not found");
-				g_exit_status = 127;
-				return ;
-			// }
+			ft_put_cmd_error(c->cmd, "command not found");
+			g_exit_status = 127;
+			return ;
+
 		}
 	}
-	// printf("cmd_path [%s]\n", cmd_path);
 	environ = convert_envlst_to_array(ea);
 	cpid = fork();
 	if (cpid == -1)

@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/06 00:12:50 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/06 00:28:10 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,8 @@ char	*replace_colon_to_currentdir(char *env_path)
 		tmp = ft_strjoin(ret, ".");
 		if (tmp == NULL)
 			exit(EXIT_FAILURE);
+		free(ret);
 		ret = tmp;
-		free(tmp);
 	}
 	return (ret);
 }
