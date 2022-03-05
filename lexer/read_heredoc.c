@@ -159,5 +159,6 @@ bool	read_heredoc(t_lexer *lexer, t_list *env_list)
 		}
 		set_signal_handler_during_command();
 	}
+	free(delimiter);
 	return (true);
 }
