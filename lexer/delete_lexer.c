@@ -13,3 +13,15 @@ void	delete_lexer(t_lexer *lexer)
 	lexer = NULL;
 	return ;
 }
+
+void delete_lexer_without_heredocs(t_lexer *lexer)
+{
+	if (lexer == NULL)
+		return ;
+	free(lexer->input);
+	lexer->input = NULL;
+	ft_lstclear(&lexer->io_here_delimiters, free);
+	free(lexer);
+	lexer = NULL;
+	return ;
+}

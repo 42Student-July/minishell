@@ -17,7 +17,6 @@ void	free_exec_attr(t_exec_attr *ea)
 	free_lst(ea->env_lst);
 	free_lst(ea->export_lst);
 	free_lst(ea->cmd_lst);
-	free(ea->stdfd);
 	free(ea->current_pwd);
 	if (ea != NULL)
 		free(ea);

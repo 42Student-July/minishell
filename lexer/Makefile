@@ -35,6 +35,7 @@ SRCS = new_lexer.c\
 		is_valid_tokens.c\
 		filter_null_literal_token.c\
 		token_dup.c\
+		analyze_lex.c\
 
 OBJS = ${SRCS:.c=.o}
 
