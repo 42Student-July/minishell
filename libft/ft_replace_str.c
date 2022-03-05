@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 16:36:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/05 22:41:00 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/06 00:10:20 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_replace_str(const char *src, const char *target, \
 		return (NULL);
 	p = ft_strnstr(work, target, ft_strlen(work));
 	if (p == NULL)
-		return (NULL);
+		return (work);
 	*p = '\0';
 	p += ft_strlen(target);
 	tmp = ft_strdup(p);

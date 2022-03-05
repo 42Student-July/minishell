@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/05 16:33:04 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/06 00:12:50 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,24 +160,31 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 char	*replace_colon_to_currentdir(char *env_path)
 {
 	char	*ret;
-	size_t	i;
+	char	*tmp;
 
 	if (env_path[0] == ':')
 	{
 		ret = ft_strjoin(".", env_path);
+		if (ret == NULL)
+			exit(EXIT_FAILURE);
 		free(env_path);
 		return (ret);
 	}
-	// i = 1;
-	// while (env_path[i] == '\0')
-	// {
-	// 	if (env_path[i] == ':' && env_path[i + 1] == ':')
-	// 	{
-
-	// 	}
-	// 	i++;
-	// }
-
+	ret = ft_replace_str(env_path, "::", ":.:");
+	if (ret == NULL)
+	{
+		printf("exit\n");
+		exit(EXIT_FAILURE);
+	}
+	if (env_path[ft_strlen(env_path) - 1] == ':')
+	{
+		tmp = ft_strjoin(ret, ".");
+		if (tmp == NULL)
+			exit(EXIT_FAILURE);
+		ret = tmp;
+		free(tmp);
+	}
+	return (ret);
 }
 
 // TODO: 引数を一つにする
@@ -192,7 +199,7 @@ char	*find_path(char *cmd_name, t_exec_attr *ea)
 	if (lst == NULL)
 		return (NULL);
 	env_path = ft_kvsget_value(lst->content);
-	env_path = replace_colon_to_currentdir();
+	env_path = replace_colon_to_currentdir(env_path);
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
