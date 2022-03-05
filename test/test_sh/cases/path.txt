@@ -7,6 +7,15 @@ cp /bin/ls .\n chmod 000 ls\n export PATH=":/bin" \n ls
 cp /bin/ls .\n chmod 000 ls\n export PATH="::/bin::" \n ls
 cp /bin/ls .\n chmod 000 ls\n export PATH="/bin:" \n ls
 cp /bin/ls .\n chmod 000 ls\n export PATH="hello:" \n ls
+cp /bin/pwd .\n chmod 000 pwd\n export PATH=":" \n pwd
+cp /bin/pwd .\n chmod 000 pwd\n export PATH=":/" \n pwd
+cp /bin/pwd .\n chmod 000 pwd\n export PATH="::" \n pwd
+cp /bin/pwd .\n chmod 000 pwd\n export PATH="/:" \n pwd
+cp /bin/pwd .\n chmod 000 pwd\n export PATH="/bin:" \n pwd
+cp /bin/pwd .\n chmod 000 pwd\n export PATH=":/bin" \n pwd
+cp /bin/pwd .\n chmod 000 pwd\n export PATH="::/bin::" \n pwd
+cp /bin/pwd .\n chmod 000 pwd\n export PATH="/bin:" \n pwd
+cp /bin/pwd .\n chmod 000 pwd\n export PATH="hello:" \n pwd
 export PATH=""\n nosuchfile
 export PATH=''\n nosuchfile
 unset PATH\n nosuchfile
