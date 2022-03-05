@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 16:25:46 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:46:42 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 		{
 			if (is_same_str(dp->d_name, cmd))
 			{
+				closedir(dirp);
 				new_cmd = concat_path_and_cmd(path[i], cmd);
 				if (new_cmd == NULL)
 					abort_minishell_with(MALLOC_ERROR, ea, path);
@@ -152,6 +153,7 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 			dp = readdir(dirp);
 		}
 		i++;
+		closedir(dirp);
 	}
 	return (NULL);
 }

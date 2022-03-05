@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_pipe_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/04 02:07:50 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:28:41 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,15 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			// print_array(cmdv);
 			execve_error(errno, c->cmd);
 		}
+		free(cmd_path);
+		free_char_dptr(cmdv);
+		free_char_dptr(environ);
 	}
 	else
 	{
+		free(cmd_path);
+		free_char_dptr(cmdv);
+		free_char_dptr(environ);
 		while (true)
 		{
 			wait_ret = waitpid(cpid, &status, 0);
