@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 16:36:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/05 22:32:45 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/05 22:34:13 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*cat_str3(char *work, const char *replace, char *tmp)
 	return (ret);
 }
 
-char	*replace_str(const char *src, const char *target, const char *replace)
+char	*ft_replace_str(const char *src, const char *target, const char *replace)
 {
 	char	*work;
 	char	*tmp;
