@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/01 10:40:24 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:33:04 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,30 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 	return (NULL);
 }
 
+// カレントディレクトリを指す":"を"."に置換する処理
+char	*replace_colon_to_currentdir(char *env_path)
+{
+	char	*ret;
+	size_t	i;
+
+	if (env_path[0] == ':')
+	{
+		ret = ft_strjoin(".", env_path);
+		free(env_path);
+		return (ret);
+	}
+	// i = 1;
+	// while (env_path[i] == '\0')
+	// {
+	// 	if (env_path[i] == ':' && env_path[i + 1] == ':')
+	// 	{
+
+	// 	}
+	// 	i++;
+	// }
+
+}
+
 // TODO: 引数を一つにする
 char	*find_path(char *cmd_name, t_exec_attr *ea)
 {
@@ -168,6 +192,7 @@ char	*find_path(char *cmd_name, t_exec_attr *ea)
 	if (lst == NULL)
 		return (NULL);
 	env_path = ft_kvsget_value(lst->content);
+	env_path = replace_colon_to_currentdir();
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
