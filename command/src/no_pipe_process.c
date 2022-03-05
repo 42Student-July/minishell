@@ -94,13 +94,13 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			execve_error(errno, c->cmd);
 		}
 		free(cmd_path);
-		free_char_dptr(cmdv);
+		// free_char_dptr(cmdv);
 		free_char_dptr(environ);
 	}
 	else
 	{
 		free(cmd_path);
-		free_char_dptr(cmdv);
+		// free_char_dptr(cmdv);
 		free_char_dptr(environ);
 		while (true)
 		{
