@@ -6,7 +6,7 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 18:26:26 by akito             #+#    #+#              #
-#    Updated: 2022/03/02 13:54:23 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/03/05 22:37:35 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS :=	ft_strlen.c \
 		ft_kvsreplace_value.c\
 		ft_strcut_back.c\
 		ft_put_error.c\
+		ft_replace_str.c\
 
 B_SRCS=	ft_lstnew.c \
 	 ft_lstadd_front.c \

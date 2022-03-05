@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 20:14:14 by akito             #+#    #+#             */
-/*   Updated: 2022/03/03 21:13:21 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/05 22:36:48 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	ft_put_error(char *message);
 void	ft_put_cmd_error(char *cmd, char *message);
 void	ft_put_arg_error(char *cmd, char *arg, char *message);
 bool	ft_atol(const char *nptr, long *num);
+char	*ft_replace_str(const char *src, const char *target, \
+						const char *replace);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new_elm);
@@ -99,7 +101,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 bool	ft_lstdel(t_list *lst, t_list *target);
 t_list	*ft_my_lstpop_front(t_list **lst);
-void ft_lstiter_with_var(t_list *lst, void (*f)(void *, void *), void *var);
+void 	ft_lstiter_with_var(t_list *lst, void (*f)(void *, void *), void *var);
 
 
 #endif
