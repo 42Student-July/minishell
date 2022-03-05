@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/05 10:56:40 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:27:58 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ char	*create_env_line_non_value(char *key, bool is_end)
 	char	*line;
 
 	key_size = ft_strlen(key);
-	line_size = key_size + EQUAL + LF;
+	if (is_end)
+		line_size = key_size + EQUAL + NULL_CHAR;
+	else
+		line_size = key_size + EQUAL + LF + NULL_CHAR;
 	line = (char *)ft_calloc(sizeof(char), line_size);
 	if (line == NULL)
 		return (NULL);
@@ -41,8 +44,6 @@ char	*create_env_line_non_value(char *key, bool is_end)
 	ft_strlcat(line, "=", line_size);
 	if (is_end)
 		ft_strlcat(line, "\n", line_size);
-	else
-		ft_strlcat(line, "\0", line_size);
 	return (line);
 }
 
@@ -101,7 +102,10 @@ char	*create_environ_line(char *key, char *value, bool is_end)
 
 	key_size = ft_strlen(key);
 	value_size = ft_strlen(value);
-	line_size = key_size + EQUAL + value_size + LF;
+	if (is_end)
+		line_size = key_size + EQUAL + value_size + NULL_CHAR;
+	else
+		line_size = key_size + EQUAL + value_size + LF + NULL_CHAR;
 	line = (char *)ft_calloc(sizeof(char), line_size);
 	if (line == NULL)
 		return (NULL);
@@ -110,7 +114,5 @@ char	*create_environ_line(char *key, char *value, bool is_end)
 	ft_strlcat(line, value, line_size);
 	if (is_end)
 		ft_strlcat(line, "\n", line_size);
-	else
-		ft_strlcat(line, "\0", line_size);
 	return (line);
 }
