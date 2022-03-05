@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:13 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/05 11:27:58 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:18:01 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,6 @@ char	**convert_envlst_to_array(t_exec_attr *ea)
 		return (NULL);
 	while (i < env_lst_size)
 	{
-		if (ft_kvsget_value(tmp->content) == NULL)
-		{
-			array[i] = create_env_line_non_value(ft_kvsget_key(tmp->content), false);
-		}
-		else
-		{
-			array[i] = create_environ_line(\
-				ft_kvsget_key(tmp->content), ft_kvsget_value(tmp->content), false);
-		}
 		if (i == env_lst_size - 1)
 		{
 			if (ft_kvsget_value(tmp->content) == NULL)
@@ -82,6 +73,18 @@ char	**convert_envlst_to_array(t_exec_attr *ea)
 			{
 				array[i] = create_environ_line(\
 					ft_kvsget_key(tmp->content), ft_kvsget_value(tmp->content), true);
+			}
+		}
+		else
+		{
+			if (ft_kvsget_value(tmp->content) == NULL)
+			{
+				array[i] = create_env_line_non_value(ft_kvsget_key(tmp->content), false);
+			}
+			else
+			{
+				array[i] = create_environ_line(\
+					ft_kvsget_key(tmp->content), ft_kvsget_value(tmp->content), false);
 			}
 		}
 		tmp = tmp->next;
