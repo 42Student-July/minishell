@@ -6,7 +6,8 @@ void	delete_cmd(t_cmd **cmd)
 		return ;
 	free((*cmd)->cmd);
 	(*cmd)->cmd = NULL;
-	ft_lstclear(&(*cmd)->args, free);
+	if ((*cmd)->args != NULL)
+		ft_lstclear(&(*cmd)->args, &free);
 	(*cmd)->args = NULL;
 	ft_lstclear(&(*cmd)->filenames_in, delete_file);
 	(*cmd)->filenames_in = NULL;
