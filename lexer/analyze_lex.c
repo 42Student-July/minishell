@@ -13,47 +13,68 @@ static t_lexer_product	*new_lexer_product(void)
 	return (product);
 }
 
-t_lexer_product	*analyze_lex(const char *line, t_list *env)
+void	make_token_list(const char *line, t_token **token,
+		t_lexer **lexer, t_lexer_product **lexer_product)
 {
-	t_lexer			*lexer;
-	t_token			*token;
-	t_lexer_product	*lexer_product;
-	bool			flag;
-
-	lexer_product = new_lexer_product();
-	lexer = new_lexer(line);
+	*lexer_product = new_lexer_product();
+	*lexer = new_lexer(line);
 	while (true)
 	{
-		token = next_token(lexer);
-		ft_lstadd_back(&lexer_product->token_list, ft_lstnew(token));
-		if (token->type == TOKEN_EOF)
+		*token = next_token(*lexer);
+		ft_lstadd_back(&(*lexer_product)->token_list, ft_lstnew(*token));
+		if ((*token)->type == TOKEN_EOF)
 			break ;
 	}
+	return ;
+}
+
+bool	should_return(t_lexer_product *lexer_product)
+{
 	if (((t_token *)lexer_product->token_list->content)->type == TOKEN_EOF)
 	{
 		ft_lstclear(&lexer_product->token_list, delete_token);
 		free(lexer_product);
-		return (NULL);
+		return (true);
 	}
 	if (!is_valid_tokens(lexer_product->token_list))
 	{
 		write(STDERR, "syntax error\n", 13);
 		ft_lstclear(&lexer_product->token_list, delete_token);
 		free(lexer_product);
-		return (NULL);
+		return (true);
 	}
+	return (false);
+}
+
+bool	heredoc_process(t_lexer *lexer, t_lexer_product *lexer_product,
+		t_list *env)
+{
+	bool	flag;
+
 	flag = true;
 	while (lexer->io_here_delimiters != NULL && flag)
-	{
 		flag = read_heredoc(lexer, env);
-	}
 	if (!flag)
 	{
 		ft_lstclear(&lexer_product->token_list, delete_token);
 		free(lexer_product);
-		return (NULL);
+		return (true);
 	}
-	if (ft_strlen(lexer->input) > 0) // 空文字列をヒストリーに入れないための対処法
+	return (false);
+}
+
+t_lexer_product	*analyze_lex(const char *line, t_list *env)
+{
+	t_lexer			*lexer;
+	t_token			*token;
+	t_lexer_product	*lexer_product;
+
+	make_token_list(line, &token, &lexer, &lexer_product);
+	if (should_return(lexer_product))
+		return (NULL);
+	if (heredoc_process(lexer, lexer_product, env))
+		return (NULL);
+	if (ft_strlen(lexer->input) > 0)
 		add_history(lexer->input);
 	expand_envvar(lexer_product->token_list, env);
 	word_split(lexer_product->token_list);
