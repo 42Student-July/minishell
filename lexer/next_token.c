@@ -26,7 +26,6 @@ t_token	*peek_from_redirect_in(t_lexer *lexer)
 			token = new_token(TOKEN_ILLEGAL, NULL);
 		else
 			token = new_token(TOKEN_HEREDOC, "<<");
-		return (token);
 	}
 	else
 		token = new_token(TOKEN_REDIRECT_IN, "<");
