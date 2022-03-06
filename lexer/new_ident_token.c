@@ -1,8 +1,10 @@
 #include "lexer.h"
 #include "libft.h"
 
-void	process_in_quote(char c, t_lexer *lexer)
+void	process_in_quote(t_lexer *lexer)
 {
+	char	c;
+
 	c = lexer->ch;
 	read_char(lexer);
 	while (lexer->ch != c)
@@ -21,14 +23,12 @@ t_token	*new_ident_token(t_lexer *lexer)
 	char	*ident;
 	t_token	*token;
 	size_t	pos;
-	char	c;
 
 	pos = lexer->position;
-	c = 0;
 	while (!is_metachar(lexer->ch) && lexer->ch != '\0')
 	{
 		if (lexer->ch == '"' || lexer->ch == '\'')
-			process_in_quote(c, lexer);
+			process_in_quote(lexer);
 		read_char(lexer);
 	}
 	ident = ft_substr(lexer->input, pos, lexer->position - pos);
