@@ -1,6 +1,6 @@
 #include "lexer.h"
 
-bool is_valid_tokens(t_list *token_list)
+bool	is_valid_tokens(t_list *token_list)
 {
 	while (token_list != NULL)
 	{
