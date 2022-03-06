@@ -58,7 +58,7 @@ bool			is_redirect(t_tokentype type);
 void			skip_whitespace(t_lexer *lexer);
 bool			join_new_line(t_lexer *lexer);
 t_token			*new_quote_token(t_lexer *lexer, t_tokentype type);
-bool			is_word_token(t_tokentype);
+bool			is_word_token(t_tokentype type);
 bool			add_heredoc_delimiter(t_lexer *lexer);
 bool			read_heredoc(t_lexer *lexer, t_list *env_list);
 void			print_kvs(t_list *kvs);
@@ -73,7 +73,7 @@ t_lexer_product	*analyze_lex(const char *line, t_list *env);
 t_token			*token_dup(t_token *token);
 char			*replace_string(char *str, const char *from, const char *to);
 char			*expand_single_envvar(char *str, const char *from,
-				const char *to, size_t *i);
+					const char *to, size_t *i);
 char			*expand_envvar_str(const char *input, void *env);
 void			expand_envvar(t_list *lst, t_list *env_lst);
 t_list			*filter_null_literal_token(t_list *lst);
