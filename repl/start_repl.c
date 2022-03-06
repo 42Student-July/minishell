@@ -11,8 +11,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-// プロンプトに終了ステータスが表示されるようになる関数
-// おそらくテスターが通らなくなるのでデバッグ用
 void	print_exit_status(void)
 {
 	if (g_exit_status == 0)
@@ -21,15 +19,29 @@ void	print_exit_status(void)
 		printf(F_RED "%d " F_RESET, g_exit_status);
 }
 
-char	*do_readline()
+char	*do_readline(void)
 {
 	char	*line;
 
-	// print_exit_status(); //テスターに通すときはコメントアウト
+	// print_exit_status();
 	set_signal_handler_during_readline();
 	line = readline(">> ");
 	set_signal_handler_during_command();
 	return (line);
+}
+
+bool	command_process(t_exec_attr *ea)
+{
+	if (!is_valid_cmds(ea->cmd_lst))
+	{
+		write(STDERR, "syntax error\n", 13);
+		g_exit_status = 2;
+		ft_lstclear(&ea->cmd_lst, delete_pipe);
+		ea->cmd_lst = NULL;
+		return (true);
+	}
+	execute_cmd(ea);
+	return (false);
 }
 
 void	start_repl(void)
@@ -49,17 +61,10 @@ void	start_repl(void)
 		if (lexer_product == NULL)
 			continue ;
 		ea->cmd_lst = parse_pipe(lexer_product->token_list,
-									&lexer_product->heredocs);
+				&lexer_product->heredocs);
 		delete_lexer_product(lexer_product);
-		if (!is_valid_cmds(ea->cmd_lst))
-		{
-			write(STDERR, "syntax error\n", 13);
-			g_exit_status = 2;
-			ft_lstclear(&ea->cmd_lst, delete_pipe);
-			ea->cmd_lst = NULL;
+		if (command_process(ea))
 			continue ;
-		}
-		execute_cmd(ea);
 		ft_lstclear(&ea->cmd_lst, delete_pipe);
 	}
 	free_exec_attr(ea);
