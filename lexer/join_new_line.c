@@ -4,10 +4,10 @@
 #include <readline/readline.h>
 #include <stdbool.h>
 
-bool join_new_line(t_lexer *lexer)
+bool	join_new_line(t_lexer *lexer)
 {
-	char *line;
-	char *tmp;
+	char	*line;
+	char	*tmp;
 
 	tmp = ft_strjoin(lexer->input, "\n");
 	free(lexer->input);
@@ -21,4 +21,3 @@ bool join_new_line(t_lexer *lexer)
 	lexer->input = tmp;
 	return (true);
 }
-
