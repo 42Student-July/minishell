@@ -2,9 +2,9 @@
 #include "libft.h"
 #include <stdio.h>
 
-t_token *new_token(t_tokentype type, char *literal)
+t_token	*new_token(t_tokentype type, char *literal)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
