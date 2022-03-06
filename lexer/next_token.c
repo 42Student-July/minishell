@@ -1,6 +1,38 @@
 #include "lexer.h"
 #include "libft.h"
 
+t_token	*peek_from_redirect_out(t_lexer *lexer)
+{
+	t_token	*token;
+
+	if (peek_char(lexer) == '>')
+	{
+		read_char(lexer);
+		token = new_token(TOKEN_REDIRECT_APPEND, ">>");
+	}
+	else
+		token = new_token(TOKEN_REDIRECT_OUT, ">");
+	return (token);
+}
+
+t_token	*peek_from_redirect_in(t_lexer *lexer)
+{
+	t_token	*token;
+
+	if (peek_char(lexer) == '<')
+	{
+		read_char(lexer);
+		if (!add_heredoc_delimiter(lexer))
+			token = new_token(TOKEN_ILLEGAL, NULL);
+		else
+			token = new_token(TOKEN_HEREDOC, "<<");
+		return (token);
+	}
+	else
+		token = new_token(TOKEN_REDIRECT_IN, "<");
+	return (token);
+}
+
 t_token	*next_token(t_lexer *lexer)
 {
 	t_token	*token;
@@ -9,28 +41,12 @@ t_token	*next_token(t_lexer *lexer)
 	if (lexer->ch == '\0')
 		token = new_token(TOKEN_EOF, NULL);
 	else if (lexer->ch == '>')
-	{
-		if (peek_char(lexer) == '>')
-		{
-			read_char(lexer);
-			token = new_token(TOKEN_REDIRECT_APPEND, ">>");
-		}
-		else
-			token = new_token(TOKEN_REDIRECT_OUT, ">");
-	}
+		token = peek_from_redirect_out(lexer);
 	else if (lexer->ch == '<')
 	{
-		if (peek_char(lexer) == '<')
-		{
-			read_char(lexer);
-			if (!add_heredoc_delimiter(lexer))
-				token = new_token(TOKEN_ILLEGAL, NULL);
-			else
-				token = new_token(TOKEN_HEREDOC, "<<");
+		token = peek_from_redirect_in(lexer);
+		if (token->type == TOKEN_ILLEGAL || token->type == TOKEN_HEREDOC)
 			return (token);
-		}
-		else
-			token = new_token(TOKEN_REDIRECT_IN, "<");
 	}
 	else if (lexer->ch == '|')
 		token = new_token(TOKEN_PIPE, "|");
