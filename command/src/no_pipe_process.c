@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/06 01:17:33 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/07 03:27:11 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@ bool	is_path(char *cmd)
 		i++;
 	}
 	return (false);
-}
-
-bool	can_exit(char *cmd_path)
-{
-	struct stat	stat_buf;
-
-	if (stat(cmd_path, &stat_buf) == -1)
-		exit(EXIT_FAILURE);
-	// 所有者の実行許可を確認している
-	if ((stat_buf.st_mode & S_IXUSR) != S_IXUSR)
-		return (false);
-	// 所有者の読み込み許可を確認している
-	if ((stat_buf.st_mode & S_IRUSR) != S_IRUSR)
-		return (false);
-	return (true);
 }
 
 // 多分不要になる
@@ -90,9 +75,18 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		cmd_path = find_path(c->cmd, ea);
 		if (cmd_path == NULL)
 		{
-			ft_put_cmd_error(c->cmd, "command not found");
-			g_exit_status = 127;
-			return ;
+			if (ea->has_not_permission)
+			{
+				ft_put_cmd_error(c->cmd, "Permission denied");
+				g_exit_status = 126;
+				return ;
+			}
+			else
+			{
+				ft_put_cmd_error(c->cmd, "command not found");
+				g_exit_status = 127;
+				return ;
+			}
 		}
 	}
 	environ = convert_envlst_to_array(ea);

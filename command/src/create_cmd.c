@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/06 00:28:10 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/07 03:24:16 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,21 @@ char	*concat_path_and_cmd(char *path, char *command)
 	return (new_cmd);
 }
 
+bool	can_exec(char *cmd_path)
+{
+	struct stat	stat_buf;
+
+	if (stat(cmd_path, &stat_buf) == -1)
+		exit(EXIT_FAILURE);
+	// 所有者の実行許可を確認している
+	if ((stat_buf.st_mode & S_IXUSR) != S_IXUSR)
+		return (false);
+	// 所有者の読み込み許可を確認している
+	if ((stat_buf.st_mode & S_IRUSR) != S_IRUSR)
+		return (false);
+	return (true);
+}
+
 char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 {
 	DIR				*dirp;
@@ -131,6 +146,7 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 	char			*new_cmd;
 
 	i = 0;
+	ea->has_not_permission = false; // 初期化であって、権限があるわけではない
 	while (path[i] != NULL)
 	{
 		dirp = opendir(path[i]);
@@ -144,9 +160,17 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 		{
 			if (is_same_str(dp->d_name, cmd))
 			{
+				// TODO ここに実行権限を確認する処理を実装する
 				new_cmd = concat_path_and_cmd(path[i], cmd);
 				if (new_cmd == NULL)
 					abort_minishell_with(MALLOC_ERROR, ea, path);
+				if (!can_exec(new_cmd))
+				{
+					// 権限がなくてもエラーにはせず、PATHから他の実行ファイルが見つかるまでループを回す
+					ea->has_not_permission = true;
+					free(new_cmd);
+					break ;
+				}
 				return (new_cmd);
 			}
 			dp = readdir(dirp);
@@ -172,10 +196,7 @@ char	*replace_colon_to_currentdir(char *env_path)
 	}
 	ret = ft_replace_str(env_path, "::", ":.:");
 	if (ret == NULL)
-	{
-		printf("exit\n");
 		exit(EXIT_FAILURE);
-	}
 	if (env_path[ft_strlen(env_path) - 1] == ':')
 	{
 		tmp = ft_strjoin(ret, ".");
