@@ -7,15 +7,6 @@ cp /bin/ls .\n chmod 000 ls\n export PATH=":/bin" \n ls
 cp /bin/ls .\n chmod 000 ls\n export PATH="::/bin::" \n ls
 cp /bin/ls .\n chmod 000 ls\n export PATH="/bin:" \n ls
 cp /bin/ls .\n chmod 000 ls\n export PATH="hello:" \n ls
-cp /bin/ls .\n chmod 000 ls\n export PATH=":" \n ls | ls
-cp /bin/ls .\n chmod 000 ls\n export PATH=":/" \n ls | ls
-cp /bin/ls .\n chmod 000 ls\n export PATH="::" \n ls | ls
-cp /bin/ls .\n chmod 000 ls\n export PATH="/:" \n ls | ls
-cp /bin/ls .\n chmod 000 ls\n export PATH="/bin:" \n ls | ls
-cp /bin/ls .\n chmod 000 ls\n export PATH=":/bin" \n ls | ls
-cp /bin/ls .\n chmod 000 ls\n export PATH="::/bin::" \n ls | ls
-cp /bin/ls .\n chmod 000 ls\n export PATH="/bin:" \n ls | ls
-cp /bin/ls .\n chmod 000 ls\n export PATH="hello:" \n ls | ls
 export PATH=""\n nosuchfile
 export PATH=''\n nosuchfile
 unset PATH\n nosuchfile
@@ -27,3 +18,23 @@ export PATH="b:a:"\n cmd
 export PATH="a:b"\n cmd
 export PATH="no_such_dir:a"\n cmd
 export PATH="no_such_dir1:no_such_dir2:"\n cmd
+cp /bin/ls .\n chmod 000 ls\n export PATH=":" \n ls | ls
+cp /bin/ls .\n chmod 000 ls\n export PATH=":/" \n ls | ls
+cp /bin/ls .\n chmod 000 ls\n export PATH="::" \n ls | ls
+cp /bin/ls .\n chmod 000 ls\n export PATH="/:" \n ls | ls
+cp /bin/ls .\n chmod 000 ls\n export PATH="/bin:" \n ls | ls
+cp /bin/ls .\n chmod 000 ls\n export PATH=":/bin" \n ls | ls
+cp /bin/ls .\n chmod 000 ls\n export PATH="::/bin::" \n ls | ls
+cp /bin/ls .\n chmod 000 ls\n export PATH="/bin:" \n ls | ls
+cp /bin/ls .\n chmod 000 ls\n export PATH="hello:" \n ls | ls
+export PATH=""\n nosuchfile | nosuchfile
+export PATH=''\n nosuchfile | nosuchfile
+unset PATH\n nosuchfile | nosuchfile
+unset PATH\n export PATH\n nosuchfile | nosuchfile
+unset PATH\n export PATH=\n nosuchfile | nosuchfile
+unset PATH\n /bin/ls | /bin/ls
+export PATH=":a:b"\n cmd | cmd
+export PATH="b:a:"\n cmd | cmd
+export PATH="a:b"\n cmd | cmd
+export PATH="no_such_dir:a"\n cmd | cmd
+export PATH="no_such_dir1:no_such_dir2:"\n cmd | cmd
