@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/04 02:07:59 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:53:21 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,12 +176,14 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 				exit(EXIT_FAILURE);
 			}
 		}
+		free(cmd_path);
 		exit(0);
 	}
 	else if (pa->cmd_i > 0)
 	{
 		close_pipe(pa);
 	}
+	free_char_dptr(environ);
 }
 
 void	pipe_process(t_exec_attr *ea, int pipe_count)

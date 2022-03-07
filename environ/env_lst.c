@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:20:16 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/02/28 13:39:15 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:07:25 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 	size_t		i;
 	char		**split;
 	t_list		*env_lst;
+	char		*tmp;
 
 	i = 0;
 	env_lst = NULL;
@@ -27,13 +28,21 @@ void	store_allenv_in_envlst(t_exec_attr *ea, char **environ)
 			abort_minishell(MALLOC_ERROR, ea);
 		if (split[VALUE] == NULL)
 		{
-			split[VALUE] = ft_strdup("");
+			// valueがnullのときはsplit[VALUE]に値を入れるとreallocが必要なのでtmpを用意
+			tmp = ft_strdup("");
+			if (!ft_lstadd_back(&env_lst, ft_lstnew(ft_kvsnew(split[KEY], tmp))))
+				abort_minishell_with(MALLOC_ERROR, ea, split);
+			free(tmp);
 		}
-		if (!ft_lstadd_back(&env_lst, \
+		else
+		{
+			if (!ft_lstadd_back(&env_lst, \
 			ft_lstnew(ft_kvsnew(split[KEY], split[VALUE]))))
-			abort_minishell_with(MALLOC_ERROR, ea, split);
+				abort_minishell_with(MALLOC_ERROR, ea, split);
+
+		}
 		i++;
-		// free_char_dptr(split);
+		free_char_dptr(split);
 	}
 	ea->env_lst = env_lst;
 }

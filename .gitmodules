@@ -1,0 +1,3 @@
+[submodule "libmem_mgt"]
+	path = libmem_mgt
+	url = https://github.com/kiri-42/libmem_mgt.git

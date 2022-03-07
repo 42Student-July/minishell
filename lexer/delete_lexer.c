@@ -7,9 +7,19 @@ void	delete_lexer(t_lexer *lexer)
 		return ;
 	free(lexer->input);
 	lexer->input = NULL;
-	free(lexer);
 	ft_lstclear(&lexer->io_here_delimiters, free);
 	ft_lstclear(&lexer->heredocs, ft_kvsdelete);
-	lexer = NULL;
+	free(lexer);
+	return ;
+}
+
+void	delete_lexer_without_heredocs(t_lexer *lexer)
+{
+	if (lexer == NULL)
+		return ;
+	free(lexer->input);
+	lexer->input = NULL;
+	ft_lstclear(&lexer->io_here_delimiters, free);
+	free(lexer);
 	return ;
 }

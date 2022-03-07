@@ -126,9 +126,9 @@ TEST(env, expand_envvar_wtf3)
 	};
 	expand_envvar(input, lst);
 	compare_tokens(input, expected);
-	free(input);
 	free(key);
 	free(value);
+	ft_lstclear(&input, &delete_token);
 	ft_lstclear(&lst, &ft_kvsdelete);
 }
 

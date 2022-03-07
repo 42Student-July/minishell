@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/07 03:24:16 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/07 03:51:10 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 		{
 			if (is_same_str(dp->d_name, cmd))
 			{
-				// TODO ここに実行権限を確認する処理を実装する
+				closedir(dirp);
 				new_cmd = concat_path_and_cmd(path[i], cmd);
 				if (new_cmd == NULL)
 					abort_minishell_with(MALLOC_ERROR, ea, path);
@@ -176,6 +176,7 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 			dp = readdir(dirp);
 		}
 		i++;
+		closedir(dirp);
 	}
 	return (NULL);
 }
@@ -227,5 +228,6 @@ char	*find_path(char *cmd_name, t_exec_attr *ea)
 	new_cmd = create_cmd_from_path(cmd_name, path, ea);
 	if (new_cmd == NULL)
 		return (NULL);
+	free_char_dptr(path);
 	return (new_cmd);
 }

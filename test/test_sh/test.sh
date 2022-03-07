@@ -152,7 +152,7 @@ output_log () {
 }
 
 clean () {
-	find . -maxdepth 1 -type f | grep -v -E "cmd|test.sh|leaks.log|leaks.sh|${LOG_FILE_NAME}|exe|rb.c" | xargs rm
+	find . -maxdepth 1 -type f | grep -v -E "cmd|test.sh|leaks.log|leaks.sh|${LOG_FILE_NAME}|exe|rb.c|Makefile" | xargs rm
 }
 
 main () {

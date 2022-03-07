@@ -1,7 +1,7 @@
 #include "lexer.h"
 #include "libft.h"
 
-t_lexer	*new_lexer(char *input)
+t_lexer	*new_lexer(const char *input)
 {
 	t_lexer	*lexer;
 

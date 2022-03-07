@@ -1,11 +1,11 @@
 #include "lexer.h"
 #include "libft.h"
 
-t_token *new_quote_token(t_lexer *lexer, t_tokentype type)
+t_token	*new_quote_token(t_lexer *lexer, t_tokentype type)
 {
-	char *quote;
-	t_token *token;
-	const size_t pos = lexer->position;
+	char			*quote;
+	t_token			*token;
+	const size_t	pos = lexer->position;
 
 	read_char(lexer);
 	while (lexer->ch != type)

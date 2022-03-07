@@ -2,7 +2,7 @@
 #include "libft.h"
 #include "common.h"
 
-char *get_token_type_name(t_tokentype type)
+char	*get_token_type_name(t_tokentype type)
 {
 	if (type == TOKEN_ILLEGAL)
 		return ("ILLEGAL");
@@ -22,7 +22,7 @@ char *get_token_type_name(t_tokentype type)
 		return ("UNKNOWN");
 }
 
-void print_token(t_token *token)
+void	print_token(t_token *token)
 {
 	ft_putstr_fd("type: [", STDOUT);
 	ft_putstr_fd(get_token_type_name(token->type), STDOUT);
@@ -33,12 +33,12 @@ void print_token(t_token *token)
 	else
 		ft_putstr_fd("NULL", STDOUT);
 	ft_putstr_fd("]\n", STDOUT);
-	return;
+	return ;
 }
 
-void print_tokens(t_list *token_list)
+void	print_tokens(t_list *token_list)
 {
-	t_list *list_node;
+	t_list	*list_node;
 
 	list_node = token_list;
 	while (list_node != NULL)
@@ -46,5 +46,5 @@ void print_tokens(t_list *token_list)
 		print_token(list_node->content);
 		list_node = list_node->next;
 	}
-	return;
+	return ;
 }

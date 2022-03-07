@@ -2,9 +2,9 @@
 #include "libft.h"
 #include <stdio.h>
 
-t_token *token_dup(t_token *token)
+t_token	*token_dup(t_token *token)
 {
-	t_token *token_new;
+	t_token	*token_new;
 
 	token_new = (t_token *)malloc(sizeof(t_token));
 	if (token_new == NULL)

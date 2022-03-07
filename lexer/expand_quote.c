@@ -70,8 +70,11 @@ void	expand_quote(void *token_p)
 	token = (t_token *)token_p;
 	if (token->type == TOKEN_IDENT)
 	{
-		str = expand_quote_str(token->literal);
-		free(token->literal);
-		token->literal = str;
+		if (token->literal != NULL)
+		{
+			str = expand_quote_str(token->literal);
+			free(token->literal);
+			token->literal = str;
+		}
 	}
 }

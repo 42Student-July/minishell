@@ -57,8 +57,8 @@ int	exec_self_echo(t_cmd *cmd, t_exec_attr *ea)
 		ft_putstr_fd(str, STDOUT_FILENO);
 		if (args != NULL)
 			ft_putchar_fd(' ', STDOUT_FILENO);
-		else if (!display_return)
-			ft_putchar_fd('\n', STDOUT_FILENO);
 	}
+	if (!display_return)
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }
