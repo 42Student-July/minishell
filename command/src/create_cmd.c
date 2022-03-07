@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/07 03:51:10 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/07 13:59:32 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,13 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 	struct dirent	*dp;
 	size_t			i;
 	char			*new_cmd;
+	bool			is_break;
 
 	i = 0;
 	ea->has_not_permission = false; // 初期化であって、権限があるわけではない
 	while (path[i] != NULL)
 	{
+		is_break = false;
 		dirp = opendir(path[i]);
 		if (dirp == NULL)
 		{
@@ -168,6 +170,7 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 				{
 					// 権限がなくてもエラーにはせず、PATHから他の実行ファイルが見つかるまでループを回す
 					ea->has_not_permission = true;
+					is_break = true;
 					free(new_cmd);
 					break ;
 				}
@@ -176,7 +179,9 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 			dp = readdir(dirp);
 		}
 		i++;
-		closedir(dirp);
+		// breakで来た場合ここを通させない
+		if (!is_break)
+			closedir(dirp);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/07 03:49:59 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/07 13:59:15 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 		if (has_redirect_file(c))
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
+		{
 			execve_error(errno, c->cmd);
 		}
 		free(cmd_path);
