@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/05 12:46:42 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/07 17:09:53 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,16 +123,34 @@ char	*concat_path_and_cmd(char *path, char *command)
 	return (new_cmd);
 }
 
-char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
+bool	can_exec(char *cmd_path)
+{
+	struct stat	stat_buf;
+
+	if (stat(cmd_path, &stat_buf) == -1)
+		exit(EXIT_FAILURE);
+	// 所有者の実行許可を確認している
+	if ((stat_buf.st_mode & S_IXUSR) != S_IXUSR)
+		return (false);
+	// 所有者の読み込み許可を確認している
+	if ((stat_buf.st_mode & S_IRUSR) != S_IRUSR)
+		return (false);
+	return (true);
+}
+
+char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea, size_t cmd_i)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
 	size_t			i;
 	char			*new_cmd;
+	bool			is_break;
 
 	i = 0;
+	ea->has_not_permission[cmd_i] = false; // 初期化であって、権限があるわけではない
 	while (path[i] != NULL)
 	{
+		is_break = false;
 		dirp = opendir(path[i]);
 		if (dirp == NULL)
 		{
@@ -148,18 +166,56 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 				new_cmd = concat_path_and_cmd(path[i], cmd);
 				if (new_cmd == NULL)
 					abort_minishell_with(MALLOC_ERROR, ea, path);
+				if (!can_exec(new_cmd))
+				{
+					// 権限がなくてもエラーにはせず、PATHから他の実行ファイルが見つかるまでループを回す
+					ea->has_not_permission[cmd_i] = true;
+					is_break = true;
+					free(new_cmd);
+					break ;
+				}
 				return (new_cmd);
 			}
 			dp = readdir(dirp);
 		}
 		i++;
-		closedir(dirp);
+		// breakで来た場合ここを通させない
+		if (!is_break)
+			closedir(dirp);
 	}
 	return (NULL);
 }
 
+// カレントディレクトリを指す":"を"."に置換する処理
+char	*replace_colon_to_currentdir(char *env_path)
+{
+	char	*ret;
+	char	*tmp;
+
+	if (env_path[0] == ':')
+	{
+		ret = ft_strjoin(".", env_path);
+		if (ret == NULL)
+			exit(EXIT_FAILURE);
+		free(env_path);
+		return (ret);
+	}
+	ret = ft_replace_str(env_path, "::", ":.:");
+	if (ret == NULL)
+		exit(EXIT_FAILURE);
+	if (env_path[ft_strlen(env_path) - 1] == ':')
+	{
+		tmp = ft_strjoin(ret, ".");
+		if (tmp == NULL)
+			exit(EXIT_FAILURE);
+		free(ret);
+		ret = tmp;
+	}
+	return (ret);
+}
+
 // TODO: 引数を一つにする
-char	*find_path(char *cmd_name, t_exec_attr *ea)
+char	*find_path(char *cmd_name, t_exec_attr *ea, size_t cmd_i)
 {
 	char			*env_path;
 	char			**path;
@@ -170,10 +226,11 @@ char	*find_path(char *cmd_name, t_exec_attr *ea)
 	if (lst == NULL)
 		return (NULL);
 	env_path = ft_kvsget_value(lst->content);
+	env_path = replace_colon_to_currentdir(env_path);
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
-	new_cmd = create_cmd_from_path(cmd_name, path, ea);
+	new_cmd = create_cmd_from_path(cmd_name, path, ea, cmd_i);
 	if (new_cmd == NULL)
 		return (NULL);
 	free_char_dptr(path);

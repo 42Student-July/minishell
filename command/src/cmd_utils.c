@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:10:49 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/03 16:41:13 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:18:13 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ char	*get_filename(t_cmd *c, int io)
 	return (file->filename);
 }
 
-
-
 bool	is_dir(char *cmd_path)
 {
 	DIR	*dir;
@@ -35,4 +33,14 @@ bool	is_dir(char *cmd_path)
 	if (dir)
 		return (true);
 	return (false);
+}
+
+bool	*malloc_has_not_permission(size_t size)
+{
+	bool	*ret;
+
+	ret = (bool *)malloc(sizeof(bool) * size);
+	if (ret == NULL)
+		exit(EXIT_FAILURE);
+	return (ret);
 }

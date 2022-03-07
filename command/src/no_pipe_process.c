@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_pipe_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 16:23:41 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/05 11:28:41 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:59:09 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,30 @@ bool	is_path(char *cmd)
 	return (false);
 }
 
-bool	can_exit(char *cmd_path)
-{
-	struct stat	stat_buf;
+// 多分不要になる
+// char	*find_execfile_in_currentdir(char *cmd, t_exec_attr *ea)
+// {
+// 	DIR				*dirp;
+// 	struct dirent	*dp;
+// 	char			*cmd_path;
 
-	if (stat(cmd_path, &stat_buf) == -1)
-		exit(EXIT_FAILURE);
-	// 所有者の実行許可を確認している
-	if ((stat_buf.st_mode & S_IXUSR) != S_IXUSR)
-		return (false);
-	// 所有者の読み込み許可を確認している
-	if ((stat_buf.st_mode & S_IRUSR) != S_IRUSR)
-		return (false);
-	return (true);
-}
+// 	dirp = opendir(ea->current_pwd);
+// 	if (dirp == NULL)
+// 		return (NULL);
+// 	dp = readdir(dirp);
+// 	while (dp != NULL)
+// 	{
+// 		if (is_same_str(dp->d_name, cmd))
+// 		{
+// 			cmd_path = concat_path_and_cmd(ea->current_pwd, cmd);
+// 			if (cmd_path == NULL)
+// 				exit(EXIT_FAILURE);
+// 			return (cmd_path);
+// 		}
+// 		dp = readdir(dirp);
+// 	}
+// 	return (NULL);
+// }
 
 void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 {
@@ -62,12 +72,21 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 	}
 	else
 	{
-		cmd_path = find_path(c->cmd, ea);
+		cmd_path = find_path(c->cmd, ea, 0);
 		if (cmd_path == NULL)
 		{
-			ft_put_cmd_error(c->cmd, "command not found");
-			g_exit_status = 127;
-			return ;
+			if (ea->has_not_permission[0])
+			{
+				ft_put_cmd_error(c->cmd, "Permission denied");
+				g_exit_status = 126;
+				return ;
+			}
+			else
+			{
+				ft_put_cmd_error(c->cmd, "command not found");
+				g_exit_status = 127;
+				return ;
+			}
 		}
 	}
 	environ = convert_envlst_to_array(ea);
@@ -88,9 +107,6 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			redirect(c, ea);
 		if (execve(cmd_path, cmdv, environ) == -1)
 		{
-			// perror("exec error\n");
-			// printf("cmd_path : %s\n", cmd_path);
-			// print_array(cmdv);
 			execve_error(errno, c->cmd);
 		}
 		free(cmd_path);
@@ -121,6 +137,7 @@ void	no_pipe_process(t_exec_attr *ea)
 	t_cmd *c;
 
 	c = get_cmd(ea);
+	ea->has_not_permission = malloc_has_not_permission(1);
 	// fileのopenの処理はコマンドに関わらず行う
 	if (has_redirect_file(c))
 		open_files(c, ea);
@@ -137,4 +154,5 @@ void	no_pipe_process(t_exec_attr *ea)
 	}
 	else
 		execute_ext_cmd(c, ea);
+	free(ea->has_not_permission);
 }

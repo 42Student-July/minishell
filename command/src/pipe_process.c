@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/05 12:53:21 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/07 17:09:33 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,11 +150,20 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 			}
 			else
 			{
-				cmd_path = find_path(pa->current_cmd->cmd, ea);
+				cmd_path = find_path(pa->current_cmd->cmd, ea, pa->cmd_i);
 				if (cmd_path == NULL)
 				{
-					ft_put_cmd_error(pa->current_cmd->cmd, "command not found");
-					exit(127);
+					if (ea->has_not_permission[pa->cmd_i])
+					{
+						ft_put_cmd_error(pa->current_cmd->cmd, "Permission denied");
+						exit(126);
+					}
+					else
+					{
+						ft_put_cmd_error(pa->current_cmd->cmd, "command not found");
+						g_exit_status = 127;
+						exit(127);
+					}
 				}
 			}
 			// cmd_pathがディレクトリか確認する処理
@@ -194,6 +203,7 @@ void	pipe_process(t_exec_attr *ea, int pipe_count)
 	pa.pipe_count = pipe_count;
 	malloc_pipe_fd(&pa);
 	malloc_cpid_array(&pa);
+	ea->has_not_permission = malloc_has_not_permission(pa.pipe_count + 1);
 	pa.cmd_i = 0;
 	tmp = ea->cmd_lst;
 	while (pa.cmd_i < pa.pipe_count + 1)
