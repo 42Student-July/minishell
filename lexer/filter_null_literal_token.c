@@ -12,7 +12,8 @@ t_list	*filter_null_literal_token(t_list *lst)
 	while (lst)
 	{
 		token = lst->content;
-		if ((token->type == TOKEN_IDENT && token->literal != NULL) || token->type != TOKEN_IDENT)
+		if ((token->type == TOKEN_IDENT && token->literal != NULL)
+			|| token->type != TOKEN_IDENT)
 			break ;
 		lst = lst->next;
 	}
@@ -23,7 +24,8 @@ t_list	*filter_null_literal_token(t_list *lst)
 	while (lst->next != NULL)
 	{
 		token = lst->next->content;
-		if ((token->type == TOKEN_IDENT && token->literal != NULL) || token->type != TOKEN_IDENT)
+		if ((token->type == TOKEN_IDENT && token->literal != NULL)
+			|| token->type != TOKEN_IDENT)
 		{
 			tmp = ft_lstnew(token_dup(token));
 			if (tmp == NULL)

@@ -36,7 +36,7 @@ void	write_tmpfile(char *tmpfile, char *buf)
 	close(fd);
 }
 
-void create_tmpfile(char *tmpfile)
+void	create_tmpfile(char *tmpfile)
 {
 	int	fd;
 
@@ -77,12 +77,12 @@ bool	read_heredoc(t_lexer *lexer, t_list *env_list)
 	char	*buffer;
 	char	*tmp;
 	char	*line;
-	t_list *heredoc_delimiter;
-	char *delimiter;
+	t_list	*heredoc_delimiter;
+	char	*delimiter;
 	bool	has_quote;
 	pid_t	pid;
-	pid_t wait_ret;
-	int wstatus;
+	pid_t	wait_ret;
+	int		wstatus;
 
 	heredoc_delimiter = ft_my_lstpop_front(&lexer->io_here_delimiters);
 	delimiter = ft_strdup(heredoc_delimiter->content);
@@ -111,8 +111,8 @@ bool	read_heredoc(t_lexer *lexer, t_list *env_list)
 		line = readline("> ");
 		while (line != NULL)
 		{
-			if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0 &&
-				ft_strlen(line) == ft_strlen(delimiter))
+			if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0
+				&& ft_strlen(line) == ft_strlen(delimiter))
 			{
 				free(line);
 				line = NULL;
@@ -154,7 +154,7 @@ bool	read_heredoc(t_lexer *lexer, t_list *env_list)
 				return (false);
 			}
 			if (wait_ret > 0)
-				break;
+				break ;
 			exit(EXIT_FAILURE);
 		}
 		set_signal_handler_during_command();

@@ -2,7 +2,7 @@
 #include "lexer.h"
 #include <stdio.h>
 
-void print_kvs(t_list *lst)
+void	print_kvs(t_list *lst)
 {
 	t_list	*tmp;
 	t_kvs	*kvs;
