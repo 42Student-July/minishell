@@ -11,9 +11,9 @@ void	ft_lstadd_next(t_list *lst, void *content)
 	lst->next = new;
 }
 
-bool has_only_whitespace(const char *str)
+bool	has_only_whitespace(const char *str)
 {
-	while(*str)
+	while (*str)
 	{
 		if (!ft_isspace(*str))
 			return (false);
@@ -25,7 +25,7 @@ bool has_only_whitespace(const char *str)
 bool	has_whitespace(const char *str)
 {
 	size_t	i;
-	char is_quoted;
+	char	is_quoted;
 
 	i = 0;
 	is_quoted = '\0';
@@ -49,7 +49,7 @@ char	*new_literal(const char *str, size_t *pos)
 {
 	size_t	i;
 	size_t	j;
-	char is_quoted;
+	char	is_quoted;
 
 	i = 0;
 	is_quoted = '\0';
@@ -63,7 +63,7 @@ char	*new_literal(const char *str, size_t *pos)
 				is_quoted = str[i];
 		}
 		if (!is_quoted && !ft_isspace(str[i]))
-			break;
+			break ;
 		i++;
 	}
 	j = 0;
@@ -90,7 +90,7 @@ void	word_split(t_list *lst)
 				free(token->literal);
 				token->literal = NULL;
 				lst = lst->next;
-				continue;
+				continue ;
 			}
 			if (has_whitespace(token->literal))
 			{
@@ -103,7 +103,9 @@ void	word_split(t_list *lst)
 				{
 					free(str_next);
 					str_next = NULL;
-				} else {
+				}
+				else
+				{
 					token = new_token(TOKEN_IDENT, str_next);
 					free(str_next);
 					ft_lstadd_next(lst, token);
