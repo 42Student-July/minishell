@@ -1,7 +1,7 @@
 #include "lexer.h"
 #include "libft.h"
 
-void read_char(t_lexer *lexer)
+void	read_char(t_lexer *lexer)
 {
 	if (lexer->read_position >= ft_strlen(lexer->input))
 	{
