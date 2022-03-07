@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 09:59:10 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 14:18:29 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:19:31 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool		is_dollar(char *arg);
 char		*convert_env_var(t_exec_attr *ea, char *arg);
 char		*concat_path_and_cmd(char *path, char *command);
 void		create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea);
-char		*find_path(char *cmd_name, t_exec_attr *ea);
+char		*find_path(char *cmd_name, t_exec_attr *ea, size_t cmd_i);
 
 
 // init.c
@@ -89,10 +89,11 @@ void		pipe_process(t_exec_attr *ea, int pipe_count);
 // free_pipe_attr.c
 void		free_pipe_attr(t_pipe_attr *pa);
 
-// t_cmd_utils.c
+// cmd_utils.c
 char		*get_filename(t_cmd *c, int io);
 void		exec_error(int cp_errno, char *cmd_path);
 bool		is_dir(char *cmd_path);
+bool		*malloc_has_not_permission(size_t size);
 
 // execve_error.c
 void		execve_error(int cp_errno, char *cmd_path);

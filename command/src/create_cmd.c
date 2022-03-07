@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/07 13:59:32 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/07 17:09:53 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ bool	can_exec(char *cmd_path)
 	return (true);
 }
 
-char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
+char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea, size_t cmd_i)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
@@ -147,7 +147,7 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 	bool			is_break;
 
 	i = 0;
-	ea->has_not_permission = false; // 初期化であって、権限があるわけではない
+	ea->has_not_permission[cmd_i] = false; // 初期化であって、権限があるわけではない
 	while (path[i] != NULL)
 	{
 		is_break = false;
@@ -169,7 +169,7 @@ char	*create_cmd_from_path(char *cmd, char **path, t_exec_attr *ea)
 				if (!can_exec(new_cmd))
 				{
 					// 権限がなくてもエラーにはせず、PATHから他の実行ファイルが見つかるまでループを回す
-					ea->has_not_permission = true;
+					ea->has_not_permission[cmd_i] = true;
 					is_break = true;
 					free(new_cmd);
 					break ;
@@ -215,7 +215,7 @@ char	*replace_colon_to_currentdir(char *env_path)
 }
 
 // TODO: 引数を一つにする
-char	*find_path(char *cmd_name, t_exec_attr *ea)
+char	*find_path(char *cmd_name, t_exec_attr *ea, size_t cmd_i)
 {
 	char			*env_path;
 	char			**path;
@@ -230,7 +230,7 @@ char	*find_path(char *cmd_name, t_exec_attr *ea)
 	path = ft_split(env_path, ':');
 	if (path == NULL)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
-	new_cmd = create_cmd_from_path(cmd_name, path, ea);
+	new_cmd = create_cmd_from_path(cmd_name, path, ea, cmd_i);
 	if (new_cmd == NULL)
 		return (NULL);
 	free_char_dptr(path);
