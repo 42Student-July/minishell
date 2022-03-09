@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:40:07 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/07 17:09:53 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:16:13 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,8 @@ char	*find_path(char *cmd_name, t_exec_attr *ea, size_t cmd_i)
 	if (lst == NULL)
 		return (NULL);
 	env_path = ft_kvsget_value(lst->content);
+	if (env_path == NULL)
+		return (NULL);
 	env_path = replace_colon_to_currentdir(env_path);
 	path = ft_split(env_path, ':');
 	if (path == NULL)
