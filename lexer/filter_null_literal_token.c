@@ -12,9 +12,10 @@ static void	skip_null_literal(t_token **token, t_list **lst)
 	}
 }
 
-static void	copy_except_null(t_token **token, t_list **now, t_list **lst, t_list **res)
+static void
+	copy_except_null(t_token **token, t_list **now, t_list **lst, t_list **res)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	while ((*lst)->next != NULL)
 	{
