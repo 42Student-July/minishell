@@ -77,5 +77,8 @@ char			*expand_single_envvar(char *str, const char *from,
 char			*expand_envvar_str(const char *input, void *env);
 void			expand_envvar(t_list *lst, t_list *env_lst);
 t_list			*filter_null_literal_token(t_list *lst);
+char			*get_tmpfile_name(char *suffix);
+void			write_tmpfile(char *tmpfile, char *buf);
+void			create_tmpfile(char *tmpfile);
 
 #endif
