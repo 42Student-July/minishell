@@ -1,12 +1,17 @@
 #include "lexer.h"
 
+static int	is_null_literal(t_token *token)
+{
+	return ((token->type == TOKEN_IDENT && token->literal != NULL)
+			|| token->type != TOKEN_IDENT);
+}
+
 static void	skip_null_literal(t_token **token, t_list **lst)
 {
 	while (*lst)
 	{
 		*token = (*lst)->content;
-		if (((*token)->type == TOKEN_IDENT && (*token)->literal != NULL)
-			|| (*token)->type != TOKEN_IDENT)
+		if (is_null_literal(*token))
 			break ;
 		*lst = (*lst)->next;
 	}
@@ -20,13 +25,12 @@ static void
 	while ((*lst)->next != NULL)
 	{
 		*token = (*lst)->next->content;
-		if (((*token)->type == TOKEN_IDENT && (*token)->literal != NULL)
-			|| (*token)->type != TOKEN_IDENT)
+		if (is_null_literal(*token))
 		{
 			tmp = ft_lstnew(token_dup(*token));
 			if (tmp == NULL)
 			{
-				ft_lstclear(&(*res), delete_token);
+				ft_lstclear(res, delete_token);
 				return ;
 			}
 			(*now)->next = tmp;
@@ -34,9 +38,7 @@ static void
 			(*lst) = (*lst)->next;
 		}
 		else
-		{
 			(*lst) = (*lst)->next;
-		}
 	}
 }
 
