@@ -7,10 +7,8 @@
 int	g_exit_status = 0;
 t_mem_mgt	g_mem_mgt = {NULL, 0, 0};
 
-int main(int argc, char **argv)
+int main()
 {
-	(void)argc;
-	(void)argv;
 	set_signal_handler_during_command();
 	start_repl();
 }

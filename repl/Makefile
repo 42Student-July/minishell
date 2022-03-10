@@ -1,6 +1,6 @@
 NAME 		:= librepl.a
 CC			:=	gcc
-CFLAGS		:=	-Wall -Wextra -Werror -pedantic -g
+CFLAGS		:=	-Wall -Wextra -Werror -g
 
 HEADERS		=	. \
 				../ \
