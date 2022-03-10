@@ -37,6 +37,7 @@ SRCS = new_lexer.c\
 		token_dup.c\
 		analyze_lex.c\
 		delete_lexer_product.c\
+		create_tmpfile.c\
 
 OBJS = ${SRCS:.c=.o}
 

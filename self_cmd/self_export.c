@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   self_export.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/04 16:53:41 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/01 15:32:52 by mhirabay         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "self_cmd.h"
 
@@ -22,17 +11,20 @@ bool	is_sharp(char *arg)
 	return (false);
 }
 
-
 int	exec_self_export(t_cmd *cmd, t_exec_attr *ea)
 {
 	char	*argv_one;
+	bool	exit_stat;
 
+	exit_stat = true;
 	argv_one = get_argv_one(cmd);
 	if (argv_one == NULL || is_sharp(argv_one))
 		print_all_export_lst(ea);
 	else
-		export_with_args(cmd, ea);
-	return (0);
+		export_with_args(cmd, ea, &exit_stat);
+	if (exit_stat)
+		return (0);
+	return (1);
 }
 
 // 新しく追加
@@ -60,8 +52,7 @@ int	check_export_arg(char **arg)
 	return (10);
 }
 
-
-void	export_with_args(t_cmd *cmd, t_exec_attr *ea)
+void	export_with_args(t_cmd *cmd, t_exec_attr *ea, bool *exit_stat)
 {
 	char		**kv;
 	int			ret;
@@ -81,6 +72,7 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea)
 			{
 				print_error_msg_with_var(EXPORT, arg);
 				lst = lst->next;
+				*exit_stat = false;
 				continue ;
 			}
 			store_arg_in_export(ea, arg, NULL);
@@ -89,6 +81,7 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea)
 		// 先頭ポインタが"="だったとき、keyが存在しないのでerrorとする
 		else if (ft_strchr(arg, '=') == arg)
 		{
+			*exit_stat = false;
 			print_error_msg_with_var(EXPORT, arg);
 			lst = lst->next;
 			continue ;
@@ -100,7 +93,10 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea)
 				abort_minishell(MALLOC_ERROR, ea);
 			ret = check_export_arg(kv);
 			if (ret == INVALID_IDENTIFER)
+			{
+				*exit_stat = false;
 				print_error_msg_with_var(EXPORT, kv[KEY]);
+			}
 			else
 			{
 				if (ret == NO_VALUE)

@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   self_cmd.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 15:49:42 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/04 21:30:23 by mhirabay         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef SELF_CMD_H
 # define SELF_CMD_H
@@ -63,7 +52,7 @@ int			exec_self_unset(t_cmd *cmd, t_exec_attr *ea);
 int			exec_self_export(t_cmd *cmd, t_exec_attr *ea);
 void		store_arg_only_export(t_exec_attr *ea, char *key);
 int			check_export_arg(char **arg);
-void		export_with_args(t_cmd *cmd, t_exec_attr *ea);
+void		export_with_args(t_cmd *cmd, t_exec_attr *ea, bool *exit_stat);
 bool		addlst_sort_by_ascii(t_list **export_lst, char **arg);
 
 // self_export_utils.c
