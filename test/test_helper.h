@@ -1,14 +1,3 @@
-#ifndef TEST_HELPER_H
-#define TEST_HELPER_H
-
-#include "lexer.h"
-#include "libft.h"
-#include "parser.h"
-#include <string>
-#include <vector>
-
-typedef std::vector<std::string> VS;
-
 typedef std::vector<std::pair<std::string, bool>> test_t_file;
 typedef std::tuple<std::string, VS> test_t_exec_cmd;
 typedef std::tuple<std::string, VS, test_t_file, test_t_file> test_t_cmd;

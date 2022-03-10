@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   set_def_signal.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/13 16:36:46 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/02/13 16:42:08 by tkirihar         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "sigaction.h"
 
@@ -30,7 +19,7 @@ static void	set_sigint_handler_during_command(void)
 	sigaction(SIGINT, &act, NULL);
 }
 
-/* SIGQUIT */
+
 
 static void	handle_sigquit_during_command(int sig)
 {
