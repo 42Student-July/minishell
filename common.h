@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include "libmem_mgt/mem_mgt.h"
-// #include "libmem_mgt/replace_mem_mgt.h"
+#include "libmem_mgt/replace_mem_mgt.h"
 
 typedef enum e_stdio {
 	STDIN = 0,

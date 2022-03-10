@@ -132,7 +132,10 @@ void	no_pipe_process(t_exec_attr *ea)
 		open_files(c, ea);
 	// TODO: コマンドが存在しない時、ここでsegvする
 	if (c->cmd == NULL)
+	{
+		free(ea->has_not_permission);
 		return ;
+	}
 	if (is_self_cmd(c->cmd))
 	{
 		if (has_redirect_file(c))

@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/10 13:31:11 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:16:15 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,4 +218,5 @@ void	pipe_process(t_exec_attr *ea, int pipe_count)
 	}
 	wait_process(&pa);
 	free_pipe_attr(&pa);
+	free(ea->has_not_permission);
 }
