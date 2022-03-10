@@ -225,5 +225,6 @@ char	*find_path(char *cmd_name, t_exec_attr *ea, size_t cmd_i)
 	if (new_cmd == NULL)
 		return (NULL);
 	free_char_dptr(path);
+	free(env_path);
 	return (new_cmd);
 }
