@@ -190,6 +190,7 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	{
 		tmp = create_new_pwd(ea->current_pwd, path);
 		new_pwd = remove_relative(tmp, ea);
+		free(tmp);
 	}
 	else
 	{
