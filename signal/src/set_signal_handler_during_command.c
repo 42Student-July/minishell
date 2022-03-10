@@ -19,7 +19,7 @@ static void	set_sigint_handler_during_command(void)
 	sigaction(SIGINT, &act, NULL);
 }
 
-
+/* SIGQUIT */
 
 static void	handle_sigquit_during_command(int sig)
 {
