@@ -19,7 +19,7 @@ char	**convert_lst_to_argv(t_list *args)
 	current_arg = args;
 	while (current_arg != NULL)
 	{
-		cmdv[i] = (char *)current_arg->content;
+		cmdv[i] = ft_strdup(current_arg->content);
 		if (cmdv[i] == NULL)
 		{
 			printf("malloc error\n");
