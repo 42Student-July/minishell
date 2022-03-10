@@ -22,6 +22,8 @@ OBJS = ${SRCS:.c=.o}
 
 DEPS = $(OBJS:.o=.d)
 
+# LIBMEM_MGT			=	libmem_mgt/libmem_mgt.a
+
 RED			=	'\033[31m'
 GREEN		=	'\033[32m'
 YELLOW		=	'\033[33m'

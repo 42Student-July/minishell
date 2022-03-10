@@ -66,8 +66,8 @@ GREEN		=	'\033[32m'
 YELLOW		=	'\033[33m'
 RESET		=	'\033[0m'
 
-$(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_REPL) $(LIB_COMMAND) $(LIB_ENVIRON) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_SIGNAL) $(OBJS)
-	@$(CC) $(CFLAGS) $(INCLUDES)  -o $(NAME) $(OBJS) $(LIB_REPL) $(LIB_COMMAND) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_ENVIRON) $(LIB_LEXER) $(LIB_SIGNAL) $(GNL) $(LIBFT) $(RLFLAGS)
+$(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_REPL) $(LIB_COMMAND) $(LIB_ENVIRON) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_SIGNAL) $(LIBMEM_MGT) $(OBJS)
+	@$(CC) $(CFLAGS) $(INCLUDES)  -o $(NAME) $(OBJS) $(LIB_REPL) $(LIB_COMMAND) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_ENVIRON) $(LIB_LEXER) $(LIB_SIGNAL) $(LIBMEM_MGT) $(GNL) $(LIBFT) $(RLFLAGS)
 	@echo $(YELLOW)"@@@@@ $(NAME) compiling done @@@@@"$(RESET)
 
 $(LIBFT): dummy
@@ -172,8 +172,8 @@ test_sh: re
 test: test-build
 	./tester
 
-test-build: $(LIBFT) $(LIB_LEXER) $(LIB_PARSER) $(GTEST) $(SRCS_TEST)
-	g++ -std=c++11  $(SRCS_TEST) $(LIB_PARSER) $(LIB_LEXER) $(LIBFT)  $(GTEST_DIR)/googletest-release-1.11.0/googletest/src/gtest_main.cc $(GTEST_DIR)/gtest/gtest-all.cc \
+test-build: $(LIBFT) $(LIB_LEXER) $(LIB_PARSER) $(GTEST) $(SRCS_TEST) $(LIBMEM_MGT)
+	g++ -std=c++11  $(SRCS_TEST) $(LIB_PARSER) $(LIB_LEXER) $(LIBFT) $(LIBMEM_MGT) $(GTEST_DIR)/googletest-release-1.11.0/googletest/src/gtest_main.cc $(GTEST_DIR)/gtest/gtest-all.cc \
 	 -DDEBUG \
 	-I$(GTEST_DIR) -I/usr/local/opt/llvm/include $(INCLUDES) -I test -lpthread -o tester -g -lreadline
 

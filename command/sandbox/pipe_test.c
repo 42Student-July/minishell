@@ -154,7 +154,8 @@ void	loop_pipe_process(char **command_lst, int *pipe_locate, int pipe_cnt)
 	free_pfd(pfd, pipe_cnt);
 }
 
-void	no_pipe_process()
+void
+no_pipe_process()
 {
 	printf("pipe = 0\n");
 }

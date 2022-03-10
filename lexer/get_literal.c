@@ -8,4 +8,5 @@ char	*get_literal(t_token *token)
 		return (ft_strdup(token->literal));
 	else
 		exit(EXIT_FAILURE);
+	return (NULL);
 }
