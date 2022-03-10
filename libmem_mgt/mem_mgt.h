@@ -28,7 +28,7 @@ typedef struct s_mem_mgt
 }	t_mem_mgt;
 
 /* メモリ情報を格納する構造体 */
-t_mem_mgt	g_mem_mgt;
+extern t_mem_mgt	g_mem_mgt;
 
 /* 関数のプロトタイプ宣言 */
 

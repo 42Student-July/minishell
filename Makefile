@@ -172,8 +172,8 @@ test_sh: re
 test: test-build
 	./tester
 
-test-build: $(LIBFT) $(LIB_LEXER) $(LIB_PARSER) $(GTEST) $(SRCS_TEST)
-	g++ -std=c++11  $(SRCS_TEST) $(LIB_PARSER) $(LIB_LEXER) $(LIBFT)  $(GTEST_DIR)/googletest-release-1.11.0/googletest/src/gtest_main.cc $(GTEST_DIR)/gtest/gtest-all.cc \
+test-build: $(LIBFT) $(LIB_LEXER) $(LIB_PARSER) $(GTEST) $(SRCS_TEST) $(LIBMEM_MGT)
+	g++ -std=c++11  $(SRCS_TEST) $(LIB_PARSER) $(LIB_LEXER) $(LIBFT) $(LIBMEM_MGT) $(GTEST_DIR)/googletest-release-1.11.0/googletest/src/gtest_main.cc $(GTEST_DIR)/gtest/gtest-all.cc \
 	 -DDEBUG \
 	-I$(GTEST_DIR) -I/usr/local/opt/llvm/include $(INCLUDES) -I test -lpthread -o tester -g -lreadline
 
