@@ -6,7 +6,7 @@
 #    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:21:26 by mhirabay          #+#    #+#              #
-#    Updated: 2022/03/03 16:42:54 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/03/09 23:39:55 by tkirihar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ INC		:= -I ../includes/
 RM		:= rm -rf
 LDFLAGS := -Llib/ft_printf -Llib/gnl -Llib/libft -Llib/ft_list
 LIBS 	:= -lftprintf -lgnl -lft -llst
+
+# LIBMEM_MGT			=	../libmem_mgt/libmem_mgt.a
 
 HEADERS	:=	. \
 			../ \

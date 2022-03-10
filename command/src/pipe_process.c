@@ -6,7 +6,7 @@
 /*   By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:07:42 by tkirihar          #+#    #+#             */
-/*   Updated: 2022/03/07 17:09:33 by tkirihar         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:36:23 by tkirihar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 	char	*cmd_path;
 	char	**environ;
 
+	cmd_path = NULL;
 	cmdv = convert_lst_to_argv(pa->current_cmd->args);
 	environ = convert_envlst_to_array(ea);
 	pid = fork();

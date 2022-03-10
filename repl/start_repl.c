@@ -66,6 +66,7 @@ void	start_repl(void)
 		if (command_process(ea))
 			continue ;
 		ft_lstclear(&ea->cmd_lst, delete_pipe);
+		// mem_mgt_check();
 	}
 	free_exec_attr(ea);
 	clear_history();

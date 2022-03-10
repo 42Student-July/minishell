@@ -8,7 +8,7 @@ void	mem_mgt_free(void *ptr)
 
 	if (g_mem_mgt.head == NULL)
 	{
-		free(ptr);
+		// free(ptr);
 		return ;
 	}
 	current = g_mem_mgt.head;
@@ -18,7 +18,7 @@ void	mem_mgt_free(void *ptr)
 		g_mem_mgt.use_byte -= current->size;
 		g_mem_mgt.use_cnt--;
 		free(current->mem_mgt_ptr);
-		free(ptr);
+		// free(ptr);
 		return ;
 	}
 	while (current != NULL)
