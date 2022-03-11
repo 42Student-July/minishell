@@ -190,6 +190,7 @@ int	x_chdir(char *arg, t_exec_attr *ea)
 	{
 		tmp = create_new_pwd(ea->current_pwd, path);
 		new_pwd = remove_relative(tmp, ea);
+		free(tmp);
 	}
 	else
 	{
@@ -216,7 +217,6 @@ int	exec_self_cd(t_cmd *cmd, t_exec_attr *ea)
 	argv_one = get_argv_one(cmd);
 	if (argv_one == NULL)
 		return (1);
-	// TODO: 引数が２つある場合などにも対応する
 	status = x_chdir(argv_one, ea);
 	return (status);
 }
