@@ -5,7 +5,6 @@ DEBUG		:= -g -fsanitize=address
 
 
 LIBFT_DIR			=	libft
-GNL_DIR				=	gnl
 LEXER_DIR			=	lexer
 PARSER_DIR			=	parser
 REPL_DIR			=	repl
@@ -19,7 +18,6 @@ LIBMEM_MGT_DIR		=	libmem_mgt
 
 HEADERS		=	. \
 				$(LIBFT_DIR) \
-				$(GNL_DIR) \
 				$(LEXER_DIR) \
 				$(PARSER_DIR) \
 				$(REPL_DIR) \
@@ -29,7 +27,6 @@ HEADERS		=	. \
 				$(LIBMEM_MGT_DIR) \
 
 LIBFT				=	$(LIBFT_DIR)/libft.a
-GNL					=	$(GNL_DIR)/libgnl.a
 LIB_LEXER			=	$(LEXER_DIR)/liblexer.a
 LIB_PARSER			=	$(PARSER_DIR)/libparser.a
 LIB_REPL			=	$(REPL_DIR)/librepl.a
@@ -66,15 +63,12 @@ GREEN		=	'\033[32m'
 YELLOW		=	'\033[33m'
 RESET		=	'\033[0m'
 
-$(NAME): $(LIBFT) $(GNL) $(LIB_LEXER) $(LIB_REPL) $(LIB_COMMAND) $(LIB_ENVIRON) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_SIGNAL) $(LIBMEM_MGT) $(OBJS)
-	@$(CC) $(CFLAGS) $(INCLUDES)  -o $(NAME) $(OBJS) $(LIB_REPL) $(LIB_COMMAND) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_ENVIRON) $(LIB_LEXER) $(LIB_SIGNAL) $(LIBMEM_MGT) $(GNL) $(LIBFT) $(RLFLAGS)
+$(NAME): $(LIBFT)  $(LIB_LEXER) $(LIB_REPL) $(LIB_COMMAND) $(LIB_ENVIRON) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_SIGNAL) $(LIBMEM_MGT) $(OBJS)
+	@$(CC) $(CFLAGS) $(INCLUDES)  -o $(NAME) $(OBJS) $(LIB_REPL) $(LIB_COMMAND) $(LIB_PARSER) $(LIB_ERROR_HANDLE) $(LIB_SELF_CMD) $(LIB_ENVIRON) $(LIB_LEXER) $(LIB_SIGNAL) $(LIBMEM_MGT) $(LIBFT) $(RLFLAGS)
 	@echo $(YELLOW)"@@@@@ $(NAME) compiling done @@@@@"$(RESET)
 
 $(LIBFT): dummy
 	@make -C $(LIBFT_DIR) bonus
-
-$(GNL): dummy
-	@make -C $(GNL_DIR)
 
 $(LIB_LEXER): dummy
 	@make -C $(LEXER_DIR)
@@ -112,7 +106,6 @@ dummy:
 
 clean:
 	@make -C $(LIBFT_DIR) clean
-	@make -C $(GNL_DIR) clean
 	@make -C $(LEXER_DIR) clean
 	@make -C $(REPL_DIR) clean
 	@make -C $(PARSER_DIR) clean
@@ -127,7 +120,6 @@ clean:
 
 fclean:	clean
 	@make -C $(LIBFT_DIR) fclean
-	@make -C $(GNL_DIR) fclean
 	@make -C $(LEXER_DIR) fclean
 	@make -C $(REPL_DIR) fclean
 	@make -C $(PARSER_DIR) fclean
