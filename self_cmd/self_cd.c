@@ -43,7 +43,7 @@ char *remove_relative(char *path, t_exec_attr *ea)
 	size_t	ddot_count;
 	size_t	dot_count;
 	size_t	blank_count;
-	size_t	new_split_len;
+	long long	new_split_len;
 
 	i = 0;
 	new_str_len = 0;
@@ -68,6 +68,12 @@ char *remove_relative(char *path, t_exec_attr *ea)
 		i++;
 	}
 	new_split_len = i - blank_count - dot_count - (ddot_count * 2) + 1;
+	if (new_split_len < 0)
+	{
+		new_str = ft_strdup("/");
+		free_char_dptr(split);
+		return (new_str);
+	}
 	new_split = (char **)malloc(sizeof(char *) * new_split_len);
 	if (new_split == NULL)
 		abort_minishell(MALLOC_ERROR, ea);
