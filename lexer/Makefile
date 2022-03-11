@@ -37,6 +37,8 @@ SRCS = new_lexer.c\
 		analyze_lex.c\
 		delete_lexer_product.c\
 		create_tmpfile.c\
+		register_heredocs.c\
+		join_line_to_buffer.c\
 
 OBJS = ${SRCS:.c=.o}
 
