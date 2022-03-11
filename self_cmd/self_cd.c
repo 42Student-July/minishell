@@ -74,6 +74,8 @@ char *remove_relative(char *path, t_exec_attr *ea)
 		free_char_dptr(split);
 		return (new_str);
 	}
+	// ループの順番によっては..の分の要素数を確保しないといけない場合があるのでsizeを大きくする
+	new_split_len = i - blank_count - dot_count + 1;
 	new_split = (char **)malloc(sizeof(char *) * new_split_len);
 	if (new_split == NULL)
 		abort_minishell(MALLOC_ERROR, ea);
@@ -116,13 +118,6 @@ char *remove_relative(char *path, t_exec_attr *ea)
 	// ..の数だけ後ろからpathを削除していく
 	// もしnew_splitの値がすべて空文字 or ..だった場合、cdの向き先はhome(/)になる
 	i = 0;
-	if (new_split[0] == NULL)
-	{
-		new_str = ft_strdup("/");
-		free_char_dptr(split);
-		free_char_dptr(new_split);
-		return (new_str);
-	}
 	new_str = (char *)calloc(sizeof(char), new_str_len + 1);
 	if (new_str == NULL)
 		abort_minishell(MALLOC_ERROR, ea);
@@ -160,7 +155,13 @@ bool	has_diff(char *path, t_exec_attr *ea)
 		pwd = create_new_pwd(ea->current_pwd, path);
 	pwd_del_dot = remove_relative(pwd, ea);
 	if (lstat(pwd_del_dot, &buf) == -1)
+	{
+		if (*path != '/')
+			free(pwd);
+		free(pwd_del_dot);
+		free(cwd);
 		return (false);
+	}
 	flag = is_same_str(cwd, pwd_del_dot);
 	if (*path != '/')
 		free(pwd);
