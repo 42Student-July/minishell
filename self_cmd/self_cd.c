@@ -30,6 +30,7 @@ void	create_virtual_path(char *path, t_exec_attr *ea)
 		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", STDERR_FILENO);
 	}
 	update_all_environ(new_pwd, ea);
+	free(new_pwd);
 }
 
 char *remove_relative(char *path, t_exec_attr *ea)
