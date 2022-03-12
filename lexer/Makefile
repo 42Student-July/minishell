@@ -39,6 +39,7 @@ SRCS = new_lexer.c\
 		create_tmpfile.c\
 		register_heredocs.c\
 		join_line_to_buffer.c\
+		word_split_2.c\
 
 OBJS = ${SRCS:.c=.o}
 
