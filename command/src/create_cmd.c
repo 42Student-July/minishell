@@ -223,7 +223,11 @@ char	*find_path(char *cmd_name, t_exec_attr *ea, size_t cmd_i)
 		abort_minishell_with(MALLOC_ERROR, ea, path);
 	new_cmd = create_cmd_from_path(cmd_name, path, ea, cmd_i);
 	if (new_cmd == NULL)
+	{
+		free_char_dptr(path);
+		free(env_path);
 		return (NULL);
+	}
 	free_char_dptr(path);
 	free(env_path);
 	return (new_cmd);
