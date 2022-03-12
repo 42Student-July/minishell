@@ -73,45 +73,55 @@ char	*new_literal(const char *str, size_t *pos)
 	return (ft_substr(str, i, j));
 }
 
+void	delete_str(char **str)
+{
+	free(*str);
+	*str = NULL;
+}
+
+void	split_token(t_list **lst, t_token **token, size_t *pos)
+{
+	char	*str;
+	char	*str_next;
+
+	str = new_literal((*token)->literal, pos);
+	str_next = ft_substr((*token)->literal, *pos,
+			ft_strlen((*token)->literal));
+	free((*token)->literal);
+	(*token)->literal = str;
+	if (*str_next == '\0')
+		delete_str(&str_next);
+	else
+	{
+		*token = new_token(TOKEN_IDENT, str_next);
+		free(str_next);
+		ft_lstadd_next(*lst, *token);
+	}
+}
+
+void	split_process(t_list **lst, t_token **token)
+{
+	size_t	pos;
+
+	if (has_only_whitespace((*token)->literal))
+	{
+		delete_str(&((*token)->literal));
+		*lst = (*lst)->next;
+		return ;
+	}
+	if (has_whitespace((*token)->literal))
+		split_token(lst, token, &pos);
+}
+
 void	word_split(t_list *lst)
 {
 	t_token	*token;
-	char	*str;
-	char	*str_next;
-	size_t	pos;
 
 	while (lst != NULL)
 	{
 		token = lst->content;
 		if (token->type == TOKEN_IDENT)
-		{
-			if (has_only_whitespace(token->literal))
-			{
-				free(token->literal);
-				token->literal = NULL;
-				lst = lst->next;
-				continue ;
-			}
-			if (has_whitespace(token->literal))
-			{
-				str = new_literal(token->literal, &pos);
-				str_next = ft_substr(token->literal, pos,
-						ft_strlen(token->literal));
-				free(token->literal);
-				token->literal = str;
-				if (*str_next == '\0')
-				{
-					free(str_next);
-					str_next = NULL;
-				}
-				else
-				{
-					token = new_token(TOKEN_IDENT, str_next);
-					free(str_next);
-					ft_lstadd_next(lst, token);
-				}
-			}
-		}
+			split_process(&lst, &token);
 		lst = lst->next;
 	}
 }
