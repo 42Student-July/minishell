@@ -10,6 +10,7 @@
 # include "error_handle.h"
 # include "environ.h"
 # include "execute_struct.h"
+# include "common.h"
 
 # define CD "cd"
 # define ECHO "echo"

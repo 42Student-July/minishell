@@ -3,16 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 18:26:26 by akito             #+#    #+#              #
-#    Updated: 2022/03/05 22:37:35 by tkirihar         ###   ########.fr        #
+#    Updated: 2022/03/12 15:17:03 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := libft.a
 CC := gcc
-INCLUDES := -I../includes
+HEADERS := ../includes\
+			../ \
+
+INCLUDES	=	$(addprefix -I, $(HEADERS))
 CFLAGS := $(INCLUDES) -Wall -Wextra -Werror
 SRCS :=	ft_strlen.c \
 		ft_strlcpy.c \
