@@ -68,12 +68,14 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			{
 				ft_put_cmd_error(c->cmd, "Permission denied");
 				g_exit_status = 126;
+				free_char_dptr(cmdv);
 				return ;
 			}
 			else
 			{
 				ft_put_cmd_error(c->cmd, "command not found");
 				g_exit_status = 127;
+				free_char_dptr(cmdv);
 				return ;
 			}
 		}

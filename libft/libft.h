@@ -4,6 +4,7 @@
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdlib.h>
+# include "common.h"
 
 typedef struct s_kvs
 {

@@ -116,7 +116,7 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea, bool *exit_stat)
 				if (!store_arg_in_export(ea, kv[KEY], kv[VALUE]))
 					abort_minishell_with(MALLOC_ERROR, ea, kv);
 			}
-			free(kv);
+			free_char_dptr(kv);
 		}
 		lst = lst->next;
 	}
