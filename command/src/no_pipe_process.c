@@ -68,12 +68,14 @@ void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
 			{
 				ft_put_cmd_error(c->cmd, "Permission denied");
 				g_exit_status = 126;
+				free_char_dptr(cmdv);
 				return ;
 			}
 			else
 			{
 				ft_put_cmd_error(c->cmd, "command not found");
 				g_exit_status = 127;
+				free_char_dptr(cmdv);
 				return ;
 			}
 		}
@@ -132,7 +134,10 @@ void	no_pipe_process(t_exec_attr *ea)
 		open_files(c, ea);
 	// TODO: コマンドが存在しない時、ここでsegvする
 	if (c->cmd == NULL)
+	{
+		free(ea->has_not_permission);
 		return ;
+	}
 	if (is_self_cmd(c->cmd))
 	{
 		if (has_redirect_file(c))

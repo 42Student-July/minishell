@@ -32,14 +32,13 @@ static char	*get_arg1(t_cmd *cmd)
 	return (ft_strtrim(arg1, " "));
 }
 
-int	exec_self_exit(t_cmd *cmd, t_exec_attr *ea, bool is_pipe)
+int	exec_self_exit(t_cmd *cmd, bool is_pipe)
 {
 	unsigned int	exit_status;
 	int				argc;
 	char			*arg1;
 	long			arg1_num;
 
-	(void)ea;
 	if (!is_pipe) // pipeのときは出力しないらしい
 		ft_putendl_fd("exit", STDERR_FILENO);
 	argc = ft_lstsize(cmd->args);

@@ -39,7 +39,7 @@ void		update_all_environ(char *new_pwd, t_exec_attr *ea);
 int			exec_self_echo(t_cmd *cmd, t_exec_attr *ea);
 
 // self_exit.c
-int			exec_self_exit(t_cmd *cmd, t_exec_attr *ea, bool is_pipe);
+int			exec_self_exit(t_cmd *cmd, bool is_pipe);
 
 // self_env.c
 int			exec_self_env(t_cmd *cmd, t_exec_attr *ea);

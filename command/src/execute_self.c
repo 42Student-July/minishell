@@ -18,7 +18,7 @@ void	execute_self_cmd(t_cmd	*c, t_exec_attr *ea, bool is_pipe)
 	else if (is_(EXPORT, c->cmd))
 		g_exit_status = exec_self_export(c, ea);
 	else if (is_(EXIT, c->cmd))
-		g_exit_status = exec_self_exit(c, ea, is_pipe);
+		g_exit_status = exec_self_exit(c, is_pipe);
 	else if (is_(UNSET, c->cmd))
 		g_exit_status = exec_self_unset(c, ea);
 	else if (is_(PWD, c->cmd))
