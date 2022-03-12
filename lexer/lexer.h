@@ -87,5 +87,8 @@ void			delete_str(char **str);
 void			ft_lstadd_next(t_list *lst, void *content);
 bool			has_only_whitespace(const char *str);
 bool			has_whitespace(const char *str);
+void			update_flag(char c, bool *in_sq, bool *in_dq);
+bool			is_word_char(char c);
+char			*get_word(char *str);
 
 #endif
