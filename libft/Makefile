@@ -1,18 +1,5 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: tkirihar <tkirihar@student.42tokyo.jp>     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/09/09 18:26:26 by akito             #+#    #+#              #
-#    Updated: 2022/03/11 13:58:28 by tkirihar         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME := libft.a
 CC := gcc
-
 HEADERS		=	../includes \
 			../ \
 
@@ -75,6 +62,7 @@ SRCS :=	ft_strlen.c \
 		ft_strcut_back.c\
 		ft_put_error.c\
 		ft_replace_str.c\
+		ft_separate.c\
 
 B_SRCS=	ft_lstnew.c \
 	 ft_lstadd_front.c \

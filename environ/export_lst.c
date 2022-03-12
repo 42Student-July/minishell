@@ -75,6 +75,7 @@ bool	store_arg_in_export(t_exec_attr *ea, char *key, char *value)
 			ft_lstnew(ft_kvsnew(key, export_value))))
 			return (false);
 	}
+	free(export_value);
 	sort_listkey_by_ascii(ea->export_lst);
 	return (true);
 }
