@@ -4,6 +4,7 @@
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdlib.h>
+# include <common.h>
 
 typedef struct s_kvs
 {
@@ -55,6 +56,7 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_isspace(int c);
 int		ft_isletter(int c);
 char	*ft_strcut_back(char *str, char c);
+char	**ft_separate(char *str, char separator);
 
 // extra files
 
