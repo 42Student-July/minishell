@@ -106,11 +106,14 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea, bool *exit_stat)
 					if (kv[VALUE] == NULL)
 						abort_minishell_with(MALLOC_ERROR, ea, kv);
 				}
-				tmp_str = ft_strtrim(kv[VALUE], " ");
-				if (tmp_str == NULL)
-					abort_minishell_with(MALLOC_ERROR, ea, kv);
-				free(kv[VALUE]);
-				kv[VALUE] = tmp_str;
+				else
+				{
+					tmp_str = ft_strtrim(kv[VALUE], " ");
+					if (tmp_str == NULL)
+						abort_minishell_with(MALLOC_ERROR, ea, kv);
+					free(kv[VALUE]);
+					kv[VALUE] = tmp_str;
+				}
 				if (!store_arg_in_env(ea, kv[KEY], kv[VALUE]))
 					abort_minishell_with(MALLOC_ERROR, ea, kv);
 				if (!store_arg_in_export(ea, kv[KEY], kv[VALUE]))
