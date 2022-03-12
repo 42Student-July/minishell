@@ -83,5 +83,9 @@ void			write_tmpfile(char *tmpfile, char *buf);
 void			create_tmpfile(char *tmpfile);
 void			write_heredocs(t_lexer *lexer, char *buf, char *delimiter);
 void			register_heredocs(t_lexer *lexer, char *delimiter);
+void			delete_str(char **str);
+void			ft_lstadd_next(t_list *lst, void *content);
+bool			has_only_whitespace(const char *str);
+bool			has_whitespace(const char *str);
 
 #endif
