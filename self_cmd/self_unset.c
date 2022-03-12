@@ -23,6 +23,7 @@ int	exec_self_unset(t_cmd *cmd, t_exec_attr *ea)
 		del_lst_by_key(ea->export_lst, arg);
 		if (is_same_str(arg, "PWD"))
 		{
+			free(ea->current_pwd);
 			ea->current_pwd = ft_strdup("");
 			if (ea->current_pwd == NULL)
 				abort_minishell(MALLOC_ERROR, ea);
