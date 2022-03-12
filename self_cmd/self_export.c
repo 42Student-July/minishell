@@ -16,15 +16,12 @@ int	exec_self_export(t_cmd *cmd, t_exec_attr *ea)
 	char	*argv_one;
 	bool	exit_stat;
 
-	printf("%s %d\n", __FILE__, __LINE__);
 	exit_stat = true;
 	argv_one = get_argv_one(cmd);
-	printf("%s %d\n", __FILE__, __LINE__);
 	if (argv_one == NULL || is_sharp(argv_one))
 		print_all_export_lst(ea);
 	else
 		export_with_args(cmd, ea, &exit_stat);
-	printf("%s %d\n", __FILE__, __LINE__);
 	if (exit_stat)
 		return (0);
 	return (1);
@@ -63,7 +60,6 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea, bool *exit_stat)
 	t_list		*lst;
 	char		*tmp_str;
 
-	printf("%s %d\n", __FILE__, __LINE__);
 	lst = cmd->args->next;
 	while (lst != NULL)
 	{
@@ -120,9 +116,9 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea, bool *exit_stat)
 				if (!store_arg_in_export(ea, kv[KEY], kv[VALUE]))
 					abort_minishell_with(MALLOC_ERROR, ea, kv);
 			}
-			printf("%s %d\n", __FILE__, __LINE__);
-			free_char_dptr(kv);
-			printf("%s %d\n", __FILE__, __LINE__);
+			free(kv[0]);
+			free(kv[1]);
+			free(kv);
 		}
 		lst = lst->next;
 	}
