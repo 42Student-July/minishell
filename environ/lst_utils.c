@@ -70,5 +70,6 @@ void	del_lst_by_key(t_list *lst, char *key)
 	t_list	*tmp;
 
 	tmp = get_lst_by_key(lst, key);
+	ft_kvsdelete(tmp->content);
 	ft_lstdel(lst, tmp);
 }
