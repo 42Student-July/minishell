@@ -88,7 +88,7 @@ void	export_with_args(t_cmd *cmd, t_exec_attr *ea, bool *exit_stat)
 		}
 		else
 		{
-			kv = ft_split(arg, '=');
+			kv = ft_separate(arg, '=');
 			if (kv == NULL)
 				abort_minishell(MALLOC_ERROR, ea);
 			ret = check_export_arg(kv);

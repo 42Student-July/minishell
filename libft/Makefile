@@ -70,6 +70,7 @@ SRCS :=	ft_strlen.c \
 		ft_strcut_back.c\
 		ft_put_error.c\
 		ft_replace_str.c\
+		ft_separate.c\
 
 B_SRCS=	ft_lstnew.c \
 	 ft_lstadd_front.c \
