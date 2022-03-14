@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   no_pipe_process.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 07:12:57 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/03/15 07:12:58 by mhirabay         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "command.h"
 
@@ -20,11 +32,7 @@ char *create_cmd_path(t_cmd *c, t_exec_attr *ea)
 	char	*cmd_path;
 
 	if (is_path(c->cmd))
-	{
-		cmd_path = ft_strdup(c->cmd);
-		if (cmd_path == NULL)
-			return (NULL);
-	}
+		cmd_path = ft_xstrdup(c->cmd);
 	else
 	{
 		cmd_path = find_path(c->cmd, ea, 0);
@@ -43,6 +51,7 @@ char *create_cmd_path(t_cmd *c, t_exec_attr *ea)
 			return (NULL);
 		}
 	}
+	return (cmd_path);
 }
 
 void	execute_ext_cmd(t_cmd *c, t_exec_attr *ea)
