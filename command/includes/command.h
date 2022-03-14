@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhirabay  <mhirabay@student.42tokyo.j      +#+  +:+       +#+        */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 21:51:35 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/14 22:04:03 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/15 07:46:31 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ void		free_pipe_attr(t_pipe_attr *pa);
 
 // cmd_utils.c
 char		*get_filename(t_cmd *c, int io);
-void		exec_error(int cp_errno, char *cmd_path);
 bool		is_dir(char *cmd_path);
 bool		*malloc_has_not_permission(size_t size);
+bool		is_path(char *cmd);
+char		*create_cmd_path(t_cmd *c, t_exec_attr *ea);
 
 // execve_error.c
 void		execve_error(int cp_errno, char *cmd_path);
