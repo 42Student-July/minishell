@@ -24,7 +24,6 @@ char	*get_argv_one(t_cmd *cmd)
 	}
 	if (cmd->args->next == NULL)
 	{
-		// ft_putstr_fd("no args", STDERR_FILENO);
 		return (NULL);
 	}
 	return (cmd->args->next->content);

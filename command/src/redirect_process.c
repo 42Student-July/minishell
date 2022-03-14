@@ -1,13 +1,6 @@
 
 #include "../includes/command.h"
 
-bool	is_redirect_flag(t_exec_attr *ea)
-{
-	(void)ea;
-	// if (cmd->filename_in != NULL || cmd->filename_out != NULL)
-	// 	return (true);
-	return (false);
-}
 
 bool	has_redirect_file(t_cmd *cmd)
 {
@@ -15,14 +8,6 @@ bool	has_redirect_file(t_cmd *cmd)
 		return (true);
 	return (false);
 }
-
-// void	redirect_dev_null(t_exec_attr *ea)
-// {
-// 	ea->stdout_copy = dup(STDOUT_FILENO);
-// 	close(STDOUT_FILENO);
-// 	if (open("/dev/null", O_WRONLY) == -1)
-// 		abort_minishell(OPEN_ERROR, ea);
-// }
 
 void	redirect_dev_null(t_exec_attr *ea)
 {
