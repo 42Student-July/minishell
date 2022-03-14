@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include "lexer.h"
 #include "libft.h"
+#include <stdio.h>
 
 void	ft_lstadd_next(t_list *lst, void *content)
 {
@@ -75,17 +75,20 @@ char	*new_literal(const char *str, size_t *pos)
 
 void	word_split(t_list *lst)
 {
+	t_list	*lst_prev;
 	t_token	*token;
 	char	*str;
 	char	*str_next;
 	size_t	pos;
 
+	lst_prev = NULL;
 	while (lst != NULL)
 	{
 		token = lst->content;
 		if (token->type == TOKEN_IDENT)
 		{
-			if (has_only_whitespace(token->literal))
+			if (lst_prev && is_redirect(((t_token *)lst_prev->content)->type) &&
+			  has_whitespace(token->literal))
 			{
 				free(token->literal);
 				token->literal = NULL;
@@ -112,6 +115,7 @@ void	word_split(t_list *lst)
 				}
 			}
 		}
+		lst_prev = lst;
 		lst = lst->next;
 	}
 }
