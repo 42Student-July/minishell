@@ -26,7 +26,7 @@ void
 	buffer = NULL;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_IGN);
-	line = readline("> ");
+	line = readline("");
 	while (line != NULL)
 	{
 		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0
@@ -37,7 +37,7 @@ void
 			break ;
 		}
 		join_line_to_buffer(&buffer, &line);
-		line = readline("> ");
+		line = readline("");
 	}
 	if (!has_quote)
 		replace_quoted_str(&buffer, env_list);
@@ -104,7 +104,6 @@ bool	read_heredoc(t_lexer *lexer, t_list *env_list)
 	heredoc_delimiter = ft_my_lstpop_front(&lexer->io_here_delimiters);
 	delimiter = ft_strdup(heredoc_delimiter->content);
 	ft_lstdelone(heredoc_delimiter, free);
-	register_heredocs(lexer, delimiter);
 	has_quote = ft_strchr(delimiter, '\'') != NULL || ft_strchr(delimiter,
 			'"') != NULL;
 	if (has_quote)
@@ -113,6 +112,7 @@ bool	read_heredoc(t_lexer *lexer, t_list *env_list)
 		free(delimiter);
 		delimiter = tmp;
 	}
+	register_heredocs(lexer, delimiter);
 	if (!divfunc(lexer, env_list, has_quote, delimiter))
 		return (false);
 	free(delimiter);

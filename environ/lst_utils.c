@@ -65,10 +65,36 @@ t_list	*get_list_by_min_ascii_key(t_list *lst)
 	return (tmp);
 }
 
-void	del_lst_by_key(t_list *lst, char *key)
+void		del_env_lst_by_key(t_list *lst, char *key, t_exec_attr *ea)
 {
-	t_list	*tmp;
+	t_list	*target;
 
-	tmp = get_lst_by_key(lst, key);
-	ft_lstdel(lst, tmp);
+	target = get_lst_by_key(lst, key);
+	if (target == NULL)
+		return ;
+	ft_kvsdelete(target->content);
+	if (lst == target)
+	{
+		ea->env_lst = target->next;
+		free(target);
+		return ;
+	}
+	ft_lstdel(lst, target);
+}
+
+void		del_export_lst_by_key(t_list *lst, char *key, t_exec_attr *ea)
+{
+	t_list	*target;
+
+	target = get_lst_by_key(lst, key);
+	if (target == NULL)
+		return ;
+	ft_kvsdelete(target->content);
+	if (lst == target)
+	{
+		ea->export_lst = target->next;
+		free(target);
+		return ;
+	}
+	ft_lstdel(lst, target);
 }

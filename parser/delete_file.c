@@ -3,9 +3,9 @@
 #include "lexer.h"
 #include <stdbool.h>
 
-void delete_file(void *file_ptr)
+void	delete_file(void *file_ptr)
 {
-	t_file *file;
+	t_file	*file;
 
 	file = (t_file *)file_ptr;
 	free(file->filename);

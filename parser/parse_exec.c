@@ -101,7 +101,8 @@ void	parse_exec(t_list *token_list, t_cmd **cmd_p)
 		ft_lstadd_back(&cmd->args, ft_lstnew(get_literal(token)));
 		token_list = token_list->next;
 	}
-	if (ft_lstsize(cmd->args) == 0 && ft_lstsize(cmd->filenames_in) == 0 && ft_lstsize(cmd->filenames_out) == 0)
+	if (ft_lstsize(cmd->args) == 0 && ft_lstsize(cmd->filenames_in) == 0
+		&& ft_lstsize(cmd->filenames_out) == 0)
 		cmd->is_invalid_syntax = true;
 	tmp = filter_null_literal_cmd(cmd->args);
 	ft_lstclear(&cmd->args, free);
