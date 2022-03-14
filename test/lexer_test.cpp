@@ -24,7 +24,7 @@ TEST(lexer, single_term)
 		{TOKEN_REDIRECT_IN, "<"},
 		{TOKEN_PIPE, "|"},
 		{TOKEN_IDENT, "$aaa"},
-		{TOKEN_EOF, ""},
+		{TOKEN_EOF, "NULL"},
 	};
 
 	t_lexer *lexer = new_lexer(input);
@@ -44,7 +44,7 @@ TEST(lexer, word)
 	std::vector<std::pair<t_tokentype, std::string>> expected = {
 		{TOKEN_IDENT, "echo"},
 		{TOKEN_IDENT, "hello"},
-		{TOKEN_EOF, ""},
+		{TOKEN_EOF, "NULL"},
 	};
 
 	t_lexer *lexer = new_lexer(input);
@@ -65,7 +65,7 @@ TEST(lexer, heredoc_append)
 		{TOKEN_REDIRECT_APPEND, ">>"},
 		{TOKEN_REDIRECT_IN, "<"},
 		{TOKEN_REDIRECT_OUT, ">"},
-		{TOKEN_EOF, ""},
+		{TOKEN_EOF, "NULL"},
 	};
 
 	t_lexer *lexer = new_lexer(input);
@@ -86,7 +86,7 @@ TEST(lexer, env)
 	std::vector<std::pair<t_tokentype, std::string>> expected = {
 		{TOKEN_IDENT, "$PATH"},
 		{TOKEN_IDENT, "$?"},
-		{TOKEN_EOF, ""},
+		{TOKEN_EOF, "NULL"},
 	};
 
 	t_lexer *lexer = new_lexer(input);
@@ -110,7 +110,7 @@ TEST(lexer, quote)
 		{TOKEN_IDENT, "\"hello\""},
 		{TOKEN_IDENT, "joined'hello'"},
 		{TOKEN_IDENT, "joined\"hello\""},
-		{TOKEN_EOF, ""},
+		{TOKEN_EOF, "NULL"},
 	};
 
 	t_lexer *lexer = new_lexer(input);

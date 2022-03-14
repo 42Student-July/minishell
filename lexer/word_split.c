@@ -9,23 +9,23 @@ char	*new_literal(const char *str, size_t *pos)
 	char	is_quoted;
 
 	i = 0;
+	while (str[i] != '\0' && ft_isspace(str[i]))
+		i++;
+	j = 0;
 	is_quoted = '\0';
-	while (str[i] != '\0')
+	while (str[i + j] != '\0')
 	{
-		if (str[i] == '"' || str[i] == '\'')
+		if (!is_quoted && ft_isspace(str[i + j]))
+			break ;
+		if (str[i + j] == '"' || str[i + j] == '\'')
 		{
-			if (is_quoted == str[i])
+			if (is_quoted == str[i + j])
 				is_quoted = '\0';
 			else if (is_quoted == '\0')
-				is_quoted = str[i];
+				is_quoted = str[i + j];
 		}
-		if (!is_quoted && !ft_isspace(str[i]))
-			break ;
-		i++;
-	}
-	j = 0;
-	while (str[i + j] != '\0' && !ft_isspace(str[i + j]))
 		j++;
+	}
 	*pos = i + j;
 	return (ft_substr(str, i, j));
 }
