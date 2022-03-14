@@ -62,7 +62,6 @@ char		*find_path(char *cmd_name, t_exec_attr *ea, size_t cmd_i);
 
 // init.c
 void		init(t_exec_attr **ea);
-void		init_new(t_exec_attr **ea);
 
 // convert_lst_to_argv.c
 char		**convert_lst_to_argv(t_list *args);
