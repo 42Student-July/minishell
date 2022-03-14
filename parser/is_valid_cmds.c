@@ -18,6 +18,6 @@ bool	is_valid_cmds(t_list *cmds)
 
 bool	is_valid_cmd(t_cmd *cmd)
 {
-	return (!(cmd->cmd == NULL && cmd->filenames_in == NULL &&
-			cmd->filenames_out == NULL));
+	return (!(cmd->cmd == NULL && cmd->filenames_in == NULL
+			&& cmd->filenames_out == NULL));
 }

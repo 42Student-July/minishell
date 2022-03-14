@@ -12,7 +12,8 @@ bool	add_heredoc_delimiter(t_lexer *lexer)
 		skip_whitespace(lexer);
 	pos = lexer->position;
 	pos_tail = pos;
-	while (!ft_isspace(lexer->input[pos_tail]) && lexer->input[pos_tail] != '\0')
+	while (!ft_isspace(lexer->input[pos_tail])
+		&& lexer->input[pos_tail] != '\0')
 		pos_tail++;
 	delimiter = ft_substr(lexer->input, pos, pos_tail - pos);
 	if (*delimiter == '\0' || ft_strchr(delimiter, '\'')
