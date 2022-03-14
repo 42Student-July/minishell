@@ -4,7 +4,9 @@
 int	execute_cmd(t_exec_attr *ea)
 {
 	int	pipe_count;
+	// void *leak;
 
+	// leak = malloc(1);
 	if (ea->cmd_lst == NULL)
 		return (0);
 	pipe_count = ft_lstsize(ea->cmd_lst) - 1;
