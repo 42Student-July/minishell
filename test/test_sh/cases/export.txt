@@ -11,3 +11,4 @@ unset OLDPWD\n cd ..\n export OLDPWD=new_value\n export | grep OLDPWD | grep -v 
 unset OLDPWD\n cd ..\n export OLDPWD\n export | grep OLDPWD
 export =
 export a#
+export TEST="   test   "\n export | grep TEST
