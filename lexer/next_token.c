@@ -22,10 +22,8 @@ t_token	*peek_from_redirect_in(t_lexer *lexer)
 	if (peek_char(lexer) == '<')
 	{
 		read_char(lexer);
-		if (!add_heredoc_delimiter(lexer))
-			token = new_token(TOKEN_ILLEGAL, NULL);
-		else
-			token = new_token(TOKEN_HEREDOC, "<<");
+		add_heredoc_delimiter(lexer);
+		token = new_token(TOKEN_HEREDOC, "<<");
 	}
 	else
 		token = new_token(TOKEN_REDIRECT_IN, "<");

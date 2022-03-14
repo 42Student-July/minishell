@@ -26,3 +26,8 @@ ls>a>b>c>d>e>f>g>h>i>j>k>l>m>n>o>p>q>r>s>t>u>v>w>x>y>z>A>B>C>D>E>F>G>H>I>J>K>L>M
 cat <<HOGE\nhoge\nHOGE
 cat <<"HOGE"\nhoge\nHOGE
 cat <<""H"OGE"\nhoge\nHOGE
+cat << ""\nhoge\n\n
+cat << $HOME\nhoge\n$HOME
+cat << hoge\n$HOME\nhoge
+cat << "h"oge\n$HOME\nhoge
+cat << ""hoge\n$HOME\nhoge
