@@ -39,4 +39,7 @@ void	delete_pipe(void *cmd);
 bool	is_valid_cmds(t_list *cmds);
 bool	is_valid_cmd(t_cmd *cmd);
 
+void	skip_to_null(t_list **lst, char	**literal);
+t_list	*copy_except_null(t_list *lst, t_list *now, char *literal);
+
 #endif

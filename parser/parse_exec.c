@@ -5,47 +5,18 @@
 
 t_list	*filter_null_literal_cmd(t_list *lst)
 {
-	t_list	*res;
 	t_list	*now;
-	t_list	*tmp;
 	char	*literal;
 
 	if (lst == NULL)
 		return (NULL);
-	while (lst)
-	{
-		literal = lst->content;
-		if (literal != NULL)
-			break ;
-		lst = lst->next;
-	}
+	skip_to_null(&lst, &literal);
 	if (lst == NULL)
 		return (NULL);
 	now = ft_lstnew(ft_strdup(lst->content));
 	if (now == NULL)
 		return (NULL);
-	res = now;
-	while (lst->next != NULL)
-	{
-		literal = lst->next->content;
-		if (literal != NULL)
-		{
-			tmp = ft_lstnew(ft_strdup(literal));
-			if (tmp == NULL)
-			{
-				ft_lstclear(&res, free);
-				return (res);
-			}
-			now->next = tmp;
-			now = now->next;
-			lst = lst->next;
-		}
-		else
-		{
-			lst = lst->next;
-		}
-	}
-	return (res);
+	return (copy_except_null(lst, now, literal));
 }
 
 void	skip_redirect(t_list **token_list, t_cmd *cmd)
@@ -69,20 +40,10 @@ void	skip_redirect(t_list **token_list, t_cmd *cmd)
 	*token_list = (*token_list)->next;
 }
 
-void	parse_exec(t_list *token_list, t_cmd **cmd_p)
+bool	loop_until_null(t_list *token_list, t_cmd *cmd)
 {
 	t_token	*token;
-	t_cmd	*cmd;
-	t_list	*tmp;
 
-	if (cmd_p == NULL)
-		exit(EXIT_FAILURE);
-	cmd = *cmd_p;
-	if (token_list == NULL)
-	{
-		cmd->is_invalid_syntax = true;
-		return ;
-	}
 	while (token_list != NULL)
 	{
 		token = token_list->content;
@@ -96,11 +57,29 @@ void	parse_exec(t_list *token_list, t_cmd **cmd_p)
 		if (!is_word_token(token->type))
 		{
 			cmd->is_invalid_syntax = true;
-			return ;
+			return (false);
 		}
 		ft_lstadd_back(&cmd->args, ft_lstnew(get_literal(token)));
 		token_list = token_list->next;
 	}
+	return (true);
+}
+
+void	parse_exec(t_list *token_list, t_cmd **cmd_p)
+{
+	t_cmd	*cmd;
+	t_list	*tmp;
+
+	if (cmd_p == NULL)
+		exit(EXIT_FAILURE);
+	cmd = *cmd_p;
+	if (token_list == NULL)
+	{
+		cmd->is_invalid_syntax = true;
+		return ;
+	}
+	if (!loop_until_null(token_list, cmd))
+		return ;
 	if (ft_lstsize(cmd->args) == 0 && ft_lstsize(cmd->filenames_in) == 0
 		&& ft_lstsize(cmd->filenames_out) == 0)
 		cmd->is_invalid_syntax = true;
