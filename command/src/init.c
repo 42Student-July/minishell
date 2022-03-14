@@ -16,17 +16,15 @@
 
 void	init_oldpwd(t_exec_attr *ea)
 {
-	t_list *oldpwd;
-
-	oldpwd = get_lst_by_key(ea->env_lst, "OLDPWD");
-	ft_kvsdelete(oldpwd->content);
-	ft_lstdel(ea->env_lst, oldpwd);
-	oldpwd = get_lst_by_key(ea->export_lst, "OLDPWD");
-	ft_kvsdelete(oldpwd->content);
-	ft_lstdel(ea->export_lst, oldpwd);
+	del_env_lst_by_key(ea->env_lst, "OLDPWD", ea);
+	del_export_lst_by_key(ea->export_lst,"OLDPWD", ea);
+	del_env_lst_by_key(ea->env_lst, "PWD", ea);
+	del_export_lst_by_key(ea->export_lst,"PWD", ea);
 	store_arg_in_export(ea, "OLDPWD", NULL);
 	store_arg_in_env(ea, "OLDPWD", NULL);
 	ea->current_pwd = getcwd(NULL, 0);
+	store_arg_in_export(ea, "PWD", ea->current_pwd);
+	store_arg_in_env(ea, "PWD", ea->current_pwd);
 }
 
 // どこに置けばいいかわかりません by桐原
