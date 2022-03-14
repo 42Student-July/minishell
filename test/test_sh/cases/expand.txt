@@ -22,3 +22,4 @@ export TEST="   a"\necho hoge > $TEST"hello"
 export TEST="a   "\necho hoge > $TEST"hello"\ncat ahello
 echo hoge > "aaa"$a\ncat aaa
 echo hoge > $a"aaa"\ncat aaa
+export a="   a   "\necho "b"$a"b"$a"b"
