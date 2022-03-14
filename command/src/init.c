@@ -1,19 +1,6 @@
 
 #include "command.h"
 
-// void	init(t_exec_attr **ea)
-// {
-// 	extern char	**environ;
-
-// 	*ea = (t_exec_attr *)malloc(sizeof(t_exec_attr));
-// 	if (*ea == NULL)
-// 		abort_minishell(MALLOC_ERROR, *ea);
-// 	(*ea)->infile = NULL;
-// 	(*ea)->outfile = NULL;
-// 	store_allenv_in_envlst(*ea, environ);
-// 	store_allenv_in_export(*ea, environ);
-// }
-
 void	init_oldpwd(t_exec_attr *ea)
 {
 	del_env_lst_by_key(ea->env_lst, "OLDPWD", ea);
@@ -27,7 +14,6 @@ void	init_oldpwd(t_exec_attr *ea)
 	store_arg_in_env(ea, "PWD", ea->current_pwd);
 }
 
-// どこに置けばいいかわかりません by桐原
 void	store_stdfd(t_exec_attr *ea)
 {
 	ea->stdfd[0] = dup(STDIN_FILENO);
@@ -35,7 +21,7 @@ void	store_stdfd(t_exec_attr *ea)
 	ea->stdfd[2] = dup(STDERR_FILENO);
 }
 
-void	init_new(t_exec_attr **ea)
+void	init(t_exec_attr **ea)
 {
 	extern char	**environ;
 
