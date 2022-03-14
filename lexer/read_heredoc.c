@@ -26,7 +26,7 @@ void
 	buffer = NULL;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_IGN);
-	line = readline("> ");
+	line = readline("");
 	while (line != NULL)
 	{
 		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0
@@ -37,7 +37,7 @@ void
 			break ;
 		}
 		join_line_to_buffer(&buffer, &line);
-		line = readline("> ");
+		line = readline("");
 	}
 	if (!has_quote)
 		replace_quoted_str(&buffer, env_list);
