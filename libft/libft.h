@@ -97,5 +97,6 @@ void 	ft_lstiter_with_var(t_list *lst, void (*f)(void *, void *), void *var);
 void	*ft_xmalloc(size_t size);
 char	*ft_xstrdup(const char *s);
 char	*ft_xstrjoin(char const *s1, char const *s2);
+void	*ft_xcalloc(size_t nmemb, size_t size);
 
 #endif
