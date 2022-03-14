@@ -181,6 +181,7 @@ void	exec_cmd(t_exec_attr *ea, t_pipe_attr *pa)
 	{
 		close_pipe(pa);
 	}
+	free_char_dptr(cmdv);
 	free_char_dptr(environ);
 }
 
