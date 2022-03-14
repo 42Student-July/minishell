@@ -104,7 +104,6 @@ bool	read_heredoc(t_lexer *lexer, t_list *env_list)
 	heredoc_delimiter = ft_my_lstpop_front(&lexer->io_here_delimiters);
 	delimiter = ft_strdup(heredoc_delimiter->content);
 	ft_lstdelone(heredoc_delimiter, free);
-	register_heredocs(lexer, delimiter);
 	has_quote = ft_strchr(delimiter, '\'') != NULL || ft_strchr(delimiter,
 			'"') != NULL;
 	if (has_quote)
@@ -113,6 +112,7 @@ bool	read_heredoc(t_lexer *lexer, t_list *env_list)
 		free(delimiter);
 		delimiter = tmp;
 	}
+	register_heredocs(lexer, delimiter);
 	if (!divfunc(lexer, env_list, has_quote, delimiter))
 		return (false);
 	free(delimiter);

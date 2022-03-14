@@ -80,6 +80,7 @@ t_lexer_product	*analyze_lex(const char *line, t_list *env)
 	word_split(lexer_product->token_list);
 	ft_lstiter(lexer_product->token_list, &expand_quote);
 	lexer_product->heredocs = lexer->heredocs;
+	print_kvs(lexer_product->heredocs);
 	delete_lexer_without_heredocs(lexer);
 	return (lexer_product);
 }

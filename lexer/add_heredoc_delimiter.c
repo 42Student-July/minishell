@@ -19,7 +19,7 @@ size_t	process_in_quote_heredoc(t_lexer *lexer, size_t pos_tail, char quote)
 void	add_heredoc_delimiter(t_lexer *lexer)
 {
 	char	*delimiter;
-	char	*tmp;
+	// char	*tmp;
 	size_t	pos;
 	size_t	pos_tail;
 
@@ -38,8 +38,8 @@ void	add_heredoc_delimiter(t_lexer *lexer)
 		}
 		pos_tail++;
 	}
-	tmp = ft_substr(lexer->input, pos, pos_tail - pos);
-	delimiter = expand_quote_str(tmp);
-	free(tmp);
+	delimiter = ft_substr(lexer->input, pos, pos_tail - pos);
+	// delimiter = expand_quote_str(tmp);
+	// free(tmp);
 	ft_lstadd_back(&lexer->io_here_delimiters, ft_lstnew(delimiter));
 }

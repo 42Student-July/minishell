@@ -25,6 +25,7 @@ void	register_heredocs(t_lexer *lexer, char *delimiter)
 
 	tmpfile = get_tmpfile_name(ft_itoa(ft_lstsize(lexer->io_here_delimiters)));
 	create_tmpfile(tmpfile);
+	printf("%s\n", delimiter);
 	if (ft_kvsget(lexer->heredocs, delimiter) != NULL)
 		exit(EXIT_FAILURE);
 	kvs = ft_kvsnew(delimiter, tmpfile);
