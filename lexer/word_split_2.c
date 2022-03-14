@@ -49,3 +49,30 @@ bool	has_whitespace(const char *str)
 	}
 	return (false);
 }
+
+size_t	splitted_token_count(const char *str)
+{
+	size_t	i;
+	char	is_quoted;
+
+	i = 0;
+	is_quoted = '\0';
+	while (str[i] != '\0' && ft_isspace(str[i]))
+		i++;
+	if (str[i] == '\0')
+		return (0);
+	while (str[i] != '\0')
+	{
+		if (str[i] == '"' || str[i] == '\'')
+		{
+			if (is_quoted == '\0')
+				is_quoted = str[i];
+			else if (is_quoted == str[i])
+				is_quoted = '\0';
+		}
+		if (!is_quoted && ft_isspace(str[i]))
+			break ;
+		i++;
+	}
+	return (1 + splitted_token_count(str + i));
+}

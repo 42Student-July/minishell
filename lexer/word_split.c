@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include "lexer.h"
 #include "libft.h"
+#include <stdio.h>
 
 char	*new_literal(const char *str, size_t *pos)
 {
@@ -37,8 +37,7 @@ void	split_token(t_list **lst, t_token **token)
 	size_t	pos;
 
 	str = new_literal((*token)->literal, &pos);
-	str_next = ft_substr((*token)->literal, pos,
-			ft_strlen((*token)->literal));
+	str_next = ft_substr((*token)->literal, pos, ft_strlen((*token)->literal));
 	free((*token)->literal);
 	(*token)->literal = str;
 	if (*str_next == '\0')
@@ -51,27 +50,48 @@ void	split_token(t_list **lst, t_token **token)
 	}
 }
 
-void	split_process(t_list **lst, t_token **token)
+void	split_process(t_list **lst, t_token **token, t_list *lst_prev)
 {
-	if (has_only_whitespace((*token)->literal))
+	if (lst_prev != NULL &&
+		is_redirect_without_heredoc(((t_token *)lst_prev->content)->type))
 	{
-		delete_str(&((*token)->literal));
-		*lst = (*lst)->next;
-		return ;
+		if (splitted_token_count((*token)->literal) == 1)
+			split_token(lst ,token);
+		else
+		{
+			free((*token)->literal);
+			(*token)->literal = NULL;
+			return ;
+		}
 	}
-	if (has_whitespace((*token)->literal))
-		split_token(lst, token);
+	else
+	{
+		if (has_only_whitespace((*token)->literal))
+		{
+			delete_str(&((*token)->literal));
+			*lst = (*lst)->next;
+			return ;
+		}
+		else
+		{
+			if (has_whitespace((*token)->literal))
+				split_token(lst, token);
+		}
+	}
 }
 
 void	word_split(t_list *lst)
 {
 	t_token	*token;
+	t_list	*lst_prev;
 
+	lst_prev = NULL;
 	while (lst != NULL)
 	{
 		token = lst->content;
 		if (token->type == TOKEN_IDENT)
-			split_process(&lst, &token);
+			split_process(&lst, &token, lst_prev);
+		lst_prev = lst;
 		lst = lst->next;
 	}
 }
