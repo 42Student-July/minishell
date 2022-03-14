@@ -16,7 +16,7 @@ char	**ft_separate(char *str, char separator)
 {
 	char *sep_ptr;
 	char **array;
-	
+
 	if (str == NULL)
 		return (NULL);
 	sep_ptr = ft_strchr(str, separator);

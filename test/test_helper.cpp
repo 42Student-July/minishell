@@ -20,7 +20,7 @@ void compare_token(t_token *token,
 				   std::pair<t_tokentype, std::string> expected_token)
 {
 	EXPECT_EQ(token->type, expected_token.first);
-	if (expected_token.second == "")
+	if (expected_token.second == "NULL")
 	{
 		EXPECT_STREQ(token->literal, NULL);
 	}
