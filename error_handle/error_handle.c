@@ -41,6 +41,7 @@ void	free_char_dptr(char **dptr)
 			free(dptr[i]);
 			i++;
 		}
+		free(dptr[i]); // 番兵をfreeする
 		free(dptr);
 	}
 }
