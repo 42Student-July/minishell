@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_attribute_utils.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhirabay  <mhirabay@student.42tokyo.j      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/14 21:51:35 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/03/14 22:45:28 by mhirabay         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "command.h"
 
@@ -24,7 +36,6 @@ char	*get_argv_one(t_cmd *cmd)
 	}
 	if (cmd->args->next == NULL)
 	{
-		// ft_putstr_fd("no args", STDERR_FILENO);
 		return (NULL);
 	}
 	return (cmd->args->next->content);

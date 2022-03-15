@@ -50,7 +50,7 @@ void	start_repl(void)
 	t_lexer_product	*lexer_product;
 	char			*line;
 
-	init_new(&ea);
+	init(&ea);
 	while (true)
 	{
 		line = do_readline();

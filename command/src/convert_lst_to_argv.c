@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert_lst_to_argv.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/14 21:51:35 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/03/15 07:55:55 by mhirabay         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "command.h"
 
@@ -9,22 +20,12 @@ char	**convert_lst_to_argv(t_list *args)
 	t_list	*current_arg;
 
 	cmdc = ft_lstsize(args);
-	cmdv = (char **)malloc(sizeof(char *) * (cmdc + NULL_CHAR));
-	if (cmdv == NULL)
-	{
-		printf("malloc error\n");
-		exit(EXIT_FAILURE);
-	}
+	cmdv = (char **)ft_xmalloc(sizeof(char *) * (cmdc + NULL_CHAR));
 	i = 0;
 	current_arg = args;
 	while (current_arg != NULL)
 	{
-		cmdv[i] = ft_strdup(current_arg->content);
-		if (cmdv[i] == NULL)
-		{
-			printf("malloc error\n");
-			exit(EXIT_FAILURE);
-		}
+		cmdv[i] = ft_xstrdup(current_arg->content);
 		i++;
 		current_arg = current_arg->next;
 	}

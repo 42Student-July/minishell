@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/14 21:51:35 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/03/15 09:50:34 by mhirabay         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #ifndef COMMAND_H
 # define COMMAND_H
@@ -53,8 +65,6 @@ char		**convert_envlst_to_array(t_exec_attr *ea);
 char		*create_environ_line(char *key, char *value, bool is_end);
 
 // create_cmd.c
-bool		is_dollar(char *arg);
-char		*convert_env_var(t_exec_attr *ea, char *arg);
 char		*concat_path_and_cmd(char *path, char *command);
 void		create_cmd_from_arg(int argc, const char **argv, t_exec_attr *ea);
 char		*find_path(char *cmd_name, t_exec_attr *ea, size_t cmd_i);
@@ -62,7 +72,6 @@ char		*find_path(char *cmd_name, t_exec_attr *ea, size_t cmd_i);
 
 // init.c
 void		init(t_exec_attr **ea);
-void		init_new(t_exec_attr **ea);
 
 // convert_lst_to_argv.c
 char		**convert_lst_to_argv(t_list *args);
@@ -80,9 +89,10 @@ void		free_pipe_attr(t_pipe_attr *pa);
 
 // cmd_utils.c
 char		*get_filename(t_cmd *c, int io);
-void		exec_error(int cp_errno, char *cmd_path);
 bool		is_dir(char *cmd_path);
 bool		*malloc_has_not_permission(size_t size);
+bool		is_path(char *cmd);
+char		*create_cmd_path(t_cmd *c, t_exec_attr *ea);
 
 // execve_error.c
 void		execve_error(int cp_errno, char *cmd_path);

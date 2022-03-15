@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_builtin.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/14 21:51:35 by mhirabay          #+#    #+#             */
+/*   Updated: 2022/03/15 07:31:10 by mhirabay         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../includes/command.h"
 
@@ -26,9 +38,7 @@ char	*create_env_line_non_value(char *key, bool is_end)
 		line_size = key_size + EQUAL + NULL_CHAR;
 	else
 		line_size = key_size + EQUAL + LF + NULL_CHAR;
-	line = (char *)ft_calloc(sizeof(char), line_size);
-	if (line == NULL)
-		return (NULL);
+	line = (char *)ft_xcalloc(sizeof(char), line_size);
 	ft_strlcat(line, key, line_size);
 	ft_strlcat(line, "=", line_size);
 	if (is_end)
@@ -47,9 +57,7 @@ char	**convert_envlst_to_array(t_exec_attr *ea)
 	i = 0;
 	tmp = ea->env_lst;
 	env_lst_size = ft_lstsize(tmp);
-	array = (char **)malloc(sizeof(char *) * (env_lst_size + NULL_CHAR));
-	if (array == NULL)
-		return (NULL);
+	array = (char **)ft_xmalloc(sizeof(char *) * (env_lst_size + NULL_CHAR));
 	while (i < env_lst_size)
 	{
 		if (i == env_lst_size - 1)
@@ -80,7 +88,6 @@ char	**convert_envlst_to_array(t_exec_attr *ea)
 		i++;
 	}
 	array[i] = NULL;
-	// print_array(array);
 	return (array);
 }
 
