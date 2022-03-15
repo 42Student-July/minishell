@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akito <akito@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 14:17:12 by akito             #+#    #+#             */
+/*   Updated: 2022/03/15 14:29:32 by akito            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEXER_H
 # define LEXER_H
 
@@ -74,7 +86,7 @@ t_lexer_product	*analyze_lex(const char *line, t_list *env);
 t_token			*token_dup(t_token *token);
 char			*replace_string(char *str, const char *from, const char *to);
 char			*expand_single_envvar(char *str, const char *from,
-				const char *to, size_t *i);
+					const char *to, size_t *i);
 char			*expand_envvar_str(const char *input, void *env);
 void			expand_envvar(t_list *lst, t_list *env_lst);
 void			join_line_to_buffer(char **buffer, char **line);

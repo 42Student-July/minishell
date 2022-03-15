@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_envvar_2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akito     <akito@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 14:17:12 by akito             #+#    #+#             */
+/*   Updated: 2022/03/15 14:19:48 by akito            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lexer.h"
 
 void	update_flag(char c, bool *in_sq, bool *in_dq)
@@ -29,7 +41,7 @@ char	*get_word(char *str)
 
 	i = 0;
 	if (!(ft_isalpha(str[i]) || str[i] == '_'))
-		exit(EXIT_FAILURE); // return argv[i] when $0 ~ $9
+		exit(EXIT_FAILURE);
 	while (is_word_char(str[i]))
 		i++;
 	return (ft_substr(str, 0, i));
