@@ -6,7 +6,7 @@
 /*   By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 21:51:35 by mhirabay          #+#    #+#             */
-/*   Updated: 2022/03/15 07:55:52 by mhirabay         ###   ########.fr       */
+/*   Updated: 2022/03/15 10:28:00 by mhirabay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,16 @@ bool	is_dir(char *cmd_path)
 bool	*malloc_has_not_permission(size_t size)
 {
 	bool	*ret;
+	size_t	i;
 
-	ret = (bool *)malloc(sizeof(bool) * size);
-	if (ret == NULL)
-		exit(EXIT_FAILURE);
+	i = 0;
+	ret = (bool *)ft_xmalloc(sizeof(bool) * size);
+	//zero埋め
+	while (i < size)
+	{
+		ret[0] = false;
+		i++;
+	}
 	return (ret);
 }
 
